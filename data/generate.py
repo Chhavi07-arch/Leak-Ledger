@@ -99,7 +99,11 @@ def main() -> int:
                 "payment_ids": s.payment_ids, "paid": s.paid, "duplicated": s.duplicated,
                 "gross_paise": s.gross.paise, "fee_paise": s.fee.paise, "gst_paise": s.gst.paise,
                 "refunds_paise": s.refunds.paise, "chargebacks_paise": s.chargebacks.paise,
-                "reserve_held_paise": s.reserve_held.paise, "net_paise": s.net.paise,
+                "reserve_held_paise": s.reserve_held.paise,
+                "reserve_released_paise": s.reserve_released.paise,
+                "reserve_release_date": (s.reserve_release_date.isoformat()
+                                         if s.reserve_release_date else None),
+                "net_paise": s.net.paise,
                 "case_tags": s.case_tags,
             }
             for s in world.settlements

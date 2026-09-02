@@ -6677,6 +6677,8 @@
       ],
       "refunds_paise": 0,
       "reserve_held_paise": 32014,
+      "reserve_release_date": "2026-06-08",
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0000",
       "utr": "UTR20260000",
       "value_date": "2026-06-03"
@@ -6705,6 +6707,8 @@
       ],
       "refunds_paise": 200749,
       "reserve_held_paise": 0,
+      "reserve_release_date": null,
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0001",
       "utr": "UTR20260001",
       "value_date": "2026-06-04"
@@ -6759,6 +6763,8 @@
       ],
       "refunds_paise": 0,
       "reserve_held_paise": 0,
+      "reserve_release_date": null,
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0002",
       "utr": "UTR20260002",
       "value_date": "2026-06-05"
@@ -6818,6 +6824,8 @@
       ],
       "refunds_paise": 3594549,
       "reserve_held_paise": 0,
+      "reserve_release_date": null,
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0003",
       "utr": "UTR20260003",
       "value_date": "2026-06-08"
@@ -6866,6 +6874,8 @@
       ],
       "refunds_paise": 2201774,
       "reserve_held_paise": 0,
+      "reserve_release_date": null,
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0004",
       "utr": "UTR20260004",
       "value_date": "2026-06-09"
@@ -6911,6 +6921,8 @@
       ],
       "refunds_paise": 0,
       "reserve_held_paise": 110936,
+      "reserve_release_date": null,
+      "reserve_released_paise": 32014,
       "settlement_id": "stl_0005",
       "utr": "UTR20260005",
       "value_date": "2026-06-10"
@@ -6961,6 +6973,8 @@
       ],
       "refunds_paise": 268600,
       "reserve_held_paise": 0,
+      "reserve_release_date": null,
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0006",
       "utr": "UTR20260006",
       "value_date": "2026-06-11"
@@ -7018,6 +7032,8 @@
       ],
       "refunds_paise": 0,
       "reserve_held_paise": 0,
+      "reserve_release_date": null,
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0007",
       "utr": "UTR20260007",
       "value_date": "2026-06-12"
@@ -7064,6 +7080,8 @@
       ],
       "refunds_paise": 97799,
       "reserve_held_paise": 0,
+      "reserve_release_date": null,
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0008",
       "utr": "UTR20260008",
       "value_date": "2026-06-15"
@@ -7121,6 +7139,8 @@
       ],
       "refunds_paise": 0,
       "reserve_held_paise": 0,
+      "reserve_release_date": null,
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0009",
       "utr": "UTR20260009",
       "value_date": "2026-06-16"
@@ -7142,6 +7162,8 @@
       ],
       "refunds_paise": 1817500,
       "reserve_held_paise": 1020,
+      "reserve_release_date": "2026-06-20",
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0010",
       "utr": "UTR20260010",
       "value_date": "2026-06-16"
@@ -7178,6 +7200,8 @@
       ],
       "refunds_paise": 174200,
       "reserve_held_paise": 0,
+      "reserve_release_date": null,
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0011",
       "utr": "UTR20260011",
       "value_date": "2026-06-17"
@@ -7220,6 +7244,8 @@
       ],
       "refunds_paise": 116525,
       "reserve_held_paise": 0,
+      "reserve_release_date": null,
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0012",
       "utr": "UTR20260012",
       "value_date": "2026-06-18"
@@ -7265,6 +7291,8 @@
       ],
       "refunds_paise": 25749,
       "reserve_held_paise": 0,
+      "reserve_release_date": null,
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0013",
       "utr": "UTR20260013",
       "value_date": "2026-06-19"
@@ -7308,6 +7336,8 @@
       ],
       "refunds_paise": 0,
       "reserve_held_paise": 0,
+      "reserve_release_date": null,
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0014",
       "utr": "UTR20260014",
       "value_date": "2026-06-22"
@@ -7351,6 +7381,8 @@
       ],
       "refunds_paise": 176500,
       "reserve_held_paise": 72537,
+      "reserve_release_date": "2026-06-26",
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0015",
       "utr": "UTR20260015",
       "value_date": "2026-06-23"
@@ -7373,6 +7405,8 @@
       ],
       "refunds_paise": 841401,
       "reserve_held_paise": 0,
+      "reserve_release_date": null,
+      "reserve_released_paise": 1020,
       "settlement_id": "stl_0016",
       "utr": "UTR20260016",
       "value_date": "2026-06-23"
@@ -7419,6 +7453,8 @@
       ],
       "refunds_paise": 0,
       "reserve_held_paise": 0,
+      "reserve_release_date": null,
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0017",
       "utr": "UTR20260017",
       "value_date": "2026-06-24"
@@ -7466,6 +7502,8 @@
       ],
       "refunds_paise": 4850926,
       "reserve_held_paise": 0,
+      "reserve_release_date": null,
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0018",
       "utr": "UTR20260018",
       "value_date": "2026-06-25"
@@ -7508,6 +7546,8 @@
       ],
       "refunds_paise": 796549,
       "reserve_held_paise": 0,
+      "reserve_release_date": null,
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0019",
       "utr": "UTR20260019",
       "value_date": "2026-06-26"
@@ -7545,6 +7585,8 @@
       ],
       "refunds_paise": 0,
       "reserve_held_paise": 73355,
+      "reserve_release_date": null,
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0020",
       "utr": "UTR20260020",
       "value_date": "2026-06-29"
@@ -7592,6 +7634,8 @@
       ],
       "refunds_paise": 3991875,
       "reserve_held_paise": 0,
+      "reserve_release_date": null,
+      "reserve_released_paise": 72537,
       "settlement_id": "stl_0021",
       "utr": "UTR20260021",
       "value_date": "2026-06-30"
@@ -7613,6 +7657,8 @@
       ],
       "refunds_paise": 0,
       "reserve_held_paise": 0,
+      "reserve_release_date": null,
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0022",
       "utr": "UTR20260022",
       "value_date": "2026-06-30"
@@ -7656,6 +7702,8 @@
       ],
       "refunds_paise": 714000,
       "reserve_held_paise": 0,
+      "reserve_release_date": null,
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0023",
       "utr": "UTR20260023",
       "value_date": "2026-07-01"
@@ -7699,6 +7747,8 @@
       ],
       "refunds_paise": 0,
       "reserve_held_paise": 0,
+      "reserve_release_date": null,
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0024",
       "utr": "UTR20260024",
       "value_date": "2026-07-02"
@@ -7719,6 +7769,8 @@
       ],
       "refunds_paise": 0,
       "reserve_held_paise": 1532,
+      "reserve_release_date": null,
+      "reserve_released_paise": 0,
       "settlement_id": "stl_0025",
       "utr": "UTR20260025",
       "value_date": "2026-07-03"

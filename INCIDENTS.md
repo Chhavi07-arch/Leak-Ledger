@@ -52,6 +52,50 @@ at zero. The rule was right; the data was wrong.
 
 ---
 
+# THE SECOND HEADLINE FINDING — INC-014: the engine was right, the data was wrong
+
+Read alongside INC-012. Full entry below.
+
+An ambiguity trap stopped firing after the INC-012 fix, and every obvious reading
+said the new refusal rule was over-refusing. Traced end to end, it was not: the
+posting lag was 0, the true cycle *was* the zero-lag candidate, and the true
+deviation was 5 against a bound of 6 — entirely reachable. The true payment set
+still left a residual of exactly **Rs -33,367.50**, which turned out to equal the
+settlement's own chargebacks component.
+
+**The settlement's stated net contradicted its own components.** Withholding a
+chargeback re-credit had been seeded *after* payout nets were computed, so the
+payout stayed inflated by a credit that no adjustment reported. The engine refused
+to reconcile a cycle that genuinely did not add up. It was correct.
+
+## Why this is the sharpest thing in the build
+
+**It is the failure mode that cannot be caught by testing the engine harder.**
+
+Every number in this submission is scored against ground truth. Testing the engine
+more aggressively — more cases, more adversarial inputs, higher coverage — cannot
+detect a ground truth that disagrees with itself, because the engine is being
+graded by the very thing that is broken. A self-contradictory fixture penalises a
+correct implementation and can reward an incorrect one, and it does so silently:
+the suite stays green, the scorecard just reads lower than it should.
+
+The only defence is to **test the data's internal consistency as a first-class
+artefact**, separately from testing the code. For a reconciliation engine that
+means asserting the settlement identity closes for every seeded settlement:
+
+    net == gross - fee - gst - refunds - chargebacks - reserve_held
+                 + reserve_released
+
+before a single score is computed against it. That check is a Phase 05
+deliverable, not an afterthought.
+
+**The near-miss is the point.** The instinctive response to the regression was to
+relax the refusal rule to recover the trap — which would have traded away a
+correct false-match fix to accommodate broken data, and left both the engine and
+the fixture wrong while every number looked better.
+
+---
+
 # PATTERN-01 — Tests and cases that passed without testing anything
 
 **The single most useful thing this build taught me**, and the reason the
