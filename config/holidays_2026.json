@@ -1,0 +1,17 @@
+{
+  "_comment": "Bank holidays affecting settlement dating. Illustrative set for the synthetic 2026 batch, not an authoritative RBI calendar. Correcting this file must never require a code change.",
+  "version": "holidays.2026.v1",
+  "holidays": [
+    "2026-01-26",
+    "2026-03-04",
+    "2026-03-21",
+    "2026-04-01",
+    "2026-04-14",
+    "2026-05-01",
+    "2026-08-15",
+    "2026-10-02",
+    "2026-10-20",
+    "2026-11-09",
+    "2026-12-25"
+  ]
+}

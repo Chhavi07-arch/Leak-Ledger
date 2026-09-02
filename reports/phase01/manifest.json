@@ -1,0 +1,15 @@
+{
+  "config_hashes": {
+    "config/fee_schedule.v1.json": "10e4bee921f1b16a180ff4c2030d3bb5f8e56e048e21d37aa2b1e4a165fe6a5a",
+    "config/holidays_2026.json": "a9dd5b337a05bdc38491540580a9e595ba08bd312683f6c07a34755c9a459f9c"
+  },
+  "git_commit": null,
+  "git_dirty": true,
+  "input_hashes": {},
+  "notes": [
+    "phase01 smoke: 3 parsed, 2 quarantined, 5 rows seen",
+    "audit entries: 5"
+  ],
+  "run_id": "phase01_smoke",
+  "started_at": "2026-09-02T18:38:19.366794+05:30"
+}

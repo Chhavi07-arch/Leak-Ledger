@@ -1,0 +1,1170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>html{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Leak Ledger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+<style>
+:root {
+  --paper:      #FCFCFA;
+  --bar:        #E7EFE5;
+  --bar-soft:   #F1F5EF;
+  --panel:      #FFFFFF;
+  --ink:        #16201B;
+  --ink-soft:   #56655D;
+  --ink-faint:  #7C8A83;
+  --rule:       #C7D2CA;
+  --rule-soft:  #E2E8E3;
+  --accent:     #1C5A3C;
+  --accent-dim: #2F7A55;
+  --flag:       #A33520;
+  --flag-bg:    #F7E9E5;
+  --warn:       #7E6212;
+  --warn-bg:    #F5EFDD;
+  --ok:         #1C5A3C;
+  --ok-bg:      #E2EFE6;
+
+  --f-display: "Spectral", Georgia, "Times New Roman", serif;
+  --f-body:    "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --f-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --col: 43rem;
+  --wide: 68rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:      #121714;
+    --bar:        #1B241E;
+    --bar-soft:   #171E1A;
+    --panel:      #182019;
+    --ink:        #E6ECE7;
+    --ink-soft:   #A0AFA6;
+    --ink-faint:  #78877E;
+    --rule:       #2C3831;
+    --rule-soft:  #222C26;
+    --accent:     #74C495;
+    --accent-dim: #56A57A;
+    --flag:       #E58A72;
+    --flag-bg:    #2C1D18;
+    --warn:       #D9B75C;
+    --warn-bg:    #2A2415;
+    --ok:         #74C495;
+    --ok-bg:      #17271D;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper:      #121714;
+  --bar:        #1B241E;
+  --bar-soft:   #171E1A;
+  --panel:      #182019;
+  --ink:        #E6ECE7;
+  --ink-soft:   #A0AFA6;
+  --ink-faint:  #78877E;
+  --rule:       #2C3831;
+  --rule-soft:  #222C26;
+  --accent:     #74C495;
+  --accent-dim: #56A57A;
+  --flag:       #E58A72;
+  --flag-bg:    #2C1D18;
+  --warn:       #D9B75C;
+  --warn-bg:    #2A2415;
+  --ok:         #74C495;
+  --ok-bg:      #17271D;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+  padding: 0 1.5rem 7rem;
+}
+
+.wrap { max-width: var(--wide); margin: 0 auto; }
+.col  { max-width: var(--col); }
+
+/* ---------- masthead ---------- */
+
+.masthead {
+  padding: 4.5rem 0 2.5rem;
+  border-bottom: 2px solid var(--ink);
+}
+.eyebrow {
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 1.4rem;
+}
+h1 {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(2.9rem, 7vw, 4.6rem);
+  line-height: 0.98;
+  letter-spacing: -0.022em;
+  margin: 0 0 1.1rem;
+  text-wrap: balance;
+}
+.standfirst {
+  font-family: var(--f-display);
+  font-size: clamp(1.12rem, 2.2vw, 1.35rem);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 38rem;
+  margin: 0;
+}
+.standfirst em { color: var(--ink); font-style: italic; }
+
+.meta-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 2.5rem;
+  margin-top: 2.6rem;
+  font-family: var(--f-mono);
+  font-size: 0.73rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-faint);
+}
+.meta-strip b { color: var(--ink); font-weight: 500; }
+
+/* ---------- sections ---------- */
+
+section { padding-top: 4.2rem; }
+
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  border-top: 1px solid var(--rule);
+  padding-top: 1rem;
+  margin-bottom: 1.8rem;
+}
+.sec-label {
+  font-family: var(--f-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  white-space: nowrap;
+  padding-top: 0.5rem;
+}
+h2 {
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: clamp(1.7rem, 3.4vw, 2.3rem);
+  line-height: 1.12;
+  letter-spacing: -0.016em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+h3 {
+  font-family: var(--f-body);
+  font-weight: 700;
+  font-size: 1.02rem;
+  letter-spacing: -0.005em;
+  margin: 2.4rem 0 0.7rem;
+}
+h4 {
+  font-family: var(--f-mono);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 2rem 0 0.7rem;
+}
+
+p { margin: 0 0 1.05rem; }
+p.lead { font-size: 1.06rem; color: var(--ink-soft); }
+strong { font-weight: 600; }
+code {
+  font-family: var(--f-mono);
+  font-size: 0.855em;
+  background: var(--bar);
+  padding: 0.1em 0.36em;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+ul, ol { margin: 0 0 1.05rem; padding-left: 1.15rem; }
+li { margin-bottom: 0.44rem; }
+li::marker { color: var(--ink-faint); }
+
+/* ---------- tables (green-bar) ---------- */
+
+.tw { overflow-x: auto; margin: 1.4rem 0 1.8rem; border: 1px solid var(--rule); }
+table { width: 100%; border-collapse: collapse; font-size: 0.86rem; min-width: 42rem; }
+thead th {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--f-mono);
+  font-weight: 500;
+  font-size: 0.67rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 0.62rem 0.85rem;
+  white-space: nowrap;
+}
+tbody td { padding: 0.6rem 0.85rem; vertical-align: top; border-top: 1px solid var(--rule-soft); }
+tbody tr:nth-child(odd) { background: var(--bar-soft); }
+tbody tr:nth-child(even) { background: transparent; }
+td.mono, .num { font-family: var(--f-mono); font-size: 0.8rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.rule-id { font-family: var(--f-mono); font-size: 0.74rem; color: var(--accent); white-space: nowrap; }
+
+/* ---------- panels ---------- */
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  padding: 1.5rem 1.6rem;
+  margin: 1.6rem 0;
+}
+.panel.bar { background: var(--bar); border-color: transparent; }
+.panel.flag { background: var(--flag-bg); border-color: transparent; }
+.panel.flag h4 { color: var(--flag); }
+.panel > :last-child { margin-bottom: 0; }
+.panel-title {
+  font-family: var(--f-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 0.85rem;
+}
+.panel.flag .panel-title { color: var(--flag); }
+
+pre {
+  font-family: var(--f-mono);
+  font-size: 0.79rem;
+  line-height: 1.72;
+  background: var(--bar);
+  border-left: 2px solid var(--accent);
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  margin: 1.2rem 0;
+  white-space: pre;
+}
+pre code { background: none; padding: 0; white-space: pre; font-size: 1em; }
+
+/* ---------- headline metric ---------- */
+
+.headline {
+  border: 2px solid var(--ink);
+  padding: 2rem 2rem 1.7rem;
+  margin: 2rem 0 0;
+  background: var(--bar);
+}
+.headline .cap {
+  font-family: var(--f-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 1rem;
+}
+.headline .big {
+  font-family: var(--f-display);
+  font-size: clamp(1.55rem, 3.6vw, 2.35rem);
+  line-height: 1.24;
+  font-weight: 600;
+  letter-spacing: -0.014em;
+  margin: 0 0 0.9rem;
+}
+.headline .big .rs { color: var(--flag); }
+.headline .sub { font-size: 0.9rem; color: var(--ink-soft); margin: 0; }
+
+/* ---------- phase blocks ---------- */
+
+.phase {
+  display: grid;
+  grid-template-columns: 3.4rem 1fr;
+  gap: 0 1.5rem;
+  border-top: 1px solid var(--rule);
+  padding: 1.5rem 0 0.4rem;
+}
+.phase-n {
+  font-family: var(--f-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  padding-top: 0.15rem;
+}
+.phase-body > :first-child { margin-top: 0; }
+.phase h3 { margin-top: 0; font-size: 1.1rem; }
+.dep {
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.03em;
+  margin: 0 0 0.9rem;
+}
+
+/* ---------- misc devices ---------- */
+
+.pill {
+  display: inline-block;
+  font-family: var(--f-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.14em 0.5em;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+.p-ok   { background: var(--ok-bg);   color: var(--ok); }
+.p-warn { background: var(--warn-bg); color: var(--warn); }
+.p-flag { background: var(--flag-bg); color: var(--flag); }
+
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; margin: 1.5rem 0; }
+@media (max-width: 720px) { .split { grid-template-columns: 1fr; } }
+
+.qa { border-top: 1px solid var(--rule-soft); padding: 1rem 0; }
+.qa .q {
+  font-family: var(--f-display);
+  font-size: 1.04rem;
+  font-weight: 600;
+  font-style: italic;
+  margin: 0 0 0.4rem;
+}
+.qa .a { margin: 0; font-size: 0.94rem; color: var(--ink-soft); }
+.qa .a b { color: var(--ink); font-weight: 600; }
+
+.cue {
+  display: grid;
+  grid-template-columns: 5.2rem 1fr;
+  gap: 0 1.2rem;
+  padding: 0.7rem 0;
+  border-top: 1px solid var(--rule-soft);
+  font-size: 0.93rem;
+}
+.cue .t {
+  font-family: var(--f-mono);
+  font-size: 0.78rem;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  padding-top: 0.12rem;
+}
+.cue .d { margin: 0; }
+.cue .d b { font-weight: 600; }
+
+.note {
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+  border-left: 2px solid var(--rule);
+  padding-left: 0.9rem;
+  margin: 1.2rem 0;
+}
+
+hr.end {
+  border: none;
+  border-top: 2px solid var(--ink);
+  margin: 4.5rem 0 1.5rem;
+}
+.colophon { font-family: var(--f-mono); font-size: 0.72rem; color: var(--ink-faint); letter-spacing: 0.03em; }
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:focus-visible, :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Razorpay AI Buildathon · Track 04 · Finance Controller</p>
+  <h1>Leak Ledger</h1>
+  <p class="standfirst">A reconciliation engine that reports what the books are <em>hiding</em>, not what they matched. Deterministic where money is decided, AI only where language is ambiguous, honest about everything it could not resolve.</p>
+  <div class="meta-strip">
+    <span>Submission <b>5 Sept 2026</b></span>
+    <span>Solo build</span>
+    <span>Working name — rename freely</span>
+  </div>
+
+  <div class="headline">
+    <p class="cap">The sentence the whole submission is built to earn</p>
+    <p class="big">Across 500 settlement records, Leak Ledger found <span class="rs">₹4.2L of leakage</span> the books were hiding — 3 missing settlements, 2 duplicate payouts, 1 unclaimed refund, 1 chargeback won but never re-credited, plus 11 contract-dependent fee discrepancies. It refused to match 14 records, each with a stated cause.</p>
+    <p class="sub">Structural findings lead; fee findings follow, labelled contract-dependent. Every number is produced by the metrics harness, not typed by hand — build the harness early enough that the sentence writes itself.</p>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-label">Users</span>
+    <h2>Who this is for, and what it replaces</h2>
+  </div>
+  <div class="col">
+    <p class="lead">The plan proved the engine and never named the person. This section is the fix, and it belongs near the top of the README too.</p>
+    <p><strong>A finance-operations associate</strong> at a mid-size D2C or marketplace merchant processing roughly 5,000–50,000 transactions a month, reporting to a finance controller. Not an engineer. Lives in a spreadsheet.</p>
+    <p>Today, on settlement day, they download the gateway settlement report and the bank statement, paste both into Excel, sort by amount and date, and eyeball the difference. When the totals don't tie they work backwards by hand. Whatever never resolves goes onto a <em>pending</em> tab that grows month over month and is written off at quarter end as "unreconciled differences". <strong>That write-off is the leakage, and nobody ever finds out what it was.</strong></p>
+    <p>Leak Ledger replaces the spreadsheet and the eyeballing. It pairs the records itself, recomputes every fee and tax line against a versioned contract, and turns the pending tab from an untyped lump that grows into a typed queue that shrinks — every item carrying its own arithmetic and a specific next action.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th style="width:16%">When</th><th style="width:12%">Time</th><th style="width:20%">What they open</th><th>What they do</th></tr></thead>
+      <tbody>
+        <tr><td><b>Daily</b></td><td class="mono">~5 min</td><td>Run summary</td><td>Overnight run on yesterday's files. Three numbers: matched, in review, exceptions. If review and exceptions are both empty, close the tab.</td></tr>
+        <tr><td><b>Settlement day</b></td><td class="mono">30–45 min</td><td>Review queue</td><td>Work each proposed match — the pairing, its arithmetic, its tier. Approve or reject. Rejections are captured as labelled data.</td></tr>
+        <tr><td><b>Monthly</b></td><td class="mono">~1 hr</td><td>Findings report</td><td>Goes to the controller. Triggers a claim against the gateway, or a write-off decision — now itemised by cause instead of a lump sum.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <h3>Why an auto-applied match can go unreviewed</h3>
+    <p>The question the whole design has to answer, and the honest answer is <em>not</em> "because the confidence score is high."</p>
+    <p>Tier scores here are <strong>ordinal labels assigned by rule, not calibrated probabilities</strong>. Tier 2 is not "90% likely to be correct" — nothing in this build establishes that, and presenting it as a probability would be a claim the harness cannot support. Three structural properties are what actually justify skipping review:</p>
+    <ol>
+      <li><strong>Tier 1 is a lookup, not an inference.</strong> An exact reference match with a corroborating amount contains no judgement. It is wrong only if the source data is wrong, and no tool saves you from that.</li>
+      <li><strong>Tier 2 auto-applies only under a uniqueness constraint.</strong> More than one candidate in the window means it does not auto-apply — it becomes an exception. The auto-apply population is defined by <em>absence of alternatives</em>, not by a score.</li>
+      <li><strong>The real safety net is reversibility, not accuracy.</strong> Every auto-apply is written to an append-only log with full evidence, and apply is idempotent, so a corrected re-run reverses cleanly. Skipping review is acceptable because being wrong is <em>detectable and recoverable</em> — not because being wrong is impossible.</li>
+    </ol>
+
+    <div class="panel flag">
+      <p class="panel-title">The failure cost, stated plainly</p>
+      <p>When it is wrong and nobody checks: a payment is marked settled that never settled. It leaves the exception queue. Nobody chases it. The merchant silently absorbs it. <strong>That is precisely the loss this tool exists to prevent</strong> — a false match is the tool committing the original sin it was built to catch. Which is why false-match rate is the primary metric, and why ambiguous subsets are refused rather than resolved.</p>
+    </div>
+
+    <p class="note">Calibration is future work and should be named as such: turning tier labels into real probabilities requires reviewer accept/reject outcomes accumulated over time. That is the correct answer to "what would you do next" — not more detectors.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-label">Limits</span>
+    <h2>Honest scope</h2>
+  </div>
+  <div class="col">
+    <p class="lead">Stated in the README, because claiming less is the credibility move — and because a reviewer who finds an undisclosed limitation discounts everything else on the page.</p>
+    <p><strong>What it is:</strong> a working reconciliation and leakage-detection engine for a single merchant with a known contract, demonstrated on a 500-record synthetic batch with published ground truth.</p>
+
+    <h4>What it is not, and what adoption would require</h4>
+    <ul>
+      <li><strong>Real source connectors.</strong> It reads CSVs. Production needs gateway APIs, bank statement ingestion, ERP integration.</li>
+      <li><strong>Contract ingestion.</strong> The fee schedule is hand-authored config. Real merchants do not have a machine-readable contract, and inferring effective rates from observed settlements is a genuinely harder problem this build does not attempt.</li>
+      <li><strong>Multi-user review workflow.</strong> No accounts, no approval audit, no segregation of duties — all of which a finance team would require.</li>
+      <li><strong>Continuous operation.</strong> It runs as a batch. Production reconciliation is continuous, with late-arriving files and cross-cycle corrections.</li>
+    </ul>
+
+    <div class="panel">
+      <p class="panel-title">The circularity that must be disclosed, not hidden</p>
+      <p><code>FEE_OVERCHARGE</code>, <code>GST_MISMATCH</code> and <code>ZERO_MDR_VIOLATION</code> are <strong>verification, not discovery</strong>. The fee schedule is authored here, the data generated from it, and the detector compares against it. These rules prove the arithmetic and the plumbing are correct. They do not prove the system can find something nobody told it about. <strong>Say this before a reviewer says it.</strong></p>
+      <p>Three consequences, all applied in this plan:</p>
+      <ul>
+        <li>The <strong>headline leads with structural findings</strong> — missing settlement, duplicate payout, duplicate capture, refund not reached, chargeback not re-credited. These detect loss <em>without needing to know a contract rate</em>, which makes them the structurally sound half of the taxonomy.</li>
+        <li><strong>Fee findings are reported second</strong>, explicitly labelled contract-dependent.</li>
+        <li><strong><code>ZERO_MDR_VIOLATION</code> is reported as a rule check, not a detection result</strong>, and excluded from aggregate precision and recall. Its precision is 1.0 by construction; including it inflates the scorecard with a free win, and a reviewer who notices discounts every other number on the page.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-label">Positioning</span>
+    <h2>Why leakage, and not reconciliation</h2>
+  </div>
+  <div class="col">
+    <p class="lead">Same engine. Different headline. The framing is the entire defence against being the thirtieth indistinguishable reconciliation project.</p>
+    <p>The convergent Track 04 submission reports a <strong>process metric</strong>: <em>97% match rate</em>. It reads as plumbing. A match rate has no natural ceiling a reviewer can calibrate against, and it answers a question no merchant actually asks.</p>
+    <p>Leak Ledger reports an <strong>outcome metric</strong>: rupees of leakage discovered, itemised by cause. Merchants do not want to know that their books balanced. They want to know where the money went.</p>
+    <p>Three consequences, and each one maps to something the brief explicitly asks for:</p>
+    <ul>
+      <li><strong>It survives triage.</strong> The headline is legible in fifteen seconds and reads as trustworthy without anyone verifying it — because it names specific failures <em>and</em> admits fourteen unresolved records in the same breath.</li>
+      <li><strong>It is not the default build.</strong> Leakage detection forces fee decomposition — expected MDR by instrument, GST on the fee, TDS withholding — which is the part almost nobody implements and the part a payments company recognises instantly as real merchant pain.</li>
+      <li><strong>The number stays real inside synthetic data.</strong> You seed a fee overcharge; the engine finds it. What is being demonstrated is the <em>detection logic</em>, which is deterministic and inspectable. This is precisely the claim a simulated revenue-recovery number cannot make.</li>
+    </ul>
+
+    <h3>Three anti-convergence moves</h3>
+    <p>Cheap to implement, and each one is a thing the modal submission will not do.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th style="width:22%">Move</th><th style="width:30%">Instead of</th><th>Why it separates you</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>Lead with false-match rate</b></td>
+          <td>Leading with match rate</td>
+          <td>"Zero false matches across 500 records, including 40 deliberately seeded near-misses." Demonstrates you understand the asymmetry that defines finance ops: a wrong match silently corrupts the books and surfaces a month later; a missing match just sits in a queue. It is also self-penalising — you cannot game it by making the data easy, because easy data yields an empty exception list, which reads as a toy.</td>
+        </tr>
+        <tr>
+          <td><b>Refuse ambiguous subsets</b></td>
+          <td>Taking the first valid subset</td>
+          <td>When two or more distinct subsets of payments sum to the same settlement within tolerance, the correct action is to <em>decline to match</em> and raise <code>AMBIGUOUS_SUBSET</code>. Most implementations return the first hit found. Showing this refusal on camera is the strongest thirty seconds available to you.</td>
+        </tr>
+        <tr>
+          <td><b>State the AI boundary out loud</b></td>
+          <td>Letting the reader infer it</td>
+          <td>One sentence in the README and one line in the video: <em>an LLM cannot be allowed to decide whether two amounts are equal, and re-running it gives a different answer — so it never touches the match decision.</em> That is evaluation criterion three answered correctly rather than cleverly.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-label">Domain</span>
+    <h2>The model a payments engineer will check first</h2>
+  </div>
+  <div class="col">
+    <p class="lead">This section is where the submission earns credibility or loses it. The judges work at a payments company; they know every hard case listed here. Fidelity is not decoration — it is the proof that you understood the problem before you started typing.</p>
+
+    <h3>The settlement identity</h3>
+    <p>A merchant does not receive one bank credit per payment. They receive one credit per settlement cycle, net of everything the acquirer withheld. Reconciliation is the act of proving this identity holds for every cycle.</p>
+  </div>
+
+  <pre><code>net_settlement_credit
+    =   Σ captured_payments        (in cycle, post-cutoff)
+      − Σ gateway_fee              (per instrument slab)
+      − Σ gst_on_fee               (18% of fee, not of txn)
+      − Σ refunds_settled
+      − Σ chargebacks_debited
+      + Σ chargebacks_won_recredit
+      − Δ rolling_reserve_held
+      + Σ rolling_reserve_released
+      − Σ tds_withheld             (marketplace / 194-O)
+      ± adjustments                (typed, never a plug)</code></pre>
+
+  <div class="col">
+    <p>Two rules that follow directly and that you should enforce in code:</p>
+    <ul>
+      <li><strong>No plug figures.</strong> Every term on the right must be attributable to typed source records. If a residual remains, it is an exception with a reason code — never an "adjustment" that makes the equation close.</li>
+      <li><strong>GST applies to the fee, not the transaction.</strong> A surprising number of implementations get this backwards, and it is an instant tell.</li>
+    </ul>
+
+    <h3>Fee schedule — externalised, versioned, hashed into every run</h3>
+    <p>Put this in <code>config/fee_schedule.v1.yaml</code>. Record its SHA-256 in the run manifest so any result can be reproduced against the exact contract it was computed under. Rates below are <strong>illustrative defaults for your synthetic merchant contract</strong> — say so in the README rather than presenting them as any provider's live pricing.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Instrument</th><th>Illustrative rate</th><th>Reconciliation hazard it creates</th></tr></thead>
+      <tbody>
+        <tr><td>UPI (P2M)</td><td class="mono">0.00%</td><td>Zero-MDR by regulation. Any non-zero fee on a UPI leg is leakage by definition — your highest-precision detector.</td></tr>
+        <tr><td>Debit card ≤ ₹2,000</td><td class="mono">0.40%</td><td>Slab boundary. A ₹2,000.00 transaction is the classic off-by-one; decide and document whether the boundary is inclusive.</td></tr>
+        <tr><td>Debit card &gt; ₹2,000</td><td class="mono">0.90%</td><td>Same boundary from the other side. Seed transactions at ₹1,999 / ₹2,000 / ₹2,001.</td></tr>
+        <tr><td>Credit card, domestic</td><td class="mono">2.00%</td><td>Coincides numerically with other slabs at certain amounts — a source of false-positive fee flags.</td></tr>
+        <tr><td>Credit card, international</td><td class="mono">3.00%</td><td>Requires an <code>is_international</code> flag on the payment. If your generator omits it, the detector will flag every legitimate international fee.</td></tr>
+        <tr><td>Netbanking</td><td class="mono">flat ₹12–20</td><td>Flat, per-bank, not percentage. Percentage-only fee logic silently mis-flags every netbanking row.</td></tr>
+        <tr><td>Wallet</td><td class="mono">1.80%</td><td>—</td></tr>
+        <tr><td>EMI</td><td class="mono">2.50% + subvention</td><td>Two components. Merchant-borne subvention is not a gateway fee and must not be compared against the MDR slab.</td></tr>
+        <tr><td>GST on fee</td><td class="mono">18.00%</td><td>Rounding. Compute in paise, round half-up once, at the end.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <h3>Reference identifiers</h3>
+    <p>Different legs of the same money carry different reference numbers, and this is why naive single-key matching fails. Model at least three: a <strong>UTR</strong> on the bank transfer leg, a <strong>12-digit RRN</strong> on card and UPI authorisation legs, and an <strong>ARN</strong> on card refunds. Keep the formats internally consistent in your generator and document them; do not assert exact issuer specifications you have not verified.</p>
+
+    <h3>Timing, which is where half of all exceptions actually live</h3>
+    <ul>
+      <li><strong>Cutoff.</strong> A payment captured at 23:58 IST may fall into the next cycle. Define <code>SETTLEMENT_CUTOFF_IST</code> as a named constant, not a magic number buried in a comparison.</li>
+      <li><strong>Weekends and bank holidays.</strong> T+2 across a Saturday is not two calendar days. Ship a holiday calendar in config.</li>
+      <li><strong>Instant vs. normal refunds.</strong> An instant refund debits immediately; a normal refund nets against the next cycle. Same record, two entirely different reconciliation paths.</li>
+      <li><strong>Chargeback lifecycle.</strong> Debited on receipt, re-credited on win, with a fee that is often not reversed. A chargeback won but never re-credited is a leakage class in its own right.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-label">Detection</span>
+    <h2>The leakage taxonomy</h2>
+  </div>
+  <div class="col">
+    <p class="lead">Ten typed classes. Every one is a deterministic rule over reconciled state — no model, no scoring, no threshold that cannot be explained to an auditor in one sentence. Each carries a stable reason code that appears in the audit log, the exception list, and the video.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th style="width:19%">Reason code</th><th style="width:28%">Detection rule</th><th>Why it is worth money</th></tr></thead>
+      <tbody>
+        <tr><td class="rule-id">FEE_OVERCHARGE</td><td>actual_fee &gt; expected_fee(instrument, amount, intl) + ε</td><td>Highest-frequency, lowest-drama leak. Small per transaction, large in aggregate. This is your volume finding.</td></tr>
+        <tr><td class="rule-id">GST_MISMATCH</td><td>gst ≠ round(0.18 × fee)</td><td>Directly recoverable, and unambiguous — there is no judgement call to argue about.</td></tr>
+        <tr><td class="rule-id">ZERO_MDR_VIOLATION</td><td>fee &gt; 0 on a UPI P2M leg</td><td>Precision ≈ 1.0 by construction. Cheap to detect, impossible to dispute.</td></tr>
+        <tr><td class="rule-id">MISSING_SETTLEMENT</td><td>captured payment absent from every payout past T+cycle+grace</td><td>The largest single-ticket finding. Money captured from the customer that never reached the merchant.</td></tr>
+        <tr><td class="rule-id">SHORT_SETTLEMENT</td><td>payout_net &lt; expected_net beyond tolerance, residual untyped</td><td>Catches the case where the cycle appears to reconcile but silently under-pays.</td></tr>
+        <tr><td class="rule-id">DUPLICATE_PAYOUT</td><td>same UTR, or same (amount, date, counterparty) credited twice</td><td>Leakage in the merchant's favour. Detecting money you are <em>owed back</em> is the credibility move — it proves the engine is neutral, not merchant-flattering.</td></tr>
+        <tr><td class="rule-id">DUPLICATE_CAPTURE</td><td>two captures against one order / one cart within window</td><td>Merchant liability: the customer was charged twice. Surfacing this before the customer does is worth more than the rupee value.</td></tr>
+        <tr><td class="rule-id">REFUND_NOT_REACHED</td><td>refund deducted from settlement, no matching outbound leg</td><td>The customer is owed money the merchant already paid for. A support crisis waiting to happen.</td></tr>
+        <tr><td class="rule-id">CHARGEBACK_NOT_RECREDITED</td><td>dispute status = won, no re-credit within SLA window</td><td>Won the case, never got the money. Almost never caught manually because the dispute is closed.</td></tr>
+        <tr><td class="rule-id">RESERVE_NOT_RELEASED</td><td>rolling reserve held beyond configured release schedule</td><td>Not lost, but working capital held hostage. Shows you understand cash position, not just correctness.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel flag">
+    <p class="panel-title">The discipline that makes this credible</p>
+    <p>Every leakage finding must carry <strong>the arithmetic that produced it</strong>, not just a verdict. <code>expected_fee = 0.90% × ₹4,500 = ₹40.50; actual = ₹58.00; delta = ₹17.50; slab = DEBIT_GT_2000; schedule v1 (sha 3f9c…)</code>. A finding a human cannot re-derive in ten seconds is a finding they will not act on — and a reviewer knows that.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-label">Architecture</span>
+    <h2>Pipeline, and where the boundary sits</h2>
+  </div>
+
+  <pre><code>  SOURCES                 gateway_payments.csv
+                          bank_statement.csv
+                          erp_invoices.csv
+                                  │
+  ┌───────────────────────────────▼─────────────────────────────┐
+  │ 1  INGEST         schema validation · quarantine bad rows   │
+  │                   money → integer paise · tz → IST aware    │
+  ├─────────────────────────────────────────────────────────────┤
+  │ 2  NORMALISE      deterministic parsers first               │
+  │                   ◆ LLM: narration → candidate entities     │
+  ├─────────────────────────────────────────────────────────────┤
+  │ 3  CASCADE        T1 exact ref  → T2 amount+window          │
+  │                   T3 subset-sum → T4 fuzzy → T5 exception   │
+  ├─────────────────────────────────────────────────────────────┤
+  │ 4  DECOMPOSE      fee · GST · TDS · reserve  (exact math)   │
+  ├─────────────────────────────────────────────────────────────┤
+  │ 5  LEAKAGE        10 typed rules over reconciled state      │
+  ├─────────────────────────────────────────────────────────────┤
+  │ 6  DISPOSE        auto-apply │ review queue │ exception     │
+  │                   ◆ LLM: plain-English exception rationale  │
+  ├─────────────────────────────────────────────────────────────┤
+  │ 7  LEDGER         double-entry · append-only · idempotent   │
+  ├─────────────────────────────────────────────────────────────┤
+  │ 8  REPORT         metrics harness · exception list · Q&A    │
+  │                   ◆ LLM: read-only question answering       │
+  └─────────────────────────────────────────────────────────────┘
+
+  ◆ = the only three places a model is invoked.
+      None of them can change a number or write to the ledger.</code></pre>
+
+  <div class="col">
+    <h3>The cascade, with precedence and disposition</h3>
+    <p>Tiers are strictly ordered. A record matched at tier <em>n</em> never falls through to tier <em>n+1</em>.</p>
+    <p class="note"><strong>These are ordinal tier labels, not calibrated probabilities.</strong> Tier 2's 0.90 does not mean "90% likely correct" — nothing in this build establishes that. Present them as rule-assigned ranks, and say so in the README. Calibrating them into real probabilities requires reviewer accept/reject outcomes over time, which is named as future work rather than claimed here.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th style="width:9%">Tier</th><th style="width:26%">Rule</th><th style="width:13%">Tier label</th><th>Disposition</th></tr></thead>
+      <tbody>
+        <tr><td class="rule-id">T0</td><td>Canonicalise &amp; dedupe</td><td class="mono">—</td><td>Normalise case, strip narration noise, collapse exact duplicate rows into one with a <code>dup_count</code>. Never drop silently.</td></tr>
+        <tr><td class="rule-id">T1</td><td>Exact reference (UTR / RRN / ARN)</td><td class="mono">1.00</td><td><span class="pill p-ok">Auto-apply</span> Deterministic. Should carry the bulk of volume.</td></tr>
+        <tr><td class="rule-id">T2</td><td>Amount + date window + counterparty</td><td class="mono">0.90</td><td><span class="pill p-ok">Auto-apply</span> only if the candidate is <em>unique</em> in the window. Two candidates → T5 ambiguity.</td></tr>
+        <tr><td class="rule-id">T3</td><td>N:1 subset-sum within fee tolerance</td><td class="mono">0.75</td><td><span class="pill p-warn">Review queue</span> Uniqueness proof required — see below.</td></tr>
+        <tr><td class="rule-id">T4</td><td>Fuzzy narration + entity resolution</td><td class="mono">0.50</td><td><span class="pill p-warn">Review queue</span> LLM proposes candidates; arithmetic verifies; a human confirms. Never auto-applied.</td></tr>
+        <tr><td class="rule-id">T5</td><td>Unresolved</td><td class="mono">0.00</td><td><span class="pill p-flag">Exception</span> Typed reason code, mandatory. No record exits the pipeline untyped.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <h3>T3 subset-sum, done properly</h3>
+    <p>One settlement covers <em>N</em> payments net of fees. This is the tier that separates a real engine from a toy, and it is also the tier most likely to manufacture false matches if implemented naively.</p>
+    <ol>
+      <li><strong>Constrain the candidate pool first.</strong> Filter to <code>(counterparty, settlement_window)</code> before any search. Unconstrained subset-sum over 500 records is both intractable and semantically wrong.</li>
+      <li><strong>Work in integer paise.</strong> Dynamic programming over exact integers. A floating-point tolerance band on money is a defect, not a convenience.</li>
+      <li><strong>Bound the search.</strong> Cap subset size at <code>k ≤ 12</code> and the pool at a configured maximum; if either bound is hit, emit <code>SEARCH_BUDGET_EXCEEDED</code> rather than returning a partial answer. Refusing to answer is a valid, auditable outcome.</li>
+      <li><strong>Tolerance is derived, not guessed.</strong> The band is the expected fee plus GST for that instrument mix, ± a documented ε — not an arbitrary rupee figure.</li>
+      <li><strong>Enumerate <em>all</em> solutions, then test uniqueness.</strong> If two or more distinct subsets satisfy the constraint, raise <code>AMBIGUOUS_SUBSET</code> and match nothing. Returning the first solution found is the single most common way to generate a silent false match.</li>
+    </ol>
+
+    <div class="panel bar">
+      <p class="panel-title">Put this on camera</p>
+      <p>The ambiguity refusal is the most persuasive thirty seconds in your video. Seed two payments of identical amount, same day, same counterparty. Show the engine finding both candidate subsets, declining to choose, and routing to the exception queue with a rationale. A system that knows what it does not know is the entire subtext of "would you trust it".</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-label">Ground truth</span>
+    <h2>The generator is the foundation, not a fixture</h2>
+  </div>
+  <div class="col">
+    <p class="lead">Most submissions will underinvest here and cap their ceiling on day one. Your match rate, your false-match rate, and your leakage precision are all measured <em>against</em> this file. If the data is easy, every downstream number is worthless — and the brief says so explicitly: <em>one cherry-picked match proves nothing.</em></p>
+
+    <h4>Non-negotiables</h4>
+    <ul>
+      <li><strong>Ship it in the repo.</strong> Seeded RNG, config-driven, one command regenerates the exact batch. Ground truth is then inspectable by anyone.</li>
+      <li><strong>Emit <code>ground_truth.json</code> alongside the data</strong> — every true pairing, every seeded leak with its exact rupee value and class. The harness scores against this; nothing is scored by eye.</li>
+      <li><strong>500 records, not 50.</strong> The stated bar is 50+. Overshooting by 10× costs you nothing and is visible in the first frame.</li>
+      <li><strong>Three sources, genuinely divergent.</strong> Gateway export, bank statement with free-text narration, ERP invoice register. If all three share a clean join key, you have built a join, not a reconciler.</li>
+    </ul>
+
+    <h3>Seeded case catalogue</h3>
+    <p>Two populations, and both matter. <strong>Hard cases</strong> are legitimately difficult but resolvable — they prove capability. <strong>Adversarial near-misses</strong> are designed to induce a false match — they prove restraint. Ship roughly 40 of the second kind and report performance against them separately.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th style="width:16%">Population</th><th style="width:30%">Case</th><th>What it tests</th></tr></thead>
+      <tbody>
+        <tr><td rowspan="8"><span class="pill p-ok">Hard</span></td><td>N:1 settlement net of mixed-instrument fees</td><td>Subset-sum with a derived tolerance band across instruments.</td></tr>
+        <tr><td>Partial payment against one invoice</td><td>Many-to-one on the ERP side, not just the bank side.</td></tr>
+        <tr><td>Refund netted into a later payout</td><td>Signed amounts and cross-cycle attribution.</td></tr>
+        <tr><td>Chargeback debited, later won and re-credited</td><td>Three-leg lifecycle spanning cycles.</td></tr>
+        <tr><td>T+1 cutoff straddle at 23:58 IST</td><td>Timezone correctness and the named cutoff constant.</td></tr>
+        <tr><td>Settlement across a bank holiday weekend</td><td>Holiday calendar, not calendar arithmetic.</td></tr>
+        <tr><td>Reversal pair (debit then credit, same ref)</td><td>Net-zero pairs that must not be counted as two matches.</td></tr>
+        <tr><td>Rounding residual of ₹0.01 across 40 legs</td><td>Integer-paise discipline end to end.</td></tr>
+
+        <tr><td rowspan="7"><span class="pill p-flag">Adversarial</span></td><td>Two payments, identical amount, same day, same counterparty</td><td><b>The ambiguity trap.</b> Correct behaviour is to refuse.</td></tr>
+        <tr><td>A wrong subset that also sums within tolerance</td><td>Whether uniqueness is actually tested, or just the first hit returned.</td></tr>
+        <tr><td>Transposed digits in a UTR</td><td>That near-miss references are not fuzzy-matched into a false positive.</td></tr>
+        <tr><td>Fee that coincidentally equals a different valid slab</td><td>That instrument is checked, not just the arithmetic.</td></tr>
+        <tr><td>Refund equal in value to an unrelated payment</td><td>Sign and direction handling.</td></tr>
+        <tr><td>Same UTR appearing with two different amounts</td><td>That T1 exact-match does not blindly trust the key.</td></tr>
+        <tr><td>Narration naming the wrong but plausible counterparty</td><td>That the LLM proposes and arithmetic disposes — the boundary holding under pressure.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-label">Measurement</span>
+    <h2>What the harness reports</h2>
+  </div>
+  <div class="col">
+    <p class="lead">The brief's bar for this track is precise: <em>throughput plus measured accuracy plus an honest exception list.</em> All three are named. Reporting two of them is leaving marks on the table.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th style="width:26%">Metric</th><th style="width:16%">Target shape</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><b>False-match rate</b> <span class="pill p-flag">primary</span></td><td class="mono">0 / N auto</td><td>Wrong pairings ÷ auto-applied matches, scored against ground truth. Lead every artefact with this. Report it separately for the adversarial population.</td></tr>
+        <tr><td>Auto-match rate</td><td class="mono">% of records</td><td>Broken out by tier so the reviewer sees where volume actually resolves.</td></tr>
+        <tr><td>Review-queue rate</td><td class="mono">% of records</td><td>Not a failure. Deliberate restraint has a number.</td></tr>
+        <tr><td>Exception rate</td><td class="mono">% of records</td><td>With the full distribution across reason codes.</td></tr>
+        <tr><td>Leakage precision / recall</td><td class="mono">per class</td><td>One row per reason code, never aggregate — aggregate hides the classes that do not work. Structural and contract-dependent classes reported in separate blocks; <code>ZERO_MDR_VIOLATION</code> excluded, as its precision is 1.0 by construction.</td></tr>
+        <tr><td>Leakage value recovered</td><td class="mono">₹ found / ₹ seeded</td><td>Recall denominated in money. The headline figure — structural classes first.</td></tr>
+        <tr><td><b>Human-touch rate</b> <span class="pill p-warn">secondary</span></td><td class="mono">(N+M) / 500</td><td>Review-queue plus exception items as a share of the batch: <em>humans touch N+M items instead of 500</em>. Fully measured by the harness. This is the honest way to report operational saving — a ratio, not a time claim.</td></tr>
+        <tr><td>Throughput</td><td class="mono">records / sec</td><td>Named in the bar. Report end-to-end wall clock, and separately with the LLM stage disabled — the deterministic core should be dramatically faster, which is itself an argument.</td></tr>
+        <tr><td>Determinism</td><td class="mono">5 runs → 1 hash</td><td>Five runs over identical input must produce one identical SHA-256 of the output. Assert it in a test.</td></tr>
+        <tr><td>Idempotency</td><td class="mono">Δ ledger = 0</td><td>Second run over the same batch changes nothing. Assert it in a test.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <h3>Hours saved, without inventing a number</h3>
+    <p>Finance teams care about time, not only rupees — but there is no observed baseline here, so a time claim has to be built carefully or not at all.</p>
+    <ul>
+      <li><strong>Lead with human-touch rate.</strong> Fully measured, fully defensible, straight out of the harness.</li>
+      <li><strong>Optionally add an author-timed estimate, if disclosed properly.</strong> Time yourself resolving 10 review-queue items by hand against the raw CSVs. Report it as <em>"author's own timing, n = 10, measured not estimated; not a substitute for a user study, and biased fast because the author built the data."</em> A measured quantity with a disclosed method and a disclosed bias is worth reporting — the disclosure is what makes it worth more than the alternative.</li>
+      <li><strong>Never</strong> cite an industry "analysts spend X hours on reconciliation" statistic and multiply it out. A fabricated baseline contaminates every real number in the submission.</li>
+    </ul>
+
+    <h3>The exception list is a deliverable, not a residue</h3>
+    <p>It is the honesty test, and a short list is a red flag rather than a win. Every entry needs four fields: the record, the typed reason code, the arithmetic evidence, and the specific next action a human should take.</p>
+  </div>
+
+  <pre><code>EXCEPTIONS — 14 of 500 records unresolved
+
+  [AMBIGUOUS_SUBSET]      2  Two payment subsets sum to ₹1,84,300
+                             within tolerance. Refused to choose.
+                             → Confirm against merchant order IDs.
+
+  [CUTOFF_STRADDLE]       5  Captured 23:58 IST, settlement cycle
+                             boundary. Expected in next payout.
+                             → Re-run after T+1 file lands.
+
+  [FEE_SLAB_UNKNOWN]      3  Instrument 'AMEX_CORP' absent from
+                             fee_schedule.v1. Not guessed.
+                             → Add slab to config, re-run.
+
+  [SHORT_SETTLEMENT]      1  Residual ₹118.00 untyped after full
+                             decomposition. Suspect GST on gateway
+                             fee, unconfirmed. → Manual review.
+
+  [NARRATION_UNPARSED]    2  Bank narration below confidence floor.
+                             LLM proposals rejected by arithmetic.
+                             → Human entity resolution.
+
+  [SEARCH_BUDGET]         1  Candidate pool exceeded k=12 bound.
+                             Declined rather than approximate.
+                             → Widen bound or split cycle.</code></pre>
+
+  <div class="col">
+    <p class="note">Note the tone. Each line says what happened, what the engine refused to assume, and what a person does next. Nothing is apologised for, and nothing is hidden behind a percentage.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-label">Trust</span>
+    <h2>The rules that answer "would you trust it"</h2>
+  </div>
+  <div class="col">
+    <p class="lead">Build quality is a named criterion, and at a payments company it has a specific meaning. These are the things a reviewer scans for, most of which cost minutes and all of which are visible in the diff.</p>
+  </div>
+
+  <div class="split">
+    <div class="panel">
+      <p class="panel-title">Correctness</p>
+      <ul>
+        <li><strong>Money is integer paise.</strong> Never a float, anywhere, at any stage. A single float in money code is an instant credibility loss.</li>
+        <li><strong>All timestamps tz-aware IST.</strong> No naive datetimes. <code>SETTLEMENT_CUTOFF_IST</code> is a named constant.</li>
+        <li><strong>Rounding is half-up, once, at the end</strong> — and the policy is stated in the README.</li>
+        <li><strong>Config is versioned and hashed</strong> into every run manifest, so any result is reproducible against its exact contract.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <p class="panel-title">Operability</p>
+      <ul>
+        <li><strong>Idempotent apply</strong> keyed on <code>(run_id, record_id)</code>. Re-running must never double-post.</li>
+        <li><strong>Append-only audit log.</strong> Every decision: record, stage, verdict, reason code, confidence, input hash, timestamp.</li>
+        <li><strong>Dry-run is the default.</strong> Writing to the ledger requires an explicit flag.</li>
+        <li><strong>Bad rows are quarantined and counted</strong>, never dropped. Silent drops are how reconciliation systems lie.</li>
+        <li><strong>No untyped exits.</strong> Every record leaves the pipeline with a disposition and a reason code.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-label">Criterion 03</span>
+    <h2>AI judgment, argued with evidence</h2>
+  </div>
+  <div class="col">
+    <p class="lead">The rubric asks for "the right tool in the right place, <em>and where you chose not to use one</em>." Most submissions will assert a boundary. You can demonstrate one.</p>
+
+    <h4>Three places a model is invoked</h4>
+    <ol>
+      <li><strong>Narration → candidate entities.</strong> <code>"NEFT/UTR3319/ACME IND PVT LT"</code> becomes a structured proposal: counterparty, reference, instrument. It emits <em>candidates with confidence</em>, never a match.</li>
+      <li><strong>Exception rationale.</strong> Typed reason code plus arithmetic evidence, rendered into a sentence a finance associate can act on. Generation over facts already computed.</li>
+      <li><strong>Settlement Q&amp;A.</strong> Read-only questions over the finished ledger — "which cycles had fee overcharges above ₹500?" No write path exists.</li>
+    </ol>
+
+    <h4>Four places it is refused, and why</h4>
+    <ul>
+      <li><strong>The match decision.</strong> Non-deterministic. Re-running would produce different books, which in finance is disqualifying regardless of accuracy.</li>
+      <li><strong>Any arithmetic.</strong> Fee, GST, subset verification. Exact integer code, testable, reproducible.</li>
+      <li><strong>Leakage classification.</strong> Must be an auditable rule a human can re-derive, not a model output a human must trust.</li>
+      <li><strong>Any write to the ledger.</strong> Structurally impossible — the model layer has no write path, and that is enforced by the interface, not by convention.</li>
+    </ul>
+
+    <h3>The benchmark that turns assertion into evidence</h3>
+    <p>This is a two-hour experiment that produces the single strongest table in the submission. Do not skip it — it converts criterion three from a claim into a measurement.</p>
+    <p>Take 50 records that the deterministic cascade resolves. Put the same 50 through an LLM-as-matcher prompt, three times, at temperature 0. Report:</p>
+    <ul>
+      <li><strong>Self-disagreement rate</strong> across the three runs — the same input yielding different books.</li>
+      <li><strong>Accuracy against ground truth</strong>, versus the cascade's.</li>
+      <li><strong>Latency and cost per 500 records</strong>, versus the cascade's.</li>
+    </ul>
+    <p>Then write one line: <em>"I ran this experiment before deciding, and this is why the model does not touch the match decision."</em> That sentence, backed by a table, is worth more than any architecture diagram in the repo.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-label">Criterion 04</span>
+    <h2>Failure recovery, logged as it happens</h2>
+  </div>
+  <div class="col">
+    <p class="lead">A quarter of the rubric, and pure documentation discipline. It cannot be reconstructed credibly at the end — dated entries written in the moment read completely differently from a retrospective paragraph, and a reviewer can tell which they are reading.</p>
+    <p><strong>Start <code>INCIDENTS.md</code> before you write the first line of code.</strong> A real build of this size will generate four to six genuine entries without you trying.</p>
+  </div>
+
+  <pre><code>## INC-003 — Subset-sum returned a false match
+**Date:** 2026-09-03 02:40 IST
+**Symptom:** 2 records auto-matched against the wrong payment
+  subset. False-match rate rose from 0.0% to 0.4%.
+**Root cause:** T3 returned the first satisfying subset found.
+  Two distinct subsets summed within the tolerance band; the
+  search short-circuited on the first hit.
+**Fix:** Enumerate all solutions within the bound, assert
+  uniqueness, raise AMBIGUOUS_SUBSET when |solutions| > 1.
+**Guard added:** test_subset_ambiguity_refused — two identical
+  payments, same counterparty, same day; asserts exception
+  rather than match. Runs in CI.
+**Commit:** a4f10c2</code></pre>
+
+  <div class="col">
+    <p>The <strong>guard</strong> line is the one that matters. Anyone can describe a bug. Describing the test that makes it impossible to reintroduce is what "what you did about it" is actually asking.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-label">Sequence</span>
+    <h2>Build order</h2>
+  </div>
+  <div class="col">
+    <p class="lead">Ordered by dependency, not by clock. Each phase is unblocked by the one before it, and the ordering is itself a decision worth defending: the metrics harness lands <em>before</em> the model layer, so the deterministic core is proven on its own and every AI addition is measured against a known baseline.</p>
+  </div>
+
+  <div class="phase">
+    <div class="phase-n">01</div>
+    <div class="phase-body">
+      <h3>Foundations</h3>
+      <p class="dep">Blocks everything · nothing lands correctly if this is wrong</p>
+      <p>Canonical record schema across the three sources. Integer-paise money type with its own tests. Tz-aware IST handling and the named cutoff constant. Externalised fee schedule with a version hash. Append-only audit-log writer. Run manifest capturing input hashes, config hash, and commit SHA.</p>
+      <p class="note">Resist starting with the matcher. Every hour spent here removes a whole class of defect from every later phase.</p>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-n">02</div>
+    <div class="phase-body">
+      <h3>Generator and ground truth</h3>
+      <p class="dep">Requires 01 · blocks all measurement</p>
+      <p>Seeded, config-driven generator emitting three divergent sources plus <code>ground_truth.json</code>. The full hard-case catalogue. All ~40 adversarial near-misses. Realistic bank narration strings with genuine noise — abbreviations, truncation, inconsistent counterparty spellings.</p>
+      <p><strong>Verify the data is actually hard before moving on.</strong> Write a five-line naive exact-key matcher and run it. If it resolves more than about 70%, the batch is too easy and every number you report afterwards is inflated. Go back and make it harder.</p>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-n">03</div>
+    <div class="phase-body">
+      <h3>Deterministic core</h3>
+      <p class="dep">Requires 02 · the longest phase</p>
+      <p>Cascade tiers T0 through T3. Fee, GST, TDS and reserve decomposition against the versioned schedule. Confidence tiering and disposition routing. Typed exception codes at T5. Uniqueness testing and the ambiguity refusal in T3 — build it correctly the first time; retrofitting it is how INC-003 happens.</p>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-n">04</div>
+    <div class="phase-body">
+      <h3>Leakage rules</h3>
+      <p class="dep">Requires 03 · this is where the headline number comes from</p>
+      <p>All ten typed detectors over reconciled state. Every finding carries its own arithmetic derivation. Double-entry ledger with idempotent apply. Findings ranked by rupee value for the report and the video.</p>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-n">05</div>
+    <div class="phase-body">
+      <h3>Metrics harness</h3>
+      <p class="dep">Requires 04 · deliberately before the model layer</p>
+      <p>Full scorecard against ground truth. False-match rate broken out for the adversarial population. Per-class leakage precision and recall. Throughput. The determinism assertion (five runs, one hash) and the idempotency assertion (Δ ledger = 0) as real tests, in CI.</p>
+      <p><strong>The deterministic system is now complete and measurable.</strong> Everything after this point is additive, and you can prove it.</p>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-n">06</div>
+    <div class="phase-body">
+      <h3>Model layer and the refusal benchmark</h3>
+      <p class="dep">Requires 05 · every addition measured against the 05 baseline</p>
+      <p>Narration → candidate entities, with arithmetic verification of every proposal. Plain-English exception rationales. Read-only settlement Q&amp;A. Then the LLM-as-matcher benchmark: 50 records, three runs, self-disagreement and accuracy and cost, published as a table.</p>
+      <p>Re-run the full harness with the model layer enabled. If false-match rate moved at all, the boundary is leaking — find it.</p>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-n">07</div>
+    <div class="phase-body">
+      <h3>Surface</h3>
+      <p class="dep">Requires 06 · exists to make the work legible</p>
+      <p>Run summary with the leakage headline. Findings table sorted by value. Exception queue with rationale and next action. One drill-down view showing a single finding's full arithmetic derivation — this is the shot you will use in the video.</p>
+      <p class="note">A dashboard is worth building only because the video is the triage artefact. If the choice is ever between a prettier surface and harder seeded cases, the cases win — that is where the reviewer's real question lives.</p>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-n">08</div>
+    <div class="phase-body">
+      <h3>Submission</h3>
+      <p class="dep">Requires 07 · freeze code before starting</p>
+      <p>Freeze the code first, then write. README structured to the rubric. Architecture note. Record the video against a frozen build — never a live one. Submit with hours in hand, not minutes.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-label">Risk</span>
+    <h2>Feasibility, audited against ~2.5 build days</h2>
+  </div>
+  <div class="col">
+    <p class="lead">As of 2 September, with a 5 September deadline and submission day reserved, the realistic budget is <strong>~2.5 build days</strong>. Honest total for the full plan is <strong>32–42 hours</strong>. At a hard 14 h/day that fits with <strong>no slack</strong>.</p>
+    <p>Phases 02 and 03 together are roughly 60% of the build and both carry wide variance — that is the structural risk; everything else is comparatively predictable. <strong>Nothing below is pre-cut.</strong> Each at-risk phase lists its trade-offs with costs attached, for you to decide in the moment.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th style="width:22%">Phase</th><th style="width:12%">Risk</th><th style="width:10%">Est.</th><th>If it runs over</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>01</b> Foundations</td>
+          <td><span class="pill p-ok">Low</span></td>
+          <td class="mono">3–4 h</td>
+          <td>Well-understood code, no meaningful risk. Do not start with the matcher.</td>
+        </tr>
+        <tr>
+          <td><b>02</b> Generator</td>
+          <td><span class="pill p-flag">Highest</span></td>
+          <td class="mono">8–10 h</td>
+          <td>Fiddly — every seeded case must be traceable in ground truth, and this phase caps everything downstream. <b>(A)</b> Cut adversarial instances ~40 → ~15, keeping all 7 types: smaller denominator, identical demonstrated capability. <em>Preferred.</em> <b>(C)</b> 500 → 250 records, all case types kept: loses the "10× the bar" line. <b>(B)</b> Hard-case types 8 → 5: loses the timing-sophistication cases domain reviewers look for. <em>Least preferred.</em> Order A, C, B — types matter more than instance counts.</td>
+        </tr>
+        <tr>
+          <td><b>03</b> Deterministic core</td>
+          <td><span class="pill p-flag">High</span></td>
+          <td class="mono">6–10 h</td>
+          <td>T3 all-solutions subset-sum is the hardest piece and the widest variance. <b>(A)</b> Bound at k ≤ 6 instead of 12: more <code>SEARCH_BUDGET_EXCEEDED</code>, which is <em>not a failure</em> but the system correctly declining — arguably a better story. Nearly free; take it early. <b>(B)</b> T3 review-only: already the design, confirm rather than decide. <b>(C)</b> Drop T4 fuzzy narration: real cost — removes a model call site and weakens the AI-judgment section.</td>
+        </tr>
+        <tr>
+          <td><b>04</b> Leakage rules</td>
+          <td><span class="pill p-warn">Medium</span></td>
+          <td class="mono">4–5 h</td>
+          <td>Build all six structural detectors plus fee and GST; drop reserve and short-settlement first. Cost: two fewer rows, no credibility loss — the structural set carries the argument.</td>
+        </tr>
+        <tr>
+          <td><b>05</b> Metrics harness</td>
+          <td><span class="pill p-flag">Do not cut</span></td>
+          <td class="mono">3–4 h</td>
+          <td>Lands before the model layer so the deterministic core is proven standalone. Without it you have a demo, not a submission. If time is short, cut from 07 — never from here.</td>
+        </tr>
+        <tr>
+          <td><b>06</b> Model layer</td>
+          <td><span class="pill p-warn">Medium</span></td>
+          <td class="mono">5–6 h</td>
+          <td><b>Do the benchmark first, then the call sites.</b> The benchmark is the criterion-3 evidence; the call sites are its implementation. Benchmark plus two call sites beats three call sites and no benchmark. Drop settlement Q&amp;A first.</td>
+        </tr>
+        <tr>
+          <td><b>07</b> Surface</td>
+          <td><span class="pill p-warn">Compressible</span></td>
+          <td class="mono">1–6 h</td>
+          <td><b>Decide on the morning of day 3, not now.</b> A polished CLI report recorded in a terminal is not a downgrade here — it reads as an ops tool, which is what it is. A half-finished dashboard is worse than a polished CLI; a finished one is the better video.</td>
+        </tr>
+        <tr>
+          <td><b>08</b> Submission</td>
+          <td><span class="pill p-flag">Reserve it</span></td>
+          <td class="mono">5–6 h</td>
+          <td>Freeze code the morning of the 5th. The most common failure across this buildathon will be people writing the README at 2 a.m. and shipping one bad take.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-label">Artefacts</span>
+    <h2>Repository and README</h2>
+  </div>
+
+  <pre><code>leak-ledger/
+├── README.md              ← structured to the four criteria
+├── INCIDENTS.md           ← started day one, not day four
+├── ARCHITECTURE.md        ← pipeline, cascade, the AI boundary
+├── config/
+│   ├── fee_schedule.v1.yaml
+│   └── holidays_2026.yaml
+├── data/
+│   ├── generate.py        ← seeded, one command
+│   ├── generated/         ← 500 records, 3 sources
+│   └── ground_truth.json
+├── src/
+│   ├── money.py           ← integer paise, its own test suite
+│   ├── ingest/            ← schema validation, quarantine
+│   ├── normalise/         ← deterministic parsers
+│   ├── cascade/           ← T0–T5, one module per tier
+│   ├── decompose/         ← fee · GST · TDS · reserve
+│   ├── leakage/           ← ten typed rules
+│   ├── ledger/            ← double-entry, idempotent
+│   ├── ai/                ← the only three model call sites
+│   └── audit/             ← append-only log
+├── harness/
+│   ├── score.py           ← the full scorecard
+│   └── benchmark_llm_matcher.py
+├── tests/
+│   ├── test_determinism.py
+│   ├── test_idempotency.py
+│   └── test_subset_ambiguity.py
+└── reports/
+    └── run_2026-09-05.md  ← the numbers in the video</code></pre>
+
+  <div class="col">
+    <p>The README carries four headed sections, named exactly as the rubric names them. They published the criteria; most applicants will still write a generic README. Making the reviewer's job trivial is close to free.</p>
+    <ul>
+      <li><strong>Problem taste</strong> — why leakage rather than match rate, in three sentences. The merchant's question, not the engineer's.</li>
+      <li><strong>Build quality</strong> — integer paise, determinism and idempotency assertions, typed exits, versioned config, the test suite. Link to the passing runs.</li>
+      <li><strong>AI judgment</strong> — three uses, four refusals, and the benchmark table. Lead with the refusals.</li>
+      <li><strong>Failure recovery</strong> — link <code>INCIDENTS.md</code> and pull the best entry inline, guard line included.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-label">Five minutes</span>
+    <h2>Video cue sheet</h2>
+  </div>
+  <div class="col">
+    <p class="lead">Recorded against a frozen build. The number comes first — the reviewer has a queue, and architecture tours are what everyone else opens with.</p>
+  </div>
+
+  <div style="margin: 1.6rem 0;">
+    <div class="cue"><span class="t">0:00</span><p class="d"><b>The number.</b> The headline sentence, on screen and spoken. Leakage found, itemised, and the fourteen refusals — in the same breath. No preamble, no title card, no introduction.</p></div>
+    <div class="cue"><span class="t">0:20</span><p class="d"><b>The question.</b> One sentence in a merchant's words: <em>"my settlement landed, my books balanced, and I still cannot tell you whether I was paid correctly."</em> Say why match rate does not answer it.</p></div>
+    <div class="cue"><span class="t">0:50</span><p class="d"><b>The run.</b> 500 records, live, one command. Cascade tiers resolving. Throughput visible on screen. Ends on the findings table sorted by rupee value.</p></div>
+    <div class="cue"><span class="t">2:00</span><p class="d"><b>One finding, end to end.</b> A fee overcharge. Show the arithmetic: expected against the versioned slab, actual, delta, schedule hash. A reviewer must be able to re-derive it from the frame.</p></div>
+    <div class="cue"><span class="t">2:45</span><p class="d"><b>The refusal.</b> The ambiguity trap. Two valid subsets, engine declines, exception raised with rationale. Say the line: <em>"it found two possible answers, so it refused to pick one."</em> This is the moment the video is built around.</p></div>
+    <div class="cue"><span class="t">3:20</span><p class="d"><b>The exception list.</b> Read it honestly. Fourteen unresolved, each with cause and next action. Do not apologise for it — frame it as the deliverable it is.</p></div>
+    <div class="cue"><span class="t">4:00</span><p class="d"><b>The boundary.</b> Three uses, four refusals, and the benchmark table on screen: self-disagreement rate, accuracy, cost. <em>"I measured this before deciding."</em></p></div>
+    <div class="cue"><span class="t">4:30</span><p class="d"><b>One incident.</b> INC-003 or whichever is most real. Symptom, root cause, fix, and the guard test that now runs in CI. Close there — not on a summary slide.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="sec-label">Panel</span>
+    <h2>The questions, and the shape of the answers</h2>
+  </div>
+  <div class="col">
+    <p class="lead">If the work has signal you go straight to a panel. These are the eight questions worth rehearsing — most probe whether you understand your own system's limits, which is the actual subject of the interview.</p>
+
+    <div class="panel flag">
+      <p class="panel-title">The hardest question, and the honest answer</p>
+      <p style="font-family:var(--f-display);font-size:1.08rem;font-style:italic;font-weight:600;">"You wrote the fee schedule. You generated data using that schedule. Then you wrote a detector that compares against that schedule. What did your system actually discover that you didn't put there?"</p>
+      <p><strong>Concede the fee detectors completely and immediately.</strong> For <code>FEE_OVERCHARGE</code> and <code>GST_MISMATCH</code>, the answer is: nothing. Those rules verify an invariant you defined. They demonstrate the arithmetic and the plumbing are correct. They do not demonstrate discovery, and you would not present them as though they did.</p>
+      <p><strong>Then draw the real distinction.</strong> The system's claim is not discovery — it is <em>correct behaviour under ambiguity</em>, which is a different and more useful property. Two behaviours were not put there by hand: given a settlement where two distinct subsets both reconcile within tolerance, it declines to match — you did not label which cases were ambiguous, the uniqueness test found them. And given a narration the deterministic parser cannot resolve, the arithmetic rejects the model's proposed entity — you did not hand-label which proposals were wrong, the verification step caught them.</p>
+      <p><strong>Then name the experiment that would settle it.</strong> One real bank statement and one real gateway settlement report from any merchant, with <strong>the fee schedule withheld from the system</strong>, and the task changed to: infer the effective rate per instrument from observed settlements, then flag the deviations. That converts this from verification into discovery, and it is the first thing to build next — not more detectors.</p>
+    </div>
+
+    <div class="qa"><p class="q">Your data is synthetic. Why should I believe any of these numbers?</p><p class="a">Concede immediately, then redirect to what synthetic data <em>does</em> prove. <b>The detection logic is deterministic and inspectable</b> — you seed an overcharge, the engine derives it from the versioned schedule, and the arithmetic is checkable in the frame. The generator ships in the repo, so the ground truth is auditable. What synthetic data cannot establish is real-world distribution, and you should say that before they do.</p></div>
+
+    <div class="qa"><p class="q">What is your false-match rate, and how do you know?</p><p class="a">The number, the denominator, and the adversarial breakout. Then the ambiguity refusal as the mechanism that produces it. <b>Explain the asymmetry unprompted</b> — a false match corrupts the books silently, a missed match sits visibly in a queue — because that is the answer underneath the question.</p></div>
+
+    <div class="qa"><p class="q">Why not just use an LLM for the whole thing?</p><p class="a">The benchmark table. Self-disagreement across identical runs, accuracy against the cascade, cost per 500 records. <b>Lead with non-determinism, not accuracy</b> — a system that produces different books on re-run is disqualified in finance even when it is right.</p></div>
+
+    <div class="qa"><p class="q">Where does this break at ten million records?</p><p class="a">Name your own bottleneck before they do: T3 subset-sum is the superlinear stage, currently bounded by <code>k ≤ 12</code> and a pool cap. The honest path is windowing by counterparty and cycle, then parallelising per-window, with the bound made explicit rather than approximate. <b>Never claim it scales as built.</b></p></div>
+
+    <div class="qa"><p class="q">Fourteen exceptions — why couldn't you resolve them?</p><p class="a">This is a test of whether the list is real. Answer per reason code, specifically, and name the two you could have resolved with more time and the ones that are <b>correctly unresolvable without external data</b> — a cutoff straddle genuinely needs the next day's file.</p></div>
+
+    <div class="qa"><p class="q">What broke?</p><p class="a">The incidents log, and pick the one where you were wrong about your own design — the subset-sum false match is ideal. Symptom, root cause, fix, <b>and the guard test</b>. The guard is the part being assessed.</p></div>
+
+    <div class="qa"><p class="q">What would you do with two more weeks?</p><p class="a">Not more features. <b>Withhold the fee schedule and infer it</b> from observed settlements — that is the step from verification to discovery. Then tier calibration from real reviewer accept/reject outcomes, drift monitoring on inferred rates, and rupee-weighted prioritisation of the exception queue. Naming the unglamorous work is the signal.</p></div>
+
+    <div class="qa"><p class="q">Why this track?</p><p class="a">Answer honestly and structurally: reconciliation is where correctness is verifiable, where the AI boundary is genuinely sharp rather than rhetorical, and where a wrong answer costs more than no answer. <b>Say that you chose the problem where being wrong is expensive</b>, because that is the temperament the role is actually hiring for.</p></div>
+  </div>
+</section>
+
+<hr class="end">
+<p class="colophon">Leak Ledger · build plan · Razorpay AI Buildathon Track 04 · prepared 1 September 2026</p>
+
+</div>
+
+</body>
+</html>
