@@ -19,6 +19,62 @@ Format:
 
 ---
 
+# PATTERN-01 — Tests and cases that passed without testing anything
+
+**The single most useful thing this build taught me**, and the reason the
+individual incidents below are worth reading together rather than separately.
+
+Three times, in three different phases, a test or a seeded case existed, was
+counted in ground truth or in a passing suite, looked like coverage — and
+exercised nothing at all. Each was invisible in exactly the way that matters:
+**the suite stayed green and the counts stayed plausible.**
+
+| # | Where | What it claimed | What it actually did |
+|---|---|---|---|
+| 1 | Phase 01 — `test_composite_policy_available_and_may_differ` | that two GST rounding policies are distinguishable | asserted two things "may differ" without ever checking they *ever* do. Would have passed identically if `composite` were a copy of `per_line`. |
+| 2 | Phase 03 — INC-004, `AMBIGUITY_TRAP` x6 | six seeded ambiguity traps | all six seeded both twins into the *same* payout, so the required deviation was 0 and the refusal was unreachable. Ground truth asserted six traps; zero could fire. |
+| 3 | Phase 03 — INC-009, leak/adversarial collision | six reachable traps after INC-004 was fixed | two host settlements had *also* been seeded `MISSING_SETTLEMENT` and `SHORT_SETTLEMENT`, making their payouts unreconcilable by construction. The traps were dead and ground truth still counted them. |
+
+## Why this class of defect is unusually dangerous here
+
+A crash announces itself. A wrong number can be caught by a reviewer with a
+calculator. **A test that passes without testing anything actively conceals the
+gap it was written to cover** — and it does so most effectively in exactly the
+places where the behaviour is hardest to get right, because that is where the
+test is most likely to have been written from an assumption rather than from an
+observation.
+
+In this build the affected behaviour was `AMBIGUOUS_SUBSET`, which PLAN.md calls
+the thirty seconds the whole demonstration is built around. The suite was green,
+the adversarial-case count in ground truth read 40, and the single most important
+behaviour in the system had never once executed.
+
+## What actually caught each one
+
+Not the test suite. In every case:
+
+- **Measurement against real data**, not against an assumption. The composite
+  policy was only shown to matter by sweeping 1,190,001 amounts and finding a
+  29.5% disagreement. The traps were only shown to be dead by asking, of the real
+  batch, *which settlement's pool contains both twins?*
+- **Asking what a passing result would look like if the feature were absent.**
+  Each of these tests passes just as happily with the feature removed. That
+  question — not the assertion — is the actual test.
+
+## The rule adopted for the rest of the build
+
+> A test or seeded case is not evidence until it has been observed to **fail when
+> the behaviour is absent**, or observed to **fire on real data**. A passing
+> assertion and a non-zero count in ground truth are neither.
+
+Concretely, this is why `tests/test_ambiguity_refusal.py` runs the entire cascade
+over the generated files rather than constructing a fixture: an isolated unit test
+passed throughout INC-004, INC-006 and INC-009, and would have gone on passing.
+It also asserts *per trap* rather than on an aggregate count, because an aggregate
+would have shown "4 of 6" as a pass.
+
+---
+
 ## INC-001 — "round half-up, once, at the end" is ambiguous, and the ambiguity is not rare
 **Date:** 2026-09-02 19:05 IST
 **Phase:** 01
@@ -294,4 +350,63 @@ settlement hosting an adversarial case from destructive leak classes.
 **Guard added:** `test_every_reachable_trap_host_is_refused` asserts at most one
 trap may be unreachable and at least five must be, so a regression in seeding is
 caught rather than absorbed.
+**Commit:** (this phase)
+
+
+---
+
+## INC-010 — an exception was being counted as a leak, inflating the headline 3x
+**Date:** 2026-09-03 00:40 IST
+**Phase:** 04
+**Symptom:** `MISSING_SETTLEMENT` reported 17 findings covering **270 payments**
+worth Rs 22.4L. Ground truth contains 3 missing settlements covering 76 payments.
+**Root cause:** the rule flagged every captured payment the cascade had not
+positively matched. That swept in every payout the cascade had *refused* --
+ambiguous subsets, deviation-bound exceedances -- and counted them as lost money.
+**194 of the 270 flagged payments had settled perfectly well;** the engine simply
+could not prove it. The headline leakage figure was inflated roughly 3x by
+reporting ignorance as loss.
+**Why this one matters most:** it is the exact failure the project exists to
+argue against. A reconciliation tool that reports what it could not resolve as
+money that is gone is worse than no tool, because the number is confident and
+wrong. Total findings fell from Rs 25.3L to Rs 8.4L once corrected.
+**Fix:** the rule now requires POSITIVE EVIDENCE OF ABSENCE. A payout is missing
+only if no *unspoken-for* bank credit could belong to its cycle, tested with the
+tightest (zero posting-lag) inversion. Where a credit exists but cannot be
+reconciled, that is an exception and belongs in the exception queue.
+**Honest residual:** precision 0.60, recall 1.00. Two cycles are still
+over-claimed. Measured separately: only 1 of the 3 truly-unpaid cycles is
+provable by date compatibility alone at ANY lag tolerance -- the other two are
+shadowed by neighbouring credits. Distinguishing a missing payout from a
+mis-attributed one is genuinely hard with payments and a bank statement only, and
+that limit is a property of the data, not of the rule.
+**Guard added:** `test_missing_settlement_never_claims_a_merely_unmatched_payout`
+asserts every such finding states "NO bank credit", so a regression to the
+unmatched-equals-missing logic fails the suite.
+**Commit:** (this phase)
+
+---
+
+## INC-011 — a detector keyed on a signal the engine never emits (PATTERN-01, 4th)
+**Date:** 2026-09-03 00:55 IST
+**Phase:** 04
+**Symptom:** `SHORT_SETTLEMENT` reported 0 findings against 2 seeded. Recall 0.00.
+**Root cause:** the detector filters on `m.reason_code == "SHORT_RESIDUAL"`. The
+cascade emits no such code -- it never has. The detector is unreachable code that
+imports cleanly, runs without error, and can never fire.
+**Why it is logged rather than quietly fixed:** this is the fourth occurrence of
+PATTERN-01 in this build, and the first one I introduced *after* naming the
+pattern, in code written the same day. That is worth recording precisely because
+it shows the failure mode is not a lapse in attention that awareness fixes -- the
+detector was written from an assumption about what the cascade produced, and
+nothing about writing it felt different from writing the nine that work.
+**Status: OPEN.** Detecting a short settlement requires knowing the correct pool
+first, and for the settlements in question the cascade cannot determine the pool.
+The honest options are (a) extend the search to report a nearest-residual
+reconciliation when no exact one exists, or (b) remove the detector and record
+SHORT_SETTLEMENT as undetectable with payment-plus-bank data alone. Not decided
+unilaterally; flagged to the build owner.
+**Guard needed:** a test asserting each registered detector can fire at least once
+on the batch -- which would have caught this immediately, and would have caught
+INC-004 and INC-009 as well.
 **Commit:** (this phase)

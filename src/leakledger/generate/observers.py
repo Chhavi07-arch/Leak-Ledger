@@ -317,5 +317,14 @@ def observe_gateway_adjustments(world: World, seed: int) -> List[Dict[str, str]]
                 "posted_date": s.cycle_date.isoformat(),
                 "amount": s.reserve_held.to_rupees_str(), "outcome": "",
             })
+            # a reserve released on schedule is reported; a withheld one is not,
+            # which is exactly what makes RESERVE_NOT_RELEASED detectable
+            if s.reserve_release_date is not None:
+                rows.append({
+                    "adjustment_id": s.settlement_id + "-RSVR", "kind": "RESERVE_RELEASED",
+                    "reference_id": s.settlement_id,
+                    "posted_date": s.reserve_release_date.isoformat(),
+                    "amount": s.reserve_held.to_rupees_str(), "outcome": "",
+                })
     rng.shuffle(rows)
     return rows

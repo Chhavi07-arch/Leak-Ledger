@@ -55,6 +55,8 @@ INSTRUMENT_MIX = [
     ("UPI", 42), ("DEBIT_CARD", 18), ("CREDIT_CARD", 20),
     ("NETBANKING", 10), ("WALLET", 6), ("EMI", 2), ("AMEX", 2),
 ]
+RESERVE_RELEASE_DAYS = 7
+
 BANKS = ["HDFC", "ICICI", "SBI", "AXIS", "KOTAK", "YES"]
 
 # Legal names as they exist in reality. Each observer mangles these its own way.
@@ -130,6 +132,7 @@ class Settlement:
     reserve_held: Money
     reserve_released: Money
     net: Money
+    reserve_release_date: Optional[date] = None
     paid: bool = True
     duplicated: bool = False
     case_tags: List[str] = field(default_factory=list)
@@ -571,10 +574,26 @@ def seed_settlement_cases(world_settlements, refunds, chargebacks, rng, leaks, a
         leaks.append(SeededLeak(f"leak_{len(leaks):04d}", SHORT_SETTLEMENT, s.settlement_id,
                                 short, f"payout short by {short} with no typed component"))
 
-    for s in rng.sample([x for x in world_settlements if x.reserve_held.paise > 0],
-                        k=min(2, len([x for x in world_settlements if x.reserve_held.paise > 0]))):
+    # Reserves: most are released on schedule; only the seeded ones are withheld.
+    # Without the on-time releases every held reserve looks like a leak and the
+    # detector's precision collapses to a generator artefact -- see PATTERN-01.
+    holders = [x for x in world_settlements if x.reserve_held.paise > 0]
+    withheld = set()
+    for s in rng.sample(holders, k=min(2, len(holders))):
+        withheld.add(s.settlement_id)
         leaks.append(SeededLeak(f"leak_{len(leaks):04d}", RESERVE_NOT_RELEASED, s.settlement_id,
                                 s.reserve_held, f"reserve {s.reserve_held} held beyond schedule"))
+    by_cycle_sorted = sorted(world_settlements, key=lambda x: x.cycle_date)
+    for s in holders:
+        if s.settlement_id in withheld:
+            continue
+        due = s.cycle_date + timedelta(days=RESERVE_RELEASE_DAYS)
+        later = next((x for x in by_cycle_sorted if x.cycle_date >= due and x.paid), None)
+        if later is None:
+            continue
+        s.reserve_release_date = later.cycle_date
+        later.reserve_released = later.reserve_released + s.reserve_held
+        later.net = later.net + s.reserve_held
 
     for r in rng.sample(refunds, k=min(3, len(refunds))):
         r.reached_customer = False

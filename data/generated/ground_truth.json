@@ -402,7 +402,7 @@
     "bank_rows": 43,
     "chargebacks": 12,
     "erp_rows": 125,
-    "gateway_adjustment_rows": 24,
+    "gateway_adjustment_rows": 27,
     "gateway_refund_rows": 35,
     "gateway_rows": 542,
     "invoices": 125,
@@ -410,7 +410,7 @@
     "refunds": 35,
     "seeded_leaks": 38,
     "settlements": 26,
-    "total_rows": 769
+    "total_rows": 772
   },
   "expected_fees": {
     "pay_00000": {
@@ -6881,7 +6881,7 @@
       "fee_paise": 254279,
       "gross_paise": 22187247,
       "gst_paise": 45772,
-      "net_paise": 21776260,
+      "net_paise": 21808274,
       "paid": true,
       "payment_ids": [
         "pay_00004",
@@ -7365,7 +7365,7 @@
       "fee_paise": 13686,
       "gross_paise": 698326,
       "gst_paise": 2464,
-      "net_paise": -2717725,
+      "net_paise": -2716705,
       "paid": true,
       "payment_ids": [
         "pay_00390",
@@ -7561,7 +7561,7 @@
       "fee_paise": 346282,
       "gross_paise": 20128902,
       "gst_paise": 62333,
-      "net_paise": 14975112,
+      "net_paise": 15047649,
       "paid": true,
       "payment_ids": [
         "pay_00005",

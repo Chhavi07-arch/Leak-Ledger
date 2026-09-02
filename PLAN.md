@@ -258,12 +258,17 @@ call sites and no benchmark. Drop settlement Q&A first — least load-bearing.
 Re-run the full harness with the model layer on. If false-match rate moved at all,
 the boundary is leaking; find it.
 
-### Phase 07 — Surface · MEDIUM, most compressible · 1–6 h
-**Decide this on the morning of day 3 based on where you actually are, not now.**
-A polished CLI report recorded in a terminal is *not* a downgrade for this
-project — it reads as an ops tool, which is what it is. A half-finished dashboard
-is worse than a polished CLI. A finished dashboard is the better video. If the
-choice is ever a prettier surface versus harder seeded cases, the cases win.
+### Phase 07 — Surface · decide on merit, not on schedule
+**This decision is deferred, and it is deferred on its own merits — not as a
+time-saving measure.** The question is solely which surface best demonstrates the
+work to someone watching for five minutes: a polished CLI report recorded in a
+terminal reads as an ops tool, which is what this is; a finished dashboard makes
+the exception queue and the arithmetic derivations easier to read at a glance.
+Both are legitimate answers. Decide when Phase 06 is complete and the actual
+output is in front of you, by looking at which one shows the engine's behaviour
+more clearly. **Schedule pressure is not an input to this decision.** The one
+ordering rule that does hold: if the choice is ever a prettier surface versus
+harder seeded cases, the cases win.
 
 ### Phase 08 — Submission · **RESERVE 5–6 HOURS MINIMUM**
 Freeze code the morning of the 5th. README, architecture note, video against a

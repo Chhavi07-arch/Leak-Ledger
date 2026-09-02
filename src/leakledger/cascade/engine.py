@@ -124,7 +124,7 @@ class Cascade:
             amt = Money.from_rupees_str(a["amount"])
             if a["kind"] in ("CHARGEBACK_DEBIT", "RESERVE_HELD"):
                 total = total + amt
-            elif a["kind"] == "CHARGEBACK_CREDIT":
+            elif a["kind"] in ("CHARGEBACK_CREDIT", "RESERVE_RELEASED"):
                 total = total - amt
         return total
 
