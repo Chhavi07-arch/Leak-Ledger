@@ -140,3 +140,65 @@ for Phase 03; the precondition is fixed, the trigger is not yet reached.
 at least the seeded traps. Deliberately not written as a unit test in isolation:
 an isolated test would have passed throughout this incident.
 **Commit:** (this phase)
+
+
+---
+
+## INC-005 — cycle inference assumed an invertible map; it is not injective
+**Date:** 2026-09-02 22:20 IST
+**Phase:** 03
+**Symptom:** 4 of 9 genuine T3 failures were settlements whose cycle date fell on a
+Saturday. The engine inferred the preceding Friday and searched the wrong pool.
+**Root cause:** the generator dates a payout `add_business_days(cycle, 2)`. That
+map is **not injective**: a Friday cycle and a Saturday cycle both land on the
+following Tuesday, because the forward walk skips the weekend either way.
+`_infer_cycle_date()` did a single backward walk and therefore could never return
+a non-business-day cycle. Cycle dates land on Saturdays routinely, because a
+Friday 23:xx capture rolls into Saturday.
+**Fix:** replaced inversion-by-walking with `_candidate_cycles()`, which returns
+**every** date whose forward T+2 mapping equals the observed value date. The engine
+tries each and lets the arithmetic decide. If two candidate cycles reconcile
+identically, that is genuine ambiguity and is refused rather than resolved by
+preferring the earlier date.
+**Second fix in the same change:** split `NO_RECONCILING_SET` into two codes.
+`DEVIATION_BOUND_EXCEEDED` means a reconciling set may exist but not within the
+bound this engine agreed to search — a principled refusal. `NO_RECONCILING_SET`
+now means no candidate pool existed at all. Conflating them overstated what had
+actually been ruled out.
+**Guard added:** pending — round-trip property test asserting every cycle date in
+ground truth appears in `_candidate_cycles(its value_date)`.
+**Commit:** (this phase)
+
+---
+
+## INC-006 — the T3 bound was chosen from a measurement that counted one direction
+**Date:** 2026-09-02 22:40 IST
+**Phase:** 03
+**Symptom:** `AMBIGUOUS_SUBSET` fired zero times even after INC-004 and INC-005
+were fixed. The settlements holding ambiguity traps were being abandoned before
+the refusal could trigger.
+**Root cause:** the bound `d <= 3` was chosen from a measurement I took before
+writing the search, which counted only *payments settling in a cycle other than
+their capture date* — max 3, mean 0.88. That is one direction. The deviation the
+search actually performs is **exclusions + inclusions**, and a straddling payment
+counts **twice**: once excluded from its capture-date pool, once included into its
+settlement-date pool. True distribution, measured against ground truth:
+`{0:1, 1:8, 2:9, 3:2, 4:1, 5:3, 6:1, 7:1}` — **6 of 26 settlements need d > 3**,
+including `stl_0003` and `stl_0004`, which hold the ambiguity traps.
+**Consequence:** a bound presented as "covers every observed case with zero
+headroom" in fact covered 20 of 26, and structurally prevented the single most
+important behaviour in the build from ever executing. The number was real; it
+measured the wrong quantity.
+**Measured effect of the bound (42 bank rows):**
+
+| bound | time | combinations | AMBIGUOUS_SUBSET | DEVIATION_BOUND_EXCEEDED | SEARCH_BUDGET_EXCEEDED |
+|---|---|---|---|---|---|
+| 3 | 1.8s | 64,105 | **0** | 14 | 0 |
+| 4 | 13.9s | 493,035 | **1** | 13 | 0 |
+| 5 | 33.9s | 1,314,440 | **1** | 10 | 3 |
+
+**Fix:** not yet applied — the bound is a build-owner decision and was flagged
+rather than changed unilaterally.
+**Guard added:** pending — a real-data test asserting `AMBIGUOUS_SUBSET` fires on
+the seeded traps, which is the test that would have caught this on day one.
+**Commit:** (this phase)

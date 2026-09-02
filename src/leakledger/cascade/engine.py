@@ -36,6 +36,10 @@ AMBIGUOUS_SUBSET = "AMBIGUOUS_SUBSET"
 AMBIGUOUS_CANDIDATE = "AMBIGUOUS_CANDIDATE"
 SEARCH_BUDGET_EXCEEDED = "SEARCH_BUDGET_EXCEEDED"
 NO_RECONCILING_SET = "NO_RECONCILING_SET"
+# Distinct from the above: a set may well exist, but not within the deviation
+# bound this engine agreed to search. That is a principled refusal, not a
+# failure to find, and conflating the two overstates what was actually ruled out.
+DEVIATION_BOUND_EXCEEDED = "DEVIATION_BOUND_EXCEEDED"
 REFERENCE_NOT_FOUND = "REFERENCE_NOT_FOUND"
 UNEXPLAINED_RESIDUAL = "UNEXPLAINED_RESIDUAL"
 
@@ -137,15 +141,27 @@ class Cascade:
                 total = total + p.gst_charged
         return total
 
-    def _infer_cycle_date(self, value_date: date) -> date:
-        """Walk back SETTLEMENT_LAG business days. Date arithmetic only — the
-        engine legitimately knows T+2, and legitimately does not know the cutoff."""
-        d, n = value_date, SETTLEMENT_LAG_BUSINESS_DAYS
-        while n > 0:
-            d -= timedelta(days=1)
-            if self.calendar.is_business_day(d):
-                n -= 1
-        return d
+    def _candidate_cycles(self, value_date: date, lookback: int = 8) -> List[date]:
+        """Every cycle date that T+2 business-day dating could map to this value date.
+
+        The forward map is NOT injective and therefore cannot be inverted to a
+        single date. add_business_days(Fri, 2) and add_business_days(Sat, 2) both
+        land on Tuesday, because the walk skips the weekend either way. A single
+        backward walk lands on Friday and silently misses every Saturday cycle —
+        which is what INC-005 was: 4 of 9 T3 failures were settlements whose cycle
+        date fell on a non-business day.
+
+        Returning the full candidate set is the honest inversion. The engine does
+        not know which cycle produced the payout, so it tries each and lets the
+        arithmetic decide. If more than one reconciles, that is genuine ambiguity
+        and is refused, not resolved by preferring the earlier date.
+        """
+        out: List[date] = []
+        for back in range(1, lookback + 1):
+            d = value_date - timedelta(days=back)
+            if self.calendar.add_business_days(d, SETTLEMENT_LAG_BUSINESS_DAYS) == value_date:
+                out.append(d)
+        return sorted(out)
 
     def _neighbours(self, cycle: date) -> Dict[str, Money]:
         """Late-evening payments on adjacent days: the only plausible strays.
@@ -205,39 +221,65 @@ class Cascade:
 
     def _match_credit(self, b) -> Match:
         bd = datetime.strptime(b["value_date"], "%d-%m-%Y").date()
-        cycle = self._infer_cycle_date(bd)
-        pool_ids = self._by_capture_date.get(cycle, [])
-        if not pool_ids:
-            return Match(b["txn_id"], "T5", EXCEPTION, [], NO_RECONCILING_SET,
-                         f"no payments captured on inferred cycle {cycle}")
-        pool = {i: self.payments[i].amount for i in pool_ids}
-        neighbours = self._neighbours(cycle)
+        candidates = self._candidate_cycles(bd)
         target = Money.from_rupees_str(b["amount"])
+        examined = 0
+        solved: List[tuple] = []      # (cycle, deviation, pool_ids)
+        ambiguous_detail = None
+        budget_hit = False
+        bound_hit = False
 
-        # netted refunds reduce this payout and are constant across deviations
-        netted = self._netted_refunds_for_cycle(cycle) + self._adjustments_for_cycle(cycle)
+        for cycle in candidates:
+            pool_ids = self._by_capture_date.get(cycle, [])
+            if not pool_ids:
+                continue
+            pool = {i: self.payments[i].amount for i in pool_ids}
+            neighbours = self._neighbours(cycle)
+            netted = self._netted_refunds_for_cycle(cycle) + self._adjustments_for_cycle(cycle)
 
-        def deduct(ids):
-            return self._deduction_for(ids) + netted
+            def deduct(ids, _netted=netted):
+                return self._deduction_for(ids) + _netted
 
-        res = search_deviation(
-            target_net=target, pool=pool, neighbours=neighbours,
-            deduction_for=deduct, tolerance=self.tolerance, bound=self.bound,
-        )
-        if res.status == "SOLVED":
-            dev = res.solutions[0]
+            res = search_deviation(
+                target_net=target, pool=pool, neighbours=neighbours,
+                deduction_for=deduct, tolerance=self.tolerance, bound=self.bound,
+            )
+            examined += res.combinations_examined
+            if res.status == "SOLVED":
+                solved.append((cycle, res.solutions[0], pool_ids, netted))
+            elif res.status == "AMBIGUOUS":
+                ambiguous_detail = f"cycle {cycle}: {res.detail}"
+            elif res.status == "BUDGET_EXCEEDED":
+                budget_hit = True
+            elif res.status == "NO_SOLUTION":
+                bound_hit = True
+
+        # ambiguity within one cycle, OR across two candidate cycles, both refuse
+        if ambiguous_detail:
+            return Match(b["txn_id"], "T3", EXCEPTION, [], AMBIGUOUS_SUBSET,
+                         ambiguous_detail, examined)
+        if len(solved) > 1:
+            cycles = ", ".join(str(s[0]) for s in solved)
+            return Match(b["txn_id"], "T3", EXCEPTION, [], AMBIGUOUS_SUBSET,
+                         f"{len(solved)} candidate cycles reconcile identically ({cycles}); "
+                         f"refusing to choose", examined)
+        if len(solved) == 1:
+            cycle, dev, pool_ids, netted = solved[0]
             ids = [i for i in pool_ids if i not in dev.excluded] + sorted(dev.included)
             ev = f"cycle {cycle}, pool {len(pool_ids)}, {dev.describe()}"
             if netted.paise:
-                ev += f"; netted refunds {netted}"
+                ev += f"; other deductions {netted}"
             return Match(b["txn_id"], "T3", REVIEW, ids, evidence=ev,
-                         combinations_examined=res.combinations_examined)
-        if res.status == "AMBIGUOUS":
-            return Match(b["txn_id"], "T3", EXCEPTION, [], AMBIGUOUS_SUBSET,
-                         f"cycle {cycle}: {res.detail}", res.combinations_examined)
-        if res.status == "BUDGET_EXCEEDED":
+                         combinations_examined=examined)
+        if budget_hit:
             return Match(b["txn_id"], "T3", EXCEPTION, [], SEARCH_BUDGET_EXCEEDED,
-                         f"cycle {cycle}: {res.detail}", res.combinations_examined)
+                         f"combination budget exhausted across {len(candidates)} candidate cycles",
+                         examined)
+        if bound_hit:
+            return Match(b["txn_id"], "T3", EXCEPTION, [], DEVIATION_BOUND_EXCEEDED,
+                         f"no deviation of size <= {self.bound} reconciles this payout in any "
+                         f"of {len(candidates)} candidate cycles ({', '.join(map(str, candidates))})",
+                         examined)
         return Match(b["txn_id"], "T3", EXCEPTION, [], NO_RECONCILING_SET,
-                     f"cycle {cycle}, pool {len(pool_ids)}: {res.detail}",
-                     res.combinations_examined)
+                     f"no payments captured in any candidate cycle "
+                     f"({', '.join(map(str, candidates))})", examined)
