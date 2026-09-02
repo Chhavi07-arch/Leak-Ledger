@@ -25,6 +25,12 @@ from ..money import Money
 STRUCTURAL = "STRUCTURAL"
 CONTRACT_DEPENDENT = "CONTRACT_DEPENDENT"
 RULE_CHECK = "RULE_CHECK"
+# Not a leak class. A typed signal that a cycle would not reconcile, carrying no
+# rupee value because none can be honestly derived (INC-013). Excluded from the
+# headline total and from aggregate precision/recall; it belongs in the exception
+# queue, which is where "this payout does not add up and I cannot tell you by how
+# much" is the correct thing to say.
+EXCEPTION_SIGNAL = "EXCEPTION_SIGNAL"
 
 CATEGORY = {
     "MISSING_SETTLEMENT": STRUCTURAL,
@@ -35,7 +41,7 @@ CATEGORY = {
     "RESERVE_NOT_RELEASED": STRUCTURAL,
     "FEE_OVERCHARGE": CONTRACT_DEPENDENT,
     "GST_MISMATCH": CONTRACT_DEPENDENT,
-    "SHORT_SETTLEMENT": CONTRACT_DEPENDENT,
+    "SHORT_SETTLEMENT": EXCEPTION_SIGNAL,
     "ZERO_MDR_VIOLATION": RULE_CHECK,
 }
 
@@ -78,5 +84,9 @@ class FindingSet:
         return [f for f in self.findings if f.category == category]
 
     def total(self, category: str = None) -> Money:
-        src = self.findings if category is None else self.by_category(category)
+        """Headline total excludes EXCEPTION_SIGNAL findings, which carry no value."""
+        if category is None:
+            src = [f for f in self.findings if f.category != EXCEPTION_SIGNAL]
+        else:
+            src = self.by_category(category)
         return Money.sum(f.value for f in src)

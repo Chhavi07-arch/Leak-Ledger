@@ -12,7 +12,7 @@ from leakledger.clock import BusinessCalendar                      # noqa: E402
 from leakledger.feeschedule import FeeSchedule                     # noqa: E402
 from leakledger.money import Money                                 # noqa: E402
 from leakledger.schema import ingest_rows                          # noqa: E402
-from leakledger.cascade.engine import Cascade                      # noqa: E402
+from leakledger.cascade.engine import Cascade, covered_cycles_by_matching  # noqa: E402
 from leakledger.leakage import detectors                           # noqa: E402
 from leakledger.leakage.findings import (                          # noqa: E402
     CONTRACT_DEPENDENT, RULE_CHECK, STRUCTURAL,
@@ -34,31 +34,7 @@ def main():
     engine = Cascade(payments=gw.records, refunds=refunds, bank=bank,
                      adjustments=adjustments, calendar=cal)
     casc = engine.run()
-    # Coverage uses the ZERO-LAG inversion deliberately. Claiming a payout is
-    # missing is a strong assertion, so it is made only against the tightest
-    # possible reading of which cycles a credit could belong to. Widening the
-    # tolerance here would suppress the claim entirely (measured: 1 of 3 unpaid
-    # cycles detectable at tolerance 0, and still 1 of 3 at tolerance 2 -- the
-    # other two are shadowed by neighbouring credits and are NOT provable).
-    from datetime import datetime as _dt
-    saved = engine.POSTING_LAG_TOLERANCE_DAYS
-    engine.POSTING_LAG_TOLERANCE_DAYS = 0
-    attributed = set()          # cycles a successful match positively claimed
-    for m in casc.matches:
-        if m.disposition in ("AUTO_APPLY", "REVIEW") and "cycle " in m.evidence:
-            try:
-                attributed.add(_dt.strptime(
-                    m.evidence.split("cycle ")[1].split(",")[0].strip(), "%Y-%m-%d").date())
-            except ValueError:
-                pass
-    matched_txns = {m.bank_txn_id for m in casc.matches
-                    if m.disposition in ("AUTO_APPLY", "REVIEW")}
-    covered = set(attributed)
-    for b in bank:                                   # credits still unspoken-for
-        if b["direction"] == "CR" and b["txn_id"] not in matched_txns:
-            covered.update(engine._candidate_cycles(
-                _dt.strptime(b["value_date"], "%d-%m-%Y").date()))
-    engine.POSTING_LAG_TOLERANCE_DAYS = saved
+    covered = covered_cycles_by_matching(engine, bank)
     t1 = time.perf_counter()
     found = detectors.run_all(fs=fs, payments=gw.records, refunds=refunds,
                               adjustments=adjustments, bank_rows=bank,

@@ -378,3 +378,42 @@ class Cascade:
         return Match(b["txn_id"], "T3", EXCEPTION, [], NO_RECONCILING_SET,
                      f"no payments captured in any candidate cycle "
                      f"({', '.join(map(str, candidates))})", examined)
+
+
+def covered_cycles_by_matching(cascade: "Cascade", bank_rows) -> set:
+    """Cycles a bank credit can be assigned to, one credit per cycle.
+
+    Maximum bipartite matching between credits and the cycles they could belong
+    to. Union-of-candidates lets one credit vouch for many cycles at once, which
+    with non-injective T+2 dating makes almost every cycle look covered and
+    suppresses MISSING_SETTLEMENT entirely (INC-015). A payout is one credit; the
+    constraint has to be modelled.
+
+    Simple augmenting-path matching -- the graph is tiny (tens of nodes) and the
+    algorithm is deterministic given sorted inputs, which the determinism
+    guarantee requires.
+    """
+    credits = sorted((b for b in bank_rows if b["direction"] == "CR"),
+                     key=lambda b: b["txn_id"])
+    options = {}
+    for b in credits:
+        vd = datetime.strptime(b["value_date"], "%d-%m-%Y").date()
+        cands = [c for c in cascade._candidate_cycles(vd)
+                 if cascade._by_capture_date.get(c)]
+        options[b["txn_id"]] = sorted(cands)
+
+    assigned = {}                    # cycle -> credit txn_id
+
+    def augment(txn, seen):
+        for cyc in options[txn]:
+            if cyc in seen:
+                continue
+            seen.add(cyc)
+            if cyc not in assigned or augment(assigned[cyc], seen):
+                assigned[cyc] = txn
+                return True
+        return False
+
+    for b in credits:
+        augment(b["txn_id"], set())
+    return set(assigned)

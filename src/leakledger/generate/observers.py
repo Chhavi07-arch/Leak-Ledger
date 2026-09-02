@@ -299,14 +299,16 @@ def observe_gateway_adjustments(world: World, seed: int) -> List[Dict[str, str]]
         rows.append({
             "adjustment_id": c.chargeback_id, "kind": "CHARGEBACK_DEBIT",
             "reference_id": c.payment_id,
-            "posted_date": c.raised_at.date().isoformat(),
+            # the cycle the settlement maths used, not a recomputation of it
+            "posted_date": (c.debit_cycle or c.raised_at.date()).isoformat(),
             "amount": c.amount.to_rupees_str(), "outcome": c.outcome,
         })
         if c.recredited:
             rows.append({
                 "adjustment_id": c.chargeback_id + "-CR", "kind": "CHARGEBACK_CREDIT",
                 "reference_id": c.payment_id,
-                "posted_date": (c.raised_at + timedelta(days=14)).date().isoformat(),
+                "posted_date": (c.credit_cycle
+                                or (c.raised_at + timedelta(days=14)).date()).isoformat(),
                 "amount": c.amount.to_rupees_str(), "outcome": c.outcome,
             })
     for s in world.settlements:

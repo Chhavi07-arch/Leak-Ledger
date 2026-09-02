@@ -19,6 +19,39 @@ Format:
 
 ---
 
+# THE HEADLINE FINDING — INC-012: a defect in the primary metric itself
+
+Of everything in this log, **INC-012 is the one to read first.** Full entry below.
+
+The engine matched a bank credit to a set of payments with **zero overlap** against
+the truth — false-match rate 6.7%, in the metric this entire build treats as
+primary. Every step looked correct: the search really did find an exact
+reconciliation. It was an exact reconciliation of the wrong thing.
+
+It is the strongest failure-recovery story here for three reasons.
+
+1. **It was a defect in the measurement, not merely in a feature.** False-match
+   rate is what the submission is argued on. A wrong number there discredits
+   everything else, and it read 0 until it was audited properly.
+2. **The obvious fix was measured and rejected.** Ordering candidates by posting
+   lag was tried first and did NOT work: when the correct answer is impossible,
+   some wrong answer always beats no answer. That had to be measured rather than
+   assumed.
+3. **The real fix generalised a principle already established elsewhere.** The
+   build already refused to choose between two equally good answers
+   (AMBIGUOUS_SUBSET). INC-012 was the same principle applied to a failure mode
+   not anticipated: refuse rather than reach further when the near explanation
+   fails. *If a credit's own T+2 cycle has payments but will not reconcile, stop
+   and say so — do not go looking four days away for a coincidence.*
+
+**Result: false matches 1 -> 0**, with the cost stated rather than hidden — correct
+matches fell 14 -> 13, and one ambiguity trap stopped firing. That regression was
+then traced (INC-014) to inconsistent ground truth rather than to over-refusal,
+and once the data was corrected all six traps fired again with false matches still
+at zero. The rule was right; the data was wrong.
+
+---
+
 # PATTERN-01 — Tests and cases that passed without testing anything
 
 **The single most useful thing this build taught me**, and the reason the
@@ -472,4 +505,65 @@ fail to reconcile for unrelated reasons. So this is not a short-settlement
 detector at all; it is an unreconciled-cycle flag. **Recommendation: demote
 SHORT_SETTLEMENT from a leak class to an exception type.** Flagged, not done
 unilaterally.
+**Commit:** (this phase)
+
+
+---
+
+## INC-014 — ground truth contradicted itself, and the engine was right to refuse
+**Date:** 2026-09-03 03:20 IST
+**Phase:** 04
+**Symptom:** After the INC-012 fix, one ambiguity trap (`adv_0001`, host
+`stl_0020`) stopped firing, returning `PRIMARY_CYCLE_UNRECONCILED`. The obvious
+reading was that the new refusal rule was over-refusing.
+**It was not.** Traced end to end: posting lag was 0, the true cycle WAS the
+zero-lag candidate, the true deviation was 5 against a bound of 6 -- everything
+reachable. The true payment set nonetheless left a residual of exactly
+**Rs -33,367.50**, which equalled the settlement's own `chargebacks` component.
+**Root cause:** `seed_settlement_cases` sets `recredited = False` for
+CHARGEBACK_NOT_RECREDITED *after* settlement nets have already been computed with
+that credit included. The payout stayed inflated by a re-credit that no adjustment
+reported. **Ground truth contradicted itself:** a settlement whose stated net did
+not match its own components. The engine correctly refused to reconcile it.
+**Why it matters beyond the bug:** every score in this build is computed against
+ground truth. If ground truth is internally inconsistent, a correct engine is
+penalised and an incorrect one may be rewarded. This is the one category of defect
+that cannot be caught by testing the engine harder.
+**Fix:** withholding a re-credit now also removes it from the payout that received
+it, keeping the settlement identity closed.
+**Result:** residual Rs 0.00; ambiguity traps **5 -> 6 of 6**; false matches
+remained **0**. The refusal rule was never weakened.
+**Guard added:** covered by the trap-firing assertions; a settlement-identity
+closure check belongs in Phase 05's harness.
+**Commit:** (this phase)
+
+---
+
+## INC-015 — MISSING_SETTLEMENT is capped at 1/3 recall by an information limit
+**Date:** 2026-09-03 03:40 IST
+**Phase:** 04
+**Question:** could the coverage logic be reworked to be consistent with the new
+primary-cycle rule and recover precision/recall?
+**Diagnosed three independent ways, all agreeing:**
+
+| approach | unpaid cycles still wrongly covered |
+|---|---|
+| date-window compatibility | 2026-06-15, 2026-06-17 |
+| primary (zero-lag) candidates only | 2026-06-15, 2026-06-17 |
+| maximum bipartite matching, one credit per cycle | 2026-06-15, 2026-06-17 |
+
+The third is the strongest form of the argument. Union-of-candidates lets a single
+credit vouch for several cycles at once, which with non-injective T+2 dating makes
+almost every cycle look covered. Modelling the real constraint -- **a credit is one
+payout and can cover exactly one cycle** -- cut coverage from 30 cycles to 21 and
+still leaves both cycles covered, because credits genuinely exist that can be
+assigned to them without depriving any other cycle.
+**Conclusion:** with payments and a bank statement alone, a missing payout is not
+reliably distinguishable from a mis-attributed one. Recall is capped near **0.33**
+and precision measures **0.20**. This is an information limit, not a defect.
+**Decision:** the rule is retained with its measured precision and recall reported
+alongside it, and it must NOT carry the headline figure. The money involved does
+not disappear from the report -- the unreconciled payouts surface in the exception
+queue, which is the honest place for "a payout is unaccounted for and I cannot
+prove which".
 **Commit:** (this phase)

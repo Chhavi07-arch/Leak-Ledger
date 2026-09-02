@@ -114,6 +114,12 @@ class Chargeback:
     recredited: bool = False
     debit_settlement_id: Optional[str] = None
     credit_settlement_id: Optional[str] = None
+    # The cycle each leg was assigned to, recorded here so the observer reports
+    # the same date the settlement maths used. Recomputing it independently in
+    # the observer put the credit one day out whenever the cutoff rolled it over
+    # (INC-014) -- the same two-code-paths defect as INC-005.
+    debit_cycle: Optional[date] = None
+    credit_cycle: Optional[date] = None
     case_tags: List[str] = field(default_factory=list)
 
 
@@ -314,11 +320,11 @@ def build_world(
     cb_debit_by_cycle: Dict[date, List[Chargeback]] = {}
     cb_credit_by_cycle: Dict[date, List[Chargeback]] = {}
     for c in chargebacks:
-        cb_debit_by_cycle.setdefault(cycle_date_for_capture(c.raised_at), []).append(c)
+        c.debit_cycle = cycle_date_for_capture(c.raised_at)
+        cb_debit_by_cycle.setdefault(c.debit_cycle, []).append(c)
         if c.recredited:
-            cb_credit_by_cycle.setdefault(
-                cycle_date_for_capture(c.raised_at + timedelta(days=14)), []
-            ).append(c)
+            c.credit_cycle = cycle_date_for_capture(c.raised_at + timedelta(days=14))
+            cb_credit_by_cycle.setdefault(c.credit_cycle, []).append(c)
 
     for idx, cycle in enumerate(sorted(by_cycle)):
         group = by_cycle[cycle]
@@ -605,10 +611,23 @@ def seed_settlement_cases(world_settlements, refunds, chargebacks, rng, leaks, a
         leaks.append(SeededLeak(f"leak_{len(leaks):04d}", REFUND_NOT_REACHED, r.refund_id,
                                 r.amount, "refund deducted from settlement, no outbound leg"))
 
+    # Withholding a re-credit must also remove it from the payout that received
+    # it. Settlement nets are computed BEFORE this seeding runs, so flipping
+    # `recredited` alone left the payout inflated by a credit that no adjustment
+    # reported -- ground truth contradicting itself, and the engine correctly
+    # refusing to reconcile a cycle whose stated net did not match its own
+    # components (INC-014). Ground truth must be internally consistent or every
+    # number scored against it is meaningless.
+    by_id = {s.settlement_id: s for s in world_settlements}
     won = [c for c in chargebacks if c.outcome == "WON"]
     for c in rng.sample(won, k=min(2, len(won))):
         c.recredited = False
+        target = by_id.get(c.credit_settlement_id)
+        if target is not None:
+            target.net = target.net - c.amount
+            target.chargebacks = target.chargebacks + c.amount
         c.credit_settlement_id = None
+        c.credit_cycle = None
         leaks.append(SeededLeak(f"leak_{len(leaks):04d}", CHARGEBACK_NOT_RECREDITED,
                                 c.chargeback_id, c.amount, "dispute won, never re-credited"))
 

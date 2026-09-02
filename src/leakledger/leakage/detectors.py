@@ -193,12 +193,21 @@ def detect_missing_settlement(payments, cascade_result, calendar: BusinessCalend
     # fires. Testing "could any credit belong to THIS cycle" is the precise
     # question, and absence of any such credit is positive evidence of a missing
     # payout rather than of an unmatched one.
-    # A cycle counts as covered only if a credit that is NOT already spoken for
-    # could belong to it. Testing mere compatibility is too weak: with T+2 dating
-    # non-injective and a straddle allowance on either side, almost every cycle is
-    # compatible with some credit, and the rule never fires. Availability is the
-    # honest question -- if every plausible credit has already been attributed to
-    # another cycle, no payout arrived for this one.
+    # COVERAGE IS A MATCHING PROBLEM, NOT A SET UNION.
+    #
+    # A bank credit is ONE payout and can cover exactly one cycle. Taking the
+    # union of every credit's candidate cycles lets a single credit vouch for
+    # several cycles at once, and because T+2 dating is non-injective almost
+    # every cycle then looks covered. Measured: the two unpaid cycles 2026-06-15
+    # and 2026-06-17 stayed covered even when coverage was narrowed to primary
+    # candidates only, because other credits' candidate sets happened to include
+    # them.
+    #
+    # `covered_cycles` is therefore expected to be the result of a maximum
+    # bipartite matching between credits and cycles: a cycle is covered only if
+    # some credit can be assigned to it without stealing the only credit another
+    # cycle has. A cycle left unmatched has positive evidence that no payout
+    # arrived for it.
     covered = set(covered_cycles or ())
 
     by_cycle: Dict[date, List] = defaultdict(list)

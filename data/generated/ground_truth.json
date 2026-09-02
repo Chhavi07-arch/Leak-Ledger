@@ -7517,13 +7517,13 @@
         "N_TO_1_MIXED_INSTRUMENT",
         "HOLIDAY_WEEKEND_SETTLEMENT"
       ],
-      "chargebacks_paise": -3336750,
+      "chargebacks_paise": 0,
       "cycle_date": "2026-06-25",
       "duplicated": false,
       "fee_paise": 241392,
       "gross_paise": 14671023,
       "gst_paise": 43452,
-      "net_paise": 17649574,
+      "net_paise": 14312824,
       "paid": true,
       "payment_ids": [
         "pay_00008",

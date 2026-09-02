@@ -13,7 +13,7 @@ from leakledger.clock import BusinessCalendar                     # noqa: E402
 from leakledger.feeschedule import FeeSchedule                    # noqa: E402
 from leakledger.money import Money                                # noqa: E402
 from leakledger.schema import ingest_rows                         # noqa: E402
-from leakledger.cascade.engine import Cascade                     # noqa: E402
+from leakledger.cascade.engine import Cascade, covered_cycles_by_matching                     # noqa: E402
 from leakledger.leakage import detectors                          # noqa: E402
 from leakledger.leakage.findings import CONTRACT_DEPENDENT, RULE_CHECK, STRUCTURAL  # noqa: E402
 
@@ -32,23 +32,7 @@ class Detectors(unittest.TestCase):
         eng = Cascade(payments=gw.records, refunds=refunds, bank=bank,
                       adjustments=adj, calendar=cal)
         casc = eng.run()
-        attributed, matched = set(), set()
-        for m in casc.matches:
-            if m.disposition in ("AUTO_APPLY", "REVIEW"):
-                matched.add(m.bank_txn_id)
-                if "cycle " in m.evidence:
-                    try:
-                        attributed.add(datetime.strptime(
-                            m.evidence.split("cycle ")[1].split(",")[0].strip(),
-                            "%Y-%m-%d").date())
-                    except ValueError:
-                        pass
-        eng.POSTING_LAG_TOLERANCE_DAYS = 0
-        cov = set(attributed)
-        for b in bank:
-            if b["direction"] == "CR" and b["txn_id"] not in matched:
-                cov.update(eng._candidate_cycles(
-                    datetime.strptime(b["value_date"], "%d-%m-%Y").date()))
+        cov = covered_cycles_by_matching(eng, bank)
         cls.found = detectors.run_all(
             fs=fs, payments=gw.records, refunds=refunds, adjustments=adj,
             bank_rows=bank, cascade_result=casc, calendar=cal,
