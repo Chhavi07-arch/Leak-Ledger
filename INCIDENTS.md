@@ -55,3 +55,33 @@ alternative remains testable, not deleted.
 justification, and the measurement table are recorded as **ADR-001** in
 `DECISIONS.md` — the citable answer to "why per_line and not composite".
 **Commit:** ec564340
+
+
+---
+
+## INC-002 — generator was not deterministic across processes
+**Date:** 2026-09-02 20:15 IST
+**Phase:** 02
+**Symptom:** Running `data/generate.py` twice produced different files. Two of four
+outputs diverged — `bank_statement.csv` (f07ceec7 vs 890829b7) and
+`ground_truth.json` (da46dd68 vs 0048a37e) — while the gateway and ERP files were
+stable. Every RNG in the generator is explicitly seeded, so the output was expected
+to be byte-identical.
+**Root cause:** `observers.py` built its counterparty pool as
+`[c for c in {p.counterparty for p in world.payments}]` — iteration over a **set of
+strings**. Python randomises string hashes per process, so the set's iteration order
+differed on every invocation, and the subsequent `rng.choice()` over that list
+selected different counterparties despite an identically-seeded RNG. Only the bank
+observer used this construct, which is why the other two files were unaffected.
+**Impact if shipped:** the determinism claim ("5 runs, one hash") would have failed
+at Phase 05, and worse, ground truth would have drifted between the run that
+generated the data and any later re-run — every scorecard number would have been
+computed against a batch that no longer existed.
+**Fix:** `sorted({...})`. Ordering is now explicit rather than incidental.
+**Guard added:** `tests/test_generator_determinism.py` —
+`test_identical_across_separate_processes` runs the generator twice via `subprocess`
+and compares SHA-256 of all four outputs. Deliberately cross-process: within one
+process set order is stable, so a same-process test would have passed while the bug
+survived. Plus `test_no_unordered_set_iteration_in_generator`, a static check that
+fails review if the construct reappears anywhere in `generate/`.
+**Commit:** (this phase)
