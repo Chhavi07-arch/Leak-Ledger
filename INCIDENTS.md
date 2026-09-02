@@ -47,4 +47,4 @@ at load rather than silently defaulting. `test_composite_policy_available_and_ma
 rounding can differ.
 **Still open:** which policy the project adopts is a decision for the build owner, not a
 default I should pick silently. Flagged to the user at the end of Phase 01.
-**Commit:** (pending — first commit of Phase 01)
+**Commit:** ec564340
