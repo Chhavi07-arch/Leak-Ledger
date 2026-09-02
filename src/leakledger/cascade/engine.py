@@ -47,6 +47,11 @@ NO_RECONCILING_SET = "NO_RECONCILING_SET"
 # bound this engine agreed to search. That is a principled refusal, not a
 # failure to find, and conflating the two overstates what was actually ruled out.
 DEVIATION_BOUND_EXCEEDED = "DEVIATION_BOUND_EXCEEDED"
+# The credit's own T+2 cycle has payments but will not reconcile. Searching
+# further-out cycles from here is how a genuinely short payout gets matched to a
+# disjoint set of payments four days away (INC-012). The honest reading is that
+# something is wrong with THIS cycle, so the engine stops and says so.
+PRIMARY_CYCLE_UNRECONCILED = "PRIMARY_CYCLE_UNRECONCILED"
 REFERENCE_NOT_FOUND = "REFERENCE_NOT_FOUND"
 UNEXPLAINED_RESIDUAL = "UNEXPLAINED_RESIDUAL"
 
@@ -60,6 +65,12 @@ class Match:
     reason_code: Optional[str] = None
     evidence: str = ""
     combinations_examined: int = 0
+    # nearest-residual context, populated only when no exact reconciliation
+    # exists. A CANDIDATE, never a conclusion -- see detect_short_settlement.
+    residual_paise: Optional[int] = None
+    residual_unique: bool = False
+    residual_deviation_size: Optional[int] = None
+    pool_gross_paise: Optional[int] = None
 
 
 @dataclass
@@ -170,15 +181,40 @@ class Cascade:
         arithmetic decide. If more than one reconciles, that is genuine ambiguity
         and is refused, not resolved by preferring the earlier date.
         """
-        released = [value_date - timedelta(days=k)
-                    for k in range(self.POSTING_LAG_TOLERANCE_DAYS + 1)]
         out = set()
-        for rd in released:
+        for k in range(self.POSTING_LAG_TOLERANCE_DAYS + 1):
+            rd = value_date - timedelta(days=k)
             for back in range(1, lookback + 1):
                 d = rd - timedelta(days=back)
                 if self.calendar.add_business_days(d, SETTLEMENT_LAG_BUSINESS_DAYS) == rd:
                     out.add(d)
         return sorted(out)
+
+    def _candidate_cycles_by_lag(self, value_date: date, lookback: int = 8):
+        """Candidate cycles grouped by assumed posting lag, nearest lag first.
+
+        PROXIMITY IS EVIDENCE (INC-012). Treating a 4-day-lagged candidate as
+        equally plausible as a zero-lag one produced a false match: a settlement
+        that was genuinely short could not reconcile in its own cycle, so the
+        search found a spurious exact reconciliation four days away and matched a
+        completely disjoint set of payments. Candidates are now tried in lag
+        order and the search stops at the first lag that yields any solution, so
+        a distant cycle can only win when no nearer one reconciles at all.
+        """
+        groups = []
+        seen = set()
+        for k in range(self.POSTING_LAG_TOLERANCE_DAYS + 1):
+            rd = value_date - timedelta(days=k)
+            tier = []
+            for back in range(1, lookback + 1):
+                d = rd - timedelta(days=back)
+                if (self.calendar.add_business_days(d, SETTLEMENT_LAG_BUSINESS_DAYS) == rd
+                        and d not in seen):
+                    seen.add(d)
+                    tier.append(d)
+            if tier:
+                groups.append((k, sorted(tier)))
+        return groups
 
     def _neighbours(self, cycle: date) -> Dict[str, Money]:
         """Late-evening payments on adjacent days: the only plausible strays.
@@ -238,18 +274,32 @@ class Cascade:
 
     def _match_credit(self, b) -> Match:
         bd = datetime.strptime(b["value_date"], "%d-%m-%Y").date()
-        candidates = self._candidate_cycles(bd)
+        lag_groups = self._candidate_cycles_by_lag(bd)
+        candidates = [c for _, tier in lag_groups for c in tier]
         target = Money.from_rupees_str(b["amount"])
         examined = 0
         solved: List[tuple] = []      # (cycle, deviation, pool_ids)
         ambiguous_detail = None
         budget_hit = False
         bound_hit = False
+        nearest_best = None
 
-        for cycle in candidates:
+        primary_had_pool = False
+        for lag, tier in lag_groups:
+          if solved or ambiguous_detail:
+              break          # a nearer lag already explained this credit
+          if lag > 0 and primary_had_pool:
+              # Zero-lag cycle exists and has payments but did not reconcile.
+              # Do NOT go looking further afield: the most likely explanation is
+              # a defect in this cycle (a short payout, an unreported deduction),
+              # not a four-day posting lag. Searching on is how INC-012 happened.
+              break
+          for cycle in tier:
             pool_ids = self._by_capture_date.get(cycle, [])
             if not pool_ids:
                 continue
+            if lag == 0:
+                primary_had_pool = True
             pool = {i: self.payments[i].amount for i in pool_ids}
             neighbours = self._neighbours(cycle)
             netted = self._netted_refunds_for_cycle(cycle) + self._adjustments_for_cycle(cycle)
@@ -263,13 +313,22 @@ class Cascade:
             )
             examined += res.combinations_examined
             if res.status == "SOLVED":
-                solved.append((cycle, res.solutions[0], pool_ids, netted))
+                solved.append((cycle, res.solutions[0], pool_ids, netted, lag))
             elif res.status == "AMBIGUOUS":
                 ambiguous_detail = f"cycle {cycle}: {res.detail}"
             elif res.status == "BUDGET_EXCEEDED":
                 budget_hit = True
             elif res.status == "NO_SOLUTION":
                 bound_hit = True
+                near = search_deviation(
+                    target_net=target, pool=pool, neighbours=neighbours,
+                    deduction_for=deduct, tolerance=self.tolerance,
+                    bound=self.bound, nearest=True)
+                if near.status == "NEAREST" and (
+                        nearest_best is None or near.residual_paise < nearest_best[0]):
+                    nearest_best = (near.residual_paise, near.nearest_unique,
+                                    near.solutions[0].size if near.solutions else None,
+                                    Money.sum(pool.values()).paise, cycle)
 
         # ambiguity within one cycle, OR across two candidate cycles, both refuse
         if ambiguous_detail:
@@ -281,11 +340,13 @@ class Cascade:
                          f"{len(solved)} candidate cycles reconcile identically ({cycles}); "
                          f"refusing to choose", examined)
         if len(solved) == 1:
-            cycle, dev, pool_ids, netted = solved[0]
+            cycle, dev, pool_ids, netted, lag = solved[0]
             ids = [i for i in pool_ids if i not in dev.excluded] + sorted(dev.included)
             ev = f"cycle {cycle}, pool {len(pool_ids)}, {dev.describe()}"
             if netted.paise:
                 ev += f"; other deductions {netted}"
+            if lag:
+                ev += f"; assumed posting lag {lag}d (no nearer cycle reconciled)"
             return Match(b["txn_id"], "T3", REVIEW, ids, evidence=ev,
                          combinations_examined=examined)
         if budget_hit:
@@ -293,10 +354,27 @@ class Cascade:
                          f"combination budget exhausted across {len(candidates)} candidate cycles",
                          examined)
         if bound_hit:
-            return Match(b["txn_id"], "T3", EXCEPTION, [], DEVIATION_BOUND_EXCEEDED,
-                         f"no deviation of size <= {self.bound} reconciles this payout in any "
-                         f"of {len(candidates)} candidate cycles ({', '.join(map(str, candidates))})",
-                         examined)
+            code = PRIMARY_CYCLE_UNRECONCILED if primary_had_pool else DEVIATION_BOUND_EXCEEDED
+            if code == PRIMARY_CYCLE_UNRECONCILED:
+                ev = (f"T+{SETTLEMENT_LAG_BUSINESS_DAYS} cycle for this credit has payments "
+                      f"but no deviation of size <= {self.bound} reconciles it; refused to "
+                      f"attribute the credit to a more distant cycle")
+            else:
+                ev = (f"no deviation of size <= {self.bound} reconciles this payout in any "
+                      f"of {len(candidates)} candidate cycles "
+                      f"({', '.join(map(str, candidates))})")
+            m = Match(b["txn_id"], "T3", EXCEPTION, [], code, ev, examined)
+            if nearest_best is not None:
+                resid, uniq, size, gross, cyc = nearest_best
+                m.residual_paise = resid
+                m.residual_unique = uniq
+                m.residual_deviation_size = size
+                m.pool_gross_paise = gross
+                m.evidence = (ev + f"; nearest in cycle {cyc} misses by Rs "
+                                   f"{resid/100:,.2f} via a "
+                                   f"{'unique' if uniq else 'non-unique'} deviation of "
+                                   f"size {size}")
+            return m
         return Match(b["txn_id"], "T3", EXCEPTION, [], NO_RECONCILING_SET,
                      f"no payments captured in any candidate cycle "
                      f"({', '.join(map(str, candidates))})", examined)

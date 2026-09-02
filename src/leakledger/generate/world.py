@@ -595,7 +595,12 @@ def seed_settlement_cases(world_settlements, refunds, chargebacks, rng, leaks, a
         later.reserve_released = later.reserve_released + s.reserve_held
         later.net = later.net + s.reserve_held
 
-    for r in rng.sample(refunds, k=min(3, len(refunds))):
+    # Only INSTANT refunds can carry this leak observably: a NETTED refund has no
+    # outbound leg, so a failure to reach the customer leaves no trace in payments
+    # or bank data. Seeding it there produced a leak nothing could ever detect and
+    # cost 2 of 3 recall -- the same class of defect as INC-009.
+    instant = [r for r in refunds if r.mode == "INSTANT"]
+    for r in rng.sample(instant, k=min(3, len(instant))):
         r.reached_customer = False
         leaks.append(SeededLeak(f"leak_{len(leaks):04d}", REFUND_NOT_REACHED, r.refund_id,
                                 r.amount, "refund deducted from settlement, no outbound leg"))

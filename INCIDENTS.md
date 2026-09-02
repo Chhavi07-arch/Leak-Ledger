@@ -410,3 +410,66 @@ unilaterally; flagged to the build owner.
 on the batch -- which would have caught this immediately, and would have caught
 INC-004 and INC-009 as well.
 **Commit:** (this phase)
+
+
+---
+
+## INC-012 — a short payout caused a FALSE MATCH, the metric the build exists to protect
+**Date:** 2026-09-03 02:10 IST
+**Phase:** 04
+**Symptom:** Auditing every T3 match against ground truth found **1 wrong set in
+15**. `BNK000007` was matched to 20 payments with **zero overlap** against the true
+29. False-match rate 6.7%, not 0.
+**Root cause:** `stl_0006` was seeded short by Rs 52.14, so its own cycle could not
+reconcile exactly. The engine then searched more distant candidate cycles and
+found a *spurious exact* reconciliation four days away. All candidate cycles were
+treated as equally plausible, so a distant coincidence beat a near-miss. A genuine
+defect in one cycle was converted into a confident wrong answer about another.
+**Why it is the most serious defect so far:** false-match rate is the primary
+metric of the whole submission, and every individual step looked correct. The
+search did find an exact reconciliation; it was simply an exact reconciliation of
+the wrong thing.
+**Fix, in two parts.** (1) Candidates are tried in posting-lag order, nearest
+first. (2) If the credit's own T+2 cycle has payments but does not reconcile, the
+engine **stops** and emits `PRIMARY_CYCLE_UNRECONCILED` rather than searching
+further out -- the likely explanation is a defect in that cycle, not a four-day
+lag. Lag ordering alone was measured and did NOT fix it: when the correct answer
+is impossible, some wrong answer will always beat no answer. Refusing is the only
+correct response.
+**Result:** false matches 1 -> **0**. Honest cost: correct T3 matches fell 14 -> 13
+(one legitimate lagged match now refused) and ambiguity traps firing fell 6 -> 5.
+**Guard added:** the false-match audit is the primary Phase 05 metric and must run
+in CI.
+**Commit:** (this phase)
+
+---
+
+## INC-013 — SHORT_SETTLEMENT is detectable but NOT quantifiable
+**Date:** 2026-09-03 02:35 IST
+**Phase:** 04
+**Question asked:** can a nearest-residual reconciliation support a
+short-settlement claim under a positive-evidence bar equivalent to the one INC-010
+imposed on MISSING_SETTLEMENT?
+**Measured answer: no.** The residual depends entirely on the deviation bound,
+because the search absorbs the shortfall by re-attributing payments. Against two
+seeded shortfalls of Rs 52.14 and Rs 114.60:
+
+| settlement | true short | d=0 | d=1 | d=2 | d=6 |
+|---|---|---|---|---|---|
+| stl_0006 | Rs 52.14 | Rs 21,850.20 | Rs 621.16 | **Rs 52.14** | Rs 0.01 |
+| stl_0017 | Rs 114.60 | Rs 6,223.08 | Rs 841.09 | Rs 146.63 | Rs 0.04 |
+
+d=2 reproduces one seeded value **exactly** and misses the other by 28%. Selecting
+d=2 for residual reporting while matching at d=6 would be tuning a parameter until
+a number matched ground truth -- the same error class as INC-010, and precisely
+the self-grading this build argues against. It was not done.
+**Decision:** the detector fires on `PRIMARY_CYCLE_UNRECONCILED` and reports value
+**ZERO**, stating explicitly that the shortfall is unquantified and why. It
+contributes nothing to the headline total and everything to the exception queue.
+**Second, worse finding:** the signal is not specific. `PRIMARY_CYCLE_UNRECONCILED`
+fires on **10 credits, only 2 of which are seeded short settlements** -- the rest
+fail to reconcile for unrelated reasons. So this is not a short-settlement
+detector at all; it is an unreconciled-cycle flag. **Recommendation: demote
+SHORT_SETTLEMENT from a leak class to an exception type.** Flagged, not done
+unilaterally.
+**Commit:** (this phase)

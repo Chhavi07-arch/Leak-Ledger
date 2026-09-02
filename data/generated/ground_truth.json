@@ -195,25 +195,7 @@
     },
     {
       "case_id": "adv_0019",
-      "detail": "UTR20260020 recorded as UTR02260020; near-miss reference must not resolve",
-      "entity_ids": [
-        "BNK000020"
-      ],
-      "expected_behaviour": "NO_MATCH",
-      "type": "TRANSPOSED_UTR"
-    },
-    {
-      "case_id": "adv_0020",
-      "detail": "UTR20260014 recorded as UTR20260104; near-miss reference must not resolve",
-      "entity_ids": [
-        "BNK000013"
-      ],
-      "expected_behaviour": "NO_MATCH",
-      "type": "TRANSPOSED_UTR"
-    },
-    {
-      "case_id": "adv_0021",
-      "detail": "UTR20260012 recorded as UTR20260021; near-miss reference must not resolve",
+      "detail": "UTR20260012 recorded as UTR20260102; near-miss reference must not resolve",
       "entity_ids": [
         "BNK000012"
       ],
@@ -221,38 +203,56 @@
       "type": "TRANSPOSED_UTR"
     },
     {
-      "case_id": "adv_0022",
-      "detail": "UTR20260017 recorded as UTR22060017; near-miss reference must not resolve",
+      "case_id": "adv_0020",
+      "detail": "UTR20260024 recorded as UTR02260024; near-miss reference must not resolve",
       "entity_ids": [
-        "BNK000017"
+        "BNK000024"
+      ],
+      "expected_behaviour": "NO_MATCH",
+      "type": "TRANSPOSED_UTR"
+    },
+    {
+      "case_id": "adv_0021",
+      "detail": "UTR20260002 recorded as UTR02260002; near-miss reference must not resolve",
+      "entity_ids": [
+        "BNK000003"
+      ],
+      "expected_behaviour": "NO_MATCH",
+      "type": "TRANSPOSED_UTR"
+    },
+    {
+      "case_id": "adv_0022",
+      "detail": "UTR20260022 recorded as UTR22060022; near-miss reference must not resolve",
+      "entity_ids": [
+        "BNK000022"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "TRANSPOSED_UTR"
     },
     {
       "case_id": "adv_0023",
-      "detail": "UTR20260023 recorded as UTR02260023; near-miss reference must not resolve",
+      "detail": "UTR20260003 recorded as UTR20206003; near-miss reference must not resolve",
       "entity_ids": [
-        "BNK000023"
+        "BNK000004"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "TRANSPOSED_UTR"
     },
     {
       "case_id": "adv_0024",
-      "detail": "UTR20260008 recorded as UTR02260008; near-miss reference must not resolve",
+      "detail": "UTR20260021 recorded as UTR22060021; near-miss reference must not resolve",
       "entity_ids": [
-        "BNK000008"
+        "BNK000021"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "TRANSPOSED_UTR"
     },
     {
       "case_id": "adv_0025",
-      "detail": "UTR UTR20260003 appears with two different amounts",
+      "detail": "UTR ARN72751095212 appears with two different amounts",
       "entity_ids": [
-        "BNK000004",
-        "BNK000004X"
+        "BNK000031",
+        "BNK000031X"
       ],
       "expected_behaviour": "REFUSE",
       "type": "UTR_REUSED_DIFFERENT_AMOUNT"
@@ -269,91 +269,82 @@
     },
     {
       "case_id": "adv_0027",
-      "detail": "UTR UTR20260000 appears with two different amounts",
+      "detail": "UTR UTR20260009 appears with two different amounts",
       "entity_ids": [
-        "BNK000001",
-        "BNK000001X"
+        "BNK000009",
+        "BNK000009X"
       ],
       "expected_behaviour": "REFUSE",
       "type": "UTR_REUSED_DIFFERENT_AMOUNT"
     },
     {
       "case_id": "adv_0028",
-      "detail": "UTR UTR20260002 appears with two different amounts",
+      "detail": "UTR UTR20260015 appears with two different amounts",
       "entity_ids": [
-        "BNK000003",
-        "BNK000003X"
+        "BNK000014",
+        "BNK000014X"
       ],
       "expected_behaviour": "REFUSE",
       "type": "UTR_REUSED_DIFFERENT_AMOUNT"
     },
     {
       "case_id": "adv_0029",
-      "detail": "UTR UTR20260024 appears with two different amounts",
+      "detail": "UTR ARN77419236751 appears with two different amounts",
       "entity_ids": [
-        "BNK000024",
-        "BNK000024X"
+        "BNK000026",
+        "BNK000026X"
       ],
       "expected_behaviour": "REFUSE",
       "type": "UTR_REUSED_DIFFERENT_AMOUNT"
     },
     {
       "case_id": "adv_0030",
-      "detail": "a debit of Rs 25758.25 equals unrelated payment pay_00461",
+      "detail": "a debit of Rs 1685.00 equals unrelated payment pay_00449",
       "entity_ids": [
-        "pay_00461"
+        "pay_00449"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "REFUND_EQUALS_PAYMENT"
     },
     {
       "case_id": "adv_0031",
-      "detail": "a debit of Rs 25243.49 equals unrelated payment pay_00331",
+      "detail": "a debit of Rs 3080.50 equals unrelated payment pay_00172",
       "entity_ids": [
-        "pay_00331"
+        "pay_00172"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "REFUND_EQUALS_PAYMENT"
     },
     {
       "case_id": "adv_0032",
-      "detail": "a debit of Rs 1677.25 equals unrelated payment pay_00433",
+      "detail": "a debit of Rs 33367.50 equals unrelated payment pay_00437",
       "entity_ids": [
-        "pay_00433"
+        "pay_00437"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "REFUND_EQUALS_PAYMENT"
     },
     {
       "case_id": "adv_0033",
-      "detail": "a debit of Rs 1935.00 equals unrelated payment pay_00143",
+      "detail": "a debit of Rs 382.75 equals unrelated payment pay_00256",
       "entity_ids": [
-        "pay_00143"
+        "pay_00256"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "REFUND_EQUALS_PAYMENT"
     },
     {
       "case_id": "adv_0034",
-      "detail": "a debit of Rs 2469.00 equals unrelated payment pay_00024",
+      "detail": "a debit of Rs 912.75 equals unrelated payment pay_00239",
       "entity_ids": [
-        "pay_00024"
+        "pay_00239"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "REFUND_EQUALS_PAYMENT"
     },
     {
       "case_id": "adv_0035",
-      "detail": "narration names 'Himalaya Organics Private Limited', which is plausible but wrong",
-      "entity_ids": [
-        "BNK000001"
-      ],
-      "expected_behaviour": "NO_MATCH",
-      "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
-    },
-    {
-      "case_id": "adv_0036",
-      "detail": "narration names 'Bharat Retail Ventures Private Limited', which is plausible but wrong",
+      "detail": "narration names 'Coastal Foods and Beverages Limited', which is plausible but wrong",
       "entity_ids": [
         "BNK000019"
       ],
@@ -361,10 +352,19 @@
       "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
     },
     {
-      "case_id": "adv_0037",
-      "detail": "narration names 'Fortune Home Appliances Private Limited', which is plausible but wrong",
+      "case_id": "adv_0036",
+      "detail": "narration names 'Acme India Private Limited', which is plausible but wrong",
       "entity_ids": [
-        "BNK000002"
+        "BNK000003"
+      ],
+      "expected_behaviour": "NO_MATCH",
+      "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
+    },
+    {
+      "case_id": "adv_0037",
+      "detail": "narration names 'Coastal Foods and Beverages Limited', which is plausible but wrong",
+      "entity_ids": [
+        "BNK000021"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
@@ -380,16 +380,16 @@
     },
     {
       "case_id": "adv_0039",
-      "detail": "narration names 'Bharat Retail Ventures Private Limited', which is plausible but wrong",
+      "detail": "narration names 'Coastal Foods and Beverages Limited', which is plausible but wrong",
       "entity_ids": [
-        "BNK000003"
+        "BNK000020"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
     },
     {
       "case_id": "adv_0040",
-      "detail": "narration names 'Acme India Private Limited', which is plausible but wrong",
+      "detail": "narration names 'Indus Valley Furnishings Limited', which is plausible but wrong",
       "entity_ids": [
         "BNK000005"
       ],
@@ -399,7 +399,7 @@
   ],
   "counts": {
     "adversarial_cases": 41,
-    "bank_rows": 43,
+    "bank_rows": 41,
     "chargebacks": 12,
     "erp_rows": 125,
     "gateway_adjustment_rows": 27,
@@ -410,7 +410,7 @@
     "refunds": 35,
     "seeded_leaks": 38,
     "settlements": 26,
-    "total_rows": 772
+    "total_rows": 770
   },
   "expected_fees": {
     "pay_00000": {
@@ -6606,9 +6606,9 @@
     {
       "class": "REFUND_NOT_REACHED",
       "detail": "refund deducted from settlement, no outbound leg",
-      "entity_id": "rfn_0007",
+      "entity_id": "rfn_0005",
       "leak_id": "leak_0033",
-      "value_paise": 308050
+      "value_paise": 2362249
     },
     {
       "class": "REFUND_NOT_REACHED",
@@ -6620,23 +6620,23 @@
     {
       "class": "REFUND_NOT_REACHED",
       "detail": "refund deducted from settlement, no outbound leg",
-      "entity_id": "rfn_0012",
+      "entity_id": "rfn_0029",
       "leak_id": "leak_0035",
-      "value_paise": 753300
+      "value_paise": 127399
     },
     {
       "class": "CHARGEBACK_NOT_RECREDITED",
       "detail": "dispute won, never re-credited",
-      "entity_id": "cbk_0009",
+      "entity_id": "cbk_0006",
       "leak_id": "leak_0036",
-      "value_paise": 58375
+      "value_paise": 3336750
     },
     {
       "class": "CHARGEBACK_NOT_RECREDITED",
       "detail": "dispute won, never re-credited",
-      "entity_id": "cbk_0011",
+      "entity_id": "cbk_0003",
       "leak_id": "leak_0037",
-      "value_paise": 14599
+      "value_paise": 56949
     }
   ],
   "settlements": [

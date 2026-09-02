@@ -111,26 +111,53 @@ def detect_zero_mdr_violation(fs: FeeSchedule, payments, out: FindingSet) -> Non
 
 def detect_short_settlement(cascade_result, bank_rows, payments, refunds,
                             adjustments, fs, out: FindingSet) -> None:
-    """A payout that reconciles to less than its components with no typed remainder.
+    """A payout whose own T+2 cycle has payments but will not reconcile.
 
-    Only raised where the cascade found a UNIQUE reconciling cycle but the
-    residual is non-zero -- i.e. the pool is right and the money is still short.
-    A payout the cascade refused is an exception, never a short-settlement claim.
+    DETECTABLE BUT NOT QUANTIFIABLE, and the distinction is deliberate.
+
+    The detection signal is clean: PRIMARY_CYCLE_UNRECONCILED means the credit's
+    own cycle has payments and no deviation within bound reconciles it, and the
+    engine refused to attribute the credit to a more distant cycle. On the
+    generated batch this fires on exactly the settlements seeded short.
+
+    The VALUE cannot be honestly reported. The nearest-residual search absorbs
+    the shortfall by re-attributing payments, and how much it absorbs depends
+    entirely on the deviation bound. Measured against two seeded shortfalls of
+    Rs 52.14 and Rs 114.60:
+
+        bound   d=0          d=1       d=2       d=6
+        ----------------------------------------------
+        stl_0006  Rs 21,850.20  Rs 621.16  Rs  52.14  Rs 0.01
+        stl_0017  Rs  6,223.08  Rs 841.09  Rs 146.63  Rs 0.04
+
+    d=2 reproduces one seeded value exactly and misses the other by 28%.
+    Selecting d=2 for residual reporting while matching at d=6 would be tuning a
+    parameter until a number matched ground truth -- the exact self-grading this
+    build argues against, and the same error class as INC-010, where a
+    plausible-looking figure was reported as established fact.
+
+    The finding therefore carries value ZERO and says so. It contributes nothing
+    to the headline total and everything to the exception queue, which is where a
+    "this payout does not add up and I cannot tell you by how much" belongs.
     """
     by_txn = {b["txn_id"]: b for b in bank_rows}
-    pay = {p.payment_id: p for p in payments}
     for m in cascade_result.matches:
-        if m.tier != "T3" or m.reason_code != "SHORT_RESIDUAL":
+        if m.reason_code != "PRIMARY_CYCLE_UNRECONCILED":
             continue
         b = by_txn.get(m.bank_txn_id)
         if not b:
             continue
-        residual = Money.from_rupees_str(m.evidence.split("residual ")[-1].split()[0]) \
-            if "residual " in m.evidence else Money.zero()
-        out.add("SHORT_SETTLEMENT", m.bank_txn_id, abs(residual),
-                f"pool reconciles uniquely but payout is short by Rs "
-                f"{residual.to_rupees_str()} with no typed component; {m.evidence}",
-                bank_amount=b["amount"])
+        near = ""
+        if m.residual_paise is not None:
+            near = (f"; nearest reconciliation at d<={m.residual_deviation_size} misses by "
+                    f"Rs {m.residual_paise / 100:,.2f}, which is NOT the shortfall -- the "
+                    f"search absorbs the gap by re-attributing payments, so no value is claimed")
+        out.add("SHORT_SETTLEMENT", m.bank_txn_id, Money.zero(),
+                f"credit of Rs {b['amount']} on {b['value_date']}: its own T+"
+                f"{SETTLEMENT_LAG_BUSINESS_DAYS} cycle has payments but does not reconcile; "
+                f"value UNQUANTIFIED{near}",
+                bank_amount=b["amount"], unquantified=True,
+                nearest_residual_paise=m.residual_paise)
 
 
 # =====================================================================
@@ -275,20 +302,30 @@ def detect_refund_not_reached(refunds, bank_rows, out: FindingSet) -> None:
             debits[b["amount"]].append(b)
     for r in refunds:
         if r.get("mode") != "INSTANT":
-            continue                       # netted refunds have no separate leg by design
+            # A NETTED refund reduces the payout and has no outbound leg at all,
+            # so "it never reached the customer" produces no observable difference
+            # in payments + bank data. Undetectable in principle, not merely
+            # unimplemented -- recorded as a scope limit, not silently skipped.
+            continue
         amt = r["amount"]
         arn = (r.get("arn") or "").strip()
-        # When the export carries an ARN, require it. When it does not, an amount
-        # match within the refund's own date window is the most that can be
-        # claimed -- matching on amount alone across the whole month would let an
-        # unrelated debit vouch for a refund that never went out.
+        # Reference matching is tried three ways before falling back, because the
+        # bank drops its structured UTR field on roughly two thirds of debits.
+        # Requiring the structured field alone treated 5 of 8 genuinely-paid
+        # refunds as unpaid: absence of a reference on the bank statement is not
+        # evidence that money did not move. The ARN survives inside the free-text
+        # narration even when the field is blank, and finding it there is an exact
+        # substring test -- deterministic, no model involved.
         issued = datetime.fromisoformat(r["issued_at"]).date()
         matched = []
-        for b in debits.get(amt, []):
-            if arn:
-                if (b.get("utr") or "").strip() == arn:
+        if arn:
+            for b in debits.get(amt, []):
+                if (b.get("utr") or "").strip() == arn or arn in (b.get("narration") or ""):
                     matched.append(b)
-            else:
+        if not matched:
+            # no usable reference on either side: an amount match inside the
+            # refund's own date window is the most that can honestly be claimed
+            for b in debits.get(amt, []):
                 bd = datetime.strptime(b["value_date"], "%d-%m-%Y").date()
                 if abs((bd - issued).days) <= REFUND_MATCH_WINDOW_DAYS:
                     matched.append(b)

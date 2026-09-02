@@ -51,6 +51,7 @@ first hit is the single most common way to manufacture a silent false match.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import bisect
 from itertools import combinations
 from typing import Callable, Dict, FrozenSet, List, Optional, Sequence, Tuple
 
@@ -82,11 +83,15 @@ class Deviation:
 
 @dataclass
 class SearchResult:
-    status: str                       # SOLVED | AMBIGUOUS | NO_SOLUTION | BUDGET_EXCEEDED
+    status: str    # SOLVED | AMBIGUOUS | NO_SOLUTION | BUDGET_EXCEEDED | NEAREST
     solutions: List[Deviation] = field(default_factory=list)
     combinations_examined: int = 0
     bound_used: int = 0
     detail: str = ""
+    # NEAREST only: signed paise by which the best deviation misses the target.
+    # Positive means the bank received LESS than the pool accounts for.
+    residual_paise: Optional[int] = None
+    nearest_unique: bool = False
 
     @property
     def unique(self) -> Optional[Deviation]:
@@ -122,6 +127,7 @@ def search_deviation(
     bound: int = DEFAULT_DEVIATION_BOUND,
     budget: int = DEFAULT_COMBINATION_BUDGET,
     value_of: Optional[Callable] = None,
+    nearest: bool = False,
 ) -> SearchResult:
     """Find every deviation of size <= bound that reconciles the pool to target.
 
@@ -194,9 +200,63 @@ def search_deviation(
             break        # no larger inclusion set can beat an already-smaller solution
 
     if not solutions_by_size:
-        return SearchResult(status="NO_SOLUTION", combinations_examined=counter[0],
-                            bound_used=bound,
-                            detail=f"no deviation of size <= {bound} reconciles this payout")
+        if not nearest:
+            return SearchResult(status="NO_SOLUTION", combinations_examined=counter[0],
+                                bound_used=bound,
+                                detail=f"no deviation of size <= {bound} reconciles this payout")
+        # --- nearest-residual mode -------------------------------------
+        # No exact reconciliation exists. Report the CLOSEST one and how far off
+        # it is, so a caller can decide whether the gap is a short payment or
+        # simply the wrong pool. This is a candidate, never a conclusion: the
+        # caller must apply its own positive-evidence bar (see INC-010 -- the
+        # lesson being that "closest thing we found" must not silently become
+        # "confirmed finding").
+        sorted_right = {k: sorted(v.items()) for k, v in right.items()}
+        keys_right = {k: [s for s, _ in sorted_right[k]] for k in sorted_right}
+        best_gap = None
+        best: List[Deviation] = []
+        for n_in in range(0, min(bound, len(neigh_ids)) + 1):
+            for inc in combinations(neigh_ids, n_in):
+                inc_sum = sum(value_of(i) for i in inc)
+                need = inc_sum - delta
+                for kl in range(0, bound - n_in + 1):
+                    for kr in range(0, bound - n_in - kl + 1):
+                        ks = keys_right.get(kr) or []
+                        if not ks:
+                            continue
+                        for ls, lsubs in left[kl].items():
+                            want = need - ls
+                            j = bisect.bisect_left(ks, want)
+                            for cand in (j - 1, j):
+                                if not (0 <= cand < len(ks)):
+                                    continue
+                                gap = abs(ks[cand] - want)
+                                if best_gap is not None and gap > best_gap:
+                                    continue
+                                rs, rsubs = sorted_right[kr][cand]
+                                if best_gap is None or gap < best_gap:
+                                    best_gap, best = gap, []
+                                for a in lsubs:
+                                    for b in rsubs:
+                                        best.append(Deviation(frozenset(a + b), frozenset(inc)))
+        if best_gap is None:
+            return SearchResult(status="NO_SOLUTION", combinations_examined=counter[0],
+                                bound_used=bound, detail="no candidate pool")
+        seen, uniq = set(), []
+        for s in best:
+            key = (s.excluded, s.included)
+            if key not in seen:
+                seen.add(key)
+                uniq.append(s)
+        uniq.sort(key=lambda d: (d.size, sorted(d.excluded), sorted(d.included)))
+        # residual sign: positive means the payout is SHORT of what the pool implies
+        residual = best_gap
+        return SearchResult(status="NEAREST", solutions=uniq[:8],
+                            combinations_examined=counter[0], bound_used=bound,
+                            residual_paise=residual, nearest_unique=(len(uniq) == 1),
+                            detail=f"no exact reconciliation within d<={bound}; nearest "
+                                   f"misses by Rs {residual/100:,.2f} via "
+                                   f"{len(uniq)} deviation(s) of size {uniq[0].size}")
 
     best = min(solutions_by_size)
     sols = solutions_by_size[best]
