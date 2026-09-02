@@ -108,7 +108,6 @@ def observe_gateway(world: World, seed: int) -> List[Dict[str, str]]:
             "status": p.status,
             "fee_charged": p.fee_charged.to_rupees_str(),
             "gst_charged": p.gst_charged.to_rupees_str(),
-            "settlement_utr": "",
         }
         rows.append(row)
         # duplicate export line: the same payment appears twice in the file
