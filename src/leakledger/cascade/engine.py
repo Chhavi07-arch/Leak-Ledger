@@ -26,6 +26,13 @@ from ..clock import IST, BusinessCalendar, SETTLEMENT_LAG_BUSINESS_DAYS
 from ..money import Money
 from .subsetsum import DEFAULT_DEVIATION_BOUND, search_deviation
 
+# Bound chosen from the measured TRUE deviation distribution over paid
+# settlements -- {0:1, 1:8, 2:9, 3:2, 4:1, 5:2, 6:1} -- so d<=6 covers every real
+# case. It is also the largest bound before the search begins manufacturing
+# SPURIOUS ambiguity: at d<=7 the refusal count rises from 5 to 9 as coincidental
+# alternative reconciliations appear, which would refuse matches that should be
+# made. Wider is not strictly better. See ADR-004.
+
 # --- dispositions -------------------------------------------------------
 AUTO_APPLY = "AUTO_APPLY"
 REVIEW = "REVIEW"
@@ -141,6 +148,13 @@ class Cascade:
                 total = total + p.gst_charged
         return total
 
+    # A bank may post a credit a day or two after the acquirer released it. The
+    # engine is not told when that happened, so every candidate cycle is computed
+    # for a WINDOW of plausible release dates, not for the observed date alone.
+    # Without this, a single day of posting lag moves the inferred cycle wholesale
+    # and the true pool becomes unreachable at any deviation bound (INC-007).
+    POSTING_LAG_TOLERANCE_DAYS = 2
+
     def _candidate_cycles(self, value_date: date, lookback: int = 8) -> List[date]:
         """Every cycle date that T+2 business-day dating could map to this value date.
 
@@ -156,11 +170,14 @@ class Cascade:
         arithmetic decide. If more than one reconciles, that is genuine ambiguity
         and is refused, not resolved by preferring the earlier date.
         """
-        out: List[date] = []
-        for back in range(1, lookback + 1):
-            d = value_date - timedelta(days=back)
-            if self.calendar.add_business_days(d, SETTLEMENT_LAG_BUSINESS_DAYS) == value_date:
-                out.append(d)
+        released = [value_date - timedelta(days=k)
+                    for k in range(self.POSTING_LAG_TOLERANCE_DAYS + 1)]
+        out = set()
+        for rd in released:
+            for back in range(1, lookback + 1):
+                d = rd - timedelta(days=back)
+                if self.calendar.add_business_days(d, SETTLEMENT_LAG_BUSINESS_DAYS) == rd:
+                    out.add(d)
         return sorted(out)
 
     def _neighbours(self, cycle: date) -> Dict[str, Money]:

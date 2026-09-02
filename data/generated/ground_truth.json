@@ -195,43 +195,34 @@
     },
     {
       "case_id": "adv_0019",
-      "detail": "UTR20260014 recorded as UTR20206014; near-miss reference must not resolve",
+      "detail": "UTR20260020 recorded as UTR02260020; near-miss reference must not resolve",
       "entity_ids": [
-        "BNK000015"
+        "BNK000020"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "TRANSPOSED_UTR"
     },
     {
       "case_id": "adv_0020",
-      "detail": "UTR20260002 recorded as UTR20620002; near-miss reference must not resolve",
+      "detail": "UTR20260014 recorded as UTR20260104; near-miss reference must not resolve",
       "entity_ids": [
-        "BNK000003"
+        "BNK000013"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "TRANSPOSED_UTR"
     },
     {
       "case_id": "adv_0021",
-      "detail": "UTR20260007 recorded as UTR22060007; near-miss reference must not resolve",
+      "detail": "UTR20260012 recorded as UTR20260021; near-miss reference must not resolve",
       "entity_ids": [
-        "BNK000009"
+        "BNK000012"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "TRANSPOSED_UTR"
     },
     {
       "case_id": "adv_0022",
-      "detail": "UTR20260024 recorded as UTR20620024; near-miss reference must not resolve",
-      "entity_ids": [
-        "BNK000024"
-      ],
-      "expected_behaviour": "NO_MATCH",
-      "type": "TRANSPOSED_UTR"
-    },
-    {
-      "case_id": "adv_0023",
-      "detail": "UTR20260016 recorded as UTR20206016; near-miss reference must not resolve",
+      "detail": "UTR20260017 recorded as UTR22060017; near-miss reference must not resolve",
       "entity_ids": [
         "BNK000017"
       ],
@@ -239,37 +230,25 @@
       "type": "TRANSPOSED_UTR"
     },
     {
-      "case_id": "adv_0024",
-      "detail": "UTR UTR20206014 appears with two different amounts",
+      "case_id": "adv_0023",
+      "detail": "UTR20260023 recorded as UTR02260023; near-miss reference must not resolve",
       "entity_ids": [
-        "BNK000015",
-        "BNK000015X"
+        "BNK000023"
       ],
-      "expected_behaviour": "REFUSE",
-      "type": "UTR_REUSED_DIFFERENT_AMOUNT"
+      "expected_behaviour": "NO_MATCH",
+      "type": "TRANSPOSED_UTR"
+    },
+    {
+      "case_id": "adv_0024",
+      "detail": "UTR20260008 recorded as UTR02260008; near-miss reference must not resolve",
+      "entity_ids": [
+        "BNK000008"
+      ],
+      "expected_behaviour": "NO_MATCH",
+      "type": "TRANSPOSED_UTR"
     },
     {
       "case_id": "adv_0025",
-      "detail": "UTR UTR20260001 appears with two different amounts",
-      "entity_ids": [
-        "BNK000002",
-        "BNK000002X"
-      ],
-      "expected_behaviour": "REFUSE",
-      "type": "UTR_REUSED_DIFFERENT_AMOUNT"
-    },
-    {
-      "case_id": "adv_0026",
-      "detail": "UTR UTR20260006 appears with two different amounts",
-      "entity_ids": [
-        "BNK000008",
-        "BNK000008X"
-      ],
-      "expected_behaviour": "REFUSE",
-      "type": "UTR_REUSED_DIFFERENT_AMOUNT"
-    },
-    {
-      "case_id": "adv_0027",
       "detail": "UTR UTR20260003 appears with two different amounts",
       "entity_ids": [
         "BNK000004",
@@ -279,7 +258,17 @@
       "type": "UTR_REUSED_DIFFERENT_AMOUNT"
     },
     {
-      "case_id": "adv_0028",
+      "case_id": "adv_0026",
+      "detail": "UTR UTR20260015 appears with two different amounts",
+      "entity_ids": [
+        "BNK000015",
+        "BNK000015X"
+      ],
+      "expected_behaviour": "REFUSE",
+      "type": "UTR_REUSED_DIFFERENT_AMOUNT"
+    },
+    {
+      "case_id": "adv_0027",
       "detail": "UTR UTR20260000 appears with two different amounts",
       "entity_ids": [
         "BNK000001",
@@ -289,13 +278,24 @@
       "type": "UTR_REUSED_DIFFERENT_AMOUNT"
     },
     {
-      "case_id": "adv_0029",
-      "detail": "a debit of Rs 777.50 equals unrelated payment pay_00463",
+      "case_id": "adv_0028",
+      "detail": "UTR UTR20260002 appears with two different amounts",
       "entity_ids": [
-        "pay_00463"
+        "BNK000003",
+        "BNK000003X"
       ],
-      "expected_behaviour": "NO_MATCH",
-      "type": "REFUND_EQUALS_PAYMENT"
+      "expected_behaviour": "REFUSE",
+      "type": "UTR_REUSED_DIFFERENT_AMOUNT"
+    },
+    {
+      "case_id": "adv_0029",
+      "detail": "UTR UTR20260024 appears with two different amounts",
+      "entity_ids": [
+        "BNK000024",
+        "BNK000024X"
+      ],
+      "expected_behaviour": "REFUSE",
+      "type": "UTR_REUSED_DIFFERENT_AMOUNT"
     },
     {
       "case_id": "adv_0030",
@@ -335,6 +335,15 @@
     },
     {
       "case_id": "adv_0034",
+      "detail": "a debit of Rs 2469.00 equals unrelated payment pay_00024",
+      "entity_ids": [
+        "pay_00024"
+      ],
+      "expected_behaviour": "NO_MATCH",
+      "type": "REFUND_EQUALS_PAYMENT"
+    },
+    {
+      "case_id": "adv_0035",
       "detail": "narration names 'Himalaya Organics Private Limited', which is plausible but wrong",
       "entity_ids": [
         "BNK000001"
@@ -343,7 +352,7 @@
       "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
     },
     {
-      "case_id": "adv_0035",
+      "case_id": "adv_0036",
       "detail": "narration names 'Bharat Retail Ventures Private Limited', which is plausible but wrong",
       "entity_ids": [
         "BNK000019"
@@ -352,7 +361,7 @@
       "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
     },
     {
-      "case_id": "adv_0036",
+      "case_id": "adv_0037",
       "detail": "narration names 'Fortune Home Appliances Private Limited', which is plausible but wrong",
       "entity_ids": [
         "BNK000002"
@@ -361,7 +370,7 @@
       "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
     },
     {
-      "case_id": "adv_0037",
+      "case_id": "adv_0038",
       "detail": "narration names 'Himalaya Organics Private Limited', which is plausible but wrong",
       "entity_ids": [
         "BNK000014"
@@ -370,7 +379,7 @@
       "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
     },
     {
-      "case_id": "adv_0038",
+      "case_id": "adv_0039",
       "detail": "narration names 'Bharat Retail Ventures Private Limited', which is plausible but wrong",
       "entity_ids": [
         "BNK000003"
@@ -379,7 +388,7 @@
       "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
     },
     {
-      "case_id": "adv_0039",
+      "case_id": "adv_0040",
       "detail": "narration names 'Acme India Private Limited', which is plausible but wrong",
       "entity_ids": [
         "BNK000005"
@@ -389,8 +398,8 @@
     }
   ],
   "counts": {
-    "adversarial_cases": 40,
-    "bank_rows": 42,
+    "adversarial_cases": 41,
+    "bank_rows": 43,
     "chargebacks": 12,
     "erp_rows": 125,
     "gateway_adjustment_rows": 24,
@@ -401,7 +410,7 @@
     "refunds": 35,
     "seeded_leaks": 38,
     "settlements": 26,
-    "total_rows": 768
+    "total_rows": 769
   },
   "expected_fees": {
     "pay_00000": {
@@ -6533,10 +6542,10 @@
     },
     {
       "class": "MISSING_SETTLEMENT",
-      "detail": "payout of Rs 260064.22 for cycle 2026-06-11 never credited",
-      "entity_id": "stl_0008",
+      "detail": "payout of Rs 197257.85 for cycle 2026-06-15 never credited",
+      "entity_id": "stl_0011",
       "leak_id": "leak_0024",
-      "value_paise": 26006422
+      "value_paise": 19725785
     },
     {
       "class": "MISSING_SETTLEMENT",
@@ -6547,38 +6556,38 @@
     },
     {
       "class": "MISSING_SETTLEMENT",
-      "detail": "payout of Rs 149751.12 for cycle 2026-06-26 never credited",
-      "entity_id": "stl_0021",
+      "detail": "payout of Rs 389175.29 for cycle 2026-06-10 never credited",
+      "entity_id": "stl_0007",
       "leak_id": "leak_0026",
-      "value_paise": 14975112
+      "value_paise": 38917529
     },
     {
       "class": "DUPLICATE_PAYOUT",
-      "detail": "payout UTR20260005 credited twice",
-      "entity_id": "stl_0005",
+      "detail": "payout UTR20260015 credited twice",
+      "entity_id": "stl_0015",
       "leak_id": "leak_0027",
-      "value_paise": 21776260
+      "value_paise": 13937289
     },
     {
       "class": "DUPLICATE_PAYOUT",
-      "detail": "payout UTR20260011 credited twice",
-      "entity_id": "stl_0011",
+      "detail": "payout UTR20260012 credited twice",
+      "entity_id": "stl_0012",
       "leak_id": "leak_0028",
-      "value_paise": 19725785
-    },
-    {
-      "class": "SHORT_SETTLEMENT",
-      "detail": "payout short by Rs 180.11 with no typed component",
-      "entity_id": "stl_0020",
-      "leak_id": "leak_0029",
-      "value_paise": 18011
+      "value_paise": 18186834
     },
     {
       "class": "SHORT_SETTLEMENT",
       "detail": "payout short by Rs 52.14 with no typed component",
-      "entity_id": "stl_0004",
-      "leak_id": "leak_0030",
+      "entity_id": "stl_0006",
+      "leak_id": "leak_0029",
       "value_paise": 5214
+    },
+    {
+      "class": "SHORT_SETTLEMENT",
+      "detail": "payout short by Rs 114.60 with no typed component",
+      "entity_id": "stl_0017",
+      "leak_id": "leak_0030",
+      "value_paise": 11460
     },
     {
       "class": "RESERVE_NOT_RELEASED",
@@ -6589,45 +6598,45 @@
     },
     {
       "class": "RESERVE_NOT_RELEASED",
-      "detail": "reserve Rs 15.32 held beyond schedule",
-      "entity_id": "stl_0025",
+      "detail": "reserve Rs 733.55 held beyond schedule",
+      "entity_id": "stl_0020",
       "leak_id": "leak_0032",
-      "value_paise": 1532
-    },
-    {
-      "class": "REFUND_NOT_REACHED",
-      "detail": "refund deducted from settlement, no outbound leg",
-      "entity_id": "rfn_0033",
-      "leak_id": "leak_0033",
-      "value_paise": 336325
+      "value_paise": 73355
     },
     {
       "class": "REFUND_NOT_REACHED",
       "detail": "refund deducted from settlement, no outbound leg",
       "entity_id": "rfn_0007",
-      "leak_id": "leak_0034",
+      "leak_id": "leak_0033",
       "value_paise": 308050
     },
     {
       "class": "REFUND_NOT_REACHED",
       "detail": "refund deducted from settlement, no outbound leg",
       "entity_id": "rfn_0008",
-      "leak_id": "leak_0035",
+      "leak_id": "leak_0034",
       "value_paise": 4093701
     },
     {
-      "class": "CHARGEBACK_NOT_RECREDITED",
-      "detail": "dispute won, never re-credited",
-      "entity_id": "cbk_0006",
-      "leak_id": "leak_0036",
-      "value_paise": 3336750
+      "class": "REFUND_NOT_REACHED",
+      "detail": "refund deducted from settlement, no outbound leg",
+      "entity_id": "rfn_0012",
+      "leak_id": "leak_0035",
+      "value_paise": 753300
     },
     {
       "class": "CHARGEBACK_NOT_RECREDITED",
       "detail": "dispute won, never re-credited",
-      "entity_id": "cbk_0003",
+      "entity_id": "cbk_0009",
+      "leak_id": "leak_0036",
+      "value_paise": 58375
+    },
+    {
+      "class": "CHARGEBACK_NOT_RECREDITED",
+      "detail": "dispute won, never re-credited",
+      "entity_id": "cbk_0011",
       "leak_id": "leak_0037",
-      "value_paise": 56949
+      "value_paise": 14599
     }
   ],
   "settlements": [
@@ -6825,7 +6834,7 @@
       "fee_paise": 163538,
       "gross_paise": 16636550,
       "gst_paise": 29436,
-      "net_paise": 14236588,
+      "net_paise": 14241802,
       "paid": true,
       "payment_ids": [
         "pay_00006",
@@ -6868,7 +6877,7 @@
       ],
       "chargebacks_paise": 0,
       "cycle_date": "2026-06-08",
-      "duplicated": true,
+      "duplicated": false,
       "fee_paise": 254279,
       "gross_paise": 22187247,
       "gst_paise": 45772,
@@ -6917,7 +6926,7 @@
       "fee_paise": 98167,
       "gross_paise": 10559167,
       "gst_paise": 17668,
-      "net_paise": 10174732,
+      "net_paise": 10169518,
       "paid": true,
       "payment_ids": [
         "pay_00030",
@@ -6968,7 +6977,7 @@
       "gross_paise": 39699052,
       "gst_paise": 119295,
       "net_paise": 38917529,
-      "paid": true,
+      "paid": false,
       "payment_ids": [
         "pay_00014",
         "pay_00036",
@@ -7026,7 +7035,7 @@
       "gross_paise": 30025025,
       "gst_paise": 89093,
       "net_paise": 26006422,
-      "paid": false,
+      "paid": true,
       "payment_ids": [
         "pay_00000",
         "pay_00016",
@@ -7143,12 +7152,12 @@
       ],
       "chargebacks_paise": 0,
       "cycle_date": "2026-06-15",
-      "duplicated": true,
+      "duplicated": false,
       "fee_paise": 355924,
       "gross_paise": 20319975,
       "gst_paise": 64066,
       "net_paise": 19725785,
-      "paid": true,
+      "paid": false,
       "payment_ids": [
         "pay_00003",
         "pay_00032",
@@ -7180,7 +7189,7 @@
       ],
       "chargebacks_paise": 0,
       "cycle_date": "2026-06-16",
-      "duplicated": false,
+      "duplicated": true,
       "fee_paise": 342003,
       "gross_paise": 18706923,
       "gst_paise": 61561,
@@ -7311,7 +7320,7 @@
       ],
       "chargebacks_paise": 0,
       "cycle_date": "2026-06-19",
-      "duplicated": false,
+      "duplicated": true,
       "fee_paise": 272307,
       "gross_paise": 14507349,
       "gst_paise": 48716,
@@ -7379,7 +7388,7 @@
       "fee_paise": 357705,
       "gross_paise": 22688220,
       "gst_paise": 64387,
-      "net_paise": 22266128,
+      "net_paise": 22254668,
       "paid": true,
       "payment_ids": [
         "pay_00023",
@@ -7514,7 +7523,7 @@
       "fee_paise": 241392,
       "gross_paise": 14671023,
       "gst_paise": 43452,
-      "net_paise": 17631563,
+      "net_paise": 17649574,
       "paid": true,
       "payment_ids": [
         "pay_00008",
@@ -7553,7 +7562,7 @@
       "gross_paise": 20128902,
       "gst_paise": 62333,
       "net_paise": 14975112,
-      "paid": false,
+      "paid": true,
       "payment_ids": [
         "pay_00005",
         "pay_00015",

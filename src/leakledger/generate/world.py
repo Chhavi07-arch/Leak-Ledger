@@ -364,7 +364,11 @@ def build_world(
     _seed_high_straddle(payments, settlements, by_cycle, adversarial, rng)
 
     # ---- seed settlement-level cases ----------------------------------
-    seed_settlement_cases(settlements, refunds, chargebacks, rng, leaks, adversarial)
+    # payments belonging to an adversarial case must not have their settlement
+    # made unreconcilable by a leak seeded afterwards -- see INC-009
+    protected = {pid for a in adversarial for pid in a.entity_ids}
+    seed_settlement_cases(settlements, refunds, chargebacks, rng, leaks, adversarial,
+                          protected_payment_ids=protected)
 
     # ---- invoices: the B2B slice only, with its own lifecycle ----------
     b2b = rng.sample(payments, k=int(n_payments * 0.30))
@@ -532,9 +536,23 @@ def seed_payment_cases(payments, rng, leaks, adversarial, schedule, calendar):
         ))
 
 
-def seed_settlement_cases(world_settlements, refunds, chargebacks, rng, leaks, adversarial):
-    """Settlement-level leaks. Runs after payouts are computed."""
-    pool = [s for s in world_settlements if len(s.payment_ids) >= 4]
+def seed_settlement_cases(world_settlements, refunds, chargebacks, rng, leaks, adversarial,
+                          protected_payment_ids=frozenset()):
+    """Settlement-level leaks. Runs after payouts are computed.
+
+    MUTUAL EXCLUSION (INC-009). Leaks and adversarial cases were previously seeded
+    independently, so they collided: a settlement carrying an AMBIGUITY_TRAP could
+    also be given MISSING_SETTLEMENT (no bank credit exists at all) or
+    SHORT_SETTLEMENT (the payout is deliberately unreconcilable). In both cases the
+    leak silently cancels the trap -- the engine can never reach the ambiguity, and
+    ground truth still claims a trap is present. Two of six traps were dead this
+    way. Settlements hosting a trap are therefore excluded from destructive leak
+    classes; they remain eligible for everything else.
+    """
+    hosts = {s.settlement_id for s in world_settlements
+             if protected_payment_ids & set(s.payment_ids)}
+    pool = [s for s in world_settlements
+            if len(s.payment_ids) >= 4 and s.settlement_id not in hosts]
 
     for s in rng.sample(pool, k=min(3, len(pool))):
         s.paid = False

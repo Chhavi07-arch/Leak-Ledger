@@ -192,3 +192,57 @@ roughly a third of the ₹12.04L total, because a missing payout genuinely is a
 large single-ticket loss. The scorecard must therefore report **leak value per
 class, a top-3 concentration figure and a median finding size** alongside the
 headline, so the total is never quoted without its distribution.
+
+
+---
+
+## ADR-004 — T3 is a deviation search, and its bound is set by the data, not the CPU
+
+**Date:** 2026-09-02
+**Status:** Accepted
+**Phase:** 03
+**Related:** INC-006 (bound mis-measured), INC-008 (performance ceiling),
+`src/leakledger/cascade/subsetsum.py`
+
+### Context
+
+PLAN.md framed T3 as "N:1 subset-sum within fee tolerance, cap subset size at
+k <= 12". Measured against the generated batch, that framing does not survive:
+settlements carry a median of 24 payments and a maximum of 42, so the true answer
+is almost always the *whole* candidate pool rather than a small selection from it.
+A size-bounded subset search cannot find it, and every large settlement would emit
+a budget exception — which would read as principled restraint while actually being
+a search aimed at the wrong problem.
+
+### Decision
+
+**T3 searches for a DEVIATION, not a subset.** The engine infers the settlement
+cycle from the bank value date, pools payments by capture date, and searches for a
+small set of exclusions and inclusions that reconciles the payout. It is never told
+the acquirer's cutoff time — handing it the generator's own `cycle_date_for_capture()`
+would make the pool correct by construction and the search a no-op reporting a
+perfect score.
+
+**The bound is d <= 6**, chosen from the measured true deviation distribution over
+paid settlements: `{0:1, 1:8, 2:9, 3:2, 4:1, 5:2, 6:1}`.
+
+**Wider is not better.** At d <= 7 the ambiguity count rises from 5 to 9 as
+coincidental alternative reconciliations appear and the engine begins refusing
+matches it should make. Six covers every real case and sits immediately below where
+spurious refusals begin.
+
+### Why the algorithm had to be rewritten first
+
+Setting the bound from the data was only possible after the performance ceiling was
+removed. With the original combination-enumeration search, d <= 6 could not complete
+at all. The bound would have been chosen by what the CPU tolerated — which, because
+the trap-hosting settlements need d=4 and d=5, would have silently suppressed the
+single behaviour this phase exists to demonstrate. See INC-008.
+
+### Verification
+
+All six seeded ambiguity traps fire `AMBIGUOUS_SUBSET` on the real batch, verified
+per-trap rather than inferred from an aggregate count. Both refusal mechanisms are
+exercised: several deviations of equal size within one cycle, and two candidate
+cycles reconciling identically (the latter arising because T+2 dating is not
+injective — INC-005).

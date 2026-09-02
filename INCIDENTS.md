@@ -202,3 +202,96 @@ rather than changed unilaterally.
 **Guard added:** pending — a real-data test asserting `AMBIGUOUS_SUBSET` fires on
 the seeded traps, which is the test that would have caught this on day one.
 **Commit:** (this phase)
+
+
+---
+
+## INC-007 — one day of bank posting lag made the true pool unreachable at any bound
+**Date:** 2026-09-02 23:10 IST
+**Phase:** 03
+**Symptom:** Two settlements holding ambiguity traps (`stl_0009` d=2, `stl_0024`
+d=3) failed with `NO_RECONCILING_SET` despite needing deviations well inside the
+bound. Tracing showed ground truth dating `stl_0009` at value date 2026-06-16
+while the bank row carried 2026-06-17.
+**Root cause:** the bank observer models a 5% posting lag (`value_date + 1 day`),
+which is realistic — banks do post late. The engine computed candidate cycles from
+the observed value date alone, so a single day of lag shifted the inferred cycle
+wholesale and the correct pool was never examined. No deviation bound can recover
+from searching the wrong pool, which is why this presented as a bound problem.
+**Fix:** `POSTING_LAG_TOLERANCE_DAYS = 2`. Candidate cycles are computed for a
+window of plausible release dates rather than for the observed date alone.
+**Result:** both settlements immediately reached AMBIGUOUS with 2 solutions each.
+**Guard added:** covered by `tests/test_ambiguity_refusal.py`, which asserts the
+refusal fires on the real batch — these two traps are part of that population.
+**Commit:** (this phase)
+
+---
+
+## INC-008 — the search had a hidden performance ceiling that suppressed correctness
+**Date:** 2026-09-02 23:30 IST
+**Phase:** 03
+**Symptom:** The deviation bound was being chosen by runtime rather than by the
+data. At d<=4 the batch took 13.9s, at d<=5 33.9s, and once INC-007 widened the
+candidate-cycle set the full run exceeded a two-minute timeout. Because the
+settlements holding ambiguity traps require d=4 and d=5, a bound picked for speed
+silently prevented the build's headline behaviour from ever executing.
+**Root cause:** v1 of `search_deviation` enumerated combinations directly —
+O(C(n,d)) — over pools of up to 42 payments. C(42,5) = 850,668 per cycle, times
+several candidate cycles, times 43 bank rows.
+**Why this is worth recording:** the defect never produced a wrong answer. It
+produced a *bound*, and the bound produced a wrong answer. A performance ceiling
+that expresses itself as a correctness gap is far harder to notice than a crash,
+because every individual number looks defensible.
+**Fix:** rewrote the search around the observation that deductions are per-payment
+and additive, so a payment's contribution is a single integer
+`value = amount - fee - gst` and reconciliation reduces to a signed, size-bounded
+subset-sum: `sum(included) - sum(excluded) == delta`. Neighbour sets are tiny and
+enumerated directly; the pool side is solved by meet-in-the-middle, splitting the
+pool in half, indexing size-bounded subset sums of each half and joining on the
+required complement. C(42,5) = 850,668 becomes 2 x C(21,<=5) = 55,792, and the
+join yields exact solution COUNTS, which is precisely what ambiguity detection
+needs.
+**Measured effect (43 bank rows, same data):**
+
+| bound | v1 time | v2 time | speedup | AMBIGUOUS_SUBSET |
+|---|---|---|---|---|
+| 3 | 1.8s | 0.05s | 36x | 0 -> 2 |
+| 4 | 13.9s | 0.13s | 107x | 1 -> 5 |
+| 5 | 33.9s | 0.36s | 94x | 1 -> 5 |
+| 6 | (timeout) | 0.87s | — | 5 |
+
+**Second finding from the rewrite:** a wider bound is NOT strictly better. At d<=7
+the refusal count rises from 5 to 9 as coincidental alternative reconciliations
+appear — the engine begins refusing matches it should make. The bound is therefore
+set at 6: it covers every true deviation in the data (max 6) and sits just below
+where spurious ambiguity begins. Recorded as ADR-004.
+**Guard added:** `tests/test_ambiguity_refusal.py` — five real-data assertions
+including that both refusal mechanisms (within-cycle and across-candidate-cycle)
+are exercised.
+**Commit:** (this phase)
+
+---
+
+## INC-009 — seeded leaks silently cancelled seeded adversarial cases
+**Date:** 2026-09-02 23:50 IST
+**Phase:** 03
+**Symptom:** After INC-007 and INC-008, four of six ambiguity traps fired. The
+remaining two were traced to their host settlements: `stl_0021` had been seeded
+`MISSING_SETTLEMENT` (so no bank credit exists at all) and `stl_0020` seeded
+`SHORT_SETTLEMENT` (the payout is deliberately short by Rs 180.11 and therefore
+cannot reconcile by construction). In both cases the engine was behaving
+correctly; the trap was dead.
+**Root cause:** `seed_payment_cases` and `seed_settlement_cases` chose their
+targets independently, with no mutual exclusion. Ground truth continued to assert
+that six ambiguity traps were present, so any scorecard computed against it would
+have counted two cases the engine could not possibly satisfy — understating
+performance for a reason that was an artefact of the generator.
+**Same class as INC-004:** an adversarial case that exists in ground truth and
+exercises nothing. Third occurrence of this pattern in this build.
+**Fix:** `seed_settlement_cases` now takes `protected_payment_ids` and excludes any
+settlement hosting an adversarial case from destructive leak classes.
+**Result:** 6 of 6 traps fire.
+**Guard added:** `test_every_reachable_trap_host_is_refused` asserts at most one
+trap may be unreachable and at least five must be, so a regression in seeding is
+caught rather than absorbed.
+**Commit:** (this phase)
