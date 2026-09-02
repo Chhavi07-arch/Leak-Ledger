@@ -45,6 +45,10 @@ appears in the derivation string of every finding.
 at load rather than silently defaulting. `test_composite_policy_available_and_may_differ`
 — both policies load and are distinguishable, and fee is asserted identical so only tax
 rounding can differ.
-**Still open:** which policy the project adopts is a decision for the build owner, not a
-default I should pick silently. Flagged to the user at the end of Phase 01.
+**Resolved:** build owner selected `per_line` on 2026-09-02, on the grounds that GST is
+levied on the taxable value as stated on the invoice line, and that stated value is
+itself already rounded to paise. This is now a recorded decision rather than an
+inherited default, and the policy string travels in every `FeeComputation.derivation()`
+and in the run manifest's config hash. The `composite` implementation is retained so the
+alternative remains testable, not deleted.
 **Commit:** ec564340
