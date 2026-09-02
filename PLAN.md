@@ -94,6 +94,33 @@ published ground truth.
 - **Continuous operation.** It runs as a batch. Reconciliation in production is
   continuous, with late-arriving files and cross-cycle corrections.
 
+### Rounding and the GST policy — a decision, not a detail
+
+Money is integer paise throughout and rounding is **half-up, away from zero**.
+
+For GST specifically the project uses **`per_line`**: GST is computed on the fee
+*as it would appear on a real invoice line* — that is, on the fee already rounded
+to paise — not on an unrounded intermediate. A tax invoice states the fee and the
+tax as two separate, separately-rounded line items, and GST is levied on the
+taxable value as stated. `per_line` reproduces that; it has a real-world referent.
+
+The alternative reading, **`composite`** (compute fee x 1.18 as one fraction and
+round once at the very end), was implemented, measured, and rejected. It is a more
+literal reading of "round once at the end", but no invoice is stated that way, so
+there is nothing to validate it against.
+
+**This is not an implementation detail.** Measured over every one-paisa amount from
+Rs 100.00 to Rs 12,000.00, the two policies disagree on **29.5%** of amounts — always
+by one paisa, but on roughly three amounts in ten. The choice therefore moves about
+30% of `GST_MISMATCH` classifications. Both implementations are retained so the
+alternative stays testable; the active policy is a versioned config field that
+travels in every finding's derivation string and in the run manifest.
+
+Recorded as **ADR-001** in `DECISIONS.md`, and as **INC-001** in `INCIDENTS.md`
+(the ambiguity was found during Phase 01, not anticipated in the plan).
+
+---
+
 ### The circularity that must be disclosed, not hidden
 
 `FEE_OVERCHARGE`, `GST_MISMATCH` and `ZERO_MDR_VIOLATION` are **verification, not

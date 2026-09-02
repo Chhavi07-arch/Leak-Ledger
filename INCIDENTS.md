@@ -51,4 +51,7 @@ itself already rounded to paise. This is now a recorded decision rather than an
 inherited default, and the policy string travels in every `FeeComputation.derivation()`
 and in the run manifest's config hash. The `composite` implementation is retained so the
 alternative remains testable, not deleted.
+**Decision record:** the choice of `per_line` over `composite`, its real-world
+justification, and the measurement table are recorded as **ADR-001** in
+`DECISIONS.md` — the citable answer to "why per_line and not composite".
 **Commit:** ec564340

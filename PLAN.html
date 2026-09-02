@@ -566,7 +566,7 @@ a:focus-visible, :focus-visible { outline: 2px solid var(--accent); outline-offs
         <tr><td>Netbanking</td><td class="mono">flat ₹12–20</td><td>Flat, per-bank, not percentage. Percentage-only fee logic silently mis-flags every netbanking row.</td></tr>
         <tr><td>Wallet</td><td class="mono">1.80%</td><td>—</td></tr>
         <tr><td>EMI</td><td class="mono">2.50% + subvention</td><td>Two components. Merchant-borne subvention is not a gateway fee and must not be compared against the MDR slab.</td></tr>
-        <tr><td>GST on fee</td><td class="mono">18.00%</td><td>Rounding. Compute in paise, round half-up once, at the end.</td></tr>
+        <tr><td>GST on fee</td><td class="mono">18.00%</td><td>Computed on the fee <em>as it would appear on an invoice line</em> — i.e. on the fee already rounded to paise (<code>per_line</code>), not on an unrounded intermediate. See ADR-001; this choice moves ~30% of GST_MISMATCH classifications.</td></tr>
       </tbody>
     </table>
   </div>
@@ -823,7 +823,7 @@ a:focus-visible, :focus-visible { outline: 2px solid var(--accent); outline-offs
       <ul>
         <li><strong>Money is integer paise.</strong> Never a float, anywhere, at any stage. A single float in money code is an instant credibility loss.</li>
         <li><strong>All timestamps tz-aware IST.</strong> No naive datetimes. <code>SETTLEMENT_CUTOFF_IST</code> is a named constant.</li>
-        <li><strong>Rounding is half-up, once, at the end</strong> — and the policy is stated in the README.</li>
+        <li><strong>Rounding is half-up, away from zero.</strong> GST is computed on the fee as it would appear on a real invoice line — already rounded to paise (<code>per_line</code>) — not on an unrounded intermediate. <code>composite</code> was implemented, measured and rejected: it disagrees on ~30% of realistic amounts and has no real invoice to validate against. A policy choice with a real-world justification, not an implementation detail. See ADR-001, recorded in <code>DECISIONS.md</code>.</li>
         <li><strong>Config is versioned and hashed</strong> into every run manifest, so any result is reproducible against its exact contract.</li>
       </ul>
     </div>
