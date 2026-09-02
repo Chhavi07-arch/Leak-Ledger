@@ -12,7 +12,7 @@
     },
     {
       "case_id": "adv_0001",
-      "detail": "two payments of Rs 1272.00 on 2026-06-03 to the same counterparty",
+      "detail": "two payments of Rs 4747.00 on 2026-06-25 to the same counterparty",
       "entity_ids": [
         "pay_amb10",
         "pay_amb11"
@@ -22,7 +22,7 @@
     },
     {
       "case_id": "adv_0002",
-      "detail": "two payments of Rs 5338.00 on 2026-06-29 to the same counterparty",
+      "detail": "two payments of Rs 4142.00 on 2026-06-04 to the same counterparty",
       "entity_ids": [
         "pay_amb20",
         "pay_amb21"
@@ -32,7 +32,7 @@
     },
     {
       "case_id": "adv_0003",
-      "detail": "two payments of Rs 2040.00 on 2026-06-12 to the same counterparty",
+      "detail": "two payments of Rs 6577.00 on 2026-06-26 to the same counterparty",
       "entity_ids": [
         "pay_amb30",
         "pay_amb31"
@@ -42,7 +42,7 @@
     },
     {
       "case_id": "adv_0004",
-      "detail": "two payments of Rs 1673.00 on 2026-06-12 to the same counterparty",
+      "detail": "two payments of Rs 2040.00 on 2026-06-12 to the same counterparty",
       "entity_ids": [
         "pay_amb40",
         "pay_amb41"
@@ -52,7 +52,7 @@
     },
     {
       "case_id": "adv_0005",
-      "detail": "two payments of Rs 3080.00 on 2026-06-04 to the same counterparty",
+      "detail": "two payments of Rs 2025.00 on 2026-06-30 to the same counterparty",
       "entity_ids": [
         "pay_amb50",
         "pay_amb51"
@@ -62,7 +62,7 @@
     },
     {
       "case_id": "adv_0006",
-      "detail": "Rs 794 + Rs 1161 == Rs 1955; two subsets reconcile identically",
+      "detail": "Rs 1852 + Rs 1340 == Rs 3192; two subsets reconcile identically",
       "entity_ids": [
         "pay_dec0a",
         "pay_dec0b",
@@ -73,7 +73,7 @@
     },
     {
       "case_id": "adv_0007",
-      "detail": "Rs 634 + Rs 1183 == Rs 1817; two subsets reconcile identically",
+      "detail": "Rs 1161 + Rs 637 == Rs 1798; two subsets reconcile identically",
       "entity_ids": [
         "pay_dec1a",
         "pay_dec1b",
@@ -84,7 +84,7 @@
     },
     {
       "case_id": "adv_0008",
-      "detail": "Rs 729 + Rs 813 == Rs 1542; two subsets reconcile identically",
+      "detail": "Rs 2239 + Rs 634 == Rs 2873; two subsets reconcile identically",
       "entity_ids": [
         "pay_dec2a",
         "pay_dec2b",
@@ -95,7 +95,7 @@
     },
     {
       "case_id": "adv_0009",
-      "detail": "Rs 1799 + Rs 1991 == Rs 3790; two subsets reconcile identically",
+      "detail": "Rs 813 + Rs 1491 == Rs 2304; two subsets reconcile identically",
       "entity_ids": [
         "pay_dec3a",
         "pay_dec3b",
@@ -106,7 +106,7 @@
     },
     {
       "case_id": "adv_0010",
-      "detail": "Rs 1787 + Rs 2340 == Rs 4127; two subsets reconcile identically",
+      "detail": "Rs 1799 + Rs 1991 == Rs 3790; two subsets reconcile identically",
       "entity_ids": [
         "pay_dec4a",
         "pay_dec4b",
@@ -117,7 +117,7 @@
     },
     {
       "case_id": "adv_0011",
-      "detail": "Rs 1769 + Rs 1009 == Rs 2778; two subsets reconcile identically",
+      "detail": "Rs 1787 + Rs 2340 == Rs 4127; two subsets reconcile identically",
       "entity_ids": [
         "pay_dec5a",
         "pay_dec5b",
@@ -128,6 +128,15 @@
     },
     {
       "case_id": "adv_0012",
+      "detail": "CREDIT_CARD fee Rs 762.52 coincides with another slab's output",
+      "entity_ids": [
+        "pay_00323"
+      ],
+      "expected_behaviour": "NO_MATCH",
+      "type": "COINCIDENTAL_FEE_SLAB"
+    },
+    {
+      "case_id": "adv_0013",
       "detail": "DEBIT_CARD fee Rs 5.59 coincides with another slab's output",
       "entity_ids": [
         "pay_00439"
@@ -136,7 +145,34 @@
       "type": "COINCIDENTAL_FEE_SLAB"
     },
     {
-      "case_id": "adv_0013",
+      "case_id": "adv_0014",
+      "detail": "WALLET fee Rs 32.92 coincides with another slab's output",
+      "entity_ids": [
+        "pay_00359"
+      ],
+      "expected_behaviour": "NO_MATCH",
+      "type": "COINCIDENTAL_FEE_SLAB"
+    },
+    {
+      "case_id": "adv_0015",
+      "detail": "DEBIT_CARD fee Rs 74.05 coincides with another slab's output",
+      "entity_ids": [
+        "pay_00076"
+      ],
+      "expected_behaviour": "NO_MATCH",
+      "type": "COINCIDENTAL_FEE_SLAB"
+    },
+    {
+      "case_id": "adv_0016",
+      "detail": "CREDIT_CARD fee Rs 445.78 coincides with another slab's output",
+      "entity_ids": [
+        "pay_00100"
+      ],
+      "expected_behaviour": "NO_MATCH",
+      "type": "COINCIDENTAL_FEE_SLAB"
+    },
+    {
+      "case_id": "adv_0017",
       "detail": "DEBIT_CARD fee Rs 73.04 coincides with another slab's output",
       "entity_ids": [
         "pay_00008"
@@ -145,89 +181,39 @@
       "type": "COINCIDENTAL_FEE_SLAB"
     },
     {
-      "case_id": "adv_0014",
-      "detail": "DEBIT_CARD fee Rs 78.24 coincides with another slab's output",
-      "entity_ids": [
-        "pay_00049"
-      ],
-      "expected_behaviour": "NO_MATCH",
-      "type": "COINCIDENTAL_FEE_SLAB"
-    },
-    {
-      "case_id": "adv_0015",
-      "detail": "DEBIT_CARD fee Rs 73.63 coincides with another slab's output",
-      "entity_ids": [
-        "pay_00250"
-      ],
-      "expected_behaviour": "NO_MATCH",
-      "type": "COINCIDENTAL_FEE_SLAB"
-    },
-    {
-      "case_id": "adv_0016",
-      "detail": "DEBIT_CARD fee Rs 37.13 coincides with another slab's output",
-      "entity_ids": [
-        "pay_00230"
-      ],
-      "expected_behaviour": "NO_MATCH",
-      "type": "COINCIDENTAL_FEE_SLAB"
-    },
-    {
-      "case_id": "adv_0017",
-      "detail": "DEBIT_CARD fee Rs 56.98 coincides with another slab's output",
-      "entity_ids": [
-        "pay_00348"
-      ],
-      "expected_behaviour": "NO_MATCH",
-      "type": "COINCIDENTAL_FEE_SLAB"
-    },
-    {
       "case_id": "adv_0018",
-      "detail": "UTR20260022 recorded as UTR20620022; near-miss reference must not resolve",
+      "detail": "5 payments captured 23:2x on 2026-06-17 settle in 2026-06-18; deviation 5 exceeds the T3 bound of 3",
       "entity_ids": [
-        "BNK000022"
+        "pay_str00",
+        "pay_str01",
+        "pay_str02",
+        "pay_str03",
+        "pay_str04"
       ],
-      "expected_behaviour": "NO_MATCH",
-      "type": "TRANSPOSED_UTR"
+      "expected_behaviour": "REFUSE",
+      "type": "HIGH_STRADDLE"
     },
     {
       "case_id": "adv_0019",
-      "detail": "UTR20260023 recorded as UTR20260203; near-miss reference must not resolve",
+      "detail": "UTR20260014 recorded as UTR20206014; near-miss reference must not resolve",
       "entity_ids": [
-        "BNK000023"
+        "BNK000015"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "TRANSPOSED_UTR"
     },
     {
       "case_id": "adv_0020",
-      "detail": "UTR20260015 recorded as UTR20206015; near-miss reference must not resolve",
+      "detail": "UTR20260002 recorded as UTR20620002; near-miss reference must not resolve",
       "entity_ids": [
-        "BNK000014"
+        "BNK000003"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "TRANSPOSED_UTR"
     },
     {
       "case_id": "adv_0021",
-      "detail": "UTR20260003 recorded as UTR20206003; near-miss reference must not resolve",
-      "entity_ids": [
-        "BNK000004"
-      ],
-      "expected_behaviour": "NO_MATCH",
-      "type": "TRANSPOSED_UTR"
-    },
-    {
-      "case_id": "adv_0022",
-      "detail": "UTR20260012 recorded as UTR20260021; near-miss reference must not resolve",
-      "entity_ids": [
-        "BNK000012"
-      ],
-      "expected_behaviour": "NO_MATCH",
-      "type": "TRANSPOSED_UTR"
-    },
-    {
-      "case_id": "adv_0023",
-      "detail": "UTR20260008 recorded as UTR20260080; near-miss reference must not resolve",
+      "detail": "UTR20260007 recorded as UTR22060007; near-miss reference must not resolve",
       "entity_ids": [
         "BNK000009"
       ],
@@ -235,150 +221,168 @@
       "type": "TRANSPOSED_UTR"
     },
     {
-      "case_id": "adv_0024",
-      "detail": "UTR UTR20260021 appears with two different amounts",
+      "case_id": "adv_0022",
+      "detail": "UTR20260024 recorded as UTR20620024; near-miss reference must not resolve",
       "entity_ids": [
-        "BNK000012",
-        "BNK000012X"
+        "BNK000024"
+      ],
+      "expected_behaviour": "NO_MATCH",
+      "type": "TRANSPOSED_UTR"
+    },
+    {
+      "case_id": "adv_0023",
+      "detail": "UTR20260016 recorded as UTR20206016; near-miss reference must not resolve",
+      "entity_ids": [
+        "BNK000017"
+      ],
+      "expected_behaviour": "NO_MATCH",
+      "type": "TRANSPOSED_UTR"
+    },
+    {
+      "case_id": "adv_0024",
+      "detail": "UTR UTR20206014 appears with two different amounts",
+      "entity_ids": [
+        "BNK000015",
+        "BNK000015X"
       ],
       "expected_behaviour": "REFUSE",
       "type": "UTR_REUSED_DIFFERENT_AMOUNT"
     },
     {
       "case_id": "adv_0025",
-      "detail": "UTR ARN98405008146 appears with two different amounts",
+      "detail": "UTR UTR20260001 appears with two different amounts",
       "entity_ids": [
-        "BNK000024",
-        "BNK000024X"
+        "BNK000002",
+        "BNK000002X"
       ],
       "expected_behaviour": "REFUSE",
       "type": "UTR_REUSED_DIFFERENT_AMOUNT"
     },
     {
       "case_id": "adv_0026",
-      "detail": "UTR UTR20260002 appears with two different amounts",
+      "detail": "UTR UTR20260006 appears with two different amounts",
       "entity_ids": [
-        "BNK000003",
-        "BNK000003X"
+        "BNK000008",
+        "BNK000008X"
       ],
       "expected_behaviour": "REFUSE",
       "type": "UTR_REUSED_DIFFERENT_AMOUNT"
     },
     {
       "case_id": "adv_0027",
-      "detail": "UTR UTR20620022 appears with two different amounts",
+      "detail": "UTR UTR20260003 appears with two different amounts",
       "entity_ids": [
-        "BNK000022",
-        "BNK000022X"
+        "BNK000004",
+        "BNK000004X"
       ],
       "expected_behaviour": "REFUSE",
       "type": "UTR_REUSED_DIFFERENT_AMOUNT"
     },
     {
       "case_id": "adv_0028",
-      "detail": "UTR UTR20260080 appears with two different amounts",
+      "detail": "UTR UTR20260000 appears with two different amounts",
       "entity_ids": [
-        "BNK000009",
-        "BNK000009X"
+        "BNK000001",
+        "BNK000001X"
       ],
       "expected_behaviour": "REFUSE",
       "type": "UTR_REUSED_DIFFERENT_AMOUNT"
     },
     {
       "case_id": "adv_0029",
-      "detail": "a debit of Rs 11161.01 equals unrelated payment pay_00169",
+      "detail": "a debit of Rs 777.50 equals unrelated payment pay_00463",
       "entity_ids": [
-        "pay_00169"
+        "pay_00463"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "REFUND_EQUALS_PAYMENT"
     },
     {
       "case_id": "adv_0030",
-      "detail": "a debit of Rs 38125.99 equals unrelated payment pay_00323",
+      "detail": "a debit of Rs 25758.25 equals unrelated payment pay_00461",
       "entity_ids": [
-        "pay_00323"
+        "pay_00461"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "REFUND_EQUALS_PAYMENT"
     },
     {
       "case_id": "adv_0031",
-      "detail": "a debit of Rs 409.01 equals unrelated payment pay_00198",
+      "detail": "a debit of Rs 25243.49 equals unrelated payment pay_00331",
       "entity_ids": [
-        "pay_00198"
+        "pay_00331"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "REFUND_EQUALS_PAYMENT"
     },
     {
       "case_id": "adv_0032",
-      "detail": "a debit of Rs 635.49 equals unrelated payment pay_00316",
+      "detail": "a debit of Rs 1677.25 equals unrelated payment pay_00433",
       "entity_ids": [
-        "pay_00316"
+        "pay_00433"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "REFUND_EQUALS_PAYMENT"
     },
     {
       "case_id": "adv_0033",
-      "detail": "a debit of Rs 193.49 equals unrelated payment pay_00327",
+      "detail": "a debit of Rs 1935.00 equals unrelated payment pay_00143",
       "entity_ids": [
-        "pay_00327"
+        "pay_00143"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "REFUND_EQUALS_PAYMENT"
     },
     {
       "case_id": "adv_0034",
-      "detail": "narration names 'Bharat Retail Ventures Private Limited', which is plausible but wrong",
+      "detail": "narration names 'Himalaya Organics Private Limited', which is plausible but wrong",
       "entity_ids": [
-        "BNK000021"
+        "BNK000001"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
     },
     {
       "case_id": "adv_0035",
-      "detail": "narration names 'Konkan Seafoods Private Limited', which is plausible but wrong",
+      "detail": "narration names 'Bharat Retail Ventures Private Limited', which is plausible but wrong",
       "entity_ids": [
-        "BNK000015"
+        "BNK000019"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
     },
     {
       "case_id": "adv_0036",
-      "detail": "narration names 'Lotus Stationery Works Limited', which is plausible but wrong",
+      "detail": "narration names 'Fortune Home Appliances Private Limited', which is plausible but wrong",
       "entity_ids": [
-        "BNK000022"
+        "BNK000002"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
     },
     {
       "case_id": "adv_0037",
-      "detail": "narration names 'Acme India Private Limited', which is plausible but wrong",
+      "detail": "narration names 'Himalaya Organics Private Limited', which is plausible but wrong",
       "entity_ids": [
-        "BNK000008"
+        "BNK000014"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
     },
     {
       "case_id": "adv_0038",
-      "detail": "narration names 'Konkan Seafoods Private Limited', which is plausible but wrong",
+      "detail": "narration names 'Bharat Retail Ventures Private Limited', which is plausible but wrong",
       "entity_ids": [
-        "BNK000004"
+        "BNK000003"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
     },
     {
       "case_id": "adv_0039",
-      "detail": "narration names 'Coastal Foods and Beverages Limited', which is plausible but wrong",
+      "detail": "narration names 'Acme India Private Limited', which is plausible but wrong",
       "entity_ids": [
-        "BNK000001"
+        "BNK000005"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
@@ -386,16 +390,18 @@
   ],
   "counts": {
     "adversarial_cases": 40,
-    "bank_rows": 40,
+    "bank_rows": 42,
     "chargebacks": 12,
-    "erp_rows": 127,
-    "gateway_rows": 537,
-    "invoices": 126,
-    "payments": 533,
+    "erp_rows": 125,
+    "gateway_adjustment_rows": 24,
+    "gateway_refund_rows": 35,
+    "gateway_rows": 542,
+    "invoices": 125,
+    "payments": 538,
     "refunds": 35,
     "seeded_leaks": 38,
-    "settlements": 24,
-    "total_rows": 704
+    "settlements": 26,
+    "total_rows": 768
   },
   "expected_fees": {
     "pay_00000": {
@@ -4439,46 +4445,54 @@
       "instrument": "CREDIT_CARD"
     },
     "pay_amb10": {
-      "amount_paise": 127200,
-      "charged_fee_paise": 2544,
-      "charged_gst_paise": 458,
-      "expected_fee_paise": 2544,
-      "expected_gst_paise": 458,
+      "amount_paise": 474700,
+      "charged_fee_paise": 9494,
+      "charged_gst_paise": 1709,
+      "expected_fee_paise": 9494,
+      "expected_gst_paise": 1709,
       "instrument": "CREDIT_CARD"
     },
     "pay_amb11": {
-      "amount_paise": 127200,
-      "charged_fee_paise": 2544,
-      "charged_gst_paise": 458,
-      "expected_fee_paise": 2544,
-      "expected_gst_paise": 458,
+      "amount_paise": 474700,
+      "charged_fee_paise": 9494,
+      "charged_gst_paise": 1709,
+      "expected_fee_paise": 9494,
+      "expected_gst_paise": 1709,
       "instrument": "CREDIT_CARD"
     },
     "pay_amb20": {
-      "amount_paise": 533800,
-      "charged_fee_paise": 10676,
-      "charged_gst_paise": 1922,
-      "expected_fee_paise": 10676,
-      "expected_gst_paise": 1922,
+      "amount_paise": 414200,
+      "charged_fee_paise": 8284,
+      "charged_gst_paise": 1491,
+      "expected_fee_paise": 8284,
+      "expected_gst_paise": 1491,
       "instrument": "CREDIT_CARD"
     },
     "pay_amb21": {
-      "amount_paise": 533800,
-      "charged_fee_paise": 10676,
-      "charged_gst_paise": 1922,
-      "expected_fee_paise": 10676,
-      "expected_gst_paise": 1922,
+      "amount_paise": 414200,
+      "charged_fee_paise": 8284,
+      "charged_gst_paise": 1491,
+      "expected_fee_paise": 8284,
+      "expected_gst_paise": 1491,
       "instrument": "CREDIT_CARD"
     },
     "pay_amb30": {
-      "amount_paise": 204000,
-      "charged_fee_paise": 4080,
-      "charged_gst_paise": 734,
-      "expected_fee_paise": 4080,
-      "expected_gst_paise": 734,
+      "amount_paise": 657700,
+      "charged_fee_paise": 13154,
+      "charged_gst_paise": 2368,
+      "expected_fee_paise": 13154,
+      "expected_gst_paise": 2368,
       "instrument": "CREDIT_CARD"
     },
     "pay_amb31": {
+      "amount_paise": 657700,
+      "charged_fee_paise": 13154,
+      "charged_gst_paise": 2368,
+      "expected_fee_paise": 13154,
+      "expected_gst_paise": 2368,
+      "instrument": "CREDIT_CARD"
+    },
+    "pay_amb40": {
       "amount_paise": 204000,
       "charged_fee_paise": 4080,
       "charged_gst_paise": 734,
@@ -4486,47 +4500,55 @@
       "expected_gst_paise": 734,
       "instrument": "CREDIT_CARD"
     },
-    "pay_amb40": {
-      "amount_paise": 167300,
-      "charged_fee_paise": 3346,
-      "charged_gst_paise": 602,
-      "expected_fee_paise": 3346,
-      "expected_gst_paise": 602,
-      "instrument": "CREDIT_CARD"
-    },
     "pay_amb41": {
-      "amount_paise": 167300,
-      "charged_fee_paise": 3346,
-      "charged_gst_paise": 602,
-      "expected_fee_paise": 3346,
-      "expected_gst_paise": 602,
+      "amount_paise": 204000,
+      "charged_fee_paise": 4080,
+      "charged_gst_paise": 734,
+      "expected_fee_paise": 4080,
+      "expected_gst_paise": 734,
       "instrument": "CREDIT_CARD"
     },
     "pay_amb50": {
-      "amount_paise": 308000,
-      "charged_fee_paise": 6160,
-      "charged_gst_paise": 1109,
-      "expected_fee_paise": 6160,
-      "expected_gst_paise": 1109,
+      "amount_paise": 202500,
+      "charged_fee_paise": 4050,
+      "charged_gst_paise": 729,
+      "expected_fee_paise": 4050,
+      "expected_gst_paise": 729,
       "instrument": "CREDIT_CARD"
     },
     "pay_amb51": {
-      "amount_paise": 308000,
-      "charged_fee_paise": 6160,
-      "charged_gst_paise": 1109,
-      "expected_fee_paise": 6160,
-      "expected_gst_paise": 1109,
+      "amount_paise": 202500,
+      "charged_fee_paise": 4050,
+      "charged_gst_paise": 729,
+      "expected_fee_paise": 4050,
+      "expected_gst_paise": 729,
       "instrument": "CREDIT_CARD"
     },
     "pay_dec0a": {
-      "amount_paise": 79400,
-      "charged_fee_paise": 318,
-      "charged_gst_paise": 57,
-      "expected_fee_paise": 318,
-      "expected_gst_paise": 57,
+      "amount_paise": 185200,
+      "charged_fee_paise": 741,
+      "charged_gst_paise": 133,
+      "expected_fee_paise": 741,
+      "expected_gst_paise": 133,
       "instrument": "DEBIT_CARD"
     },
     "pay_dec0b": {
+      "amount_paise": 134000,
+      "charged_fee_paise": 536,
+      "charged_gst_paise": 96,
+      "expected_fee_paise": 536,
+      "expected_gst_paise": 96,
+      "instrument": "DEBIT_CARD"
+    },
+    "pay_dec0c": {
+      "amount_paise": 319200,
+      "charged_fee_paise": 2873,
+      "charged_gst_paise": 517,
+      "expected_fee_paise": 2873,
+      "expected_gst_paise": 517,
+      "instrument": "DEBIT_CARD"
+    },
+    "pay_dec1a": {
       "amount_paise": 116100,
       "charged_fee_paise": 464,
       "charged_gst_paise": 84,
@@ -4534,15 +4556,31 @@
       "expected_gst_paise": 84,
       "instrument": "DEBIT_CARD"
     },
-    "pay_dec0c": {
-      "amount_paise": 195500,
-      "charged_fee_paise": 782,
-      "charged_gst_paise": 141,
-      "expected_fee_paise": 782,
-      "expected_gst_paise": 141,
+    "pay_dec1b": {
+      "amount_paise": 63700,
+      "charged_fee_paise": 255,
+      "charged_gst_paise": 46,
+      "expected_fee_paise": 255,
+      "expected_gst_paise": 46,
       "instrument": "DEBIT_CARD"
     },
-    "pay_dec1a": {
+    "pay_dec1c": {
+      "amount_paise": 179800,
+      "charged_fee_paise": 719,
+      "charged_gst_paise": 129,
+      "expected_fee_paise": 719,
+      "expected_gst_paise": 129,
+      "instrument": "DEBIT_CARD"
+    },
+    "pay_dec2a": {
+      "amount_paise": 223900,
+      "charged_fee_paise": 2015,
+      "charged_gst_paise": 363,
+      "expected_fee_paise": 2015,
+      "expected_gst_paise": 363,
+      "instrument": "DEBIT_CARD"
+    },
+    "pay_dec2b": {
       "amount_paise": 63400,
       "charged_fee_paise": 254,
       "charged_gst_paise": 46,
@@ -4550,31 +4588,15 @@
       "expected_gst_paise": 46,
       "instrument": "DEBIT_CARD"
     },
-    "pay_dec1b": {
-      "amount_paise": 118300,
-      "charged_fee_paise": 473,
-      "charged_gst_paise": 85,
-      "expected_fee_paise": 473,
-      "expected_gst_paise": 85,
+    "pay_dec2c": {
+      "amount_paise": 287300,
+      "charged_fee_paise": 2586,
+      "charged_gst_paise": 465,
+      "expected_fee_paise": 2586,
+      "expected_gst_paise": 465,
       "instrument": "DEBIT_CARD"
     },
-    "pay_dec1c": {
-      "amount_paise": 181700,
-      "charged_fee_paise": 727,
-      "charged_gst_paise": 131,
-      "expected_fee_paise": 727,
-      "expected_gst_paise": 131,
-      "instrument": "DEBIT_CARD"
-    },
-    "pay_dec2a": {
-      "amount_paise": 72900,
-      "charged_fee_paise": 292,
-      "charged_gst_paise": 53,
-      "expected_fee_paise": 292,
-      "expected_gst_paise": 53,
-      "instrument": "DEBIT_CARD"
-    },
-    "pay_dec2b": {
+    "pay_dec3a": {
       "amount_paise": 81300,
       "charged_fee_paise": 325,
       "charged_gst_paise": 59,
@@ -4582,15 +4604,23 @@
       "expected_gst_paise": 59,
       "instrument": "DEBIT_CARD"
     },
-    "pay_dec2c": {
-      "amount_paise": 154200,
-      "charged_fee_paise": 617,
-      "charged_gst_paise": 111,
-      "expected_fee_paise": 617,
-      "expected_gst_paise": 111,
+    "pay_dec3b": {
+      "amount_paise": 149100,
+      "charged_fee_paise": 596,
+      "charged_gst_paise": 107,
+      "expected_fee_paise": 596,
+      "expected_gst_paise": 107,
       "instrument": "DEBIT_CARD"
     },
-    "pay_dec3a": {
+    "pay_dec3c": {
+      "amount_paise": 230400,
+      "charged_fee_paise": 2074,
+      "charged_gst_paise": 373,
+      "expected_fee_paise": 2074,
+      "expected_gst_paise": 373,
+      "instrument": "DEBIT_CARD"
+    },
+    "pay_dec4a": {
       "amount_paise": 179900,
       "charged_fee_paise": 720,
       "charged_gst_paise": 130,
@@ -4598,7 +4628,7 @@
       "expected_gst_paise": 130,
       "instrument": "DEBIT_CARD"
     },
-    "pay_dec3b": {
+    "pay_dec4b": {
       "amount_paise": 199100,
       "charged_fee_paise": 796,
       "charged_gst_paise": 143,
@@ -4606,7 +4636,7 @@
       "expected_gst_paise": 143,
       "instrument": "DEBIT_CARD"
     },
-    "pay_dec3c": {
+    "pay_dec4c": {
       "amount_paise": 379000,
       "charged_fee_paise": 3411,
       "charged_gst_paise": 614,
@@ -4614,7 +4644,7 @@
       "expected_gst_paise": 614,
       "instrument": "DEBIT_CARD"
     },
-    "pay_dec4a": {
+    "pay_dec5a": {
       "amount_paise": 178700,
       "charged_fee_paise": 715,
       "charged_gst_paise": 129,
@@ -4622,7 +4652,7 @@
       "expected_gst_paise": 129,
       "instrument": "DEBIT_CARD"
     },
-    "pay_dec4b": {
+    "pay_dec5b": {
       "amount_paise": 234000,
       "charged_fee_paise": 2106,
       "charged_gst_paise": 379,
@@ -4630,7 +4660,7 @@
       "expected_gst_paise": 379,
       "instrument": "DEBIT_CARD"
     },
-    "pay_dec4c": {
+    "pay_dec5c": {
       "amount_paise": 412700,
       "charged_fee_paise": 3714,
       "charged_gst_paise": 669,
@@ -4638,29 +4668,45 @@
       "expected_gst_paise": 669,
       "instrument": "DEBIT_CARD"
     },
-    "pay_dec5a": {
-      "amount_paise": 176900,
-      "charged_fee_paise": 708,
-      "charged_gst_paise": 127,
-      "expected_fee_paise": 708,
-      "expected_gst_paise": 127,
-      "instrument": "DEBIT_CARD"
+    "pay_str00": {
+      "amount_paise": 305000,
+      "charged_fee_paise": 6100,
+      "charged_gst_paise": 1098,
+      "expected_fee_paise": 6100,
+      "expected_gst_paise": 1098,
+      "instrument": "CREDIT_CARD"
     },
-    "pay_dec5b": {
-      "amount_paise": 100900,
-      "charged_fee_paise": 404,
-      "charged_gst_paise": 73,
-      "expected_fee_paise": 404,
-      "expected_gst_paise": 73,
-      "instrument": "DEBIT_CARD"
+    "pay_str01": {
+      "amount_paise": 73400,
+      "charged_fee_paise": 1468,
+      "charged_gst_paise": 264,
+      "expected_fee_paise": 1468,
+      "expected_gst_paise": 264,
+      "instrument": "CREDIT_CARD"
     },
-    "pay_dec5c": {
-      "amount_paise": 277800,
-      "charged_fee_paise": 2500,
-      "charged_gst_paise": 450,
-      "expected_fee_paise": 2500,
-      "expected_gst_paise": 450,
-      "instrument": "DEBIT_CARD"
+    "pay_str02": {
+      "amount_paise": 440000,
+      "charged_fee_paise": 8800,
+      "charged_gst_paise": 1584,
+      "expected_fee_paise": 8800,
+      "expected_gst_paise": 1584,
+      "instrument": "CREDIT_CARD"
+    },
+    "pay_str03": {
+      "amount_paise": 468400,
+      "charged_fee_paise": 9368,
+      "charged_gst_paise": 1686,
+      "expected_fee_paise": 9368,
+      "expected_gst_paise": 1686,
+      "instrument": "CREDIT_CARD"
+    },
+    "pay_str04": {
+      "amount_paise": 533300,
+      "charged_fee_paise": 10666,
+      "charged_gst_paise": 1920,
+      "expected_fee_paise": 10666,
+      "expected_gst_paise": 1920,
+      "instrument": "CREDIT_CARD"
     }
   },
   "generator": {
@@ -4677,49 +4723,60 @@
   },
   "payment_invoice_links": [
     {
-      "amount_paise": 136701,
-      "case_tags": [],
+      "amount_paise": 88999,
+      "case_tags": [
+        "N_TO_1_MIXED_INSTRUMENT"
+      ],
       "invoice_id": "INV-2026-0000",
       "payment_ids": [
-        "pay_00292"
+        "pay_00244",
+        "pay_00488"
       ]
     },
     {
-      "amount_paise": 3652996,
+      "amount_paise": 167597,
       "case_tags": [
         "PARTIAL_INVOICE_PAYMENT"
       ],
       "invoice_id": "INV-2026-0001",
       "payment_ids": [
+        "pay_00292"
+      ]
+    },
+    {
+      "amount_paise": 3622100,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0002",
+      "payment_ids": [
         "pay_00041"
       ]
     },
     {
-      "amount_paise": 94499,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0002",
-      "payment_ids": [
-        "pay_00263"
-      ]
-    },
-    {
-      "amount_paise": 5954600,
+      "amount_paise": 6041198,
       "case_tags": [
         "N_TO_1_MIXED_INSTRUMENT"
       ],
       "invoice_id": "INV-2026-0003",
       "payment_ids": [
+        "pay_00263",
         "pay_00232",
-        "pay_00392",
-        "pay_00226"
+        "pay_00392"
       ]
     },
     {
-      "amount_paise": 2558864,
+      "amount_paise": 14465,
       "case_tags": [
         "PARTIAL_INVOICE_PAYMENT"
       ],
       "invoice_id": "INV-2026-0004",
+      "payment_ids": [
+        "pay_00226"
+      ]
+    },
+    {
+      "amount_paise": 2552300,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0005",
       "payment_ids": [
         "pay_00038"
       ]
@@ -4727,7 +4784,7 @@
     {
       "amount_paise": 2363950,
       "case_tags": [],
-      "invoice_id": "INV-2026-0005",
+      "invoice_id": "INV-2026-0006",
       "payment_ids": [
         "pay_00281"
       ]
@@ -4735,7 +4792,7 @@
     {
       "amount_paise": 298600,
       "case_tags": [],
-      "invoice_id": "INV-2026-0006",
+      "invoice_id": "INV-2026-0007",
       "payment_ids": [
         "pay_00103"
       ]
@@ -4743,57 +4800,57 @@
     {
       "amount_paise": 157300,
       "case_tags": [],
-      "invoice_id": "INV-2026-0007",
+      "invoice_id": "INV-2026-0008",
       "payment_ids": [
         "pay_00086"
       ]
     },
     {
-      "amount_paise": 127900,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0008",
-      "payment_ids": [
-        "pay_00203"
-      ]
-    },
-    {
-      "amount_paise": 106934,
+      "amount_paise": 135035,
       "case_tags": [
         "PARTIAL_INVOICE_PAYMENT"
       ],
       "invoice_id": "INV-2026-0009",
       "payment_ids": [
-        "pay_00070"
+        "pay_00203"
       ]
     },
     {
-      "amount_paise": 5315550,
+      "amount_paise": 779349,
       "case_tags": [
         "N_TO_1_MIXED_INSTRUMENT"
       ],
       "invoice_id": "INV-2026-0010",
       "payment_ids": [
+        "pay_00070",
         "pay_00120",
-        "pay_00463",
-        "pay_00083"
+        "pay_00463"
       ]
     },
     {
-      "amount_paise": 541224,
+      "amount_paise": 5098424,
       "case_tags": [
         "N_TO_1_MIXED_INSTRUMENT"
       ],
       "invoice_id": "INV-2026-0011",
       "payment_ids": [
+        "pay_00083",
         "pay_00230",
-        "pay_00387",
+        "pay_00387"
+      ]
+    },
+    {
+      "amount_paise": 78800,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0012",
+      "payment_ids": [
         "pay_00378"
       ]
     },
     {
       "amount_paise": 151625,
       "case_tags": [],
-      "invoice_id": "INV-2026-0012",
+      "invoice_id": "INV-2026-0013",
       "payment_ids": [
         "pay_00220"
       ]
@@ -4801,7 +4858,7 @@
     {
       "amount_paise": 37250,
       "case_tags": [],
-      "invoice_id": "INV-2026-0013",
+      "invoice_id": "INV-2026-0014",
       "payment_ids": [
         "pay_00012"
       ]
@@ -4809,7 +4866,7 @@
     {
       "amount_paise": 67650,
       "case_tags": [],
-      "invoice_id": "INV-2026-0014",
+      "invoice_id": "INV-2026-0015",
       "payment_ids": [
         "pay_00098"
       ]
@@ -4817,154 +4874,112 @@
     {
       "amount_paise": 493199,
       "case_tags": [],
-      "invoice_id": "INV-2026-0015",
+      "invoice_id": "INV-2026-0016",
       "payment_ids": [
         "pay_00060"
       ]
     },
     {
-      "amount_paise": 870999,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0016",
-      "payment_ids": [
-        "pay_00273"
-      ]
-    },
-    {
-      "amount_paise": 106300,
+      "amount_paise": 374500,
       "case_tags": [
         "N_TO_1_MIXED_INSTRUMENT"
       ],
       "invoice_id": "INV-2026-0017",
       "payment_ids": [
-        "pay_00104",
-        "pay_dec5b"
+        "pay_00208",
+        "pay_dec2a"
       ]
     },
     {
-      "amount_paise": 200749,
+      "amount_paise": 93400,
       "case_tags": [],
       "invoice_id": "INV-2026-0018",
       "payment_ids": [
-        "pay_00382"
+        "pay_00339"
       ]
     },
     {
-      "amount_paise": 26925,
+      "amount_paise": 468400,
       "case_tags": [],
       "invoice_id": "INV-2026-0019",
       "payment_ids": [
-        "pay_00411"
+        "pay_str03"
       ]
     },
     {
-      "amount_paise": 119146,
+      "amount_paise": 563794,
       "case_tags": [
         "PARTIAL_INVOICE_PAYMENT"
       ],
       "invoice_id": "INV-2026-0020",
       "payment_ids": [
-        "pay_00406"
+        "pay_00450"
       ]
     },
     {
-      "amount_paise": 397491,
+      "amount_paise": 98992,
       "case_tags": [
         "PARTIAL_INVOICE_PAYMENT"
       ],
       "invoice_id": "INV-2026-0021",
       "payment_ids": [
-        "pay_00320"
+        "pay_00337"
       ]
     },
     {
-      "amount_paise": 1116101,
+      "amount_paise": 3371025,
       "case_tags": [],
       "invoice_id": "INV-2026-0022",
       "payment_ids": [
-        "pay_00169"
+        "pay_00078"
       ]
     },
     {
-      "amount_paise": 24154,
+      "amount_paise": 1462504,
       "case_tags": [
         "PARTIAL_INVOICE_PAYMENT"
       ],
       "invoice_id": "INV-2026-0023",
       "payment_ids": [
-        "pay_00488"
+        "pay_00099"
       ]
     },
     {
-      "amount_paise": 525549,
+      "amount_paise": 190501,
       "case_tags": [],
       "invoice_id": "INV-2026-0024",
       "payment_ids": [
-        "pay_00450"
+        "pay_00353"
       ]
     },
     {
-      "amount_paise": 112833,
+      "amount_paise": 85981,
       "case_tags": [
         "PARTIAL_INVOICE_PAYMENT"
       ],
       "invoice_id": "INV-2026-0025",
       "payment_ids": [
-        "pay_00337"
+        "pay_00358"
       ]
     },
     {
-      "amount_paise": 5015526,
+      "amount_paise": 970175,
       "case_tags": [
         "N_TO_1_MIXED_INSTRUMENT"
       ],
       "invoice_id": "INV-2026-0026",
       "payment_ids": [
-        "pay_00078",
-        "pay_00099",
-        "pay_00353"
-      ]
-    },
-    {
-      "amount_paise": 72147,
-      "case_tags": [
-        "PARTIAL_INVOICE_PAYMENT"
-      ],
-      "invoice_id": "INV-2026-0027",
-      "payment_ids": [
-        "pay_00358"
-      ]
-    },
-    {
-      "amount_paise": 367400,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0028",
-      "payment_ids": [
-        "pay_00447"
-      ]
-    },
-    {
-      "amount_paise": 524875,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0029",
-      "payment_ids": [
-        "pay_00044"
-      ]
-    },
-    {
-      "amount_paise": 77900,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0030",
-      "payment_ids": [
+        "pay_00447",
+        "pay_00044",
         "pay_00338"
       ]
     },
     {
-      "amount_paise": 2535149,
+      "amount_paise": 2538247,
       "case_tags": [
         "PARTIAL_INVOICE_PAYMENT"
       ],
-      "invoice_id": "INV-2026-0031",
+      "invoice_id": "INV-2026-0027",
       "payment_ids": [
         "pay_00331"
       ]
@@ -4972,7 +4987,7 @@
     {
       "amount_paise": 250350,
       "case_tags": [],
-      "invoice_id": "INV-2026-0032",
+      "invoice_id": "INV-2026-0028",
       "payment_ids": [
         "pay_00033"
       ]
@@ -4980,7 +4995,7 @@
     {
       "amount_paise": 132500,
       "case_tags": [],
-      "invoice_id": "INV-2026-0033",
+      "invoice_id": "INV-2026-0029",
       "payment_ids": [
         "pay_00360"
       ]
@@ -4988,15 +5003,17 @@
     {
       "amount_paise": 108999,
       "case_tags": [],
-      "invoice_id": "INV-2026-0034",
+      "invoice_id": "INV-2026-0030",
       "payment_ids": [
         "pay_00003"
       ]
     },
     {
-      "amount_paise": 1669825,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0035",
+      "amount_paise": 1680625,
+      "case_tags": [
+        "PARTIAL_INVOICE_PAYMENT"
+      ],
+      "invoice_id": "INV-2026-0031",
       "payment_ids": [
         "pay_00126"
       ]
@@ -5004,7 +5021,7 @@
     {
       "amount_paise": 40675,
       "case_tags": [],
-      "invoice_id": "INV-2026-0036",
+      "invoice_id": "INV-2026-0032",
       "payment_ids": [
         "pay_00314"
       ]
@@ -5012,7 +5029,7 @@
     {
       "amount_paise": 2781150,
       "case_tags": [],
-      "invoice_id": "INV-2026-0037",
+      "invoice_id": "INV-2026-0033",
       "payment_ids": [
         "pay_00228"
       ]
@@ -5020,7 +5037,7 @@
     {
       "amount_paise": 63600,
       "case_tags": [],
-      "invoice_id": "INV-2026-0038",
+      "invoice_id": "INV-2026-0034",
       "payment_ids": [
         "pay_00432"
       ]
@@ -5028,86 +5045,86 @@
     {
       "amount_paise": 2566399,
       "case_tags": [],
-      "invoice_id": "INV-2026-0039",
+      "invoice_id": "INV-2026-0035",
       "payment_ids": [
         "pay_00254"
       ]
     },
     {
-      "amount_paise": 97799,
+      "amount_paise": 3417500,
       "case_tags": [],
-      "invoice_id": "INV-2026-0040",
+      "invoice_id": "INV-2026-0036",
       "payment_ids": [
-        "pay_00178_dup"
+        "pay_00496"
       ]
     },
     {
-      "amount_paise": 454225,
-      "case_tags": [
-        "N_TO_1_MIXED_INSTRUMENT"
-      ],
-      "invoice_id": "INV-2026-0041",
+      "amount_paise": 25125,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0037",
       "payment_ids": [
-        "pay_00052",
+        "pay_00052"
+      ]
+    },
+    {
+      "amount_paise": 429100,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0038",
+      "payment_ids": [
         "pay_00137"
       ]
     },
     {
       "amount_paise": 17600,
       "case_tags": [],
-      "invoice_id": "INV-2026-0042",
+      "invoice_id": "INV-2026-0039",
       "payment_ids": [
         "pay_00009"
       ]
     },
     {
-      "amount_paise": 82316,
-      "case_tags": [
-        "PARTIAL_INVOICE_PAYMENT"
-      ],
-      "invoice_id": "INV-2026-0043",
+      "amount_paise": 49925,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0040",
       "payment_ids": [
         "pay_00409"
       ]
     },
     {
-      "amount_paise": 531045,
+      "amount_paise": 1116849,
       "case_tags": [
-        "PARTIAL_INVOICE_PAYMENT"
+        "N_TO_1_MIXED_INSTRUMENT"
       ],
-      "invoice_id": "INV-2026-0044",
+      "invoice_id": "INV-2026-0041",
       "payment_ids": [
-        "pay_00372"
-      ]
-    },
-    {
-      "amount_paise": 595000,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0045",
-      "payment_ids": [
+        "pay_00372",
         "pay_00252"
       ]
     },
     {
       "amount_paise": 33550,
       "case_tags": [],
-      "invoice_id": "INV-2026-0046",
+      "invoice_id": "INV-2026-0042",
       "payment_ids": [
         "pay_00140"
       ]
     },
     {
-      "amount_paise": 557925,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0047",
+      "amount_paise": 590316,
+      "case_tags": [
+        "PARTIAL_INVOICE_PAYMENT"
+      ],
+      "invoice_id": "INV-2026-0043",
       "payment_ids": [
         "pay_00464"
       ]
     },
     {
-      "amount_paise": 693249,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0048",
+      "amount_paise": 702445,
+      "case_tags": [
+        "PARTIAL_INVOICE_PAYMENT"
+      ],
+      "invoice_id": "INV-2026-0044",
       "payment_ids": [
         "pay_00384"
       ]
@@ -5115,7 +5132,7 @@
     {
       "amount_paise": 19875,
       "case_tags": [],
-      "invoice_id": "INV-2026-0049",
+      "invoice_id": "INV-2026-0045",
       "payment_ids": [
         "pay_00164"
       ]
@@ -5123,62 +5140,67 @@
     {
       "amount_paise": 490501,
       "case_tags": [],
-      "invoice_id": "INV-2026-0050",
+      "invoice_id": "INV-2026-0046",
       "payment_ids": [
         "pay_00436"
       ]
     },
     {
-      "amount_paise": 2938674,
+      "amount_paise": 169625,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0047",
+      "payment_ids": [
+        "pay_00319"
+      ]
+    },
+    {
+      "amount_paise": 2250349,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0048",
+      "payment_ids": [
+        "pay_00332"
+      ]
+    },
+    {
+      "amount_paise": 1116101,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0049",
+      "payment_ids": [
+        "pay_00169"
+      ]
+    },
+    {
+      "amount_paise": 26925,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0050",
+      "payment_ids": [
+        "pay_00411"
+      ]
+    },
+    {
+      "amount_paise": 237550,
       "case_tags": [
         "N_TO_1_MIXED_INSTRUMENT"
       ],
       "invoice_id": "INV-2026-0051",
       "payment_ids": [
-        "pay_00319",
-        "pay_00332",
-        "pay_amb00"
+        "pay_00071",
+        "pay_00179",
+        "pay_00431"
       ]
     },
     {
-      "amount_paise": 127200,
+      "amount_paise": 72925,
       "case_tags": [],
       "invoice_id": "INV-2026-0052",
       "payment_ids": [
-        "pay_amb11"
-      ]
-    },
-    {
-      "amount_paise": 76150,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0053",
-      "payment_ids": [
-        "pay_00071"
-      ]
-    },
-    {
-      "amount_paise": 14599,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0054",
-      "payment_ids": [
-        "pay_00179"
-      ]
-    },
-    {
-      "amount_paise": 219726,
-      "case_tags": [
-        "N_TO_1_MIXED_INSTRUMENT"
-      ],
-      "invoice_id": "INV-2026-0055",
-      "payment_ids": [
-        "pay_00431",
         "pay_00025"
       ]
     },
     {
       "amount_paise": 43499,
       "case_tags": [],
-      "invoice_id": "INV-2026-0056",
+      "invoice_id": "INV-2026-0053",
       "payment_ids": [
         "pay_00393"
       ]
@@ -5186,80 +5208,79 @@
     {
       "amount_paise": 43600,
       "case_tags": [],
-      "invoice_id": "INV-2026-0057",
+      "invoice_id": "INV-2026-0054",
       "payment_ids": [
         "pay_00304"
       ]
     },
     {
-      "amount_paise": 56949,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0058",
+      "amount_paise": 5029674,
+      "case_tags": [
+        "N_TO_1_MIXED_INSTRUMENT"
+      ],
+      "invoice_id": "INV-2026-0055",
       "payment_ids": [
-        "pay_00475"
+        "pay_00472",
+        "pay_00462"
       ]
     },
     {
       "amount_paise": 2310449,
       "case_tags": [],
-      "invoice_id": "INV-2026-0059",
+      "invoice_id": "INV-2026-0056",
       "payment_ids": [
         "pay_00309"
       ]
     },
     {
-      "amount_paise": 61249,
-      "case_tags": [
-        "PARTIAL_INVOICE_PAYMENT"
-      ],
-      "invoice_id": "INV-2026-0060",
+      "amount_paise": 38475,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0057",
       "payment_ids": [
         "pay_00336"
       ]
     },
     {
-      "amount_paise": 73101,
+      "amount_paise": 21001,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0058",
+      "payment_ids": [
+        "pay_00303"
+      ]
+    },
+    {
+      "amount_paise": 644800,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0059",
+      "payment_ids": [
+        "pay_00485"
+      ]
+    },
+    {
+      "amount_paise": 2042449,
+      "case_tags": [
+        "PARTIAL_INVOICE_PAYMENT"
+      ],
+      "invoice_id": "INV-2026-0060",
+      "payment_ids": [
+        "pay_00484"
+      ]
+    },
+    {
+      "amount_paise": 395449,
       "case_tags": [
         "N_TO_1_MIXED_INSTRUMENT"
       ],
       "invoice_id": "INV-2026-0061",
       "payment_ids": [
-        "pay_00303",
-        "pay_00477"
-      ]
-    },
-    {
-      "amount_paise": 388050,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0062",
-      "payment_ids": [
-        "pay_00476"
-      ]
-    },
-    {
-      "amount_paise": 379000,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0063",
-      "payment_ids": [
-        "pay_dec3c"
-      ]
-    },
-    {
-      "amount_paise": 55762,
-      "case_tags": [
-        "PARTIAL_INVOICE_PAYMENT"
-      ],
-      "invoice_id": "INV-2026-0064",
-      "payment_ids": [
+        "pay_dec4c",
         "pay_00153"
       ]
     },
     {
-      "amount_paise": 235795,
-      "case_tags": [
-        "PARTIAL_INVOICE_PAYMENT"
-      ],
-      "invoice_id": "INV-2026-0065",
+      "amount_paise": 225875,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0062",
       "payment_ids": [
         "pay_00386"
       ]
@@ -5267,23 +5288,27 @@
     {
       "amount_paise": 71999,
       "case_tags": [],
-      "invoice_id": "INV-2026-0066",
+      "invoice_id": "INV-2026-0063",
       "payment_ids": [
         "pay_00293"
       ]
     },
     {
-      "amount_paise": 19349,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0067",
+      "amount_paise": 58662,
+      "case_tags": [
+        "PARTIAL_INVOICE_PAYMENT"
+      ],
+      "invoice_id": "INV-2026-0064",
       "payment_ids": [
         "pay_00327"
       ]
     },
     {
-      "amount_paise": 223500,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0068",
+      "amount_paise": 233420,
+      "case_tags": [
+        "PARTIAL_INVOICE_PAYMENT"
+      ],
+      "invoice_id": "INV-2026-0065",
       "payment_ids": [
         "pay_00312"
       ]
@@ -5291,7 +5316,7 @@
     {
       "amount_paise": 156049,
       "case_tags": [],
-      "invoice_id": "INV-2026-0069",
+      "invoice_id": "INV-2026-0066",
       "payment_ids": [
         "pay_00177"
       ]
@@ -5299,107 +5324,112 @@
     {
       "amount_paise": 2187599,
       "case_tags": [],
-      "invoice_id": "INV-2026-0070",
+      "invoice_id": "INV-2026-0067",
       "payment_ids": [
         "pay_00045"
       ]
     },
     {
-      "amount_paise": 3139576,
+      "amount_paise": 91275,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0068",
+      "payment_ids": [
+        "pay_00239"
+      ]
+    },
+    {
+      "amount_paise": 2781300,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0069",
+      "payment_ids": [
+        "pay_00212"
+      ]
+    },
+    {
+      "amount_paise": 267001,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0070",
+      "payment_ids": [
+        "pay_00340"
+      ]
+    },
+    {
+      "amount_paise": 2608149,
       "case_tags": [
         "N_TO_1_MIXED_INSTRUMENT"
       ],
       "invoice_id": "INV-2026-0071",
       "payment_ids": [
-        "pay_00239",
-        "pay_00212",
-        "pay_00340"
-      ]
-    },
-    {
-      "amount_paise": 374301,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0072",
-      "payment_ids": [
-        "pay_00443"
-      ]
-    },
-    {
-      "amount_paise": 2198949,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0073",
-      "payment_ids": [
-        "pay_00255"
-      ]
-    },
-    {
-      "amount_paise": 34899,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0074",
-      "payment_ids": [
+        "pay_00443",
+        "pay_00255",
         "pay_00084"
       ]
     },
     {
       "amount_paise": 64775,
       "case_tags": [],
-      "invoice_id": "INV-2026-0075",
+      "invoice_id": "INV-2026-0072",
       "payment_ids": [
         "pay_00180"
       ]
     },
     {
-      "amount_paise": 766350,
-      "case_tags": [
-        "N_TO_1_MIXED_INSTRUMENT"
-      ],
-      "invoice_id": "INV-2026-0076",
+      "amount_paise": 735050,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0073",
       "payment_ids": [
-        "pay_00187",
+        "pay_00187"
+      ]
+    },
+    {
+      "amount_paise": 31300,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0074",
+      "payment_ids": [
         "pay_00413"
       ]
     },
     {
       "amount_paise": 268600,
       "case_tags": [],
-      "invoice_id": "INV-2026-0077",
+      "invoice_id": "INV-2026-0075",
       "payment_ids": [
         "pay_00191"
       ]
     },
     {
-      "amount_paise": 179900,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0078",
+      "amount_paise": 364849,
+      "case_tags": [
+        "N_TO_1_MIXED_INSTRUMENT"
+      ],
+      "invoice_id": "INV-2026-0076",
       "payment_ids": [
-        "pay_dec3a"
-      ]
-    },
-    {
-      "amount_paise": 184949,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0079",
-      "payment_ids": [
+        "pay_dec4a",
         "pay_00321"
       ]
     },
     {
-      "amount_paise": 4016401,
-      "case_tags": [
-        "N_TO_1_MIXED_INSTRUMENT"
-      ],
-      "invoice_id": "INV-2026-0080",
+      "amount_paise": 388050,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0077",
       "payment_ids": [
-        "pay_00468",
+        "pay_00476"
+      ]
+    },
+    {
+      "amount_paise": 3989800,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0078",
+      "payment_ids": [
         "pay_00011"
       ]
     },
     {
-      "amount_paise": 10600,
+      "amount_paise": 426499,
       "case_tags": [],
-      "invoice_id": "INV-2026-0081",
+      "invoice_id": "INV-2026-0079",
       "payment_ids": [
-        "pay_00460"
+        "pay_00467"
       ]
     },
     {
@@ -5407,7 +5437,7 @@
       "case_tags": [
         "N_TO_1_MIXED_INSTRUMENT"
       ],
-      "invoice_id": "INV-2026-0082",
+      "invoice_id": "INV-2026-0080",
       "payment_ids": [
         "pay_00298",
         "pay_00204"
@@ -5416,77 +5446,72 @@
     {
       "amount_paise": 57400,
       "case_tags": [],
-      "invoice_id": "INV-2026-0083",
+      "invoice_id": "INV-2026-0081",
       "payment_ids": [
         "pay_00428"
       ]
     },
     {
-      "amount_paise": 1060300,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0084",
+      "amount_paise": 5464849,
+      "case_tags": [
+        "N_TO_1_MIXED_INSTRUMENT"
+      ],
+      "invoice_id": "INV-2026-0082",
       "payment_ids": [
-        "pay_00374"
-      ]
-    },
-    {
-      "amount_paise": 4404549,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0085",
-      "payment_ids": [
+        "pay_00374",
         "pay_00426"
       ]
     },
     {
-      "amount_paise": 26125,
+      "amount_paise": 690000,
       "case_tags": [],
-      "invoice_id": "INV-2026-0086",
+      "invoice_id": "INV-2026-0083",
       "payment_ids": [
-        "pay_00434"
+        "pay_00441"
       ]
     },
     {
-      "amount_paise": 3153875,
+      "amount_paise": 70025,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0084",
+      "payment_ids": [
+        "pay_00069"
+      ]
+    },
+    {
+      "amount_paise": 2875550,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0085",
+      "payment_ids": [
+        "pay_00301"
+      ]
+    },
+    {
+      "amount_paise": 208300,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0086",
+      "payment_ids": [
+        "pay_00302"
+      ]
+    },
+    {
+      "amount_paise": 166774,
       "case_tags": [
         "N_TO_1_MIXED_INSTRUMENT"
       ],
       "invoice_id": "INV-2026-0087",
       "payment_ids": [
-        "pay_00069",
-        "pay_00301",
-        "pay_00302"
-      ]
-    },
-    {
-      "amount_paise": 39887,
-      "case_tags": [
-        "PARTIAL_INVOICE_PAYMENT"
-      ],
-      "invoice_id": "INV-2026-0088",
-      "payment_ids": [
-        "pay_00453"
-      ]
-    },
-    {
-      "amount_paise": 97799,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0089",
-      "payment_ids": [
-        "pay_00178"
-      ]
-    },
-    {
-      "amount_paise": 58375,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0090",
-      "payment_ids": [
+        "pay_00460",
+        "pay_00178",
         "pay_00355"
       ]
     },
     {
-      "amount_paise": 588049,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0091",
+      "amount_paise": 604961,
+      "case_tags": [
+        "PARTIAL_INVOICE_PAYMENT"
+      ],
+      "invoice_id": "INV-2026-0088",
       "payment_ids": [
         "pay_00102"
       ]
@@ -5494,49 +5519,47 @@
     {
       "amount_paise": 50550,
       "case_tags": [],
-      "invoice_id": "INV-2026-0092",
+      "invoice_id": "INV-2026-0089",
       "payment_ids": [
         "pay_00322"
       ]
     },
     {
-      "amount_paise": 72900,
+      "amount_paise": 81300,
       "case_tags": [],
-      "invoice_id": "INV-2026-0093",
+      "invoice_id": "INV-2026-0090",
       "payment_ids": [
-        "pay_dec2a"
+        "pay_dec3a"
       ]
     },
     {
       "amount_paise": 1117801,
       "case_tags": [],
-      "invoice_id": "INV-2026-0094",
+      "invoice_id": "INV-2026-0091",
       "payment_ids": [
         "pay_00313"
       ]
     },
     {
-      "amount_paise": 204000,
+      "amount_paise": 870999,
       "case_tags": [],
-      "invoice_id": "INV-2026-0095",
+      "invoice_id": "INV-2026-0092",
       "payment_ids": [
-        "pay_amb31"
+        "pay_00273"
       ]
     },
     {
       "amount_paise": 1559549,
       "case_tags": [],
-      "invoice_id": "INV-2026-0096",
+      "invoice_id": "INV-2026-0093",
       "payment_ids": [
         "pay_00247"
       ]
     },
     {
-      "amount_paise": 46612,
-      "case_tags": [
-        "PARTIAL_INVOICE_PAYMENT"
-      ],
-      "invoice_id": "INV-2026-0097",
+      "amount_paise": 36701,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0094",
       "payment_ids": [
         "pay_00089"
       ]
@@ -5544,7 +5567,7 @@
     {
       "amount_paise": 10600,
       "case_tags": [],
-      "invoice_id": "INV-2026-0098",
+      "invoice_id": "INV-2026-0095",
       "payment_ids": [
         "pay_00185"
       ]
@@ -5552,17 +5575,17 @@
     {
       "amount_paise": 1055725,
       "case_tags": [],
-      "invoice_id": "INV-2026-0099",
+      "invoice_id": "INV-2026-0096",
       "payment_ids": [
         "pay_00225"
       ]
     },
     {
-      "amount_paise": 140538,
+      "amount_paise": 128710,
       "case_tags": [
         "PARTIAL_INVOICE_PAYMENT"
       ],
-      "invoice_id": "INV-2026-0100",
+      "invoice_id": "INV-2026-0097",
       "payment_ids": [
         "pay_00123"
       ]
@@ -5570,31 +5593,33 @@
     {
       "amount_paise": 97600,
       "case_tags": [],
-      "invoice_id": "INV-2026-0101",
+      "invoice_id": "INV-2026-0098",
       "payment_ids": [
         "pay_00016"
       ]
     },
     {
-      "amount_paise": 175200,
+      "amount_paise": 2703001,
       "case_tags": [],
-      "invoice_id": "INV-2026-0102",
+      "invoice_id": "INV-2026-0099",
       "payment_ids": [
-        "pay_00492"
+        "pay_00029_dup"
       ]
     },
     {
-      "amount_paise": 118300,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0103",
+      "amount_paise": 576539,
+      "case_tags": [
+        "PARTIAL_INVOICE_PAYMENT"
+      ],
+      "invoice_id": "INV-2026-0100",
       "payment_ids": [
-        "pay_dec1b"
+        "pay_00471"
       ]
     },
     {
       "amount_paise": 2851049,
       "case_tags": [],
-      "invoice_id": "INV-2026-0104",
+      "invoice_id": "INV-2026-0101",
       "payment_ids": [
         "pay_00107"
       ]
@@ -5602,7 +5627,7 @@
     {
       "amount_paise": 49250,
       "case_tags": [],
-      "invoice_id": "INV-2026-0105",
+      "invoice_id": "INV-2026-0102",
       "payment_ids": [
         "pay_00006"
       ]
@@ -5610,7 +5635,7 @@
     {
       "amount_paise": 228949,
       "case_tags": [],
-      "invoice_id": "INV-2026-0106",
+      "invoice_id": "INV-2026-0103",
       "payment_ids": [
         "pay_00159"
       ]
@@ -5618,7 +5643,7 @@
     {
       "amount_paise": 309225,
       "case_tags": [],
-      "invoice_id": "INV-2026-0107",
+      "invoice_id": "INV-2026-0104",
       "payment_ids": [
         "pay_00371"
       ]
@@ -5626,441 +5651,455 @@
     {
       "amount_paise": 43100,
       "case_tags": [],
-      "invoice_id": "INV-2026-0108",
+      "invoice_id": "INV-2026-0105",
       "payment_ids": [
         "pay_00087"
       ]
     },
     {
-      "amount_paise": 94163,
+      "amount_paise": 533300,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0106",
+      "payment_ids": [
+        "pay_str04"
+      ]
+    },
+    {
+      "amount_paise": 45399,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0107",
+      "payment_ids": [
+        "pay_00416"
+      ]
+    },
+    {
+      "amount_paise": 179800,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0108",
+      "payment_ids": [
+        "pay_dec1c"
+      ]
+    },
+    {
+      "amount_paise": 495514,
       "case_tags": [
         "PARTIAL_INVOICE_PAYMENT"
       ],
       "invoice_id": "INV-2026-0109",
       "payment_ids": [
-        "pay_00244"
+        "pay_amb11"
       ]
     },
     {
-      "amount_paise": 79525,
+      "amount_paise": 389000,
       "case_tags": [],
       "invoice_id": "INV-2026-0110",
       "payment_ids": [
-        "pay_00479"
+        "pay_00456"
       ]
     },
     {
-      "amount_paise": 195500,
+      "amount_paise": 43800,
       "case_tags": [],
       "invoice_id": "INV-2026-0111",
       "payment_ids": [
-        "pay_dec0c"
-      ]
-    },
-    {
-      "amount_paise": 103825,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0112",
-      "payment_ids": [
-        "pay_00498"
-      ]
-    },
-    {
-      "amount_paise": 182225,
-      "case_tags": [
-        "N_TO_1_MIXED_INSTRUMENT"
-      ],
-      "invoice_id": "INV-2026-0113",
-      "payment_ids": [
-        "pay_00449",
-        "pay_00419"
+        "pay_00435"
       ]
     },
     {
       "amount_paise": 74649,
       "case_tags": [],
-      "invoice_id": "INV-2026-0114",
+      "invoice_id": "INV-2026-0112",
       "payment_ids": [
         "pay_00075"
       ]
     },
     {
-      "amount_paise": 234000,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0115",
-      "payment_ids": [
-        "pay_dec4b"
-      ]
-    },
-    {
-      "amount_paise": 369323,
+      "amount_paise": 577575,
       "case_tags": [
-        "PARTIAL_INVOICE_PAYMENT"
+        "N_TO_1_MIXED_INSTRUMENT"
       ],
-      "invoice_id": "INV-2026-0116",
+      "invoice_id": "INV-2026-0113",
       "payment_ids": [
+        "pay_dec5b",
         "pay_00034"
       ]
     },
     {
       "amount_paise": 1356750,
       "case_tags": [],
-      "invoice_id": "INV-2026-0117",
+      "invoice_id": "INV-2026-0114",
       "payment_ids": [
         "pay_00274"
       ]
     },
     {
-      "amount_paise": 1442001,
+      "amount_paise": 71750,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0115",
+      "payment_ids": [
+        "pay_00039"
+      ]
+    },
+    {
+      "amount_paise": 1224198,
+      "case_tags": [
+        "PARTIAL_INVOICE_PAYMENT"
+      ],
+      "invoice_id": "INV-2026-0116",
+      "payment_ids": [
+        "pay_00021"
+      ]
+    },
+    {
+      "amount_paise": 171801,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0117",
+      "payment_ids": [
+        "pay_00149"
+      ]
+    },
+    {
+      "amount_paise": 4701400,
       "case_tags": [
         "N_TO_1_MIXED_INSTRUMENT"
       ],
       "invoice_id": "INV-2026-0118",
       "payment_ids": [
-        "pay_00039",
-        "pay_00021",
-        "pay_00149"
-      ]
-    },
-    {
-      "amount_paise": 3991875,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0119",
-      "payment_ids": [
-        "pay_00311"
-      ]
-    },
-    {
-      "amount_paise": 695375,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0120",
-      "payment_ids": [
-        "pay_00135"
-      ]
-    },
-    {
-      "amount_paise": 14150,
-      "case_tags": [],
-      "invoice_id": "INV-2026-0121",
-      "payment_ids": [
+        "pay_00311",
+        "pay_00135",
         "pay_00296"
       ]
     },
     {
-      "amount_paise": 638175,
+      "amount_paise": 102925,
       "case_tags": [],
-      "invoice_id": "INV-2026-0122",
+      "invoice_id": "INV-2026-0119",
       "payment_ids": [
-        "pay_00425"
+        "pay_00493"
       ]
     },
     {
-      "amount_paise": 3443201,
+      "amount_paise": 464950,
       "case_tags": [],
-      "invoice_id": "INV-2026-0123",
+      "invoice_id": "INV-2026-0120",
       "payment_ids": [
-        "pay_00491"
+        "pay_00499"
       ]
     },
     {
-      "amount_paise": 4477991,
-      "case_tags": [
-        "PARTIAL_INVOICE_PAYMENT"
-      ],
-      "invoice_id": "INV-2026-0124",
+      "amount_paise": 4438950,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0121",
       "payment_ids": [
         "pay_00350"
       ]
     },
     {
       "amount_paise": 69200,
-      "case_tags": [
-        "N_TO_1_MIXED_INSTRUMENT"
-      ],
-      "invoice_id": "INV-2026-0125",
+      "case_tags": [],
+      "invoice_id": "INV-2026-0122",
       "payment_ids": [
         "pay_00141"
+      ]
+    },
+    {
+      "amount_paise": 1127900,
+      "case_tags": [],
+      "invoice_id": "INV-2026-0123",
+      "payment_ids": [
+        "pay_00182"
+      ]
+    },
+    {
+      "amount_paise": 4626166,
+      "case_tags": [
+        "PARTIAL_INVOICE_PAYMENT"
+      ],
+      "invoice_id": "INV-2026-0124",
+      "payment_ids": [
+        "pay_00265"
       ]
     }
   ],
   "payment_settlement_links": {
     "pay_00000": "stl_0008",
-    "pay_00001": "stl_0014",
+    "pay_00001": "stl_0015",
     "pay_00002": "stl_0003",
-    "pay_00003": "stl_0010",
+    "pay_00003": "stl_0011",
     "pay_00004": "stl_0005",
-    "pay_00005": "stl_0020",
+    "pay_00005": "stl_0021",
     "pay_00006": "stl_0004",
-    "pay_00007": "stl_0017",
-    "pay_00008": "stl_0019",
-    "pay_00009": "stl_0017",
-    "pay_00010": "stl_0019",
-    "pay_00011": "stl_0014",
+    "pay_00007": "stl_0018",
+    "pay_00008": "stl_0020",
+    "pay_00009": "stl_0018",
+    "pay_00010": "stl_0020",
+    "pay_00011": "stl_0015",
     "pay_00012": "stl_0004",
-    "pay_00013": "stl_0019",
+    "pay_00013": "stl_0020",
     "pay_00014": "stl_0007",
-    "pay_00015": "stl_0020",
+    "pay_00015": "stl_0021",
     "pay_00016": "stl_0008",
-    "pay_00017": "stl_0017",
+    "pay_00017": "stl_0018",
     "pay_00018": "stl_0002",
-    "pay_00019": "stl_0017",
-    "pay_00020": "stl_0014",
-    "pay_00021": "stl_0022",
-    "pay_00022": "stl_0018",
-    "pay_00023": "stl_0016",
-    "pay_00024": "stl_0011",
+    "pay_00019": "stl_0018",
+    "pay_00020": "stl_0015",
+    "pay_00021": "stl_0024",
+    "pay_00022": "stl_0019",
+    "pay_00023": "stl_0017",
+    "pay_00024": "stl_0012",
     "pay_00025": "stl_0009",
-    "pay_00026": "stl_0020",
+    "pay_00026": "stl_0021",
     "pay_00027": "stl_0008",
-    "pay_00028": "stl_0016",
-    "pay_00029": "stl_0012",
-    "pay_00029_dup": "stl_0012",
+    "pay_00028": "stl_0017",
+    "pay_00029": "stl_0013",
+    "pay_00029_dup": "stl_0013",
     "pay_00030": "stl_0006",
     "pay_00031": "stl_0009",
-    "pay_00032": "stl_0010",
-    "pay_00033": "stl_0017",
-    "pay_00034": "stl_0020",
-    "pay_00035": "stl_0021",
+    "pay_00032": "stl_0011",
+    "pay_00033": "stl_0018",
+    "pay_00034": "stl_0021",
+    "pay_00035": "stl_0023",
     "pay_00036": "stl_0007",
     "pay_00037": "stl_0003",
     "pay_00038": "stl_0008",
     "pay_00039": "stl_0008",
     "pay_00040": "stl_0008",
-    "pay_00041": "stl_0017",
+    "pay_00041": "stl_0018",
     "pay_00042": "stl_0009",
     "pay_00043": "stl_0003",
-    "pay_00044": "stl_0020",
-    "pay_00045": "stl_0010",
+    "pay_00044": "stl_0021",
+    "pay_00045": "stl_0011",
     "pay_00046": "stl_0007",
-    "pay_00047": "stl_0010",
+    "pay_00047": "stl_0011",
     "pay_00048": "stl_0006",
     "pay_00049": "stl_0000",
-    "pay_00050": "stl_0011",
-    "pay_00051": "stl_0016",
-    "pay_00052": "stl_0014",
-    "pay_00053": "stl_0020",
-    "pay_00054": "stl_0016",
+    "pay_00050": "stl_0012",
+    "pay_00051": "stl_0017",
+    "pay_00052": "stl_0015",
+    "pay_00053": "stl_0021",
+    "pay_00054": "stl_0017",
     "pay_00055": "stl_0007",
-    "pay_00056": "stl_0012",
+    "pay_00056": "stl_0013",
     "pay_00057": "stl_0001",
-    "pay_00058": "stl_0019",
+    "pay_00058": "stl_0020",
     "pay_00059": "stl_0007",
-    "pay_00060": "stl_0021",
-    "pay_00061": "stl_0013",
+    "pay_00060": "stl_0023",
+    "pay_00061": "stl_0014",
     "pay_00062": "stl_0001",
-    "pay_00063": "stl_0014",
+    "pay_00063": "stl_0015",
     "pay_00064": "stl_0005",
-    "pay_00065": "stl_0012",
-    "pay_00066": "stl_0020",
-    "pay_00067": "stl_0021",
+    "pay_00065": "stl_0013",
+    "pay_00066": "stl_0021",
+    "pay_00067": "stl_0023",
     "pay_00068": "stl_0007",
-    "pay_00069": "stl_0011",
-    "pay_00070": "stl_0018",
-    "pay_00071": "stl_0020",
+    "pay_00069": "stl_0012",
+    "pay_00070": "stl_0019",
+    "pay_00071": "stl_0021",
     "pay_00072": "stl_0007",
-    "pay_00073": "stl_0013",
+    "pay_00073": "stl_0014",
     "pay_00074": "stl_0009",
     "pay_00075": "stl_0009",
     "pay_00076": "stl_0001",
-    "pay_00077": "stl_0011",
+    "pay_00077": "stl_0012",
     "pay_00078": "stl_0005",
-    "pay_00079": "stl_0017",
+    "pay_00079": "stl_0018",
     "pay_00080": "stl_0006",
     "pay_00081": "stl_0007",
-    "pay_00082": "stl_0012",
-    "pay_00083": "stl_0010",
-    "pay_00084": "stl_0011",
+    "pay_00082": "stl_0013",
+    "pay_00083": "stl_0011",
+    "pay_00084": "stl_0012",
     "pay_00085": "stl_0000",
     "pay_00086": "stl_0002",
     "pay_00087": "stl_0004",
     "pay_00088": "stl_0003",
-    "pay_00089": "stl_0012",
+    "pay_00089": "stl_0013",
     "pay_00090": "stl_0007",
-    "pay_00091": "stl_0012",
-    "pay_00092": "stl_0019",
+    "pay_00091": "stl_0013",
+    "pay_00092": "stl_0020",
     "pay_00093": "stl_0003",
-    "pay_00094": "stl_0018",
+    "pay_00094": "stl_0019",
     "pay_00095": "stl_0004",
-    "pay_00096": "stl_0016",
-    "pay_00097": "stl_0020",
+    "pay_00096": "stl_0017",
+    "pay_00097": "stl_0021",
     "pay_00098": "stl_0006",
     "pay_00099": "stl_0009",
-    "pay_00100": "stl_0022",
-    "pay_00101": "stl_0020",
+    "pay_00100": "stl_0024",
+    "pay_00101": "stl_0021",
     "pay_00102": "stl_0002",
     "pay_00103": "stl_0004",
-    "pay_00104": "stl_0018",
-    "pay_00105": "stl_0018",
-    "pay_00106": "stl_0011",
+    "pay_00104": "stl_0019",
+    "pay_00105": "stl_0019",
+    "pay_00106": "stl_0012",
     "pay_00107": "stl_0006",
-    "pay_00108": "stl_0019",
-    "pay_00109": "stl_0022",
-    "pay_00110": "stl_0012",
+    "pay_00108": "stl_0020",
+    "pay_00109": "stl_0024",
+    "pay_00110": "stl_0013",
     "pay_00111": "stl_0007",
     "pay_00112": "stl_0004",
-    "pay_00113": "stl_0011",
+    "pay_00113": "stl_0012",
     "pay_00114": "stl_0004",
-    "pay_00115": "stl_0020",
+    "pay_00115": "stl_0021",
     "pay_00116": "stl_0003",
-    "pay_00117": "stl_0018",
-    "pay_00118": "stl_0018",
-    "pay_00119": "stl_0018",
+    "pay_00117": "stl_0019",
+    "pay_00118": "stl_0019",
+    "pay_00119": "stl_0019",
     "pay_00120": "stl_0007",
-    "pay_00121": "stl_0014",
-    "pay_00122": "stl_0021",
+    "pay_00121": "stl_0015",
+    "pay_00122": "stl_0023",
     "pay_00123": "stl_0005",
-    "pay_00124": "stl_0020",
+    "pay_00124": "stl_0021",
     "pay_00125": "stl_0002",
-    "pay_00126": "stl_0018",
-    "pay_00127": "stl_0018",
+    "pay_00126": "stl_0019",
+    "pay_00127": "stl_0019",
     "pay_00128": "stl_0002",
     "pay_00129": "stl_0009",
     "pay_00130": "stl_0009",
     "pay_00131": "stl_0007",
     "pay_00132": "stl_0003",
-    "pay_00133": "stl_0022",
-    "pay_00134": "stl_0017",
+    "pay_00133": "stl_0024",
+    "pay_00134": "stl_0018",
     "pay_00135": "stl_0008",
     "pay_00136": "stl_0003",
-    "pay_00137": "stl_0014",
-    "pay_00138": "stl_0021",
-    "pay_00139": "stl_0013",
-    "pay_00140": "stl_0012",
-    "pay_00141": "stl_0019",
+    "pay_00137": "stl_0015",
+    "pay_00138": "stl_0023",
+    "pay_00139": "stl_0014",
+    "pay_00140": "stl_0013",
+    "pay_00141": "stl_0020",
     "pay_00142": "stl_0008",
-    "pay_00143": "stl_0022",
-    "pay_00144": "stl_0017",
+    "pay_00143": "stl_0024",
+    "pay_00144": "stl_0018",
     "pay_00145": "stl_0005",
-    "pay_00146": "stl_0019",
-    "pay_00147": "stl_0014",
+    "pay_00146": "stl_0020",
+    "pay_00147": "stl_0015",
     "pay_00148": "stl_0007",
     "pay_00149": "stl_0003",
     "pay_00150": "stl_0002",
-    "pay_00151": "stl_0013",
+    "pay_00151": "stl_0014",
     "pay_00152": "stl_0003",
     "pay_00153": "stl_0006",
     "pay_00154": "stl_0005",
-    "pay_00155": "stl_0013",
+    "pay_00155": "stl_0014",
     "pay_00156": "stl_0002",
     "pay_00157": "stl_0007",
     "pay_00158": "stl_0009",
     "pay_00159": "stl_0008",
     "pay_00160": "stl_0005",
-    "pay_00161": "stl_0013",
-    "pay_00162": "stl_0016",
+    "pay_00161": "stl_0014",
+    "pay_00162": "stl_0017",
     "pay_00163": "stl_0002",
-    "pay_00164": "stl_0014",
-    "pay_00165": "stl_0014",
+    "pay_00164": "stl_0015",
+    "pay_00165": "stl_0015",
     "pay_00166": "stl_0006",
     "pay_00167": "stl_0004",
-    "pay_00168": "stl_0010",
-    "pay_00169": "stl_0014",
-    "pay_00170": "stl_0010",
+    "pay_00168": "stl_0011",
+    "pay_00169": "stl_0015",
+    "pay_00170": "stl_0011",
     "pay_00171": "stl_0003",
-    "pay_00172": "stl_0014",
-    "pay_00173": "stl_0011",
+    "pay_00172": "stl_0015",
+    "pay_00173": "stl_0012",
     "pay_00174": "stl_0001",
-    "pay_00175": "stl_0010",
-    "pay_00176": "stl_0017",
+    "pay_00175": "stl_0011",
+    "pay_00176": "stl_0018",
     "pay_00177": "stl_0005",
     "pay_00178": "stl_0006",
     "pay_00178_dup": "stl_0006",
-    "pay_00179": "stl_0016",
+    "pay_00179": "stl_0017",
     "pay_00180": "stl_0002",
-    "pay_00181": "stl_0017",
-    "pay_00182": "stl_0014",
+    "pay_00181": "stl_0018",
+    "pay_00182": "stl_0015",
     "pay_00183": "stl_0008",
-    "pay_00184": "stl_0012",
-    "pay_00185": "stl_0016",
+    "pay_00184": "stl_0013",
+    "pay_00185": "stl_0017",
     "pay_00186": "stl_0003",
     "pay_00187": "stl_0004",
-    "pay_00188": "stl_0016",
-    "pay_00189": "stl_0010",
-    "pay_00190": "stl_0016",
+    "pay_00188": "stl_0017",
+    "pay_00189": "stl_0011",
+    "pay_00190": "stl_0017",
     "pay_00191": "stl_0003",
     "pay_00192": "stl_0000",
     "pay_00193": "stl_0007",
-    "pay_00194": "stl_0012",
+    "pay_00194": "stl_0013",
     "pay_00195": "stl_0003",
     "pay_00196": "stl_0007",
     "pay_00197": "stl_0009",
     "pay_00198": "stl_0006",
     "pay_00199": "stl_0009",
-    "pay_00200": "stl_0021",
+    "pay_00200": "stl_0023",
     "pay_00201": "stl_0005",
     "pay_00202": "stl_0004",
     "pay_00203": "stl_0007",
     "pay_00204": "stl_0001",
     "pay_00205": "stl_0002",
     "pay_00206": "stl_0008",
-    "pay_00207": "stl_0020",
-    "pay_00208": "stl_0022",
-    "pay_00209": "stl_0012",
-    "pay_00210": "stl_0012",
+    "pay_00207": "stl_0021",
+    "pay_00208": "stl_0024",
+    "pay_00209": "stl_0013",
+    "pay_00210": "stl_0013",
     "pay_00211": "stl_0006",
     "pay_00212": "stl_0004",
-    "pay_00213": "stl_0010",
-    "pay_00214": "stl_0016",
-    "pay_00215": "stl_0021",
+    "pay_00213": "stl_0011",
+    "pay_00214": "stl_0017",
+    "pay_00215": "stl_0023",
     "pay_00216": "stl_0007",
-    "pay_00217": "stl_0016",
+    "pay_00217": "stl_0017",
     "pay_00218": "stl_0000",
     "pay_00219": "stl_0007",
-    "pay_00220": "stl_0022",
+    "pay_00220": "stl_0024",
     "pay_00221": "stl_0002",
     "pay_00222": "stl_0009",
-    "pay_00223": "stl_0011",
+    "pay_00223": "stl_0012",
     "pay_00224": "stl_0002",
-    "pay_00225": "stl_0012",
-    "pay_00226": "stl_0011",
+    "pay_00225": "stl_0013",
+    "pay_00226": "stl_0012",
     "pay_00227": "stl_0003",
     "pay_00228": "stl_0003",
-    "pay_00229": "stl_0014",
-    "pay_00230": "stl_0021",
+    "pay_00229": "stl_0015",
+    "pay_00230": "stl_0023",
     "pay_00231": "stl_0009",
     "pay_00232": "stl_0003",
     "pay_00233": "stl_0007",
     "pay_00234": "stl_0008",
     "pay_00235": "stl_0008",
-    "pay_00236": "stl_0011",
+    "pay_00236": "stl_0012",
     "pay_00237": "stl_0001",
-    "pay_00238": "stl_0016",
+    "pay_00238": "stl_0017",
     "pay_00239": "stl_0006",
-    "pay_00240": "stl_0013",
+    "pay_00240": "stl_0014",
     "pay_00241": "stl_0008",
     "pay_00242": "stl_0006",
     "pay_00243": "stl_0009",
-    "pay_00244": "stl_0016",
-    "pay_00245": "stl_0018",
-    "pay_00246": "stl_0016",
-    "pay_00247": "stl_0021",
+    "pay_00244": "stl_0017",
+    "pay_00245": "stl_0019",
+    "pay_00246": "stl_0017",
+    "pay_00247": "stl_0023",
     "pay_00248": "stl_0007",
-    "pay_00249": "stl_0019",
-    "pay_00250": "stl_0022",
-    "pay_00251": "stl_0016",
-    "pay_00252": "stl_0016",
-    "pay_00253": "stl_0012",
+    "pay_00249": "stl_0020",
+    "pay_00250": "stl_0024",
+    "pay_00251": "stl_0017",
+    "pay_00252": "stl_0017",
+    "pay_00253": "stl_0013",
     "pay_00254": "stl_0002",
     "pay_00255": "stl_0002",
     "pay_00256": "stl_0002",
-    "pay_00257": "stl_0018",
+    "pay_00257": "stl_0019",
     "pay_00258": "stl_0006",
     "pay_00259": "stl_0007",
-    "pay_00260": "stl_0012",
-    "pay_00261": "stl_0016",
-    "pay_00262": "stl_0010",
-    "pay_00263": "stl_0017",
-    "pay_00264": "stl_0020",
-    "pay_00265": "stl_0012",
+    "pay_00260": "stl_0013",
+    "pay_00261": "stl_0017",
+    "pay_00262": "stl_0011",
+    "pay_00263": "stl_0018",
+    "pay_00264": "stl_0021",
+    "pay_00265": "stl_0013",
     "pay_00266": "stl_0009",
-    "pay_00267": "stl_0018",
-    "pay_00268": "stl_0016",
+    "pay_00267": "stl_0019",
+    "pay_00268": "stl_0017",
     "pay_00269": "stl_0005",
     "pay_00270": "stl_0007",
     "pay_00271": "stl_0007",
     "pay_00272": "stl_0000",
-    "pay_00273": "stl_0013",
-    "pay_00274": "stl_0017",
+    "pay_00273": "stl_0014",
+    "pay_00274": "stl_0018",
     "pay_00275": "stl_0004",
     "pay_00276": "stl_0002",
     "pay_00277": "stl_0004",
@@ -6068,212 +6107,212 @@
     "pay_00279": "stl_0009",
     "pay_00280": "stl_0007",
     "pay_00281": "stl_0008",
-    "pay_00282": "stl_0020",
-    "pay_00283": "stl_0019",
+    "pay_00282": "stl_0021",
+    "pay_00283": "stl_0020",
     "pay_00284": "stl_0000",
     "pay_00285": "stl_0004",
     "pay_00286": "stl_0009",
     "pay_00287": "stl_0006",
-    "pay_00288": "stl_0014",
+    "pay_00288": "stl_0015",
     "pay_00289": "stl_0000",
-    "pay_00290": "stl_0019",
-    "pay_00291": "stl_0022",
-    "pay_00292": "stl_0020",
+    "pay_00290": "stl_0020",
+    "pay_00291": "stl_0024",
+    "pay_00292": "stl_0021",
     "pay_00293": "stl_0006",
     "pay_00294": "stl_0002",
     "pay_00295": "stl_0003",
     "pay_00296": "stl_0006",
     "pay_00297": "stl_0002",
-    "pay_00298": "stl_0011",
-    "pay_00299": "stl_0016",
+    "pay_00298": "stl_0012",
+    "pay_00299": "stl_0017",
     "pay_00300": "stl_0003",
     "pay_00301": "stl_0002",
-    "pay_00302": "stl_0018",
-    "pay_00303": "stl_0010",
-    "pay_00304": "stl_0011",
-    "pay_00305": "stl_0017",
+    "pay_00302": "stl_0019",
+    "pay_00303": "stl_0011",
+    "pay_00304": "stl_0012",
+    "pay_00305": "stl_0018",
     "pay_00306": "stl_0009",
-    "pay_00307": "stl_0019",
+    "pay_00307": "stl_0020",
     "pay_00308": "stl_0009",
     "pay_00309": "stl_0003",
-    "pay_00310": "stl_0021",
-    "pay_00311": "stl_0019",
+    "pay_00310": "stl_0023",
+    "pay_00311": "stl_0020",
     "pay_00312": "stl_0003",
-    "pay_00313": "stl_0016",
-    "pay_00314": "stl_0022",
-    "pay_00315": "stl_0013",
+    "pay_00313": "stl_0017",
+    "pay_00314": "stl_0024",
+    "pay_00315": "stl_0014",
     "pay_00316": "stl_0002",
-    "pay_00317": "stl_0017",
+    "pay_00317": "stl_0018",
     "pay_00318": "stl_0004",
-    "pay_00319": "stl_0022",
+    "pay_00319": "stl_0024",
     "pay_00320": "stl_0006",
-    "pay_00321": "stl_0012",
+    "pay_00321": "stl_0013",
     "pay_00322": "stl_0004",
-    "pay_00323": "stl_0017",
+    "pay_00323": "stl_0018",
     "pay_00324": "stl_0004",
     "pay_00325": "stl_0006",
     "pay_00326": "stl_0005",
-    "pay_00327": "stl_0014",
+    "pay_00327": "stl_0015",
     "pay_00328": "stl_0003",
     "pay_00329": "stl_0002",
     "pay_00330": "stl_0004",
-    "pay_00331": "stl_0022",
-    "pay_00331_dup": "stl_0022",
-    "pay_00332": "stl_0018",
-    "pay_00333": "stl_0021",
+    "pay_00331": "stl_0024",
+    "pay_00331_dup": "stl_0024",
+    "pay_00332": "stl_0019",
+    "pay_00333": "stl_0023",
     "pay_00334": "stl_0002",
-    "pay_00335": "stl_0017",
-    "pay_00336": "stl_0021",
+    "pay_00335": "stl_0018",
+    "pay_00336": "stl_0023",
     "pay_00337": "stl_0008",
-    "pay_00338": "stl_0018",
+    "pay_00338": "stl_0019",
     "pay_00339": "stl_0003",
     "pay_00340": "stl_0008",
-    "pay_00341": "stl_0020",
+    "pay_00341": "stl_0021",
     "pay_00342": "stl_0005",
-    "pay_00343": "stl_0016",
+    "pay_00343": "stl_0017",
     "pay_00344": "stl_0002",
     "pay_00345": "stl_0005",
     "pay_00346": "stl_0007",
     "pay_00347": "stl_0000",
     "pay_00348": "stl_0001",
     "pay_00349": "stl_0002",
-    "pay_00350": "stl_0011",
+    "pay_00350": "stl_0012",
     "pay_00351": "stl_0005",
-    "pay_00352": "stl_0020",
-    "pay_00353": "stl_0013",
-    "pay_00354": "stl_0011",
-    "pay_00355": "stl_0017",
+    "pay_00352": "stl_0021",
+    "pay_00353": "stl_0014",
+    "pay_00354": "stl_0012",
+    "pay_00355": "stl_0018",
     "pay_00356": "stl_0005",
-    "pay_00357": "stl_0017",
-    "pay_00358": "stl_0012",
-    "pay_00359": "stl_0022",
+    "pay_00357": "stl_0018",
+    "pay_00358": "stl_0013",
+    "pay_00359": "stl_0024",
     "pay_00360": "stl_0005",
-    "pay_00361": "stl_0018",
-    "pay_00362": "stl_0013",
+    "pay_00361": "stl_0019",
+    "pay_00362": "stl_0014",
     "pay_00363": "stl_0003",
     "pay_00364": "stl_0005",
-    "pay_00365": "stl_0022",
+    "pay_00365": "stl_0024",
     "pay_00366": "stl_0002",
-    "pay_00367": "stl_0018",
+    "pay_00367": "stl_0019",
     "pay_00368": "stl_0003",
-    "pay_00369": "stl_0021",
+    "pay_00369": "stl_0023",
     "pay_00370": "stl_0008",
     "pay_00371": "stl_0005",
-    "pay_00372": "stl_0021",
+    "pay_00372": "stl_0023",
     "pay_00373": "stl_0009",
     "pay_00374": "stl_0007",
-    "pay_00375": "stl_0022",
+    "pay_00375": "stl_0024",
     "pay_00376": "stl_0008",
     "pay_00377": "stl_0009",
-    "pay_00378": "stl_0021",
-    "pay_00379": "stl_0019",
+    "pay_00378": "stl_0023",
+    "pay_00379": "stl_0020",
     "pay_00380": "stl_0006",
-    "pay_00381": "stl_0012",
+    "pay_00381": "stl_0013",
     "pay_00382": "stl_0000",
-    "pay_00383": "stl_0017",
-    "pay_00384": "stl_0022",
+    "pay_00383": "stl_0018",
+    "pay_00384": "stl_0024",
     "pay_00385": "stl_0009",
     "pay_00386": "stl_0003",
-    "pay_00387": "stl_0016",
+    "pay_00387": "stl_0017",
     "pay_00388": "stl_0009",
     "pay_00389": "stl_0002",
-    "pay_00390": "stl_0015",
-    "pay_00391": "stl_0014",
-    "pay_00392": "stl_0013",
-    "pay_00393": "stl_0011",
-    "pay_00394": "stl_0012",
-    "pay_00395": "stl_0022",
-    "pay_00396": "stl_0020",
-    "pay_00397": "stl_0019",
-    "pay_00398": "stl_0010",
-    "pay_00399": "stl_0018",
+    "pay_00390": "stl_0016",
+    "pay_00391": "stl_0015",
+    "pay_00392": "stl_0014",
+    "pay_00393": "stl_0012",
+    "pay_00394": "stl_0013",
+    "pay_00395": "stl_0024",
+    "pay_00396": "stl_0021",
+    "pay_00397": "stl_0020",
+    "pay_00398": "stl_0011",
+    "pay_00399": "stl_0019",
     "pay_00400": "stl_0003",
     "pay_00401": "stl_0008",
     "pay_00402": "stl_0000",
     "pay_00403": "stl_0004",
-    "pay_00404": "stl_0021",
+    "pay_00404": "stl_0023",
     "pay_00405": "stl_0005",
     "pay_00406": "stl_0005",
-    "pay_00407": "stl_0010",
+    "pay_00407": "stl_0011",
     "pay_00408": "stl_0005",
     "pay_00409": "stl_0007",
-    "pay_00410": "stl_0021",
+    "pay_00410": "stl_0023",
     "pay_00411": "stl_0009",
     "pay_00412": "stl_0002",
-    "pay_00413": "stl_0012",
+    "pay_00413": "stl_0013",
     "pay_00414": "stl_0005",
     "pay_00415": "stl_0007",
     "pay_00416": "stl_0005",
-    "pay_00417": "stl_0011",
+    "pay_00417": "stl_0012",
     "pay_00418": "stl_0007",
     "pay_00419": "stl_0006",
-    "pay_00420": "stl_0020",
+    "pay_00420": "stl_0021",
     "pay_00421": "stl_0006",
     "pay_00422": "stl_0005",
     "pay_00423": "stl_0008",
-    "pay_00424": "stl_0020",
+    "pay_00424": "stl_0021",
     "pay_00425": "stl_0002",
     "pay_00426": "stl_0008",
-    "pay_00427": "stl_0022",
+    "pay_00427": "stl_0024",
     "pay_00428": "stl_0006",
     "pay_00429": "stl_0007",
-    "pay_00430": "stl_0012",
-    "pay_00431": "stl_0016",
+    "pay_00430": "stl_0013",
+    "pay_00431": "stl_0017",
     "pay_00432": "stl_0006",
     "pay_00433": "stl_0002",
     "pay_00434": "stl_0003",
-    "pay_00435": "stl_0013",
-    "pay_00436": "stl_0010",
+    "pay_00435": "stl_0014",
+    "pay_00436": "stl_0011",
     "pay_00437": "stl_0003",
-    "pay_00438": "stl_0021",
+    "pay_00438": "stl_0023",
     "pay_00439": "stl_0003",
-    "pay_00440": "stl_0014",
-    "pay_00441": "stl_0020",
-    "pay_00442": "stl_0021",
-    "pay_00443": "stl_0020",
+    "pay_00440": "stl_0015",
+    "pay_00441": "stl_0021",
+    "pay_00442": "stl_0023",
+    "pay_00443": "stl_0021",
     "pay_00444": "stl_0000",
     "pay_00445": "stl_0006",
-    "pay_00446": "stl_0010",
+    "pay_00446": "stl_0011",
     "pay_00447": "stl_0004",
-    "pay_00448": "stl_0013",
+    "pay_00448": "stl_0014",
     "pay_00449": "stl_0009",
-    "pay_00450": "stl_0017",
-    "pay_00451": "stl_0016",
-    "pay_00452": "stl_0022",
+    "pay_00450": "stl_0018",
+    "pay_00451": "stl_0017",
+    "pay_00452": "stl_0024",
     "pay_00453": "stl_0003",
     "pay_00454": "stl_0009",
     "pay_00455": "stl_0006",
-    "pay_00456": "stl_0014",
+    "pay_00456": "stl_0015",
     "pay_00457": "stl_0008",
     "pay_00458": "stl_0009",
-    "pay_00459": "stl_0021",
-    "pay_00460": "stl_0021",
+    "pay_00459": "stl_0023",
+    "pay_00460": "stl_0023",
     "pay_00461": "stl_0002",
     "pay_00462": "stl_0006",
-    "pay_00463": "stl_0014",
-    "pay_00464": "stl_0015",
-    "pay_00465": "stl_0011",
+    "pay_00463": "stl_0015",
+    "pay_00464": "stl_0016",
+    "pay_00465": "stl_0012",
     "pay_00466": "stl_0009",
-    "pay_00467": "stl_0022",
+    "pay_00467": "stl_0024",
     "pay_00468": "stl_0008",
     "pay_00469": "stl_0009",
-    "pay_00470": "stl_0017",
+    "pay_00470": "stl_0018",
     "pay_00471": "stl_0003",
     "pay_00472": "stl_0003",
-    "pay_00473": "stl_0018",
+    "pay_00473": "stl_0019",
     "pay_00474": "stl_0000",
-    "pay_00475": "stl_0011",
-    "pay_00476": "stl_0018",
-    "pay_00477": "stl_0014",
+    "pay_00475": "stl_0012",
+    "pay_00476": "stl_0019",
+    "pay_00477": "stl_0015",
     "pay_00478": "stl_0001",
     "pay_00479": "stl_0007",
-    "pay_00480": "stl_0011",
+    "pay_00480": "stl_0012",
     "pay_00481": "stl_0009",
-    "pay_00482": "stl_0013",
-    "pay_00483": "stl_0011",
+    "pay_00482": "stl_0014",
+    "pay_00483": "stl_0012",
     "pay_00484": "stl_0003",
     "pay_00485": "stl_0009",
-    "pay_00486": "stl_0013",
+    "pay_00486": "stl_0014",
     "pay_00487": "stl_0000",
     "pay_00488": "stl_0000",
     "pay_00489": "stl_0004",
@@ -6282,41 +6321,46 @@
     "pay_00492": "stl_0007",
     "pay_00493": "stl_0007",
     "pay_00494": "stl_0006",
-    "pay_00495": "stl_0012",
-    "pay_00496": "stl_0017",
-    "pay_00497": "stl_0021",
-    "pay_00498": "stl_0023",
+    "pay_00495": "stl_0013",
+    "pay_00496": "stl_0018",
+    "pay_00497": "stl_0023",
+    "pay_00498": "stl_0025",
     "pay_00499": "stl_0006",
     "pay_amb00": "stl_0003",
-    "pay_amb01": "stl_0003",
-    "pay_amb10": "stl_0002",
-    "pay_amb11": "stl_0002",
-    "pay_amb20": "stl_0021",
-    "pay_amb21": "stl_0021",
-    "pay_amb30": "stl_0009",
-    "pay_amb31": "stl_0009",
+    "pay_amb01": "stl_0004",
+    "pay_amb10": "stl_0020",
+    "pay_amb11": "stl_0021",
+    "pay_amb20": "stl_0003",
+    "pay_amb21": "stl_0004",
+    "pay_amb30": "stl_0021",
+    "pay_amb31": "stl_0022",
     "pay_amb40": "stl_0009",
-    "pay_amb41": "stl_0009",
-    "pay_amb50": "stl_0003",
-    "pay_amb51": "stl_0003",
-    "pay_dec0a": "stl_0020",
-    "pay_dec0b": "stl_0020",
-    "pay_dec0c": "stl_0020",
-    "pay_dec1a": "stl_0014",
-    "pay_dec1b": "stl_0014",
-    "pay_dec1c": "stl_0014",
-    "pay_dec2a": "stl_0012",
-    "pay_dec2b": "stl_0012",
-    "pay_dec2c": "stl_0012",
-    "pay_dec3a": "stl_0022",
-    "pay_dec3b": "stl_0022",
-    "pay_dec3c": "stl_0022",
-    "pay_dec4a": "stl_0000",
-    "pay_dec4b": "stl_0000",
-    "pay_dec4c": "stl_0000",
-    "pay_dec5a": "stl_0003",
-    "pay_dec5b": "stl_0003",
-    "pay_dec5c": "stl_0003"
+    "pay_amb41": "stl_0010",
+    "pay_amb50": "stl_0024",
+    "pay_amb51": "stl_0025",
+    "pay_dec0a": "stl_0004",
+    "pay_dec0b": "stl_0004",
+    "pay_dec0c": "stl_0004",
+    "pay_dec1a": "stl_0000",
+    "pay_dec1b": "stl_0000",
+    "pay_dec1c": "stl_0000",
+    "pay_dec2a": "stl_0002",
+    "pay_dec2b": "stl_0002",
+    "pay_dec2c": "stl_0002",
+    "pay_dec3a": "stl_0018",
+    "pay_dec3b": "stl_0018",
+    "pay_dec3c": "stl_0018",
+    "pay_dec4a": "stl_0009",
+    "pay_dec4b": "stl_0009",
+    "pay_dec4c": "stl_0009",
+    "pay_dec5a": "stl_0000",
+    "pay_dec5b": "stl_0000",
+    "pay_dec5c": "stl_0000",
+    "pay_str00": "stl_0014",
+    "pay_str01": "stl_0014",
+    "pay_str02": "stl_0014",
+    "pay_str03": "stl_0014",
+    "pay_str04": "stl_0014"
   },
   "seeded_leaks": [
     {
@@ -6489,115 +6533,116 @@
     },
     {
       "class": "MISSING_SETTLEMENT",
-      "detail": "payout of Rs 217762.60 for cycle 2026-06-08 never credited",
-      "entity_id": "stl_0005",
+      "detail": "payout of Rs 260064.22 for cycle 2026-06-11 never credited",
+      "entity_id": "stl_0008",
       "leak_id": "leak_0024",
+      "value_paise": 26006422
+    },
+    {
+      "class": "MISSING_SETTLEMENT",
+      "detail": "payout of Rs 151375.14 for cycle 2026-06-17 never credited",
+      "entity_id": "stl_0013",
+      "leak_id": "leak_0025",
+      "value_paise": 15137514
+    },
+    {
+      "class": "MISSING_SETTLEMENT",
+      "detail": "payout of Rs 149751.12 for cycle 2026-06-26 never credited",
+      "entity_id": "stl_0021",
+      "leak_id": "leak_0026",
+      "value_paise": 14975112
+    },
+    {
+      "class": "DUPLICATE_PAYOUT",
+      "detail": "payout UTR20260005 credited twice",
+      "entity_id": "stl_0005",
+      "leak_id": "leak_0027",
       "value_paise": 21776260
     },
     {
-      "class": "MISSING_SETTLEMENT",
-      "detail": "payout of Rs 285630.83 for cycle 2026-06-12 never credited",
-      "entity_id": "stl_0009",
-      "leak_id": "leak_0025",
-      "value_paise": 28563083
-    },
-    {
-      "class": "MISSING_SETTLEMENT",
-      "detail": "payout of Rs 145480.10 for cycle 2026-06-19 never credited",
-      "entity_id": "stl_0014",
-      "leak_id": "leak_0026",
-      "value_paise": 14548010
-    },
-    {
       "class": "DUPLICATE_PAYOUT",
-      "detail": "payout UTR20260004 credited twice",
-      "entity_id": "stl_0004",
-      "leak_id": "leak_0027",
-      "value_paise": 10671164
-    },
-    {
-      "class": "DUPLICATE_PAYOUT",
-      "detail": "payout UTR20260017 credited twice",
-      "entity_id": "stl_0017",
+      "detail": "payout UTR20260011 credited twice",
+      "entity_id": "stl_0011",
       "leak_id": "leak_0028",
-      "value_paise": 30144012
+      "value_paise": 19725785
     },
     {
       "class": "SHORT_SETTLEMENT",
-      "detail": "payout short by Rs 104.42 with no typed component",
-      "entity_id": "stl_0001",
+      "detail": "payout short by Rs 180.11 with no typed component",
+      "entity_id": "stl_0020",
       "leak_id": "leak_0029",
-      "value_paise": 10442
+      "value_paise": 18011
     },
     {
       "class": "SHORT_SETTLEMENT",
-      "detail": "payout short by Rs 210.71 with no typed component",
-      "entity_id": "stl_0010",
+      "detail": "payout short by Rs 52.14 with no typed component",
+      "entity_id": "stl_0004",
       "leak_id": "leak_0030",
-      "value_paise": 21071
-    },
-    {
-      "class": "RESERVE_NOT_RELEASED",
-      "detail": "reserve Rs 302.16 held beyond schedule",
-      "entity_id": "stl_0000",
-      "leak_id": "leak_0031",
-      "value_paise": 30216
+      "value_paise": 5214
     },
     {
       "class": "RESERVE_NOT_RELEASED",
       "detail": "reserve Rs 1109.36 held beyond schedule",
       "entity_id": "stl_0005",
-      "leak_id": "leak_0032",
+      "leak_id": "leak_0031",
       "value_paise": 110936
     },
     {
-      "class": "REFUND_NOT_REACHED",
-      "detail": "refund deducted from settlement, no outbound leg",
-      "entity_id": "rfn_0012",
-      "leak_id": "leak_0033",
-      "value_paise": 174200
-    },
-    {
-      "class": "REFUND_NOT_REACHED",
-      "detail": "refund deducted from settlement, no outbound leg",
-      "entity_id": "rfn_0023",
-      "leak_id": "leak_0034",
-      "value_paise": 2796200
+      "class": "RESERVE_NOT_RELEASED",
+      "detail": "reserve Rs 15.32 held beyond schedule",
+      "entity_id": "stl_0025",
+      "leak_id": "leak_0032",
+      "value_paise": 1532
     },
     {
       "class": "REFUND_NOT_REACHED",
       "detail": "refund deducted from settlement, no outbound leg",
       "entity_id": "rfn_0033",
+      "leak_id": "leak_0033",
+      "value_paise": 336325
+    },
+    {
+      "class": "REFUND_NOT_REACHED",
+      "detail": "refund deducted from settlement, no outbound leg",
+      "entity_id": "rfn_0007",
+      "leak_id": "leak_0034",
+      "value_paise": 308050
+    },
+    {
+      "class": "REFUND_NOT_REACHED",
+      "detail": "refund deducted from settlement, no outbound leg",
+      "entity_id": "rfn_0008",
       "leak_id": "leak_0035",
-      "value_paise": 2985299
+      "value_paise": 4093701
     },
     {
       "class": "CHARGEBACK_NOT_RECREDITED",
       "detail": "dispute won, never re-credited",
-      "entity_id": "cbk_0000",
+      "entity_id": "cbk_0006",
       "leak_id": "leak_0036",
-      "value_paise": 199900
+      "value_paise": 3336750
     },
     {
       "class": "CHARGEBACK_NOT_RECREDITED",
       "detail": "dispute won, never re-credited",
       "entity_id": "cbk_0003",
       "leak_id": "leak_0037",
-      "value_paise": 3056100
+      "value_paise": 56949
     }
   ],
   "settlements": [
     {
       "case_tags": [
-        "N_TO_1_MIXED_INSTRUMENT"
+        "N_TO_1_MIXED_INSTRUMENT",
+        "ROUNDING_RESIDUAL"
       ],
       "chargebacks_paise": 0,
       "cycle_date": "2026-06-01",
       "duplicated": false,
-      "fee_paise": 33329,
-      "gross_paise": 6043299,
-      "gst_paise": 6000,
-      "net_paise": 5973754,
+      "fee_paise": 34767,
+      "gross_paise": 6402899,
+      "gst_paise": 6259,
+      "net_paise": 6329859,
       "paid": true,
       "payment_ids": [
         "pay_00049",
@@ -6614,12 +6659,15 @@
         "pay_00474",
         "pay_00487",
         "pay_00488",
-        "pay_dec4a",
-        "pay_dec4b",
-        "pay_dec4c"
+        "pay_dec1a",
+        "pay_dec1b",
+        "pay_dec1c",
+        "pay_dec5a",
+        "pay_dec5b",
+        "pay_dec5c"
       ],
       "refunds_paise": 0,
-      "reserve_held_paise": 30216,
+      "reserve_held_paise": 32014,
       "settlement_id": "stl_0000",
       "utr": "UTR20260000",
       "value_date": "2026-06-03"
@@ -6634,7 +6682,7 @@
       "fee_paise": 79018,
       "gross_paise": 9779225,
       "gst_paise": 14224,
-      "net_paise": 9675541,
+      "net_paise": 9485234,
       "paid": true,
       "payment_ids": [
         "pay_00057",
@@ -6646,7 +6694,7 @@
         "pay_00348",
         "pay_00478"
       ],
-      "refunds_paise": 0,
+      "refunds_paise": 200749,
       "reserve_held_paise": 0,
       "settlement_id": "stl_0001",
       "utr": "UTR20260001",
@@ -6660,10 +6708,10 @@
       "chargebacks_paise": 0,
       "cycle_date": "2026-06-03",
       "duplicated": false,
-      "fee_paise": 565644,
-      "gross_paise": 40625389,
-      "gst_paise": 101516,
-      "net_paise": 39958229,
+      "fee_paise": 565411,
+      "gross_paise": 40945589,
+      "gst_paise": 101474,
+      "net_paise": 40278704,
       "paid": true,
       "payment_ids": [
         "pay_00018",
@@ -6696,8 +6744,9 @@
         "pay_00425",
         "pay_00433",
         "pay_00461",
-        "pay_amb10",
-        "pay_amb11"
+        "pay_dec2a",
+        "pay_dec2b",
+        "pay_dec2c"
       ],
       "refunds_paise": 0,
       "reserve_held_paise": 0,
@@ -6714,10 +6763,10 @@
       "chargebacks_paise": 0,
       "cycle_date": "2026-06-04",
       "duplicated": false,
-      "fee_paise": 546476,
-      "gross_paise": 34219046,
-      "gst_paise": 98246,
-      "net_paise": 33574324,
+      "fee_paise": 528454,
+      "gross_paise": 32942946,
+      "gst_paise": 95002,
+      "net_paise": 28724941,
       "paid": true,
       "payment_ids": [
         "pay_00002",
@@ -6756,14 +6805,9 @@
         "pay_00472",
         "pay_00484",
         "pay_amb00",
-        "pay_amb01",
-        "pay_amb50",
-        "pay_amb51",
-        "pay_dec5a",
-        "pay_dec5b",
-        "pay_dec5c"
+        "pay_amb20"
       ],
-      "refunds_paise": 0,
+      "refunds_paise": 3594549,
       "reserve_held_paise": 0,
       "settlement_id": "stl_0003",
       "utr": "UTR20260003",
@@ -6777,11 +6821,11 @@
       ],
       "chargebacks_paise": 0,
       "cycle_date": "2026-06-05",
-      "duplicated": true,
-      "fee_paise": 140730,
-      "gross_paise": 15065250,
-      "gst_paise": 25332,
-      "net_paise": 10671164,
+      "duplicated": false,
+      "fee_paise": 163538,
+      "gross_paise": 16636550,
+      "gst_paise": 29436,
+      "net_paise": 14236588,
       "paid": true,
       "payment_ids": [
         "pay_00006",
@@ -6804,9 +6848,14 @@
         "pay_00330",
         "pay_00403",
         "pay_00447",
-        "pay_00489"
+        "pay_00489",
+        "pay_amb01",
+        "pay_amb21",
+        "pay_dec0a",
+        "pay_dec0b",
+        "pay_dec0c"
       ],
-      "refunds_paise": 4228024,
+      "refunds_paise": 2201774,
       "reserve_held_paise": 0,
       "settlement_id": "stl_0004",
       "utr": "UTR20260004",
@@ -6819,12 +6868,12 @@
       ],
       "chargebacks_paise": 0,
       "cycle_date": "2026-06-08",
-      "duplicated": false,
+      "duplicated": true,
       "fee_paise": 254279,
       "gross_paise": 22187247,
       "gst_paise": 45772,
       "net_paise": 21776260,
-      "paid": false,
+      "paid": true,
       "payment_ids": [
         "pay_00004",
         "pay_00064",
@@ -6868,7 +6917,7 @@
       "fee_paise": 98167,
       "gross_paise": 10559167,
       "gst_paise": 17668,
-      "net_paise": 8892834,
+      "net_paise": 10174732,
       "paid": true,
       "payment_ids": [
         "pay_00030",
@@ -6901,7 +6950,7 @@
         "pay_00499",
         "pay_00178_dup"
       ],
-      "refunds_paise": 1550498,
+      "refunds_paise": 268600,
       "reserve_held_paise": 0,
       "settlement_id": "stl_0006",
       "utr": "UTR20260006",
@@ -6912,13 +6961,13 @@
         "N_TO_1_MIXED_INSTRUMENT",
         "ROUNDING_RESIDUAL"
       ],
-      "chargebacks_paise": 127200,
+      "chargebacks_paise": 0,
       "cycle_date": "2026-06-10",
       "duplicated": false,
       "fee_paise": 662228,
       "gross_paise": 39699052,
       "gst_paise": 119295,
-      "net_paise": 38790329,
+      "net_paise": 38917529,
       "paid": true,
       "payment_ids": [
         "pay_00014",
@@ -6970,14 +7019,14 @@
         "HOLIDAY_WEEKEND_SETTLEMENT",
         "ROUNDING_RESIDUAL"
       ],
-      "chargebacks_paise": 0,
+      "chargebacks_paise": 3336750,
       "cycle_date": "2026-06-11",
       "duplicated": false,
       "fee_paise": 494961,
       "gross_paise": 30025025,
       "gst_paise": 89093,
-      "net_paise": 29343172,
-      "paid": true,
+      "net_paise": 26006422,
+      "paid": false,
       "payment_ids": [
         "pay_00000",
         "pay_00016",
@@ -7016,14 +7065,14 @@
         "HOLIDAY_WEEKEND_SETTLEMENT",
         "ROUNDING_RESIDUAL"
       ],
-      "chargebacks_paise": 0,
+      "chargebacks_paise": 2087675,
       "cycle_date": "2026-06-12",
       "duplicated": false,
-      "fee_paise": 550815,
-      "gross_paise": 31030542,
-      "gst_paise": 99144,
-      "net_paise": 28563083,
-      "paid": false,
+      "fee_paise": 544970,
+      "gross_paise": 31249942,
+      "gst_paise": 98093,
+      "net_paise": 28519204,
+      "paid": true,
       "payment_ids": [
         "pay_00025",
         "pay_00031",
@@ -7056,15 +7105,36 @@
         "pay_00469",
         "pay_00481",
         "pay_00485",
-        "pay_amb30",
-        "pay_amb31",
         "pay_amb40",
-        "pay_amb41"
+        "pay_dec4a",
+        "pay_dec4b",
+        "pay_dec4c"
       ],
-      "refunds_paise": 1817500,
+      "refunds_paise": 0,
       "reserve_held_paise": 0,
       "settlement_id": "stl_0009",
       "utr": "UTR20260009",
+      "value_date": "2026-06-16"
+    },
+    {
+      "case_tags": [
+        "HOLIDAY_WEEKEND_SETTLEMENT"
+      ],
+      "chargebacks_paise": 0,
+      "cycle_date": "2026-06-13",
+      "duplicated": false,
+      "fee_paise": 4080,
+      "gross_paise": 204000,
+      "gst_paise": 734,
+      "net_paise": -1619334,
+      "paid": true,
+      "payment_ids": [
+        "pay_amb41"
+      ],
+      "refunds_paise": 1817500,
+      "reserve_held_paise": 1020,
+      "settlement_id": "stl_0010",
+      "utr": "UTR20260010",
       "value_date": "2026-06-16"
     },
     {
@@ -7073,11 +7143,11 @@
       ],
       "chargebacks_paise": 0,
       "cycle_date": "2026-06-15",
-      "duplicated": false,
+      "duplicated": true,
       "fee_paise": 355924,
       "gross_paise": 20319975,
       "gst_paise": 64066,
-      "net_paise": 19777314,
+      "net_paise": 19725785,
       "paid": true,
       "payment_ids": [
         "pay_00003",
@@ -7097,10 +7167,10 @@
         "pay_00436",
         "pay_00446"
       ],
-      "refunds_paise": 0,
-      "reserve_held_paise": 101600,
-      "settlement_id": "stl_0010",
-      "utr": "UTR20260010",
+      "refunds_paise": 174200,
+      "reserve_held_paise": 0,
+      "settlement_id": "stl_0011",
+      "utr": "UTR20260011",
       "value_date": "2026-06-17"
     },
     {
@@ -7114,7 +7184,7 @@
       "fee_paise": 342003,
       "gross_paise": 18706923,
       "gst_paise": 61561,
-      "net_paise": 18033686,
+      "net_paise": 18186834,
       "paid": true,
       "payment_ids": [
         "pay_00024",
@@ -7139,10 +7209,10 @@
         "pay_00480",
         "pay_00483"
       ],
-      "refunds_paise": 269673,
+      "refunds_paise": 116525,
       "reserve_held_paise": 0,
-      "settlement_id": "stl_0011",
-      "utr": "UTR20260011",
+      "settlement_id": "stl_0012",
+      "utr": "UTR20260012",
       "value_date": "2026-06-18"
     },
     {
@@ -7150,14 +7220,14 @@
         "N_TO_1_MIXED_INSTRUMENT",
         "ROUNDING_RESIDUAL"
       ],
-      "chargebacks_paise": 0,
+      "chargebacks_paise": 49925,
       "cycle_date": "2026-06-17",
       "duplicated": false,
-      "fee_paise": 151603,
-      "gross_paise": 15699024,
-      "gst_paise": 27290,
-      "net_paise": 15520131,
-      "paid": true,
+      "fee_paise": 150369,
+      "gross_paise": 15390624,
+      "gst_paise": 27067,
+      "net_paise": 15137514,
+      "paid": false,
       "payment_ids": [
         "pay_00029",
         "pay_00056",
@@ -7182,29 +7252,27 @@
         "pay_00413",
         "pay_00430",
         "pay_00495",
-        "pay_00029_dup",
-        "pay_dec2a",
-        "pay_dec2b",
-        "pay_dec2c"
+        "pay_00029_dup"
       ],
-      "refunds_paise": 0,
+      "refunds_paise": 25749,
       "reserve_held_paise": 0,
-      "settlement_id": "stl_0012",
-      "utr": "UTR20260012",
+      "settlement_id": "stl_0013",
+      "utr": "UTR20260013",
       "value_date": "2026-06-19"
     },
     {
       "case_tags": [
         "N_TO_1_MIXED_INSTRUMENT",
-        "HOLIDAY_WEEKEND_SETTLEMENT"
+        "HOLIDAY_WEEKEND_SETTLEMENT",
+        "HIGH_STRADDLE"
       ],
-      "chargebacks_paise": 3081849,
+      "chargebacks_paise": 0,
       "cycle_date": "2026-06-18",
       "duplicated": false,
-      "fee_paise": 315907,
-      "gross_paise": 17289350,
-      "gst_paise": 56743,
-      "net_paise": 13834851,
+      "fee_paise": 352309,
+      "gross_paise": 19109450,
+      "gst_paise": 63295,
+      "net_paise": 18693846,
       "paid": true,
       "payment_ids": [
         "pay_00061",
@@ -7222,12 +7290,17 @@
         "pay_00435",
         "pay_00448",
         "pay_00482",
-        "pay_00486"
+        "pay_00486",
+        "pay_str00",
+        "pay_str01",
+        "pay_str02",
+        "pay_str03",
+        "pay_str04"
       ],
       "refunds_paise": 0,
       "reserve_held_paise": 0,
-      "settlement_id": "stl_0013",
-      "utr": "UTR20260013",
+      "settlement_id": "stl_0014",
+      "utr": "UTR20260014",
       "value_date": "2026-06-22"
     },
     {
@@ -7239,11 +7312,11 @@
       "chargebacks_paise": 0,
       "cycle_date": "2026-06-19",
       "duplicated": false,
-      "fee_paise": 273761,
-      "gross_paise": 14870749,
-      "gst_paise": 48978,
-      "net_paise": 14548010,
-      "paid": false,
+      "fee_paise": 272307,
+      "gross_paise": 14507349,
+      "gst_paise": 48716,
+      "net_paise": 13937289,
+      "paid": true,
       "payment_ids": [
         "pay_00001",
         "pay_00011",
@@ -7265,37 +7338,34 @@
         "pay_00440",
         "pay_00456",
         "pay_00463",
-        "pay_00477",
-        "pay_dec1a",
-        "pay_dec1b",
-        "pay_dec1c"
+        "pay_00477"
       ],
-      "refunds_paise": 0,
-      "reserve_held_paise": 0,
-      "settlement_id": "stl_0014",
-      "utr": "UTR20260014",
+      "refunds_paise": 176500,
+      "reserve_held_paise": 72537,
+      "settlement_id": "stl_0015",
+      "utr": "UTR20260015",
       "value_date": "2026-06-23"
     },
     {
       "case_tags": [
         "HOLIDAY_WEEKEND_SETTLEMENT"
       ],
-      "chargebacks_paise": 0,
+      "chargebacks_paise": 2558500,
       "cycle_date": "2026-06-20",
       "duplicated": false,
       "fee_paise": 13686,
       "gross_paise": 698326,
       "gst_paise": 2464,
-      "net_paise": 678684,
+      "net_paise": -2717725,
       "paid": true,
       "payment_ids": [
         "pay_00390",
         "pay_00464"
       ],
-      "refunds_paise": 0,
-      "reserve_held_paise": 3492,
-      "settlement_id": "stl_0015",
-      "utr": "UTR20260015",
+      "refunds_paise": 841401,
+      "reserve_held_paise": 0,
+      "settlement_id": "stl_0016",
+      "utr": "UTR20260016",
       "value_date": "2026-06-23"
     },
     {
@@ -7309,7 +7379,7 @@
       "fee_paise": 357705,
       "gross_paise": 22688220,
       "gst_paise": 64387,
-      "net_paise": 21424727,
+      "net_paise": 22266128,
       "paid": true,
       "payment_ids": [
         "pay_00023",
@@ -7338,10 +7408,10 @@
         "pay_00431",
         "pay_00451"
       ],
-      "refunds_paise": 841401,
+      "refunds_paise": 0,
       "reserve_held_paise": 0,
-      "settlement_id": "stl_0016",
-      "utr": "UTR20260016",
+      "settlement_id": "stl_0017",
+      "utr": "UTR20260017",
       "value_date": "2026-06-24"
     },
     {
@@ -7349,13 +7419,13 @@
         "N_TO_1_MIXED_INSTRUMENT",
         "ROUNDING_RESIDUAL"
       ],
-      "chargebacks_paise": 39725,
+      "chargebacks_paise": 0,
       "cycle_date": "2026-06-23",
-      "duplicated": true,
-      "fee_paise": 557505,
-      "gross_paise": 30878295,
-      "gst_paise": 100352,
-      "net_paise": 30144012,
+      "duplicated": false,
+      "fee_paise": 560500,
+      "gross_paise": 31339095,
+      "gst_paise": 100891,
+      "net_paise": 25826778,
       "paid": true,
       "payment_ids": [
         "pay_00007",
@@ -7380,12 +7450,15 @@
         "pay_00383",
         "pay_00450",
         "pay_00470",
-        "pay_00496"
+        "pay_00496",
+        "pay_dec3a",
+        "pay_dec3b",
+        "pay_dec3c"
       ],
-      "refunds_paise": 36701,
+      "refunds_paise": 4850926,
       "reserve_held_paise": 0,
-      "settlement_id": "stl_0017",
-      "utr": "UTR20260017",
+      "settlement_id": "stl_0018",
+      "utr": "UTR20260018",
       "value_date": "2026-06-25"
     },
     {
@@ -7393,13 +7466,13 @@
         "N_TO_1_MIXED_INSTRUMENT",
         "ROUNDING_RESIDUAL"
       ],
-      "chargebacks_paise": 3536650,
+      "chargebacks_paise": 0,
       "cycle_date": "2026-06-24",
       "duplicated": false,
       "fee_paise": 179628,
       "gross_paise": 14978498,
       "gst_paise": 32429,
-      "net_paise": 5701566,
+      "net_paise": 13969892,
       "paid": true,
       "payment_ids": [
         "pay_00022",
@@ -7424,10 +7497,10 @@
         "pay_00473",
         "pay_00476"
       ],
-      "refunds_paise": 5528225,
+      "refunds_paise": 796549,
       "reserve_held_paise": 0,
-      "settlement_id": "stl_0018",
-      "utr": "UTR20260018",
+      "settlement_id": "stl_0019",
+      "utr": "UTR20260019",
       "value_date": "2026-06-26"
     },
     {
@@ -7435,13 +7508,13 @@
         "N_TO_1_MIXED_INSTRUMENT",
         "HOLIDAY_WEEKEND_SETTLEMENT"
       ],
-      "chargebacks_paise": 0,
+      "chargebacks_paise": -3336750,
       "cycle_date": "2026-06-25",
       "duplicated": false,
-      "fee_paise": 231898,
-      "gross_paise": 14196323,
-      "gst_paise": 41743,
-      "net_paise": 11324958,
+      "fee_paise": 241392,
+      "gross_paise": 14671023,
+      "gst_paise": 43452,
+      "net_paise": 17631563,
       "paid": true,
       "payment_ids": [
         "pay_00008",
@@ -7458,12 +7531,13 @@
         "pay_00307",
         "pay_00311",
         "pay_00379",
-        "pay_00397"
+        "pay_00397",
+        "pay_amb10"
       ],
-      "refunds_paise": 2597724,
-      "reserve_held_paise": 0,
-      "settlement_id": "stl_0019",
-      "utr": "UTR20260019",
+      "refunds_paise": 0,
+      "reserve_held_paise": 73355,
+      "settlement_id": "stl_0020",
+      "utr": "UTR20260020",
       "value_date": "2026-06-29"
     },
     {
@@ -7472,14 +7546,14 @@
         "HOLIDAY_WEEKEND_SETTLEMENT",
         "ROUNDING_RESIDUAL"
       ],
-      "chargebacks_paise": 0,
+      "chargebacks_paise": 753300,
       "cycle_date": "2026-06-26",
       "duplicated": false,
-      "fee_paise": 325198,
-      "gross_paise": 19387502,
-      "gst_paise": 58538,
-      "net_paise": 16972079,
-      "paid": true,
+      "fee_paise": 346282,
+      "gross_paise": 20128902,
+      "gst_paise": 62333,
+      "net_paise": 14975112,
+      "paid": false,
       "payment_ids": [
         "pay_00005",
         "pay_00015",
@@ -7504,14 +7578,34 @@
         "pay_00424",
         "pay_00441",
         "pay_00443",
-        "pay_dec0a",
-        "pay_dec0b",
-        "pay_dec0c"
+        "pay_amb11",
+        "pay_amb30"
       ],
-      "refunds_paise": 1934749,
-      "reserve_held_paise": 96938,
-      "settlement_id": "stl_0020",
-      "utr": "UTR20260020",
+      "refunds_paise": 3991875,
+      "reserve_held_paise": 0,
+      "settlement_id": "stl_0021",
+      "utr": "UTR20260021",
+      "value_date": "2026-06-30"
+    },
+    {
+      "case_tags": [
+        "HOLIDAY_WEEKEND_SETTLEMENT"
+      ],
+      "chargebacks_paise": 0,
+      "cycle_date": "2026-06-27",
+      "duplicated": false,
+      "fee_paise": 13154,
+      "gross_paise": 657700,
+      "gst_paise": 2368,
+      "net_paise": 642178,
+      "paid": true,
+      "payment_ids": [
+        "pay_amb31"
+      ],
+      "refunds_paise": 0,
+      "reserve_held_paise": 0,
+      "settlement_id": "stl_0022",
+      "utr": "UTR20260022",
       "value_date": "2026-06-30"
     },
     {
@@ -7522,10 +7616,10 @@
       "chargebacks_paise": 0,
       "cycle_date": "2026-06-29",
       "duplicated": false,
-      "fee_paise": 195538,
-      "gross_paise": 16228094,
-      "gst_paise": 35196,
-      "net_paise": 15997360,
+      "fee_paise": 174186,
+      "gross_paise": 15160494,
+      "gst_paise": 31352,
+      "net_paise": 14240956,
       "paid": true,
       "payment_ids": [
         "pay_00035",
@@ -7549,14 +7643,12 @@
         "pay_00442",
         "pay_00459",
         "pay_00460",
-        "pay_00497",
-        "pay_amb20",
-        "pay_amb21"
+        "pay_00497"
       ],
-      "refunds_paise": 0,
+      "refunds_paise": 714000,
       "reserve_held_paise": 0,
-      "settlement_id": "stl_0021",
-      "utr": "UTR20260021",
+      "settlement_id": "stl_0023",
+      "utr": "UTR20260023",
       "value_date": "2026-07-01"
     },
     {
@@ -7564,13 +7656,13 @@
         "N_TO_1_MIXED_INSTRUMENT",
         "ROUNDING_RESIDUAL"
       ],
-      "chargebacks_paise": 3989800,
+      "chargebacks_paise": 58375,
       "cycle_date": "2026-06-30",
       "duplicated": false,
-      "fee_paise": 127301,
-      "gross_paise": 15055194,
-      "gst_paise": 22914,
-      "net_paise": 10818854,
+      "fee_paise": 126424,
+      "gross_paise": 14499694,
+      "gst_paise": 22756,
+      "net_paise": 14292139,
       "paid": true,
       "payment_ids": [
         "pay_00021",
@@ -7594,33 +7686,32 @@
         "pay_00452",
         "pay_00467",
         "pay_00331_dup",
-        "pay_dec3a",
-        "pay_dec3b",
-        "pay_dec3c"
+        "pay_amb50"
       ],
-      "refunds_paise": 96325,
+      "refunds_paise": 0,
       "reserve_held_paise": 0,
-      "settlement_id": "stl_0022",
-      "utr": "UTR20260022",
+      "settlement_id": "stl_0024",
+      "utr": "UTR20260024",
       "value_date": "2026-07-02"
     },
     {
       "case_tags": [],
-      "chargebacks_paise": 149725,
+      "chargebacks_paise": -49925,
       "cycle_date": "2026-07-01",
       "duplicated": false,
-      "fee_paise": 0,
-      "gross_paise": 103825,
-      "gst_paise": 0,
-      "net_paise": -45900,
+      "fee_paise": 4050,
+      "gross_paise": 306325,
+      "gst_paise": 729,
+      "net_paise": 349939,
       "paid": true,
       "payment_ids": [
-        "pay_00498"
+        "pay_00498",
+        "pay_amb51"
       ],
       "refunds_paise": 0,
-      "reserve_held_paise": 0,
-      "settlement_id": "stl_0023",
-      "utr": "UTR20260023",
+      "reserve_held_paise": 1532,
+      "settlement_id": "stl_0025",
+      "utr": "UTR20260025",
       "value_date": "2026-07-03"
     }
   ]

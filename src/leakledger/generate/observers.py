@@ -252,3 +252,70 @@ def observe_erp(world: World, seed: int) -> List[Dict[str, str]]:
             rows.append(dup)
     rng.shuffle(rows)
     return rows
+
+
+# =======================================================================
+#  Gateway refunds export — a separate report, as gateways actually emit
+# =======================================================================
+
+def observe_gateway_refunds(world: World, seed: int) -> List[Dict[str, str]]:
+    """Refund-level export carrying ARNs.
+
+    This is what gives T1 (exact reference) and T2 (amount + window + uniqueness)
+    real work: an instant refund appears as a bank debit carrying the same ARN,
+    so the two can be matched by reference. It does not violate ADR-003 — a
+    refunds report links refunds to payments, never payments to payouts, so the
+    gateway's account of what it settled is still not being trusted.
+    """
+    rng = random.Random(seed)
+    rows: List[Dict[str, str]] = []
+    for r in world.refunds:
+        rows.append({
+            "refund_id": r.refund_id,
+            "payment_id": r.payment_id,
+            # the export loses the ARN on a minority of rows, forcing those to T2
+            "arn": "" if rng.random() < 0.18 else r.arn,
+            "issued_at": r.issued_at.isoformat(),
+            "amount": r.amount.to_rupees_str(),
+            "mode": r.mode,
+        })
+    rng.shuffle(rows)
+    return rows
+
+
+def observe_gateway_adjustments(world: World, seed: int) -> List[Dict[str, str]]:
+    """Disputes and reserve movements — the deductions that are neither fee nor tax.
+
+    Without this the engine cannot reconcile any cycle containing a chargeback or
+    a reserve hold: the payout is short by an amount it has no way to explain, and
+    the search returns NO_SOLUTION before ambiguity could ever be detected. Real
+    gateways publish dispute and reserve reports, so this is data a merchant
+    genuinely holds. Like the refunds export it links nothing to payouts, so
+    ADR-003 still holds -- the gateway's account of what it SETTLED is not trusted.
+    """
+    rng = random.Random(seed)
+    rows: List[Dict[str, str]] = []
+    for c in world.chargebacks:
+        rows.append({
+            "adjustment_id": c.chargeback_id, "kind": "CHARGEBACK_DEBIT",
+            "reference_id": c.payment_id,
+            "posted_date": c.raised_at.date().isoformat(),
+            "amount": c.amount.to_rupees_str(), "outcome": c.outcome,
+        })
+        if c.recredited:
+            rows.append({
+                "adjustment_id": c.chargeback_id + "-CR", "kind": "CHARGEBACK_CREDIT",
+                "reference_id": c.payment_id,
+                "posted_date": (c.raised_at + timedelta(days=14)).date().isoformat(),
+                "amount": c.amount.to_rupees_str(), "outcome": c.outcome,
+            })
+    for s in world.settlements:
+        if s.reserve_held.paise:
+            rows.append({
+                "adjustment_id": s.settlement_id + "-RSV", "kind": "RESERVE_HELD",
+                "reference_id": s.settlement_id,
+                "posted_date": s.cycle_date.isoformat(),
+                "amount": s.reserve_held.to_rupees_str(), "outcome": "",
+            })
+    rng.shuffle(rows)
+    return rows

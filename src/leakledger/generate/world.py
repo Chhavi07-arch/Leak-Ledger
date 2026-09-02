@@ -355,6 +355,14 @@ def build_world(
             c.credit_settlement_id = sid
         settlements.append(s)
 
+    # ---- force one settlement past the T3 deviation bound --------------
+    # The bound is d<=3, chosen from measured data (max observed deviation 3).
+    # Without this, SEARCH_BUDGET_EXCEEDED would be reachable only in theory:
+    # every real settlement would resolve and the exception would never fire on
+    # the batch. One cycle is given 5 straddling payments so the engine has to
+    # decline for a real reason, on real data. Recorded in ground truth.
+    _seed_high_straddle(payments, settlements, by_cycle, adversarial, rng)
+
     # ---- seed settlement-level cases ----------------------------------
     seed_settlement_cases(settlements, refunds, chargebacks, rng, leaks, adversarial)
 
@@ -465,7 +473,14 @@ def seed_payment_cases(payments, rng, leaks, adversarial, schedule, calendar):
             q = Payment(
                 payment_id=f"pay_amb{i}{k}", order_id=f"ord_amb{i}{k}",
                 rrn=f"{rng.randint(10**11, 10**12 - 1)}",
-                captured_at=base.captured_at.replace(hour=11 + k, minute=rng.randint(0, 59)),
+                # k=0 settles in this cycle; k=1 is captured after the cutoff and
+                # rolls into the NEXT payout. Both share a capture DATE, so the
+                # engine pools both and must exclude exactly one -- and since the
+                # amounts are identical, either exclusion reconciles. That is what
+                # makes AMBIGUOUS_SUBSET fire. See INC-004: with both twins in the
+                # same payout the deviation is 0 and the refusal never triggers.
+                captured_at=base.captured_at.replace(
+                    hour=11 if k == 0 else 23, minute=rng.randint(0, 59) if k == 0 else 40),
                 amount=amt, instrument="CREDIT_CARD", bank=None, is_international=False,
                 fee_charged=amt.apply_bps(200), gst_charged=amt.apply_bps(200).apply_bps(1800),
                 expected_fee=amt.apply_bps(200), expected_gst=amt.apply_bps(200).apply_bps(1800),
@@ -554,3 +569,45 @@ def seed_settlement_cases(world_settlements, refunds, chargebacks, rng, leaks, a
         c.credit_settlement_id = None
         leaks.append(SeededLeak(f"leak_{len(leaks):04d}", CHARGEBACK_NOT_RECREDITED,
                                 c.chargeback_id, c.amount, "dispute won, never re-credited"))
+
+
+def _seed_high_straddle(payments, settlements, by_cycle, adversarial, rng, n_straddle=5):
+    """Move N payments across a cycle boundary so deviation exceeds the T3 bound.
+
+    These payments are captured late on day D but settle with day D+1's payout.
+    The engine builds its candidate pool from calendar capture dates and is never
+    told the cutoff time, so it must discover the rollover by search — and with 5
+    of them, the search legitimately exceeds a d<=3 budget.
+    """
+    from datetime import time as _time
+    eligible = [s for s in settlements if 8 <= len(s.payment_ids) <= 30]
+    if not eligible:
+        return
+    target = eligible[len(eligible) // 2]
+    prev_day = target.cycle_date - timedelta(days=1)
+    moved = []
+    for i in range(n_straddle):
+        amt = Money(rng.randint(700, 6000) * 100)
+        q = Payment(
+            payment_id=f"pay_str{i:02d}", order_id=f"ord_str{i:02d}",
+            rrn=f"{rng.randint(10**11, 10**12 - 1)}",
+            captured_at=datetime.combine(prev_day, _time(23, 20 + i, 0), tzinfo=IST),
+            amount=amt, instrument="CREDIT_CARD", bank=None, is_international=False,
+            fee_charged=amt.apply_bps(200), gst_charged=amt.apply_bps(200).apply_bps(1800),
+            expected_fee=amt.apply_bps(200), expected_gst=amt.apply_bps(200).apply_bps(1800),
+            counterparty=rng.choice(COUNTERPARTIES), case_tags=["HIGH_STRADDLE", "CUTOFF_STRADDLE"],
+        )
+        payments.append(q)
+        target.payment_ids.append(q.payment_id)
+        target.gross = target.gross + q.amount
+        target.fee = target.fee + q.fee_charged
+        target.gst = target.gst + q.gst_charged
+        target.net = target.net + q.amount - q.fee_charged - q.gst_charged
+        q.settlement_id = target.settlement_id
+        moved.append(q.payment_id)
+    target.case_tags.append("HIGH_STRADDLE")
+    adversarial.append(AdversarialCase(
+        f"adv_{len(adversarial):04d}", "HIGH_STRADDLE", "REFUSE", moved,
+        f"{n_straddle} payments captured 23:2x on {prev_day} settle in {target.cycle_date}; "
+        f"deviation {n_straddle} exceeds the T3 bound of 3",
+    ))

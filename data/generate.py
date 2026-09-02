@@ -23,7 +23,8 @@ from leakledger.clock import BusinessCalendar                      # noqa: E402
 from leakledger.feeschedule import FeeSchedule                     # noqa: E402
 from leakledger.manifest import file_sha256                        # noqa: E402
 from leakledger.generate.observers import (                        # noqa: E402
-    observe_bank, observe_erp, observe_gateway,
+    observe_bank, observe_erp, observe_gateway, observe_gateway_adjustments,
+    observe_gateway_refunds,
 )
 from leakledger.generate.world import build_world                  # noqa: E402
 
@@ -60,10 +61,14 @@ def main() -> int:
     )
     gateway = observe_gateway(world, SEED_GATEWAY)
     bank = observe_bank(world, SEED_BANK, world.adversarial)
+    refunds_rows = observe_gateway_refunds(world, SEED_GATEWAY + 7)
+    adj_rows = observe_gateway_adjustments(world, SEED_GATEWAY + 13)
     erp = observe_erp(world, SEED_ERP)
 
     out = args.out
     write_csv(out / "gateway_payments.csv", gateway, list(gateway[0].keys()))
+    write_csv(out / "gateway_refunds.csv", refunds_rows, list(refunds_rows[0].keys()))
+    write_csv(out / "gateway_adjustments.csv", adj_rows, list(adj_rows[0].keys()))
     write_csv(out / "bank_statement.csv", bank, list(bank[0].keys()))
     write_csv(out / "erp_invoices.csv", erp, list(erp[0].keys()))
 
@@ -77,8 +82,10 @@ def main() -> int:
             "holidays_sha256": file_sha256(hol),
         },
         "counts": {
-            "gateway_rows": len(gateway), "bank_rows": len(bank), "erp_rows": len(erp),
-            "total_rows": len(gateway) + len(bank) + len(erp),
+            "gateway_rows": len(gateway), "gateway_refund_rows": len(refunds_rows),
+            "gateway_adjustment_rows": len(adj_rows),
+            "bank_rows": len(bank), "erp_rows": len(erp),
+            "total_rows": len(gateway) + len(refunds_rows) + len(adj_rows) + len(bank) + len(erp),
             "payments": len(world.payments), "settlements": len(world.settlements),
             "refunds": len(world.refunds), "chargebacks": len(world.chargebacks),
             "invoices": len(world.invoices),
@@ -132,6 +139,8 @@ def main() -> int:
 
     total_leak = sum(l["value_paise"] for l in truth["seeded_leaks"])
     print(f"gateway_payments.csv  {len(gateway):>5} rows")
+    print(f"gateway_refunds.csv   {len(refunds_rows):>5} rows")
+    print(f"gateway_adjustments.csv {len(adj_rows):>3} rows")
     print(f"bank_statement.csv    {len(bank):>5} rows")
     print(f"erp_invoices.csv      {len(erp):>5} rows")
     print(f"                      {truth['counts']['total_rows']:>5} records total")

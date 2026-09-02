@@ -85,3 +85,58 @@ process set order is stable, so a same-process test would have passed while the 
 survived. Plus `test_no_unordered_set_iteration_in_generator`, a static check that
 fails review if the construct reappears anywhere in `generate/`.
 **Commit:** (this phase)
+
+
+---
+
+## INC-003 — engine ignored netted refunds it already had
+**Date:** 2026-09-02 21:30 IST
+**Phase:** 03
+**Symptom:** T3 failed to reconcile 21 of 26 bank credits with
+`NO_RECONCILING_SET`. Diagnosis of the residual showed 11 of 24 settlements carry
+a netted refund component that the engine was not subtracting.
+**Root cause:** `Cascade._deduction_for()` subtracted fee and GST only. Refunds in
+`NETTED` mode reduce the payout rather than debiting separately, and
+`gateway_refunds.csv` was already loaded into the engine — the data was present
+and simply unused. Not a data gap; an omission in the arithmetic.
+**Fix:** added `_netted_refunds_for_cycle()` and folded it into the deduction
+closure passed to the search. Netted refunds are constant across deviations, so
+they are computed once per credit rather than per candidate.
+**Result:** `NO_RECONCILING_SET` fell 21 -> 18, review-queue matches rose 6 -> 9.
+**Guard added:** pending — a per-cycle arithmetic test asserting that a settlement
+with a netted refund reconciles, and fails if the refund term is dropped.
+**Commit:** (this phase)
+
+---
+
+## INC-004 — the ambiguity trap could never fire
+**Date:** 2026-09-02 21:50 IST
+**Phase:** 03
+**Symptom:** `AMBIGUOUS_SUBSET` did not fire once across the whole batch, despite
+6 seeded `AMBIGUITY_TRAP` cases. The refusal is the behaviour PLAN.md calls "the
+thirty seconds the whole video is built around", so a silent zero here is the most
+expensive possible false negative.
+**Root cause:** the trap seeded two payments with identical amounts at 11:00 and
+12:00 on the same day — so **both landed in the same payout**. Ambiguity can only
+arise when the engine must EXCLUDE one of two indistinguishable payments; with
+both inside the payout the required deviation is 0 and there is nothing to choose
+between. The adversarial case was decorative: it looked adversarial in ground
+truth and exercised nothing.
+**Why it survived:** the case was written against PLAN's original subset-sum
+framing ("find a subset summing to the payout"), where two identical amounts in
+the pool are genuinely ambiguous. Once T3 was correctly reformulated as a
+*deviation* search (see ADR-004), that framing no longer produced ambiguity, and
+the seeded case was not revisited.
+**Fix:** one twin is now captured at 23:40 so it rolls into the next payout. Both
+share a capture DATE, so the engine pools both and must exclude exactly one — and
+since the amounts are identical, either exclusion reconciles.
+**Verified:** all 6 traps now split across payouts (`stl_0003/stl_0004`,
+`stl_0020/stl_0021`, ...), which is the precondition for the refusal.
+**Still open:** the refusal STILL does not fire, because those settlements fail
+earlier with `NO_RECONCILING_SET` — the search returns no solution at any
+deviation size before it can discover multiple. Tracked as the outstanding item
+for Phase 03; the precondition is fixed, the trigger is not yet reached.
+**Guard added:** pending — a real-data test asserting `AMBIGUOUS_SUBSET` fires on
+at least the seeded traps. Deliberately not written as a unit test in isolation:
+an isolated test would have passed throughout this incident.
+**Commit:** (this phase)
