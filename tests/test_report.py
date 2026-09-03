@@ -65,3 +65,42 @@ class Report(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+class BenchmarkDefensibility(unittest.TestCase):
+    """The benchmark must be checkable by a sceptic, not just correct.
+
+    Three properties a panelist would probe: was the task fair, was determinism
+    actually tested or merely configured, and can the prompt be inspected.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.html = REPORT.read_text(encoding="utf-8")
+
+    def test_task_shape_expectation_is_stated(self):
+        """A foreseeable result reported without saying so reads as cherry-picking."""
+        self.assertIn("structurally weak", self.html)
+        self.assertIn("subset-sum", self.html)
+        self.assertIn("not the claim", self.html)
+
+    def test_both_temperature_arms_are_reported(self):
+        import json
+        b0 = json.loads((ROOT / "reports" / "benchmark_llm_matcher_temp0.json")
+                        .read_text(encoding="utf-8"))
+        self.assertEqual(b0["temperature_sent"], 0.0)
+        self.assertIn("temperature = 0", self.html)
+        self.assertIn(f'{b0["self_disagreement_records"]}/{b0["records"]}', self.html)
+        self.assertIn("did not produce determinism", self.html)
+
+    def test_prompt_is_reproduced_and_not_transcribed(self):
+        """The report renders the benchmark's own SYSTEM constant, so the two
+        cannot drift; a transcribed copy could quietly diverge."""
+        import importlib.util as ilu
+        spec = ilu.spec_from_file_location(
+            "_bench_t", ROOT / "harness" / "benchmark_llm_matcher.py")
+        mod = ilu.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        import html as _h
+        self.assertIn(_h.escape(mod.SYSTEM), self.html,
+                      "report does not reproduce the benchmark's actual system prompt")

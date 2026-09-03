@@ -125,7 +125,7 @@ nothing, because the number is confident and wrong (INC-010).
 
 ```
 $ python3 -m unittest discover -s tests -q
-Ran 165 tests ... OK
+Ran 168 tests ... OK
 ```
 
 | Guarantee | How it is enforced |
@@ -224,8 +224,49 @@ resolves, put through **`gpt-5.2`** three times.
 |---|---|---|
 | **self-disagreement across 3 identical runs** | **9 / 13 (69%)** | 0 / 13 |
 | accuracy vs ground truth | 1 / 13 (8%) | 13 / 13 (100%) |
-| wall clock, all runs | 95.3 s | 0.598 s |
-| tokens consumed | 88,656 in / 6,266 out | 0 |
+| wall clock, all runs | 115.8 s | 0.626 s |
+| tokens consumed | 88,656 in / 6,497 out | 0 |
+
+**Temperature — configured setting vs observed determinism.** The headline run sent
+**no temperature parameter**, so the API default applied. Because `temperature = 0`
+is often assumed to guarantee identical output, a second arm pinned it explicitly
+on the same frozen selection:
+
+| run | temperature sent | self-disagreement | accuracy |
+|---|---|---|---|
+| default | none sent (API default) | 9 / 13 | 1 / 13 |
+| pinned | `temperature = 0` | **7 / 13** | 1 / 13 |
+
+**Pinning temperature to 0 did not produce determinism.** It constrains sampling;
+it is not a guarantee of identical output. That was measured rather than assumed.
+
+### Why this result was expected — and why saying so matters
+
+The task put to the model was **exact subset-sum over candidate pools of 60–87
+payments**, in free text: choose the subset whose amounts, net of each payment's
+fee and GST, sum precisely to a given credit. **This is a task class language
+models are structurally weak at regardless of model strength** — it needs
+exhaustive combinatorial search with exact integer arithmetic and a uniqueness
+check, not judgement, reading or inference. No amount of capability turns a
+reasoning system into a search algorithm.
+
+So the low accuracy is **not** the claim "gpt-5.2 is bad". It is the claim that
+*this task shape does not suit an LLM at all* — which is precisely why
+deterministic search owns the match decision, and why the model is confined to the
+three places where the work genuinely is linguistic.
+
+A benchmark whose result was foreseeable, reported without saying so, reads as a
+task chosen because it was guaranteed to fail. The honest version: the outcome was
+predicted from the task shape, the measurement confirms it, and **the
+self-disagreement figure — not the accuracy figure — is what disqualifies the
+approach**, because a system that answers differently on identical input cannot
+keep books however often it is right.
+
+**The exact prompt is committed** in `harness/benchmark_llm_matcher.py` and
+reproduced verbatim in `reports/run_report.html`, so the framing can be checked.
+The model received the same information the cascade uses — the credit, and every
+candidate payment with its amount, fee and GST — with the settlement identity
+stated for it rather than left to be inferred.
 
 **Non-determinism is the finding; accuracy merely confirms it.** A system that
 produces different books on identical re-runs is disqualified in finance even when
@@ -261,7 +302,7 @@ published rates.
 
 ## Failure recovery
 
-`INCIDENTS.md` carries 18 incidents logged as they happened, and one named
+`INCIDENTS.md` carries 19 incidents logged as they happened, and one named
 pattern. Three are worth reading first.
 
 **INC-012 — a defect in the primary metric itself.** The engine matched a bank
@@ -303,7 +344,7 @@ python3 harness/validate_ground_truth.py      # 672 consistency checks — run b
 python3 harness/score.py                      # the scorecard
 python3 harness/report.py                     # reports/run_report.html
 python3 harness/model_layer_check.py          # boundary gate, adversarial provider
-python3 -m unittest discover -s tests -q      # 165 tests
+python3 -m unittest discover -s tests -q      # 168 tests
 ```
 
 No dependencies beyond the standard library for the deterministic core. Zero-dep
@@ -324,7 +365,7 @@ src/leakledger/
   ledger/         double-entry, idempotent apply
   ai/             the only three model call sites, behind one interface
 harness/    scorecard, ground-truth validator, report, benchmark
-tests/      165 tests
+tests/      168 tests
 DECISIONS.md  ADR-001..004 — choices a reader could reasonably have made differently
 INCIDENTS.md  what broke, what it cost, and the guard that stops it recurring
 ```

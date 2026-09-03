@@ -80,6 +80,9 @@ def main() -> int:
     ap.add_argument("--model", default=None)
     ap.add_argument("--price-in", type=float, default=None)
     ap.add_argument("--price-out", type=float, default=None)
+    ap.add_argument("--temperature", type=float, default=None,
+                    help="pin temperature; omitted entirely if not given")
+    ap.add_argument("--out", default=None)
     args = ap.parse_args()
     load_dotenv()
 
@@ -90,7 +93,8 @@ def main() -> int:
 
     try:
         if args.provider == "openai":
-            provider = OpenAIProvider(model=args.model or "gpt-5.2")
+            provider = OpenAIProvider(model=args.model or "gpt-5.2",
+                                      temperature=args.temperature)
         else:
             provider = AnthropicProvider(model=args.model or "claude-opus-5")
         MODEL = provider.model
@@ -174,6 +178,10 @@ def main() -> int:
 
     report = {
         "model": MODEL, "provider": args.provider,
+        "temperature_sent": args.temperature,
+        "temperature_note": ("not sent; API default applied"
+                             if args.temperature is None else
+                             f"pinned to {args.temperature}"),
         "runs": args.runs, "records": len(records),
         "selection_sha256": sel["selection_sha256"],
         "self_disagreement_records": disagree,
@@ -194,8 +202,11 @@ def main() -> int:
         "pricing_used": price,
         "generated_at": datetime.now().isoformat(),
     }
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    out_path = (Path(args.out) if args.out else OUT)
+    if not out_path.is_absolute():
+        out_path = ROOT / out_path
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
     print(f"\n{'metric':34} {'LLM-as-matcher':>20} {'cascade':>14}")
     print(f"{'self-disagreement (3 runs)':34} "
@@ -210,7 +221,11 @@ def main() -> int:
         print(f"{'tokens measured':34} {f'{in_tok:,} in / {out_tok:,} out':>20} {'0':>14}")
         print("  USD NOT COMPUTED: pricing for this model is not verified in-repo.")
         print("  Re-run with --price-in/--price-out to fill it in from published rates.")
-    print(f"\nwritten: {OUT.relative_to(ROOT)}")
+    try:
+        shown = out_path.relative_to(ROOT)
+    except ValueError:
+        shown = out_path
+    print(f"\nwritten: {shown}")
     return 0
 
 

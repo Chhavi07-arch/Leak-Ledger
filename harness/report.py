@@ -48,6 +48,18 @@ from scoring import headline_split, score_all                                 # 
 
 DATA = ROOT / "data" / "generated"
 OUT = ROOT / "reports" / "run_report.html"
+
+# Imported, not transcribed: the report shows the prompt the benchmark actually
+# sent, so the two cannot drift apart.
+import importlib.util as _ilu
+_bspec = _ilu.spec_from_file_location("_bench", ROOT / "harness" / "benchmark_llm_matcher.py")
+_bench = _ilu.module_from_spec(_bspec)
+_bspec.loader.exec_module(_bench)
+_BENCH_SYSTEM = _bench.SYSTEM
+_BENCH_USER = ("Bank credit: <amount> on <value_date>\n\n"
+               "Candidate payments (<n>):\n"
+               "<payment_id>  amount=<amt>  fee=<fee>  gst=<gst>  captured=<iso timestamp>\n"
+               "... one line per candidate ...")
 AS_OF = date(2026, 7, 31)
 _load = lambda n: list(csv.DictReader((DATA / n).open(encoding="utf-8")))
 e = html.escape
@@ -301,6 +313,9 @@ def main() -> int:
       'well-formed answers: every metric above is identical with it wired in, and false-match '
       'rate stays at 0.0000. A boundary that depends on the model behaving is not a boundary.</div>')
     bm = json.loads((ROOT / "reports" / "benchmark_llm_matcher.json").read_text(encoding="utf-8"))
+    t0p = ROOT / "reports" / "benchmark_llm_matcher_temp0.json"
+    bm0 = json.loads(t0p.read_text(encoding="utf-8")) if t0p.exists() else None
+
     A('<h2>6 · Why the model does not make the match decision</h2>')
     A(f'<p class="sub">Measured, not asserted. The same {bm["records"]} records the '
       f'deterministic cascade resolves, put through <span class="mono">{e(bm["model"])}</span> '
@@ -321,6 +336,32 @@ def main() -> int:
       f'<tr><td>tokens consumed</td>'
       f'<td class="mono">{bm["input_tokens"]:,} in / {bm["output_tokens"]:,} out</td>'
       f'<td class="mono">0</td></tr></table>')
+
+    # --- temperature: what was configured vs what determinism resulted ---
+    A('<h3 style="font-size:.9rem;margin:1.6rem 0 .3rem">Temperature — configured '
+      'setting versus observed determinism</h3>')
+    if bm0:
+        A(f'<table><tr><th>run</th><th>temperature sent</th>'
+          f'<th>self-disagreement across {bm["runs"]} identical runs</th>'
+          f'<th>accuracy</th></tr>'
+          f'<tr><td>default</td><td class="mono">{e(str(bm["temperature_sent"]))} '
+          f'({e(bm["temperature_note"])})</td>'
+          f'<td class="mono"><span class="pill bad">{bm["self_disagreement_records"]}/'
+          f'{bm["records"]}</span></td>'
+          f'<td class="mono">{bm["llm_correct"]}/{bm["scored_records"]}</td></tr>'
+          f'<tr><td>pinned</td><td class="mono">temperature = 0</td>'
+          f'<td class="mono"><span class="pill bad">{bm0["self_disagreement_records"]}/'
+          f'{bm0["records"]}</span></td>'
+          f'<td class="mono">{bm0["llm_correct"]}/{bm0["scored_records"]}</td></tr></table>')
+        A('<div class="note"><b>Pinning temperature to 0 did not produce determinism.</b> '
+          'It is worth separating two things that are easy to conflate: what was '
+          '<i>configured</i>, and what determinism actually <i>resulted</i>. The headline '
+          f'run sent no temperature parameter at all, so the API default applied. A second '
+          f'run pinned <span class="mono">temperature = 0</span> on the identical frozen '
+          f'selection and still disagreed with itself on '
+          f'{bm0["self_disagreement_records"]} of {bm0["records"]} records. '
+          'temperature = 0 constrains sampling; it is not a guarantee of identical output, '
+          'and this is the measurement rather than the assumption.</div>')
     A('<div class="note"><b>Non-determinism is the finding, not accuracy.</b> A system that '
       'produces different books on identical re-runs is disqualified in finance even when it is '
       'right, and this one disagreed with itself on '
@@ -334,6 +375,38 @@ def main() -> int:
       '<b>The comparison is like for like.</b> Both sides searched the same candidate pools '
       '(median 61 payments, max 87) and were scored by the same comparator, under which the '
       'cascade scores 13/13 — so a scoring defect would have depressed both.</div>')
+    A('<h3 style="font-size:.9rem;margin:1.6rem 0 .3rem">Why this result was expected, '
+      'and why that is the point</h3>')
+    A('<div class="note">The task put to the model was <b>exact subset-sum over candidate '
+      'pools of 60&ndash;87 payments</b>, expressed in free text: choose the subset whose '
+      'amounts, net of each payment&rsquo;s fee and GST, sum precisely to a given credit. '
+      '<b>This is a task class language models are structurally weak at, independent of how '
+      'strong the model is</b> &mdash; it requires exhaustive combinatorial search with exact '
+      'integer arithmetic and a verifiable uniqueness check, not judgement, reading, or '
+      'inference. No amount of model capability converts a reasoning system into a search '
+      'algorithm.<br><br>'
+      '<b>So the low accuracy is not the claim &ldquo;gpt-5.2 is bad&rdquo;.</b> It is the '
+      'claim that this <i>task shape</i> does not suit an LLM at all &mdash; which is exactly '
+      'why deterministic search owns the match decision here, and why the model is confined '
+      'to the three places where the work really is linguistic: parsing free-text narration, '
+      'phrasing an exception, and answering a question about a finished run.<br><br>'
+      'Stating the expectation matters. A benchmark whose result was foreseeable, reported '
+      'without saying so, reads as a task picked because it was guaranteed to fail. The '
+      'honest version is: the outcome was predicted from the task shape, the measurement '
+      'confirms it, and <b>the self-disagreement figure &mdash; not the accuracy figure &mdash; '
+      'is what actually disqualifies the approach</b>, because a system that answers '
+      'differently on identical input cannot keep books regardless of how often it is '
+      'right.</div>')
+    A('<h3 style="font-size:.9rem;margin:1.6rem 0 .3rem">The exact prompt, so the framing '
+      'can be checked</h3>')
+    A('<p class="sub" style="font-size:.83rem">Committed in '
+      '<span class="mono">harness/benchmark_llm_matcher.py</span> and reproduced here '
+      'verbatim. The model was given the same information the cascade uses &mdash; the credit, '
+      'and every candidate payment with its amount, fee and GST &mdash; and the settlement '
+      'identity was stated for it rather than left to be inferred.</p>')
+    A(f'<pre style="background:var(--bar);padding:.9rem 1.1rem;overflow-x:auto;'
+      f'font-size:.76rem;line-height:1.5;margin:.5rem 0 1rem">'
+      f'<b>system:</b>\n{e(_BENCH_SYSTEM)}\n\n<b>user:</b>\n{e(_BENCH_USER)}</pre>')
     A(f'<div class="gap"><b>Stated gap — cost in USD is not computed.</b><br>'
       f'{e(bm["usd_note"])} Token counts and latency above are measured from the API responses.</div>')
 

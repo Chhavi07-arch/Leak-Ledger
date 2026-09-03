@@ -726,3 +726,41 @@ the cascade scored 13/13.
 report and README are tested to quote that hash and the measured figures rather
 than typed numbers.
 **Commit:** (this phase)
+
+
+---
+
+## INC-019 — temperature = 0 does not guarantee determinism, and now that is measured
+**Date:** 2026-09-03 23:55 IST
+**Phase:** 06
+**Prompted by:** review, asking that the *configured* temperature be separated from
+whether determinism actually *resulted* -- a nuance flagged earlier in the phase and
+then left implicit in the self-disagreement number alone.
+**What was actually sent:** nothing. `OpenAIProvider` omitted the parameter entirely,
+so the API default applied. The report said temperature was "deliberately not set",
+which was true but incomplete: `gpt-5.2` *does* accept `temperature`, verified
+directly (both 0 and 1 accepted), so a reader could fairly ask whether pinning it
+would have removed the disagreement. Stating that as an unresolved limitation would
+have been weaker than answering it.
+**Measured, second arm on the identical frozen selection:**
+
+| run | temperature sent | self-disagreement | accuracy |
+|---|---|---|---|
+| default | none sent | 9 / 13 | 1 / 13 |
+| pinned | `temperature = 0` | **7 / 13** | 1 / 13 |
+
+**Pinning temperature to 0 did not produce determinism.** It constrains sampling; it
+is not a guarantee of identical output. The claim in the write-up is now a
+measurement rather than an assumption, and it is a materially stronger argument: the
+obvious rebuttal -- *"you just did not set temperature"* -- is closed off with data.
+**Also fixed in the same pass, both defensibility rather than correctness:**
+the report now states that the benchmarked task is exact subset-sum over pools of
+60-87 payments, a task class LLMs are structurally weak at *regardless of model
+strength*, so the low accuracy is not "gpt-5.2 is bad" but "this task shape does not
+suit an LLM"; and the exact prompt is reproduced in the report by **importing** the
+benchmark's own `SYSTEM` constant rather than transcribing it, so the published
+framing cannot drift from the one actually sent.
+**Guards added:** `BenchmarkDefensibility` -- asserts the task-shape expectation is
+stated, that both temperature arms are reported with the pinned result, and that the
+report reproduces the benchmark's live prompt constant.
+**Commit:** (this phase)

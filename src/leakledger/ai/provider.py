@@ -184,22 +184,31 @@ class OpenAIProvider:
 
     name = "openai"
 
-    def __init__(self, model: str = "gpt-5.2", api_key: Optional[str] = None):
+    def __init__(self, model: str = "gpt-5.2", api_key: Optional[str] = None,
+                 temperature: Optional[float] = None):
         from openai import OpenAI
         key = api_key or os.environ.get("OPENAI_API_KEY")
         if not key:
             raise RuntimeError("no OPENAI_API_KEY resolved")
         self._client = OpenAI(api_key=key)
         self.model = model
+        # None => the parameter is not sent at all and the API default applies.
+        # A float => pinned, and RECORDED as pinned, so the report can state what
+        # was configured separately from what determinism actually resulted.
+        self.temperature = temperature
 
     def complete(self, *, system: str, prompt: str, max_tokens: int = 1024) -> ModelReply:
         t0 = time.perf_counter()
         try:
+            kw = {}
+            if self.temperature is not None:
+                kw["temperature"] = self.temperature
             r = self._client.chat.completions.create(
                 model=self.model,
                 max_completion_tokens=max_tokens,
                 messages=[{"role": "system", "content": system},
                           {"role": "user", "content": prompt}],
+                **kw,
             )
         except Exception as e:
             return ModelReply(text="", latency_s=time.perf_counter() - t0,
