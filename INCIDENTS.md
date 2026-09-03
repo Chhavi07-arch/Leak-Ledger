@@ -611,3 +611,30 @@ not disappear from the report -- the unreconciled payouts surface in the excepti
 queue, which is the honest place for "a payout is unaccounted for and I cannot
 prove which".
 **Commit:** (this phase)
+
+
+---
+
+## INC-016 — a process gap the metrics found, not a person
+**Date:** 2026-09-03 04:10 IST
+**Phase:** 05 (defect originated in Phase 04)
+**Symptom:** Building the Phase 05 harness, the idempotency assertion PLAN.md
+requires -- *delta ledger = 0* -- could not be written, because **there was no
+ledger**. PLAN placed the double-entry ledger with idempotent apply in Phase 04;
+Phase 04 built ten detectors and stopped.
+**Root cause:** the phase was closed against the deliverable I had been thinking
+about (detectors) rather than against the deliverable PLAN.md actually listed. The
+detectors all worked, the tests all passed, and the missing component was
+invisible until a *later* phase tried to depend on it.
+**Why it is logged:** this is not a code defect and there is no guard test that
+would have caught it. It is a process gap, and the thing that caught it was the
+metrics harness itself -- a downstream deliverable needing something upstream that
+did not exist. That is an argument for PLAN.md's ordering decision (metrics before
+the model layer) holding for the same reason one phase earlier: **a phase that
+nothing depends on yet cannot prove it is complete.**
+**Fix:** `src/leakledger/ledger.py` built in Phase 05, with double-entry balance
+and idempotent apply both asserted in CI.
+**Guard added:** none possible for the process gap itself. The concrete mitigation
+is that each phase's close now restates PLAN.md's own wording for that phase and
+checks the deliverables off against it, rather than against recollection.
+**Commit:** (Phase 05)
