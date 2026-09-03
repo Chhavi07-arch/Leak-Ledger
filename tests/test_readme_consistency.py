@@ -31,13 +31,45 @@ class ReadmeAgreesWithHarness(unittest.TestCase):
         rate = self._score(r"false-match rate\s+:\s+([0-9.]+)")
         self.assertIn(rate, self.md, "README quotes a different false-match rate")
 
-    def test_headline_total_agrees(self):
-        total = self._score(r"HEADLINE TOTAL\s+Rs\s+([0-9.]+)")
-        rupees = total.split(".")[0]
-        grouped = f"{int(rupees):,}"
-        lakh = re.sub(r"^(\d+),(\d{2}),(\d{3})$", r"\1,\2,\3", grouped)
-        self.assertTrue(any(v in self.md for v in (total, grouped, "15,35,146.82")),
-                        f"README does not quote the harness headline ({total})")
+    def test_headline_reports_confirmed_not_gross(self):
+        """The README's headline must lead with CONFIRMED value, not the gross.
+
+        Guards INC-017: 69% of the gross figure comes from classes whose measured
+        precision is below 1.00. A headline quoting the gross alone overstates
+        confidence, which is the INC-010 failure with better packaging.
+        """
+        confirmed = self._score(r"CONFIRMED\s+Rs\s+([0-9.]+)")
+        flagged = self._score(r"FLAGGED, not confirmed\s+Rs\s+([0-9.]+)")
+
+        def lakh(v):                      # 474517.27 -> 4,74,517.27
+            w, _, f = v.partition(".")
+            head, tail = w[:-3], w[-3:]
+            groups = []
+            while len(head) > 2:
+                groups.insert(0, head[-2:]); head = head[:-2]
+            if head:
+                groups.insert(0, head)
+            return ",".join(groups + [tail]) + ("." + f if f else "")
+
+        self.assertIn(lakh(confirmed), self.flat,
+                      f"README does not quote the CONFIRMED figure ({lakh(confirmed)})")
+        self.assertIn(lakh(flagged), self.flat,
+                      f"README does not quote the FLAGGED figure ({lakh(flagged)})")
+        # the word CONFIRMED must appear before the gross figure in the headline
+        head = self.flat[:1200]
+        self.assertIn("CONFIRMED", head,
+                      "README headline does not distinguish confirmed from flagged")
+
+    def test_weak_classes_are_named_with_their_precision(self):
+        """A reader must not have to infer which detectors are unreliable."""
+        for cls, prec in (("MISSING_SETTLEMENT", "0.20"), ("RESERVE_NOT_RELEASED", "0.67")):
+            self.assertIn(cls, self.flat)
+            self.assertIn(prec, self.flat,
+                          f"README names {cls} without its measured precision {prec}")
+
+    def test_value_convention_is_stated(self):
+        """Whether 'value' means all-found or only-verified must be explicit."""
+        self.assertIn("sums every instance the engine reported", self.flat.lower())
 
     def test_test_count_agrees(self):
         """Counted by LOADING the suite, never by running it.

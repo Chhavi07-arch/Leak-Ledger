@@ -7,11 +7,19 @@ matched. Deterministic where money is decided, AI only where language is
 ambiguous, honest about everything it could not resolve.
 
 ```
-Across 538 payments and 41 bank rows, Leak Ledger found Rs 15,35,146.82 of leakage
-— 5 missing settlements, 2 duplicate payouts, 3 refunds that never reached the
-customer, 2 disputes won but never re-credited. It refused to match 22 records,
-each with a stated cause. False-match rate: 0.0000.
+Across 538 payments and 41 bank rows, Leak Ledger CONFIRMED Rs 4,74,517.27 of
+leakage — 2 duplicate payouts, 3 refunds that never reached the customer, 3
+duplicate captures, 2 disputes won but never re-credited — every instance verified
+against ground truth. It FLAGGED a further Rs 10,60,629.55 that is NOT confirmed:
+those detectors report instances ground truth does not support. It refused to
+match 22 records, each with a stated cause. False-match rate: 0.0000.
 ```
+
+The split is the point. The gross figure is Rs 15,35,146.82, but 69% of it comes
+from two classes whose measured precision is below 1.00 — `MISSING_SETTLEMENT` at
+0.20 and `RESERVE_NOT_RELEASED` at 0.67. Quoting the gross alone would overstate
+confidence in exactly the way this build argues against, so the headline never
+does (INC-017).
 
 Every figure above is produced by `harness/score.py`. None is typed by hand, and
 a test asserts this README agrees with the harness.
@@ -110,7 +118,7 @@ nothing, because the number is confident and wrong (INC-010).
 
 ```
 $ python3 -m unittest discover -s tests -q
-Ran 161 tests ... OK
+Ran 163 tests ... OK
 ```
 
 | Guarantee | How it is enforced |
@@ -145,11 +153,33 @@ adversarial case is reachable. See *Failure recovery* for why.
 | Ledger | 39 entries, trial balance ₹0.00 |
 
 Per-class precision and recall are in `harness/score.py` output and
-`reports/run_report.html`. **Never aggregated** — an aggregate hides the classes
-that do not work. Two classes are weak and reported as such:
-`MISSING_SETTLEMENT` at 0.20/0.33, capped by an information limit proven three
-ways (INC-015), and `SHORT_SETTLEMENT`, which is detectable but **not
-quantifiable** and therefore claims no rupee value at all (INC-013).
+`reports/run_report.html`, shown **beside** each class's claimed value so a reader
+never has to infer how much of a figure is trustworthy. **Never aggregated** — an
+aggregate hides the classes that do not work.
+
+| class | TP | FP | FN | precision | claimed | verified |
+|---|---|---|---|---|---|---|
+| CHARGEBACK_NOT_RECREDITED | 2 | 0 | 0 | 1.00 | ₹33,936.99 | ₹33,936.99 |
+| DUPLICATE_CAPTURE | 3 | 0 | 0 | 1.00 | ₹53,251.49 | ₹53,251.49 |
+| DUPLICATE_PAYOUT | 2 | 0 | 0 | 1.00 | ₹3,21,241.23 | ₹3,21,241.23 |
+| REFUND_NOT_REACHED | 3 | 0 | 0 | 1.00 | ₹65,833.49 | ₹65,833.49 |
+| FEE_OVERCHARGE | 11 | 0 | 0 | 1.00 | ₹231.01 | ₹231.01 |
+| GST_MISMATCH | 6 | 0 | 0 | 1.00 | ₹10.30 | ₹10.30 |
+| **RESERVE_NOT_RELEASED** | 2 | **1** | 0 | **0.67** | ₹1,858.23 | ₹1,842.91 |
+| **MISSING_SETTLEMENT** | 1 | **4** | 2 | **0.20** | ₹10,58,771.32 | ₹3,72,917.77 |
+| SHORT_SETTLEMENT | — | — | 2 | n/a | ₹0.00 | — |
+
+**"Claimed" sums every instance the engine reported, not only the verified ones**
+— because that is what the tool actually claims when it runs. A deployed engine
+has no ground truth and cannot filter its output down to the instances that
+happen to be right; reporting only verified value would flatter the tool using
+knowledge it does not possess at run time. The verified column sits beside it, and
+any class with FP > 0 is excluded from the confirmed headline.
+
+`MISSING_SETTLEMENT`'s precision is capped by an information limit proven three
+ways (INC-015). `SHORT_SETTLEMENT` is detectable but **not quantifiable** and
+therefore claims no rupee value at all (INC-013). Both are held to the same
+disclosure standard: state what is measured, claim nothing beyond it.
 
 ---
 
@@ -202,7 +232,7 @@ that confirms what one already believes.
 
 ## Failure recovery
 
-`INCIDENTS.md` carries 16 incidents logged as they happened, and one named
+`INCIDENTS.md` carries 17 incidents logged as they happened, and one named
 pattern. Three are worth reading first.
 
 **INC-012 — a defect in the primary metric itself.** The engine matched a bank
@@ -244,7 +274,7 @@ python3 harness/validate_ground_truth.py      # 672 consistency checks — run b
 python3 harness/score.py                      # the scorecard
 python3 harness/report.py                     # reports/run_report.html
 python3 harness/model_layer_check.py          # boundary gate, adversarial provider
-python3 -m unittest discover -s tests -q      # 161 tests
+python3 -m unittest discover -s tests -q      # 163 tests
 ```
 
 No dependencies beyond the standard library for the deterministic core. Zero-dep
@@ -265,7 +295,7 @@ src/leakledger/
   ledger/         double-entry, idempotent apply
   ai/             the only three model call sites, behind one interface
 harness/    scorecard, ground-truth validator, report, benchmark
-tests/      161 tests
+tests/      163 tests
 DECISIONS.md  ADR-001..004 — choices a reader could reasonably have made differently
 INCIDENTS.md  what broke, what it cost, and the guard that stops it recurring
 ```

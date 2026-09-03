@@ -43,6 +43,8 @@ from leakledger.cascade.engine import (                                       # 
 from leakledger.leakage import detectors                                      # noqa: E402
 from leakledger.leakage.findings import (                                     # noqa: E402
     CONTRACT_DEPENDENT, EXCEPTION_SIGNAL, RULE_CHECK, STRUCTURAL)
+sys.path.insert(0, str(ROOT / "harness"))
+from scoring import headline_split, score_all                                 # noqa: E402
 
 DATA = ROOT / "data" / "generated"
 OUT = ROOT / "reports" / "run_report.html"
@@ -181,16 +183,27 @@ def main() -> int:
       '<p class="sub">Reconciliation and leakage detection over a 3-source synthetic batch '
       'with published ground truth. Every figure below is produced by the metrics harness.</p>')
 
-    struct = found.by_category(STRUCTURAL)
-    cls_ct = Counter(f.leak_class for f in struct)
+    scores = score_all(found, truth, bank)
+    confirmed_v, flagged_v, flagged_cls = headline_split(found, scores)
+    cls_ct = Counter(f.leak_class for f in found.findings)
+    conf_names = [c for c in sorted(scores) if scores[c].confirmed
+                  and scores[c].found_value.paise > 0]
+    conf_desc = ", ".join(
+        f"{scores[c].found} {c.lower().replace('_',' ')}" for c in conf_names[:5])
     A(f'<div class="headline"><p class="big">Across {len(gw.records)} payments and '
-      f'{len(bank)} bank rows, Leak Ledger found <span class="rs">Rs '
-      f'{found.total().to_rupees_str()}</span> of leakage — '
-      f'{cls_ct.get("MISSING_SETTLEMENT",0)} missing settlements, '
-      f'{cls_ct.get("DUPLICATE_PAYOUT",0)} duplicate payouts, '
-      f'{cls_ct.get("REFUND_NOT_REACHED",0)} refunds that never reached the customer, '
-      f'{cls_ct.get("CHARGEBACK_NOT_RECREDITED",0)} disputes won but not re-credited. '
-      f'It refused to match {exc} records, each with a stated cause.</p></div>')
+      f'{len(bank)} bank rows, Leak Ledger <b>confirmed</b> <span class="rs">Rs '
+      f'{confirmed_v.to_rupees_str()}</span> of leakage — {e(conf_desc)} — every '
+      f'instance verified against ground truth. It <b>flagged a further Rs '
+      f'{flagged_v.to_rupees_str()}</b> across '
+      f'{", ".join(e(s.leak_class) for s in flagged_cls)}, which are '
+      f'<b>not confirmed</b>: those detectors report instances ground truth does not '
+      f'support, so that value is a claim pending review, not a finding. '
+      f'It refused to match {exc} records, each with a stated cause.</p>'
+      f'<p style="margin:.8rem 0 0;font-size:.85rem;color:var(--soft)">'
+      f'Gross of both: Rs {found.total().to_rupees_str()}. The split matters — '
+      f'{100*flagged_v.paise/max(1,found.total().paise):.0f}% of the gross figure comes from '
+      f'classes whose measured precision is below 1.00, and quoting the gross alone '
+      f'would overstate confidence in exactly the way this build argues against.</p></div>')
 
     A('<h2>1 · False-match rate <span class="pill bad">primary</span></h2>')
     A(f'<table><tr><th>metric</th><th>value</th></tr>'
@@ -210,6 +223,13 @@ def main() -> int:
         A(render_refusal(m))
 
     A('<h2>3 · Findings</h2>')
+    A('<div class="note"><b>What &ldquo;value claimed&rdquo; means.</b> It sums <b>every</b> '
+      'instance the engine reported, not just the ones ground truth confirms &mdash; because '
+      'that is what the tool actually claims when it runs. A deployed engine has no ground '
+      'truth and cannot filter its own output down to the instances that happen to be right; '
+      'reporting only verified value would flatter the tool using knowledge it does not '
+      'possess at run time. The <b>of which verified</b> column is therefore shown beside it, '
+      'and any class with FP &gt; 0 is excluded from the confirmed headline above.</div>')
     for label, cat, note in (
         ("Structural — no contract consulted", STRUCTURAL,
          "Detect loss without needing to know a contract rate. These carry the headline."),
@@ -226,13 +246,27 @@ def main() -> int:
             continue
         A(f'<h3 style="font-size:.9rem;margin:1.4rem 0 .3rem">{e(label)}</h3>'
           f'<p class="sub" style="margin:.2rem 0 .5rem;font-size:.83rem">{e(note)}</p>')
-        A('<table><tr><th>class</th><th>found</th><th>seeded</th><th>value</th>'
+        A('<table><tr><th>class</th><th>found</th><th>seeded</th><th>TP</th><th>FP</th>'
+          '<th>FN</th><th>precision</th><th>value claimed</th><th>of which verified</th>'
           '<th>example derivation</th></tr>')
         for cls in rows:
             fl = [f for f in found.findings if f.leak_class == cls]
+            s = scores.get(cls)
+            if s is None or not s.scoreable:
+                pr, tp, fp, fn = "n/a", "&mdash;", "&mdash;", "&mdash;"
+                ver = "&mdash;"
+            else:
+                pr = f"{s.precision:.2f}" if s.precision is not None else "n/a"
+                tp, fp, fn = str(s.tp), str(s.fp), str(s.fn)
+                ver = "Rs " + s.verified_value.to_rupees_str()
+            cellcls = "bad" if (s and s.scoreable and s.precision is not None
+                                and s.precision < 1.0) else "ok"
             A(f'<tr><td class="mono">{e(cls)}</td><td class="mono">{len(fl)}</td>'
               f'<td class="mono">{len(seeded.get(cls,[]))}</td>'
+              f'<td class="mono">{tp}</td><td class="mono">{fp}</td><td class="mono">{fn}</td>'
+              f'<td class="mono"><span class="pill {cellcls}">{pr}</span></td>'
               f'<td class="mono">Rs {Money.sum(f.value for f in fl).to_rupees_str()}</td>'
+              f'<td class="mono">{ver}</td>'
               f'<td class="deriv">{e(fl[0].derivation)}</td></tr>')
         A('</table>')
 

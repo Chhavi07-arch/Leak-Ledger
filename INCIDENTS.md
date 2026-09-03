@@ -638,3 +638,61 @@ and idempotent apply both asserted in CI.
 is that each phase's close now restates PLAN.md's own wording for that phase and
 checks the deliverables off against it, rather than against recollection.
 **Commit:** (Phase 05)
+
+
+---
+
+## INC-017 — the headline counted unverified detections as confirmed loss
+**Date:** 2026-09-03 06:15 IST
+**Phase:** 07
+**Found by:** review, not by the suite. Every test passed.
+**Symptom:** the headline read *"found Rs 15,35,146.82 of leakage — 5 missing
+settlements ..."* as settled fact. Measured against the harness's own ground
+truth:
+
+| | |
+|---|---|
+| MISSING_SETTLEMENT found | 5 |
+| of which true positives | **1** (precision 0.20) |
+| value claimed | Rs 10,58,771.32 |
+| of which verified | Rs 3,72,917.77 |
+| **false-positive value** | **Rs 6,85,853.55** |
+| share of the headline that was FP | **44.7%** |
+
+Nearly half the headline figure was money that is not missing, and the Findings
+table showed only found/seeded counts -- no precision column -- so a reader had no
+way to discover this. RESERVE_NOT_RELEASED had the same defect at 0.67.
+**Root cause:** the report and README summed `found.total()`, which is every
+reported instance, and presented it with the confidence of a verified figure. The
+per-class precision existed in the scorecard and was simply not carried into
+either surface.
+**This is INC-010 with better packaging.** INC-010 was reporting *ignorance* as
+loss (unresolved payouts counted as missing money). This is reporting *unverified
+detections* as confirmed loss. Same family: a number stated with more confidence
+than the measurement behind it supports. That it recurred after INC-010 was
+written up is the point -- naming a failure mode does not immunise against it.
+**The thirty-second question it invited:** *"your own numbers say this detector is
+20% precise, so why does your headline count all five?"* There was no good answer.
+**Fix, in four parts.**
+1. `harness/scoring.py` -- one implementation shared by the scorecard and the
+   report, so the two cannot disagree about precision.
+2. Findings tables in both surfaces gained TP / FP / FN / precision columns and a
+   **of which verified** value column, beside the claimed value.
+3. The headline now separates **CONFIRMED** (Rs 4,74,517.27, every instance a true
+   positive) from **FLAGGED, not confirmed** (Rs 10,60,629.55), and states that 69%
+   of the gross comes from classes with precision below 1.00.
+4. The value convention is stated explicitly rather than left to inference:
+   **claimed value sums every reported instance, not only verified ones**, because
+   that is what the engine claims at run time -- it has no ground truth and cannot
+   filter its own output. Reporting only verified value would flatter the tool
+   using knowledge it does not possess.
+**Held to the SHORT_SETTLEMENT standard, as asked.** SHORT_SETTLEMENT claims no
+rupee value because none can be honestly derived. MISSING_SETTLEMENT *can* be
+quantified but is only 20% precise, so the analogous treatment is: keep the value,
+publish the precision beside it, and exclude the class from the confirmed
+headline. State what is measured; claim nothing beyond it.
+**Guards added:** `test_headline_reports_confirmed_not_gross`,
+`test_weak_classes_are_named_with_their_precision`, and
+`test_value_convention_is_stated` -- the README can no longer quote a gross figure
+as a headline, or name a weak detector without its measured precision.
+**Commit:** (this phase)

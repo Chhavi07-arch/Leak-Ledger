@@ -34,6 +34,8 @@ from leakledger.cascade.engine import (                                        #
 from leakledger.leakage import detectors                                       # noqa: E402
 from leakledger.leakage.findings import (                                      # noqa: E402
     CONTRACT_DEPENDENT, EXCEPTION_SIGNAL, RULE_CHECK, STRUCTURAL)
+sys.path.insert(0, str(ROOT / "harness"))
+from scoring import headline_split, score_all                                   # noqa: E402
 
 DATA = ROOT / "data" / "generated"
 AS_OF = date(2026, 7, 31)
@@ -108,7 +110,7 @@ def main():
     seeded_value = defaultdict(int)
     for l in truth["seeded_leaks"]:
         seeded_value[l["class"]] += l["value_paise"]
-    entity_map = build_entity_map(truth, bank)
+    scores = score_all(found, truth, bank)
 
     W = 78
     print("=" * W)
@@ -180,24 +182,32 @@ def main():
             continue
         print(f"\n   {label}")
         print(f"   {'class':28} {'TP':>3} {'FP':>3} {'FN':>3} {'prec':>6} {'rec':>6} "
-              f"{'Rs found':>13} {'Rs seeded':>13}")
+              f"{'Rs claimed':>13} {'Rs verified':>13}")
         for cls in rows:
             fl = by_class[cls]
-            tp, fp, fn = score_class(cls, fl, seeded, truth, entity_map)
-            prec = tp / (tp + fp) if tp + fp else float("nan")
-            rec = tp / (tp + fn) if tp + fn else float("nan")
-            val = Money.sum(f.value for f in fl)
-            print(f"   {cls:28} {tp:>3} {fp:>3} {fn:>3} {prec:>6.2f} {rec:>6.2f} "
-                  f"{val.to_rupees_str():>13} {seeded_value[cls]/100:>13,.2f}")
+            s = scores[cls]
+            prec = s.precision if s.precision is not None else float("nan")
+            rec = s.recall if s.recall is not None else float("nan")
+            flag = "" if (s.confirmed or not s.scoreable) else "  << FP > 0"
+            print(f"   {cls:28} {s.tp:>3} {s.fp:>3} {s.fn:>3} {prec:>6.2f} {rec:>6.2f} "
+                  f"{s.found_value.to_rupees_str():>13} {s.verified_value.to_rupees_str():>13}"
+                  f"{flag}")
 
     # ---------- 4. VALUE ----------
     print()
     print("4. LEAKAGE VALUE")
-    for label, cat in (("structural", STRUCTURAL), ("contract-dependent", CONTRACT_DEPENDENT),
-                       ("rule check", RULE_CHECK)):
+    conf, flag, flag_cls = headline_split(found, scores)
+    print(f"   {'CONFIRMED':22} Rs {conf.to_rupees_str():>14}   "
+          f"every instance verified against ground truth")
+    print(f"   {'FLAGGED, not confirmed':22} Rs {flag.to_rupees_str():>14}   "
+          f"{', '.join(s.leak_class for s in flag_cls)}")
+    print(f"   {'gross of both':22} Rs {found.total().to_rupees_str():>14}   "
+          f"({100*flag.paise/max(1,found.total().paise):.0f}% from classes with precision < 1.00)")
+    print("   value claimed sums EVERY reported instance, not only verified ones:")
+    print("   that is what the engine claims at run time, having no ground truth of its own.")
+    for label, cat in (("  structural", STRUCTURAL), ("  contract-dependent", CONTRACT_DEPENDENT),
+                       ("  rule check", RULE_CHECK)):
         print(f"   {label:22} Rs {found.total(cat).to_rupees_str():>14}")
-    print(f"   {'HEADLINE TOTAL':22} Rs {found.total().to_rupees_str():>14}   "
-          f"(excludes exception signals)")
     vals = sorted((f.value.paise for f in found.findings if f.value.paise), reverse=True)
     if vals:
         top3 = sum(vals[:3])
