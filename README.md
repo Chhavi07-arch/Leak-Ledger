@@ -21,6 +21,13 @@ from two classes whose measured precision is below 1.00 — `MISSING_SETTLEMENT`
 confidence in exactly the way this build argues against, so the headline never
 does (INC-017).
 
+**And the flagged bucket is not evenly unreliable:** 99.8% of it is
+`MISSING_SETTLEMENT` alone; `RESERVE_NOT_RELEASED` is 0.2%. That is stated as a
+measured share rather than as a reliability grade, because where one would draw
+the line between "moderate" and "low" confidence is a judgement nothing here
+measures — and an unmeasured label is the thing this project spends its whole
+argument refusing.
+
 Every figure above is produced by `harness/score.py`. None is typed by hand, and
 a test asserts this README agrees with the harness.
 

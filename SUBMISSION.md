@@ -25,7 +25,7 @@ reviewer has a queue.
 
 | Time | Beat | What is on screen |
 |---|---|---|
-| **0:00** | **The number, split** | "Across 538 payments and 41 bank rows this confirmed ₹4,74,517 of leakage — every instance verified against ground truth — and flagged a further ₹10,60,629 that is *not* confirmed. It refused to match 22 records." Lead with the split; it is the most unusual thing you will say. |
+| **0:00** | **The numbers, then why** | Numbers first, in this order, before any explanation: **"₹4,74,517 confirmed. A further ₹10,60,629 flagged but not confirmed. 22 records refused."** Then, and only then, one sentence of method: *"the split is there because two detectors measure below 1.00 precision, and I won't quote them as fact."* A reviewer needs the figure before the reason it is structured that way — methodology first sounds like hedging before you have earned the right to hedge. |
 | **0:25** | The question | One sentence in a merchant's words: *"my settlement landed, my books balanced, and I still cannot tell you whether I was paid correctly."* Then why a match rate does not answer it. |
 | **0:50** | The run | One command. 770 records, ~1,000 records/s. Cascade tiers resolving. End on the findings table **with the precision column visible**. |
 | **1:45** | One finding, end to end | A fee overcharge. Show the arithmetic: expected against the versioned slab, actual, delta, schedule hash. A reviewer must be able to re-derive it from the frame. |
@@ -39,6 +39,9 @@ reviewer has a queue.
 - Record against a frozen commit. Never a live edit.
 - Every number spoken must appear on screen from `harness/score.py` or the report.
 - Do not say "found ₹15.3L". The gross is real but 69% of it is unconfirmed.
+- If asked what the flagged bucket is: **99.8% of it is one detector** —
+  `MISSING_SETTLEMENT` at 0.20 precision. Say that rather than implying two
+  detectors are equally shaky; `RESERVE_NOT_RELEASED` is 0.18% of it.
 - If something breaks mid-take, keep the take and narrate it — this project's
   entire argument is about handling failure honestly.
 

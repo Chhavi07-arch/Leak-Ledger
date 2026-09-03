@@ -203,7 +203,15 @@ def main() -> int:
       f'Gross of both: Rs {found.total().to_rupees_str()}. The split matters — '
       f'{100*flagged_v.paise/max(1,found.total().paise):.0f}% of the gross figure comes from '
       f'classes whose measured precision is below 1.00, and quoting the gross alone '
-      f'would overstate confidence in exactly the way this build argues against.</p></div>')
+      f'would overstate confidence in exactly the way this build argues against.<br>'
+      f'<b>The flagged bucket is not evenly unreliable:</b> '
+      + " · ".join(
+          f"{e(s.leak_class)} at precision {s.precision:.2f} is "
+          f"{100*s.found_value.paise/max(1,flagged_v.paise):.1f}% of it"
+          for s in sorted(flagged_cls, key=lambda z: -z.found_value.paise))
+      + '. Stated as a share rather than as a reliability grade, because where one '
+      f'would draw the boundary between "moderate" and "low" is a judgement nothing '
+      f'here measures.</p></div>')
 
     A('<h2>1 · False-match rate <span class="pill bad">primary</span></h2>')
     A(f'<table><tr><th>metric</th><th>value</th></tr>'

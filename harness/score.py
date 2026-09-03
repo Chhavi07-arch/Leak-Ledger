@@ -201,6 +201,9 @@ def main():
           f"every instance verified against ground truth")
     print(f"   {'FLAGGED, not confirmed':22} Rs {flag.to_rupees_str():>14}   "
           f"{', '.join(s.leak_class for s in flag_cls)}")
+    for s in sorted(flag_cls, key=lambda z: -z.found_value.paise):
+        print(f"     {s.leak_class:26} precision {s.precision:.2f}  "
+              f"{100*s.found_value.paise/max(1,flag.paise):5.1f}% of the flagged value")
     print(f"   {'gross of both':22} Rs {found.total().to_rupees_str():>14}   "
           f"({100*flag.paise/max(1,found.total().paise):.0f}% from classes with precision < 1.00)")
     print("   value claimed sums EVERY reported instance, not only verified ones:")
