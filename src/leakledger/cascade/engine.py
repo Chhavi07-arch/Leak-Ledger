@@ -96,11 +96,14 @@ class CascadeResult:
 
 class Cascade:
     def __init__(self, *, payments, refunds, bank, calendar: BusinessCalendar,
-                 adjustments=None,
+                 adjustments=None, model_provider=None,
                  bound: int = DEFAULT_DEVIATION_BOUND, tolerance: Money = Money(0)):
         self.payments = {p.payment_id: p for p in payments}
         self.refunds = refunds
         self.adjustments = adjustments or []
+        # T4 only. None disables the tier entirely -- the deterministic tiers do
+        # not consult it and cannot be influenced by it.
+        self.model_provider = model_provider
         self.bank = bank
         self.calendar = calendar
         self.bound = bound
@@ -269,6 +272,29 @@ class Cascade:
             return Match(b["txn_id"], "T2", EXCEPTION,
                          [r["refund_id"] for r in in_window], AMBIGUOUS_CANDIDATE,
                          f"{len(in_window)} refunds of {b['amount']} in window; refusing to choose")
+        # --- T4: narration proposal, arithmetic-verified -----------------
+        # The model may only ever CONFIRM a record that already exists at the
+        # right amount. It cannot introduce a match, break a tie, or overturn a
+        # refusal, and its confidence is not consulted. A rejected proposal
+        # leaves the record exactly where it was.
+        if self.model_provider is not None and b.get("narration"):
+            from ..ai import narration as _narr
+            by_ref = {}
+            for r in self.refunds:
+                arn = (r.get("arn") or "").strip()
+                if arn:
+                    by_ref[arn] = Money.from_rupees_str(r["amount"])
+            cand = _narr.propose(self.model_provider, b["narration"])
+            verdict = _narr.verify(cand, expected_amount=Money.from_rupees_str(b["amount"]),
+                                   records_by_reference=by_ref)
+            if verdict.accepted:
+                rid = next((r["refund_id"] for r in self.refunds
+                            if (r.get("arn") or "").strip() == verdict.matched_record_id), None)
+                if rid:
+                    return Match(b["txn_id"], "T4", REVIEW, [rid],
+                                 evidence=f"narration proposal verified: {verdict.reason}")
+            # proposal rejected -- fall through unchanged, never partially trusted
+
         return Match(b["txn_id"], "T5", EXCEPTION, [], REFERENCE_NOT_FOUND,
                      f"debit of {b['amount']} on {bd} matches no known refund")
 
