@@ -124,6 +124,56 @@ class AdversarialProvider:
         return ModelReply(text=json.dumps(payload), model="adversarial")
 
 
+class GeminiProvider:
+    """Secondary provider, for a CROSS-PROVIDER data point only.
+
+    Deliberately not the primary benchmark target. The benchmark's claim is
+    "a model should not make the match decision", and measuring that against a
+    free-tier or throttled model would support only the narrower claim "THIS
+    model should not" -- which is the stack-the-deck failure this phase was
+    explicitly warned about. Its value is as a second data point ALONGSIDE a
+    frontier model, showing the finding is not provider-specific.
+    """
+
+    name = "gemini"
+
+    def __init__(self, model: str = "gemini-pro-latest", api_key: Optional[str] = None):
+        from google import genai
+        key = api_key or os.environ.get("GEMINI_API_KEY")
+        if not key:
+            raise RuntimeError("no GEMINI_API_KEY resolved")
+        self._client = genai.Client(api_key=key)
+        self.model = model
+
+    def complete(self, *, system: str, prompt: str, max_tokens: int = 1024) -> ModelReply:
+        t0 = time.perf_counter()
+        try:
+            r = self._client.models.generate_content(
+                model=self.model, contents=f"{system}\n\n{prompt}")
+        except Exception as e:
+            return ModelReply(text="", latency_s=time.perf_counter() - t0,
+                              model=self.model, error=f"{type(e).__name__}: {e}")
+        u = getattr(r, "usage_metadata", None)
+        return ModelReply(
+            text=r.text or "",
+            input_tokens=getattr(u, "prompt_token_count", 0) or 0,
+            output_tokens=getattr(u, "candidates_token_count", 0) or 0,
+            latency_s=time.perf_counter() - t0, model=self.model)
+
+
+def load_dotenv(path: str = ".env") -> None:
+    """Load .env if present. Never logs values."""
+    p = os.path.join(os.getcwd(), path)
+    if not os.path.exists(p):
+        return
+    with open(p, encoding="utf-8") as fh:
+        for line in fh:
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                k, v = line.split("=", 1)
+                os.environ.setdefault(k.strip(), v.strip())
+
+
 def default_provider(require_live: bool = False) -> Optional[ModelProvider]:
     """Live provider if credentials exist, else None. Never a silent stub."""
     try:
