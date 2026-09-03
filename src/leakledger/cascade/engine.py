@@ -71,6 +71,11 @@ class Match:
     residual_unique: bool = False
     residual_deviation_size: Optional[int] = None
     pool_gross_paise: Optional[int] = None
+    # The competing reconciliations behind an AMBIGUOUS_SUBSET refusal. Carried
+    # so a reader can SEE the answers the engine declined to choose between,
+    # rather than being told how many there were. A refusal a reviewer cannot
+    # inspect is indistinguishable from a failure to try.
+    competing: List[dict] = field(default_factory=list)
 
 
 @dataclass
@@ -309,6 +314,7 @@ class Cascade:
         budget_hit = False
         bound_hit = False
         nearest_best = None
+        ambiguous_solutions: List[dict] = []
 
         primary_had_pool = False
         for lag, tier in lag_groups:
@@ -342,6 +348,11 @@ class Cascade:
                 solved.append((cycle, res.solutions[0], pool_ids, netted, lag))
             elif res.status == "AMBIGUOUS":
                 ambiguous_detail = f"cycle {cycle}: {res.detail}"
+                ambiguous_solutions = [
+                    {"cycle": str(cycle), "size": s.size,
+                     "excluded": sorted(s.excluded), "included": sorted(s.included),
+                     "describe": s.describe()}
+                    for s in res.solutions]
             elif res.status == "BUDGET_EXCEEDED":
                 budget_hit = True
             elif res.status == "NO_SOLUTION":
@@ -358,13 +369,20 @@ class Cascade:
 
         # ambiguity within one cycle, OR across two candidate cycles, both refuse
         if ambiguous_detail:
-            return Match(b["txn_id"], "T3", EXCEPTION, [], AMBIGUOUS_SUBSET,
-                         ambiguous_detail, examined)
+            m = Match(b["txn_id"], "T3", EXCEPTION, [], AMBIGUOUS_SUBSET,
+                      ambiguous_detail, examined)
+            m.competing = ambiguous_solutions
+            return m
         if len(solved) > 1:
             cycles = ", ".join(str(s[0]) for s in solved)
-            return Match(b["txn_id"], "T3", EXCEPTION, [], AMBIGUOUS_SUBSET,
-                         f"{len(solved)} candidate cycles reconcile identically ({cycles}); "
-                         f"refusing to choose", examined)
+            m = Match(b["txn_id"], "T3", EXCEPTION, [], AMBIGUOUS_SUBSET,
+                      f"{len(solved)} candidate cycles reconcile identically ({cycles}); "
+                      f"refusing to choose", examined)
+            m.competing = [
+                {"cycle": str(c), "size": dev.size, "excluded": sorted(dev.excluded),
+                 "included": sorted(dev.included), "describe": dev.describe()}
+                for c, dev, _pool, _net, _lag in solved]
+            return m
         if len(solved) == 1:
             cycle, dev, pool_ids, netted, lag = solved[0]
             ids = [i for i in pool_ids if i not in dev.excluded] + sorted(dev.included)
