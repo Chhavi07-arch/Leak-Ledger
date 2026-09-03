@@ -190,7 +190,8 @@ def main() -> int:
                   and scores[c].found_value.paise > 0]
     conf_desc = ", ".join(
         f"{scores[c].found} {c.lower().replace('_',' ')}" for c in conf_names[:5])
-    A(f'<div class="headline"><p class="big">Across {len(gw.records)} payments and '
+    uniq_payments = len({p.payment_id for p in gw.records})
+    A(f'<div class="headline"><p class="big">Across {uniq_payments} payments and '
       f'{len(bank)} bank rows, Leak Ledger <b>confirmed</b> <span class="rs">Rs '
       f'{confirmed_v.to_rupees_str()}</span> of leakage — {e(conf_desc)} — every '
       f'instance verified against ground truth. It <b>flagged a further Rs '
@@ -299,12 +300,42 @@ def main() -> int:
     A('<div class="note">Verified with an adversarial provider that returns confidently wrong, '
       'well-formed answers: every metric above is identical with it wired in, and false-match '
       'rate stays at 0.0000. A boundary that depends on the model behaving is not a boundary.</div>')
-    A('<div class="gap"><b>Stated gap — the LLM-as-matcher benchmark has not been run.</b><br>'
-      'No live model credentials were available at build time. The record selection is frozen and '
-      'committed (<span class="mono">harness/benchmark_selection.json</span>) so it provably '
-      'predates any result, and <span class="mono">harness/benchmark_llm_matcher.py</span> refuses '
-      'to run without credentials and writes nothing. Self-disagreement, accuracy, latency and cost '
-      'are therefore <b>unmeasured and unreported</b> rather than estimated.</div>')
+    bm = json.loads((ROOT / "reports" / "benchmark_llm_matcher.json").read_text(encoding="utf-8"))
+    A('<h2>6 · Why the model does not make the match decision</h2>')
+    A(f'<p class="sub">Measured, not asserted. The same {bm["records"]} records the '
+      f'deterministic cascade resolves, put through <span class="mono">{e(bm["model"])}</span> '
+      f'{bm["runs"]} times. Selection frozen and committed before any model ran '
+      f'(sha {bm["selection_sha256"][:12]}).</p>')
+    A(f'<table><tr><th>metric</th><th>{e(bm["model"])}</th><th>deterministic cascade</th></tr>'
+      f'<tr><td><b>self-disagreement across {bm["runs"]} identical runs</b></td>'
+      f'<td class="mono"><span class="pill bad">{bm["self_disagreement_records"]}/{bm["records"]}'
+      f' ({100*bm["self_disagreement_rate"]:.0f}%)</span></td>'
+      f'<td class="mono"><span class="pill ok">0/{bm["records"]}</span></td></tr>'
+      f'<tr><td>accuracy vs ground truth</td>'
+      f'<td class="mono">{bm["llm_correct"]}/{bm["scored_records"]} '
+      f'({100*bm["llm_accuracy"]:.0f}%)</td>'
+      f'<td class="mono">{bm["cascade_correct"]}/{bm["scored_records"]} '
+      f'({100*bm["cascade_accuracy"]:.0f}%)</td></tr>'
+      f'<tr><td>wall clock, all runs</td><td class="mono">{bm["llm_latency_total_s"]}s</td>'
+      f'<td class="mono">{bm["cascade_total_s"]}s</td></tr>'
+      f'<tr><td>tokens consumed</td>'
+      f'<td class="mono">{bm["input_tokens"]:,} in / {bm["output_tokens"]:,} out</td>'
+      f'<td class="mono">0</td></tr></table>')
+    A('<div class="note"><b>Non-determinism is the finding, not accuracy.</b> A system that '
+      'produces different books on identical re-runs is disqualified in finance even when it is '
+      'right, and this one disagreed with itself on '
+      f'{bm["self_disagreement_records"]} of {bm["records"]} records at the same temperature '
+      'setting. Accuracy merely confirms it.<br><br>'
+      f'<b>The model was chosen so the result cannot be dismissed.</b> '
+      f'<span class="mono">{e(bm["model"])}</span> is a frontier model from a '
+      '<i>different vendor</i> than the one this project was built with — a weak model would have '
+      'supported only the narrower claim that <i>that</i> model should not match, and the '
+      'home vendor would have invited the obvious objection.<br><br>'
+      '<b>The comparison is like for like.</b> Both sides searched the same candidate pools '
+      '(median 61 payments, max 87) and were scored by the same comparator, under which the '
+      'cascade scores 13/13 — so a scoring defect would have depressed both.</div>')
+    A(f'<div class="gap"><b>Stated gap — cost in USD is not computed.</b><br>'
+      f'{e(bm["usd_note"])} Token counts and latency above are measured from the API responses.</div>')
 
     led = Ledger()
     apply_run(led, run_id="report", cascade_result=casc, findings=found, payments=gw.records)

@@ -125,7 +125,7 @@ nothing, because the number is confident and wrong (INC-010).
 
 ```
 $ python3 -m unittest discover -s tests -q
-Ran 163 tests ... OK
+Ran 165 tests ... OK
 ```
 
 | Guarantee | How it is enforced |
@@ -215,31 +215,53 @@ And it is tested in both directions, because a gate that rejects everything hold
 trivially: a **correct** proposal at confidence **0.30** is accepted; a **wrong**
 one at confidence **0.99** is rejected.
 
-### Stated gap — the LLM-as-matcher benchmark has not been run
+### The benchmark — why a model does not make the match decision
 
-No live model credentials were available at build time. Rather than approximate:
+Measured, not asserted. The same 13 settlement records the deterministic cascade
+resolves, put through **`gpt-5.2`** three times.
 
-- The record selection is **frozen and committed before any model runs**
-  (`harness/benchmark_selection.json`), so it provably predates any result. Its
-  rule is *cascade-resolved bank credits, ascending by txn_id* — the population is
-  19, and the shortfall against the intended 50 is **reported, not padded** with
-  refused records.
-- `harness/benchmark_llm_matcher.py` **refuses to run without credentials and
-  writes nothing.** A benchmark that quietly measured a stub would be worse than
-  none, because it would be believed.
-- Self-disagreement, accuracy, latency and cost are therefore **unmeasured and
-  unreported.**
+| | `gpt-5.2` | deterministic cascade |
+|---|---|---|
+| **self-disagreement across 3 identical runs** | **9 / 13 (69%)** | 0 / 13 |
+| accuracy vs ground truth | 1 / 13 (8%) | 13 / 13 (100%) |
+| wall clock, all runs | 95.3 s | 0.598 s |
+| tokens consumed | 88,656 in / 6,266 out | 0 |
 
-It targets `claude-opus-5` deliberately. Benchmarking "should a model make the
-match decision?" against a weak or throttled model would support only the narrower
-claim *that* model should not — which is how one accidentally builds a benchmark
-that confirms what one already believes.
+**Non-determinism is the finding; accuracy merely confirms it.** A system that
+produces different books on identical re-runs is disqualified in finance even when
+it happens to be right, and this one disagreed with itself on 9 of 13 records at
+the same settings. That is the whole argument for keeping the model out of the
+match decision, and it is now a measurement rather than an opinion.
+
+**The model was chosen so the result cannot be dismissed.** Two objections had to
+be closed off. A weak or throttled model would have supported only the narrower
+claim that *that* model should not match — the classic way to build a benchmark
+that confirms what you already believe. And this project was written using Claude
+Code, so benchmarking against Anthropic's own model would have invited the obvious
+"you tested the friendly vendor". `gpt-5.2` is a frontier model from a *different*
+vendor, which closes both.
+
+**The comparison is like for like.** Both sides searched the same candidate pools
+(median 61 payments, max 87) and were scored by the same comparator — under which
+the cascade scores 13/13, so a scoring defect would have depressed both sides
+equally.
+
+**Selection frozen before any model ran** (`harness/benchmark_selection.json`,
+sha `f6abb21e6c760c`), so it provably predates the result. Its rule is
+*cascade-resolved bank credits, ascending by txn_id*; the population is 19 of an
+intended 50, and the shortfall is **reported, not padded** with refused records.
+
+**Stated gap: USD cost is not computed.** Published per-token rates for this model
+are not verified in-repo, and an invented price would make the one figure a reader
+cannot check the one figure that is fabricated. Token counts and latency above are
+measured from the API responses; `--price-in`/`--price-out` fills in the cost from
+published rates.
 
 ---
 
 ## Failure recovery
 
-`INCIDENTS.md` carries 17 incidents logged as they happened, and one named
+`INCIDENTS.md` carries 18 incidents logged as they happened, and one named
 pattern. Three are worth reading first.
 
 **INC-012 — a defect in the primary metric itself.** The engine matched a bank
@@ -281,7 +303,7 @@ python3 harness/validate_ground_truth.py      # 672 consistency checks — run b
 python3 harness/score.py                      # the scorecard
 python3 harness/report.py                     # reports/run_report.html
 python3 harness/model_layer_check.py          # boundary gate, adversarial provider
-python3 -m unittest discover -s tests -q      # 163 tests
+python3 -m unittest discover -s tests -q      # 165 tests
 ```
 
 No dependencies beyond the standard library for the deterministic core. Zero-dep
@@ -302,7 +324,7 @@ src/leakledger/
   ledger/         double-entry, idempotent apply
   ai/             the only three model call sites, behind one interface
 harness/    scorecard, ground-truth validator, report, benchmark
-tests/      163 tests
+tests/      165 tests
 DECISIONS.md  ADR-001..004 — choices a reader could reasonably have made differently
 INCIDENTS.md  what broke, what it cost, and the guard that stops it recurring
 ```

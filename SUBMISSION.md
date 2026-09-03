@@ -10,11 +10,10 @@ in the panel.
 |---|---|
 | Report free of known honesty issues | **CLEAR** — INC-017 fixed, report regenerated |
 | Bank row discrepancy explained | **CLEAR** — 43→41 traced to the refund-seeding fix at `5d7b3bc` |
-| LLM-as-matcher benchmark | **OPEN** — no credentials; declared as a stated gap |
+| LLM-as-matcher benchmark | **CLEAR** — run on `gpt-5.2`, 9/13 self-disagreement |
 | Code frozen | **OPEN** — freeze before recording, record against the frozen build |
 
-The benchmark does not block recording: it is declared honestly in both the README
-and the report, and the video says so out loud rather than skipping past it.
+The benchmark has now been run. Only the code freeze remains.
 
 ---
 
@@ -32,7 +31,7 @@ reviewer has a queue.
 | **2:20** | **The refusal** | The ambiguity panel. Two candidate reconciliations side by side, differing only in which twin they exclude — highlighted. Say it: *"it found two equally valid answers, so it refused to pick one."* This is the shot the whole video exists for. |
 | **3:00** | Honest limits | The precision column on `MISSING_SETTLEMENT`: 0.20. *"This detector is 20% precise and my headline says so. Its value is flagged, not confirmed."* Then `SHORT_SETTLEMENT`: detectable, not quantifiable, claims ₹0. |
 | **3:30** | The exception list | 22 unresolved, each typed, each with a next action. Read it as a deliverable, not an apology. |
-| **4:00** | The AI boundary | Three uses, four refusals. The adversarial provider: every metric identical, false-match rate still 0.0000. **Say the benchmark has not been run and why** — do not skip it. |
+| **4:00** | The AI boundary | Three uses, four refusals. The adversarial provider: every metric identical, false-match rate still 0.0000. Then the benchmark: **"gpt-5.2 disagreed with itself on 9 of 13 records across three identical runs. That is why the model does not make the match decision."** Say the vendor choice was deliberate — a frontier model from a different vendor than the one this was built with. |
 | **4:30** | One incident | INC-012 or INC-014. Symptom, root cause, fix, and the guard now in CI. Close there, not on a summary slide. |
 
 **Rules for the recording**
@@ -86,6 +85,7 @@ reviewer has a queue.
    at `d ≤ 6` with a meet-in-the-middle join. Windowing by counterparty and cycle,
    parallel per window. Never claim it scales as built.
 4. *"Why not let an LLM do the matching?"* Non-determinism first, not accuracy —
-   different books on re-run is disqualifying regardless of correctness. Then:
-   the benchmark that would have measured it has not been run, and here is exactly
-   why and what is frozen so it can be.
+   different books on re-run is disqualifying regardless of correctness. Then the
+   measurement: gpt-5.2, 9 of 13 records answered differently across three
+   identical runs, 1 of 13 correct against the cascade's 13 of 13. If pressed on
+   model choice: frontier, and deliberately not the vendor this was built with.

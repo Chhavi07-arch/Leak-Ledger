@@ -696,3 +696,33 @@ headline. State what is measured; claim nothing beyond it.
 `test_value_convention_is_stated` -- the README can no longer quote a gross figure
 as a headline, or name a weak detector without its measured precision.
 **Commit:** (this phase)
+
+
+---
+
+## INC-018 — a throwaway check disagreed with the benchmark, and the throwaway was wrong
+**Date:** 2026-09-03 23:05 IST
+**Phase:** 06
+**Symptom:** verifying the benchmark before reporting it, an ad-hoc fairness script
+printed `cascade matched = 34` against a true answer size of 33 for BNK000003 --
+implying the cascade was wrong and therefore that the benchmark's
+`cascade_correct = 13/13` was produced by a scoring defect.
+**Why it mattered:** the benchmark result (gpt-5.2 correct on 1 of 13, cascade on
+13 of 13) is startling enough that reporting it on the strength of a comparator
+that might be broken would have been indefensible. A 1/13 result is exactly the
+kind of number that gets challenged first.
+**Resolution:** recomputed cleanly, comparing each selected credit's matched set
+against the unique ground-truth settlement for its net amount: **13 of 13 exactly
+equal, 0 differing.** The frozen selection was also confirmed byte-identical to a
+fresh regeneration (sha `f6abb21e6c76`), ruling out staleness. The defect was in
+the throwaway script, not in the benchmark or the engine.
+**Kept because the process is the point:** a surprising result was not reported
+until the comparator had been independently re-verified, and the discrepancy was
+chased to a conclusion rather than assumed benign. The benchmark's own scoring is
+also self-checking in a useful way -- both sides are scored by the same
+comparator, so a defect in it would have depressed the cascade's number too, and
+the cascade scored 13/13.
+**Guard:** the benchmark records `selection_sha256` into its output, and the
+report and README are tested to quote that hash and the measured figures rather
+than typed numbers.
+**Commit:** (this phase)

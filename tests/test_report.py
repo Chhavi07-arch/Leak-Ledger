@@ -33,10 +33,23 @@ class Report(unittest.TestCase):
         self.assertIn(m.group(1), self.html,
                       "report and scorecard disagree on the primary metric")
 
-    def test_unrun_benchmark_is_declared_not_implied(self):
-        """No invented numbers standing in for a measurement that did not happen."""
-        self.assertIn("has not been run", self.html)
-        self.assertIn("unmeasured and unreported", self.html)
+    def test_benchmark_results_come_from_the_measured_artefact(self):
+        """The benchmark table must be rendered from reports/benchmark_llm_matcher.json,
+        never typed. Guards against the table drifting from the measurement."""
+        import json
+        bm = json.loads((ROOT / "reports" / "benchmark_llm_matcher.json")
+                        .read_text(encoding="utf-8"))
+        self.assertIn(bm["model"], self.html)
+        self.assertIn(f'{bm["self_disagreement_records"]}/{bm["records"]}', self.html)
+        self.assertIn(f'{bm["input_tokens"]:,}', self.html)
+        self.assertIn(bm["selection_sha256"][:12], self.html,
+                      "report does not cite the frozen selection hash")
+
+    def test_uncomputed_cost_is_declared_not_implied(self):
+        """USD was not computed because no verified price exists in-repo. That must
+        be stated, not left as an absence a reader could mistake for zero."""
+        self.assertIn("cost in USD is not computed", self.html.replace("&nbsp;", " "))
+        self.assertIn("NOT computed rather than estimated", self.html)
 
     def test_contract_dependent_findings_are_labelled(self):
         self.assertIn("verification, not discovery", self.html)

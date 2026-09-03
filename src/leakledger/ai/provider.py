@@ -161,6 +161,57 @@ class GeminiProvider:
             latency_s=time.perf_counter() - t0, model=self.model)
 
 
+class OpenAIProvider:
+    """Frontier non-Anthropic provider — the benchmark's primary target.
+
+    Chosen deliberately rather than by availability. Two constraints had to be
+    met and this satisfies both:
+
+      NOT WEAK. Benchmarking "should a model make the match decision?" against a
+      throttled or small model would support only the narrower claim that THAT
+      model should not, which is how one builds a benchmark that confirms what
+      one already believes.
+
+      NOT THE VENDOR THIS WAS BUILT WITH. This project was written using Claude
+      Code. Measuring the claim against Anthropic's own model invites the obvious
+      objection that the test was run on the friendly vendor. A result that holds
+      on a competitor's frontier model is harder to dismiss.
+
+    temperature is deliberately NOT set. No claim is made that any setting
+    guarantees identical output; self-disagreement is measured empirically across
+    runs instead of assumed away.
+    """
+
+    name = "openai"
+
+    def __init__(self, model: str = "gpt-5.2", api_key: Optional[str] = None):
+        from openai import OpenAI
+        key = api_key or os.environ.get("OPENAI_API_KEY")
+        if not key:
+            raise RuntimeError("no OPENAI_API_KEY resolved")
+        self._client = OpenAI(api_key=key)
+        self.model = model
+
+    def complete(self, *, system: str, prompt: str, max_tokens: int = 1024) -> ModelReply:
+        t0 = time.perf_counter()
+        try:
+            r = self._client.chat.completions.create(
+                model=self.model,
+                max_completion_tokens=max_tokens,
+                messages=[{"role": "system", "content": system},
+                          {"role": "user", "content": prompt}],
+            )
+        except Exception as e:
+            return ModelReply(text="", latency_s=time.perf_counter() - t0,
+                              model=self.model, error=f"{type(e).__name__}: {e}")
+        u = r.usage
+        return ModelReply(
+            text=r.choices[0].message.content or "",
+            input_tokens=getattr(u, "prompt_tokens", 0) or 0,
+            output_tokens=getattr(u, "completion_tokens", 0) or 0,
+            latency_s=time.perf_counter() - t0, model=self.model)
+
+
 def load_dotenv(path: str = ".env") -> None:
     """Load .env if present. Never logs values."""
     p = os.path.join(os.getcwd(), path)

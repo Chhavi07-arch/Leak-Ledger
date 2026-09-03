@@ -41,15 +41,19 @@ sys.path.insert(0, str(ROOT / "src"))
 from leakledger.clock import BusinessCalendar                                 # noqa: E402
 from leakledger.money import Money                                            # noqa: E402
 from leakledger.schema import ingest_rows                                     # noqa: E402
-from leakledger.ai.provider import BENCHMARK_MODEL, AnthropicProvider         # noqa: E402
+from leakledger.ai.provider import (                                          # noqa: E402
+    AnthropicProvider, OpenAIProvider, load_dotenv)
 from leakledger.cascade.engine import Cascade                                 # noqa: E402
 
 DATA = ROOT / "data" / "generated"
 SELECTION = ROOT / "harness" / "benchmark_selection.json"
 OUT = ROOT / "reports" / "benchmark_llm_matcher.json"
 
-# Published list pricing, USD per 1M tokens. Recorded here so the cost figure is
-# reproducible and auditable rather than an estimate.
+# Published list pricing, USD per 1M tokens, ONLY for models whose rates have been
+# verified from the provider's own documentation. A model absent from this table
+# gets its tokens and latency reported and its USD cost left UNCOMPUTED -- an
+# invented price would make the one figure a reader cannot check the one figure
+# that is fabricated. Supply rates with --price-in/--price-out to fill it in.
 PRICING = {"claude-opus-5": {"input": 5.00, "output": 25.00}}
 
 SYSTEM = (
@@ -72,7 +76,12 @@ def build_prompt(bank_row, candidates):
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--runs", type=int, default=3)
+    ap.add_argument("--provider", choices=("openai", "anthropic"), default="openai")
+    ap.add_argument("--model", default=None)
+    ap.add_argument("--price-in", type=float, default=None)
+    ap.add_argument("--price-out", type=float, default=None)
     args = ap.parse_args()
+    load_dotenv()
 
     if not SELECTION.exists():
         print("selection not frozen; run harness/select_benchmark_records.py first")
@@ -80,7 +89,11 @@ def main() -> int:
     sel = json.loads(SELECTION.read_text(encoding="utf-8"))
 
     try:
-        provider = AnthropicProvider(model=BENCHMARK_MODEL)
+        if args.provider == "openai":
+            provider = OpenAIProvider(model=args.model or "gpt-5.2")
+        else:
+            provider = AnthropicProvider(model=args.model or "claude-opus-5")
+        MODEL = provider.model
     except Exception as e:
         print("NO LIVE MODEL CREDENTIALS — refusing to run.")
         print(f"  {e}")
@@ -106,7 +119,7 @@ def main() -> int:
     cascade_s = time.perf_counter() - t0
 
     records = [r for r in sel["records"] if r["tier"] == "T3"]
-    print(f"benchmark: {len(records)} T3 records x {args.runs} runs on {BENCHMARK_MODEL}")
+    print(f"benchmark: {len(records)} T3 records x {args.runs} runs on {MODEL} ({args.provider})")
     print(f"selection sha256: {sel['selection_sha256'][:16]}\n")
 
     results, in_tok, out_tok, lat = defaultdict(list), 0, 0, []
@@ -148,12 +161,20 @@ def main() -> int:
         casc_correct += set(rec["matched_ids"]) == gt
         llm_correct += set(results[rec["bank_txn_id"]][0]) == gt
 
-    price = PRICING.get(BENCHMARK_MODEL, {"input": 0, "output": 0})
-    cost = in_tok / 1e6 * price["input"] + out_tok / 1e6 * price["output"]
-    per_500 = cost / max(1, len(records) * args.runs) * 500
+    if args.price_in is not None and args.price_out is not None:
+        price = {"input": args.price_in, "output": args.price_out, "source": "supplied"}
+    else:
+        base = PRICING.get(MODEL)
+        price = dict(base, source="verified table") if base else None
+    if price:
+        cost = in_tok / 1e6 * price["input"] + out_tok / 1e6 * price["output"]
+        per_500 = cost / max(1, len(records) * args.runs) * 500
+    else:
+        cost = per_500 = None
 
     report = {
-        "model": BENCHMARK_MODEL, "runs": args.runs, "records": len(records),
+        "model": MODEL, "provider": args.provider,
+        "runs": args.runs, "records": len(records),
         "selection_sha256": sel["selection_sha256"],
         "self_disagreement_records": disagree,
         "self_disagreement_rate": disagree / len(records) if records else None,
@@ -162,7 +183,11 @@ def main() -> int:
         "llm_accuracy": llm_correct / scored if scored else None,
         "cascade_accuracy": casc_correct / scored if scored else None,
         "input_tokens": in_tok, "output_tokens": out_tok,
-        "usd_total": round(cost, 4), "usd_per_500_records": round(per_500, 4),
+        "usd_total": round(cost, 4) if cost is not None else None,
+        "usd_per_500_records": round(per_500, 4) if per_500 is not None else None,
+        "usd_note": (None if price else
+                     "pricing for this model is not verified in-repo and none was supplied; "
+                     "tokens and latency are measured, USD is NOT computed rather than estimated"),
         "llm_latency_median_s": round(statistics.median(lat), 2) if lat else None,
         "llm_latency_total_s": round(sum(lat), 1),
         "cascade_total_s": round(cascade_s, 3),
@@ -179,7 +204,12 @@ def main() -> int:
           f"{f'{llm_correct}/{scored}':>20} {f'{casc_correct}/{scored}':>14}")
     print(f"{'wall clock, all runs':34} {f'{sum(lat):.1f}s':>20} "
           f"{f'{cascade_s:.3f}s':>14}")
-    print(f"{'cost per 500 records':34} {f'${per_500:.4f}':>20} {'$0.0000':>14}")
+    if per_500 is not None:
+        print(f"{'cost per 500 records':34} {f'${per_500:.4f}':>20} {'$0.0000':>14}")
+    else:
+        print(f"{'tokens measured':34} {f'{in_tok:,} in / {out_tok:,} out':>20} {'0':>14}")
+        print("  USD NOT COMPUTED: pricing for this model is not verified in-repo.")
+        print("  Re-run with --price-in/--price-out to fill it in from published rates.")
     print(f"\nwritten: {OUT.relative_to(ROOT)}")
     return 0
 

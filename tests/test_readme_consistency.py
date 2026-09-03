@@ -94,10 +94,21 @@ class ReadmeAgreesWithHarness(unittest.TestCase):
         self.assertIn(str(gt["counts"]["total_rows"]), self.md)
         self.assertIn(str(gt["counts"]["payments"]), self.md)
 
-    def test_benchmark_declared_unrun(self):
-        """The one section that must never acquire numbers by accident."""
-        self.assertIn("has not been run", self.flat)
-        self.assertIn("unmeasured and unreported", self.flat)
+    def test_benchmark_numbers_match_the_measured_artefact(self):
+        """The benchmark section must quote reports/benchmark_llm_matcher.json,
+        never numbers typed from memory. It is the criterion-3 evidence; a stale
+        figure there is worse than none."""
+        import json
+        bm = json.loads((ROOT / "reports" / "benchmark_llm_matcher.json")
+                        .read_text(encoding="utf-8"))
+        self.assertIn(bm["model"], self.flat)
+        self.assertIn(f'{bm["self_disagreement_records"]} / {bm["records"]}', self.flat)
+        self.assertIn(f'{bm["llm_correct"]} / {bm["scored_records"]}', self.flat)
+        self.assertIn(f'{bm["input_tokens"]:,}', self.flat)
+
+    def test_uncomputed_cost_is_still_declared(self):
+        """USD was not computed; that must stay stated, not become an absence."""
+        self.assertIn("USD cost is not computed", self.flat)
 
     def test_circularity_is_disclosed(self):
         self.assertIn("verification, not discovery", self.flat)
