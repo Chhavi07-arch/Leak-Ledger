@@ -1,0 +1,238 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Leak Ledger</title>
+<style>
+:root{--bg:#0d100e;--panel:#141917;--panel2:#1a201d;--line:#252d29;--line2:#1e2522;
+--ink:#e8ede9;--soft:#95a49c;--faint:#68766e;--gold:#d4a843;--green:#5fbf8a;
+--red:#e0705a;--blue:#7ea9dd;--purple:#a892d8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+header{position:sticky;top:0;z-index:20;background:rgba(13,16,14,.94);
+backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:.85rem 1.6rem;
+display:flex;align-items:center;gap:.9rem}
+.logo{width:26px;height:26px;border-radius:6px;background:linear-gradient(135deg,var(--gold),#8a6a1e);
+display:grid;place-items:center;font-size:14px}
+header h1{font-size:1.02rem;margin:0;letter-spacing:-.01em}
+header .tag{color:var(--faint);font-size:.8rem}
+header .sp{margin-left:auto}
+button{font:inherit;cursor:pointer;border-radius:7px;border:1px solid var(--line);
+background:var(--panel2);color:var(--ink);padding:.5rem .95rem;transition:.15s}
+button:hover{border-color:var(--gold);color:var(--gold)}
+button.primary{background:linear-gradient(135deg,var(--gold),#b8912f);color:#1a1408;
+border-color:transparent;font-weight:600}
+button.primary:hover{filter:brightness(1.1);color:#1a1408}
+button:disabled{opacity:.5;cursor:wait}
+main{max-width:1180px;margin:0 auto;padding:1.8rem 1.6rem 5rem}
+h2{font-size:.74rem;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);
+margin:2.4rem 0 .8rem;font-weight:600}
+.hero{font-size:2rem;line-height:1.28;letter-spacing:-.02em;margin:.4rem 0 .3rem;max-width:46rem}
+.hero .c{color:var(--green)}.hero .f{color:var(--gold)}
+.hero-sub{color:var(--soft);max-width:44rem;margin:0 0 1.4rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;
+background:var(--line);border:1px solid var(--line);border-radius:11px;overflow:hidden}
+.card{background:var(--panel);padding:1.05rem 1.15rem}
+.card .k{font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;color:var(--faint)}
+.card .v{font-size:1.75rem;margin:.35rem 0 .15rem;letter-spacing:-.02em}
+.card .s{font-size:.76rem;color:var(--faint)}
+.card.good .v{color:var(--green)}.card.warn .v{color:var(--gold)}.card.bad .v{color:var(--red)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:11px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th{text-align:left;padding:.6rem .9rem;font-size:.64rem;letter-spacing:.1em;
+text-transform:uppercase;color:var(--faint);border-bottom:1px solid var(--line);font-weight:600}
+td{padding:.55rem .9rem;border-bottom:1px solid var(--line2);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr.clickable{cursor:pointer}tr.clickable:hover{background:var(--panel2)}
+.pill{display:inline-block;font-size:.63rem;letter-spacing:.06em;text-transform:uppercase;
+padding:.14em .5em;border-radius:4px;white-space:nowrap;font-weight:600}
+.p-ok{background:rgba(95,191,138,.14);color:var(--green)}
+.p-bad{background:rgba(224,112,90,.15);color:var(--red)}
+.p-warn{background:rgba(212,168,67,.14);color:var(--gold)}
+.p-dim{background:var(--panel2);color:var(--faint)}
+.deriv{font-family:ui-monospace,Menlo,monospace;font-size:.73rem;color:var(--soft);
+background:var(--panel2);padding:.55rem .75rem;border-radius:6px;margin:.3rem 0;
+border-left:2px solid var(--line)}
+.refusal{border:1px solid rgba(224,112,90,.3);border-radius:11px;overflow:hidden;margin:.9rem 0}
+.refusal .rh{background:rgba(224,112,90,.09);color:var(--red);padding:.6rem .95rem;
+font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;font-weight:600}
+.cands{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}
+@media(max-width:760px){.cands{grid-template-columns:1fr}}
+.cand{background:var(--panel);padding:.85rem .95rem}
+.cand .lbl{font-size:.62rem;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);
+margin-bottom:.3rem}
+.cand code{display:block;font-family:ui-monospace,Menlo,monospace;font-size:.74rem;
+color:var(--soft);margin:.1rem 0}
+.cand code.diff{color:var(--gold);background:rgba(212,168,67,.12);padding:0 .3em;
+border-radius:3px;display:inline-block}
+.rfoot{padding:.7rem .95rem;font-size:.79rem;color:var(--soft);border-top:1px solid var(--line)}
+.note{border-left:2px solid var(--line);padding-left:.85rem;color:var(--faint);
+font-size:.82rem;margin:.9rem 0}
+.bar{height:5px;border-radius:3px;background:var(--panel2);overflow:hidden;min-width:70px}
+.bar i{display:block;height:100%;background:var(--gold)}
+#status{color:var(--faint);font-size:.8rem}
+.spin{display:inline-block;width:11px;height:11px;border:2px solid var(--line);
+border-top-color:var(--gold);border-radius:50%;animation:s .7s linear infinite;vertical-align:-1px}
+@keyframes s{to{transform:rotate(360deg)}}
+.hide{display:none}
+.detail{background:var(--panel2)}
+</style></head><body>
+<header>
+  <div class="logo">₹</div>
+  <h1>Leak Ledger</h1>
+  <span class="tag">AI Finance Controller · reconciliation &amp; leakage</span>
+  <div class="sp"></div>
+  <span id="status"></span>
+  <button class="primary" id="run">▶ Run reconciliation</button>
+</header>
+<main id="app"><p style="color:var(--faint)">Loading…</p></main>
+
+<script>
+const $ = s => document.querySelector(s);
+const money = s => "₹" + Number(s).toLocaleString("en-IN", {minimumFractionDigits:2, maximumFractionDigits:2});
+let S = null;
+
+async function load(post) {
+  const btn = $("#run"); btn.disabled = true;
+  $("#status").innerHTML = '<span class="spin"></span> running pipeline…';
+  const t0 = performance.now();
+  try {
+    const r = await fetch(post ? "/api/run" : "/api/state", {method: post ? "POST" : "GET"});
+    S = await r.json();
+    if (S.error) throw new Error(S.error);
+    $("#status").textContent = `done in ${((performance.now()-t0)/1000).toFixed(1)}s`;
+    render();
+  } catch (e) {
+    $("#app").innerHTML = `<div class="panel" style="padding:1.2rem;color:var(--red)">
+      <b>Pipeline error</b><pre class="mono" style="white-space:pre-wrap;font-size:.75rem">${e.message}</pre></div>`;
+    $("#status").textContent = "failed";
+  }
+  btn.disabled = false;
+}
+
+function fm(x){ return x==null ? "—" : x.toFixed(4); }
+
+function render() {
+  const v = S.value, d = S.disposition, f = S.false_match, i = S.inputs, b = S.benchmark;
+  const confirmedNames = S.findings.filter(x=>x.confirmed && x.category==="structural")
+    .map(x=>`${x.found} ${x.leak_class.toLowerCase().replace(/_/g," ")}`).join(", ");
+  let h = "";
+
+  h += `<p class="hero">Across ${i.payments} payments and ${i.bank_rows} bank rows,
+    <span class="c">${money(v.confirmed)} confirmed</span> —
+    <span class="f">${money(v.flagged)} flagged, not confirmed</span>.
+    ${d.exception} records refused, each with a stated cause.</p>
+    <p class="hero-sub">Gross of both is ${money(v.gross)}, but ${v.flagged_pct_of_gross}% of it
+    comes from detectors measuring below 1.00 precision — so the headline never quotes the gross.
+    ${v.flagged_composition.map(c=>`<b>${c.leak_class}</b> at ${c.precision} precision is
+    ${c.share_pct}% of the flagged value`).join("; ")}.</p>`;
+
+  h += `<div class="cards">
+    <div class="card ${f.rate===0?"good":"bad"}"><div class="k">False-match rate</div>
+      <div class="v mono">${fm(f.rate)}</div>
+      <div class="s">${f.correct}/${f.scoreable} correct · primary metric</div></div>
+    <div class="card good"><div class="k">Confirmed leakage</div>
+      <div class="v mono">${money(v.confirmed)}</div><div class="s">every instance verified</div></div>
+    <div class="card warn"><div class="k">Flagged, not confirmed</div>
+      <div class="v mono">${money(v.flagged)}</div><div class="s">claim pending review</div></div>
+    <div class="card"><div class="k">Exceptions</div>
+      <div class="v mono">${d.exception}</div><div class="s">${d.exception_pct}% · every one typed</div></div>
+    <div class="card"><div class="k">Throughput</div>
+      <div class="v mono">${S.timing.total_s}s</div>
+      <div class="s">${i.total_records} records · ${S.timing.records_per_s}/s</div></div>
+  </div>`;
+
+  // ---- refusals: the headline behaviour ----
+  h += `<h2>What the engine refused to decide</h2>
+    <p class="note">The behaviour this build exists to demonstrate. Each panel shows the
+    competing reconciliations side by side — not a count of them. A refusal you cannot
+    inspect is indistinguishable from a failure to try.</p>`;
+  S.refusals.slice(0,3).forEach(r => {
+    const cs = r.candidates || [];
+    const common = cs.length ? cs.map(c=>new Set(c.excluded)).reduce((a,b)=>new Set([...a].filter(x=>b.has(x)))) : new Set();
+    h += `<div class="refusal"><div class="rh">${r.bank_txn_id} — refused: ${cs.length} reconciliations are equally valid</div>
+      <div class="cands">${cs.slice(0,2).map((c,ix)=>`
+        <div class="cand"><div class="lbl">Candidate ${ix+1} · deviation size ${c.size}</div>
+          <div class="lbl">exclude</div>
+          ${(c.excluded.length?c.excluded:["—"]).map(x=>
+            `<code class="${common.has(x)?"":"diff"}">${x}</code>`).join("")}
+          <div class="lbl" style="margin-top:.5rem">include</div>
+          ${(c.included.length?c.included:["—"]).map(x=>`<code>${x}</code>`).join("")}
+        </div>`).join("")}</div>
+      <div class="rfoot">${r.evidence}<br><b style="color:var(--gold)">The highlighted ids are
+      the only difference.</b> Both sets reconcile to the same payout, so the engine declined
+      to choose rather than pick one and be silently wrong.</div></div>`;
+  });
+
+  // ---- findings ----
+  h += `<h2>Findings — per class, never aggregated</h2>
+    <p class="note"><b>“Claimed” sums every instance the engine reported</b>, not only the
+    verified ones, because that is what the tool claims at run time — it has no ground truth
+    of its own. The verified column sits beside it, and any class with FP&nbsp;&gt;&nbsp;0 is
+    excluded from the confirmed headline. Click a row for its arithmetic.</p>
+    <div class="panel"><table><thead><tr>
+      <th>class</th><th>category</th><th>found</th><th>seeded</th><th>TP</th><th>FP</th><th>FN</th>
+      <th>precision</th><th>claimed</th><th>verified</th></tr></thead><tbody>`;
+  S.findings.forEach((x,ix) => {
+    const pc = x.precision==null ? '<span class="pill p-dim">n/a</span>'
+      : `<span class="pill ${x.precision>=1?"p-ok":"p-bad"}">${x.precision.toFixed(2)}</span>`;
+    h += `<tr class="clickable" onclick="tog(${ix})">
+      <td class="mono">${x.leak_class}</td>
+      <td><span class="pill ${x.category==="structural"?"p-ok":x.category==="contract-dependent"?"p-warn":"p-dim"}">${x.category}</span></td>
+      <td class="mono">${x.found}</td><td class="mono">${x.seeded}</td>
+      <td class="mono">${x.tp??"—"}</td><td class="mono">${x.fp??"—"}</td><td class="mono">${x.fn??"—"}</td>
+      <td>${pc}</td><td class="mono">${money(x.value_claimed)}</td>
+      <td class="mono">${x.value_verified==null?"—":money(x.value_verified)}</td></tr>
+      <tr id="d${ix}" class="hide detail"><td colspan="10">
+        ${x.instances.slice(0,6).map(m=>`<div class="deriv"><b>${m.entity_id}</b> · ${money(m.value)}<br>${m.derivation}</div>`).join("")}
+        ${x.instances.length>6?`<div class="lbl" style="color:var(--faint);font-size:.75rem">…and ${x.instances.length-6} more</div>`:""}
+      </td></tr>`;
+  });
+  h += `</tbody></table></div>`;
+
+  // ---- exceptions ----
+  h += `<h2>Exception queue — the honest deliverable</h2>
+    <div class="panel"><table><thead><tr><th>reason</th><th>n</th><th>example</th></tr></thead><tbody>`;
+  S.exceptions.forEach(e => {
+    h += `<tr><td class="mono">${e.reason_code}</td><td class="mono">${e.count}</td>
+      <td style="color:var(--soft);font-size:.79rem">${e.items[0]?.evidence||""}</td></tr>`;
+  });
+  h += `</tbody></table></div>`;
+
+  // ---- benchmark ----
+  if (b) {
+    h += `<h2>Why the model does not make the match decision</h2>
+    <div class="panel"><table><thead><tr><th>metric</th><th>${b.model}</th>
+      <th>deterministic cascade</th></tr></thead><tbody>
+      <tr><td><b>self-disagreement across ${b.runs} identical runs</b></td>
+        <td><span class="pill p-bad">${b.self_disagreement}/${b.records}</span></td>
+        <td><span class="pill p-ok">0/${b.records}</span></td></tr>
+      <tr><td>same, with temperature pinned to 0</td>
+        <td><span class="pill p-bad">${b.temp0_self_disagreement??"—"}/${b.records}</span></td>
+        <td><span class="pill p-ok">0/${b.records}</span></td></tr>
+      <tr><td>accuracy vs ground truth</td><td class="mono">${b.accuracy}/${b.scored}</td>
+        <td class="mono">${b.cascade_accuracy}/${b.scored}</td></tr>
+      <tr><td>wall clock, all runs</td><td class="mono">${b.llm_seconds}s</td>
+        <td class="mono">${b.cascade_seconds}s</td></tr>
+      <tr><td>tokens</td><td class="mono">${b.input_tokens.toLocaleString()} in / ${b.output_tokens.toLocaleString()} out</td>
+        <td class="mono">0</td></tr></tbody></table></div>
+    <p class="note"><b>Non-determinism is the finding; accuracy merely confirms it.</b>
+    Pinning temperature to 0 did not produce determinism — it constrains sampling, it is not a
+    guarantee of identical output, and that was measured rather than assumed. The task was exact
+    subset-sum over pools of 60–87 payments, a task class LLMs are structurally weak at
+    regardless of model strength — so this is not “that model is bad”, it is “this task shape
+    does not suit an LLM”, which is why deterministic search owns the match decision.</p>`;
+  }
+
+  h += `<h2>Provenance</h2><p class="note mono" style="font-size:.76rem">
+    fee schedule ${S.provenance.fee_schedule} sha ${S.provenance.fee_schedule_sha} ·
+    ledger ${S.ledger.entries} entries · trial balance ${money(S.ledger.trial_balance)} ·
+    state ${S.ledger.state_hash} · tiers ${JSON.stringify(S.disposition.by_tier)} ·
+    quarantined ${i.quarantined} · generated ${S.generated_at}</p>`;
+
+  $("#app").innerHTML = h;
+}
+function tog(i){ const r = $("#d"+i); r.classList.toggle("hide"); }
+$("#run").onclick = () => load(true);
+load(false);
+</script></body></html>

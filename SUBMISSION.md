@@ -26,9 +26,9 @@ reviewer has a queue.
 |---|---|---|
 | **0:00** | **The numbers, then why** | Numbers first, in this order, before any explanation: **"₹4,74,517 confirmed. A further ₹10,60,629 flagged but not confirmed. 22 records refused."** Then, and only then, one sentence of method: *"the split is there because two detectors measure below 1.00 precision, and I won't quote them as fact."* A reviewer needs the figure before the reason it is structured that way — methodology first sounds like hedging before you have earned the right to hedge. |
 | **0:25** | The question | One sentence in a merchant's words: *"my settlement landed, my books balanced, and I still cannot tell you whether I was paid correctly."* Then why a match rate does not answer it. |
-| **0:50** | The run | One command. 770 records, ~1,000 records/s. Cascade tiers resolving. End on the findings table **with the precision column visible**. |
+| **0:50** | The run | **Press ▶ Run reconciliation on the dashboard.** It executes live — 645 records in under a second — and the page fills in. End on the findings table **with the precision column visible**. A button that visibly works beats a document that describes one. |
 | **1:45** | One finding, end to end | A fee overcharge. Show the arithmetic: expected against the versioned slab, actual, delta, schedule hash. A reviewer must be able to re-derive it from the frame. |
-| **2:20** | **The refusal** | The ambiguity panel. Two candidate reconciliations side by side, differing only in which twin they exclude — highlighted. Say it: *"it found two equally valid answers, so it refused to pick one."* This is the shot the whole video exists for. |
+| **2:20** | **The refusal** | Scroll to the ambiguity panel on the dashboard. Two candidate reconciliations side by side, differing only in which twin they exclude — highlighted in gold. Say it: *"it found two equally valid answers, so it refused to pick one."* This is the shot the whole video exists for. |
 | **3:00** | Honest limits | The precision column on `MISSING_SETTLEMENT`: 0.20. *"This detector is 20% precise and my headline says so. Its value is flagged, not confirmed."* Then `SHORT_SETTLEMENT`: detectable, not quantifiable, claims ₹0. |
 | **3:30** | The exception list | 22 unresolved, each typed, each with a next action. Read it as a deliverable, not an apology. |
 | **4:00** | The AI boundary | Three uses, four refusals. The adversarial provider: every metric identical, false-match rate still 0.0000. Then the benchmark: **"gpt-5.2 disagreed with itself on 9 of 13 records across three identical runs. That is why the model does not make the match decision."** Say the vendor choice was deliberate — a frontier model from a different vendor than the one this was built with. |
@@ -57,6 +57,8 @@ reviewer has a queue.
 | Incident log | `INCIDENTS.md` (17 incidents + PATTERN-01) |
 | Scorecard | `harness/score.py` |
 | Run report | `reports/run_report.html` |
+| **Live dashboard** | `python3 server.py` &rarr; http://localhost:8000 |
+| **Runbook — every command explained** | `RUNBOOK.md` |
 | Ground-truth validator | `harness/validate_ground_truth.py` |
 | Benchmark (unrun, frozen selection) | `harness/benchmark_llm_matcher.py` |
 

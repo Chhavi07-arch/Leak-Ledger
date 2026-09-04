@@ -125,7 +125,7 @@ nothing, because the number is confident and wrong (INC-010).
 
 ```
 $ python3 -m unittest discover -s tests -q
-Ran 168 tests ... OK
+Ran 174 tests ... OK
 ```
 
 | Guarantee | How it is enforced |
@@ -339,16 +339,23 @@ fire on real data.** `tests/test_all_detectors_fire.py` enforces it permanently.
 ## Run it
 
 ```bash
+python3 server.py                             # dashboard at http://localhost:8000
 python3 data/generate.py                      # regenerate the batch (seeded, deterministic)
 python3 harness/validate_ground_truth.py      # 672 consistency checks — run before scoring
 python3 harness/score.py                      # the scorecard
 python3 harness/report.py                     # reports/run_report.html
 python3 harness/model_layer_check.py          # boundary gate, adversarial provider
-python3 -m unittest discover -s tests -q      # 168 tests
+python3 -m unittest discover -s tests -q      # 174 tests
 ```
 
-No dependencies beyond the standard library for the deterministic core. Zero-dep
-was a deliberate choice: "does it run" should be unconditional.
+No dependencies beyond the standard library — including the dashboard server,
+which uses `http.server` rather than a framework. Zero-dep was a deliberate
+choice: "does it run" should be unconditional. **`RUNBOOK.md` has every command
+and what each one actually does.**
+
+The dashboard renders `harness/payload.py`, the same code the CLI scorecard reads.
+It recomputes nothing of its own, so the two surfaces cannot disagree about a
+number — asserted in `tests/test_dashboard.py`.
 
 ## Layout
 
@@ -364,8 +371,10 @@ src/leakledger/
   leakage/        ten typed detectors
   ledger/         double-entry, idempotent apply
   ai/             the only three model call sites, behind one interface
-harness/    scorecard, ground-truth validator, report, benchmark
-tests/      168 tests
+server.py   local dashboard server (stdlib only, no framework)
+web/        the dashboard page it serves
+harness/    scorecard, ground-truth validator, report, benchmark, shared payload
+tests/      174 tests
 DECISIONS.md  ADR-001..004 — choices a reader could reasonably have made differently
 INCIDENTS.md  what broke, what it cost, and the guard that stops it recurring
 ```
