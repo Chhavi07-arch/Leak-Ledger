@@ -1,8 +1,7 @@
 # Submission checklist and video cue sheet
 
-**Status: not ready to record.** Two gates below are open. Recording against a
-build with a known open issue is how a demo becomes a claim you have to walk back
-in the panel.
+**Status: cleared to record.** All gates below are closed and the build is
+frozen. Record against the frozen commit; never a live edit.
 
 ## Gates before recording
 
@@ -11,9 +10,9 @@ in the panel.
 | Report free of known honesty issues | **CLEAR** — INC-017 fixed, report regenerated |
 | Bank row discrepancy explained | **CLEAR** — 43→41 traced to the refund-seeding fix at `5d7b3bc` |
 | LLM-as-matcher benchmark | **CLEAR** — run on `gpt-5.2`, 9/13 self-disagreement |
-| Code frozen | **OPEN** — freeze before recording, record against the frozen build |
+| Code frozen | **CLEAR** — frozen; `v1.0-submission` kept as the known-good fallback |
 
-The benchmark has now been run. Only the code freeze remains.
+All gates clear.
 
 ---
 
@@ -26,7 +25,7 @@ reviewer has a queue.
 |---|---|---|
 | **0:00** | **The numbers, then why** | Numbers first, in this order, before any explanation: **"₹4,71,195 confirmed. A further ₹10,60,629 flagged but not confirmed. 22 records refused."** Then, and only then, one sentence of method: *"the split is there because two detectors measure below 1.00 precision, and I won't quote them as fact."* A reviewer needs the figure before the reason it is structured that way — methodology first sounds like hedging before you have earned the right to hedge. |
 | **0:25** | The question | One sentence in a merchant's words: *"my settlement landed, my books balanced, and I still cannot tell you whether I was paid correctly."* Then why a match rate does not answer it. |
-| **0:50** | The run | **Press ▶ Run reconciliation on the dashboard.** It executes live — 645 records in under a second — and the page fills in. End on the findings table **with the precision column visible**. A button that visibly works beats a document that describes one. |
+| **0:50** | The run | **Press ▶ Run reconciliation on the dashboard.** It executes live — 653 records in well under two seconds — and the page fills in. End on the findings table **with the precision column visible**. A button that visibly works beats a document that describes one. |
 | **1:45** | One finding, end to end | A fee overcharge. Show the arithmetic: expected against the versioned slab, actual, delta, schedule hash. A reviewer must be able to re-derive it from the frame. |
 | **2:20** | **The refusal** | Scroll to the ambiguity panel on the dashboard. Two candidate reconciliations side by side, differing only in which twin they exclude — highlighted in gold. Say it: *"it found two equally valid answers, so it refused to pick one."* This is the shot the whole video exists for. |
 | **3:00** | Honest limits | The precision column on `MISSING_SETTLEMENT`: 0.20. *"This detector is 20% precise and my headline says so. Its value is flagged, not confirmed."* Then `SHORT_SETTLEMENT`: detectable, not quantifiable, claims ₹0. |
@@ -54,7 +53,7 @@ reviewer has a queue.
 | README, structured to the four criteria | `README.md` |
 | Architecture note | `ARCHITECTURE.md` |
 | Decision records | `DECISIONS.md` (ADR-001..004) |
-| Incident log | `INCIDENTS.md` (17 incidents + PATTERN-01) |
+| Incident log | `INCIDENTS.md` (22 incidents + PATTERN-01) |
 | Scorecard | `harness/score.py` |
 | Run report | `reports/run_report.html` |
 | **Live dashboard** | `python3 server.py` &rarr; http://localhost:8000 |

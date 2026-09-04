@@ -175,7 +175,7 @@ adversarial case is reachable. See *Failure recovery* for why.
 | Adversarial population (UTR reused, altered amount) | **0.0000** — 5 of 5 refused |
 | Auto-applied / review / exception | 14.6% / 31.7% / 53.7% |
 | Human-touch rate | 35 of 41 items (85.4%) — a ratio, not a time claim |
-| Throughput | 778 records end to end, ~1,000 records/s |
+| Throughput | 653 records through the pipeline in ~0.42 s, ~1,400 records/s. The batch is 778 rows; the 125 ERP invoices are a cross-check source and are not part of the reconciliation path, so throughput is quoted over the 653 that are. |
 | Ledger | 39 entries, trial balance ₹0.00 |
 
 Per-class precision and recall are in `harness/score.py` output and
