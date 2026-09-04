@@ -15,10 +15,17 @@
 --m:"JetBrains Mono",ui-monospace,Menlo,monospace}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:
- radial-gradient(1100px 500px at 12% -8%,rgba(84,200,240,.09),transparent 60%),
- radial-gradient(900px 460px at 92% 4%,rgba(167,139,250,.08),transparent 60%),var(--bg);
-color:var(--ink);font:15px/1.6 var(--f);-webkit-font-smoothing:antialiased}
+/* Flat base colour on both html and body so no seam can appear where content
+   ends. The tint lives on a FIXED layer sized to the viewport -- painted on body
+   it terminated with the content and produced a visible horizontal band. */
+html{background:var(--bg)}
+body{margin:0;min-height:100vh;background:var(--bg);
+color:var(--ink);font:15px/1.6 var(--f);-webkit-font-smoothing:antialiased;
+position:relative}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+background:
+ radial-gradient(1100px 520px at 12% -6%,rgba(84,200,240,.07),transparent 62%),
+ radial-gradient(900px 480px at 92% 2%,rgba(167,139,250,.06),transparent 62%);}
 .m{font-family:var(--m);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
 
 header{position:sticky;top:0;z-index:40;background:rgba(8,11,20,.86);
@@ -143,6 +150,20 @@ font-size:.83rem}
 border-top-color:var(--mint);border-radius:50%;animation:sp .65s linear infinite;vertical-align:-1px}
 @keyframes sp{to{transform:rotate(360deg)}}
 .fade{animation:fi .45s ease}@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.strip{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+padding:1rem 1.2rem;margin-top:16px}
+.strip .lbl{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;
+color:var(--faint);font-weight:700;margin-bottom:.6rem}
+footer.nav-hint{margin-top:2.4rem;padding-top:1.3rem;border-top:1px solid var(--line);
+display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px}
+footer.nav-hint a{display:block;text-decoration:none;background:var(--panel);
+border:1px solid var(--line);border-radius:12px;padding:.85rem 1rem;transition:.15s;cursor:pointer}
+footer.nav-hint a:hover{border-color:var(--mint);transform:translateY(-2px)}
+footer.nav-hint .t{font-weight:600;font-size:.88rem;margin-bottom:.2rem}
+footer.nav-hint .d{font-size:.77rem;color:var(--faint);line-height:1.45}
+.foot{margin-top:2rem;padding-top:1rem;border-top:1px solid var(--line);
+font-family:var(--m);font-size:.7rem;color:var(--faint);display:flex;
+flex-wrap:wrap;gap:.4rem 1.4rem}
 </style></head><body>
 <header>
   <div class="hrow">
@@ -240,11 +261,36 @@ V.overview=()=>{
          <span class="pill ${ch.model_boundary.ok?"ok":"bad"}">AI boundary</span></div>
        <div class="s">672 data checks · adversarial model probe</div></div>
    </div>
-   <p class="note" style="margin-top:1.6rem"><b>Where to go next.</b>
-     <b style="color:var(--coral)">Refusals</b> is the behaviour this build exists to
-     demonstrate — two equally valid reconciliations, and the engine declining to pick.
-     <b style="color:var(--cyan)">Findings</b> carries the per-class precision behind the
-     split above. <b style="color:var(--violet)">AI judgment</b> has the benchmark.</p>
+   <div class="strip"><div class="lbl">Pipeline at a glance · ${d.total} bank rows</div>
+     <div class="split">
+       <i style="width:${100*d.auto/d.total}%;background:var(--mint)"></i>
+       <i style="width:${100*d.review/d.total}%;background:var(--amber)"></i>
+       <i style="width:${100*d.exception/d.total}%;background:var(--coral)"></i></div>
+     <div class="legend">
+       <span><b style="background:var(--mint)"></b>auto-applied — ${d.auto} (${d.auto_pct}%)</span>
+       <span><b style="background:var(--amber)"></b>review queue — ${d.review} (${d.review_pct}%)</span>
+       <span><b style="background:var(--coral)"></b>exceptions — ${d.exception} (${d.exception_pct}%)</span>
+       <span style="margin-left:auto">${S.exceptions.map(e=>`${e.reason_code.toLowerCase().replace(/_/g," ")} ${e.count}`).join(" · ")}</span>
+     </div></div>
+
+   <footer class="nav-hint">
+     <a onclick="go('refusals')"><div class="t" style="color:var(--coral)">Refusals →</div>
+       <div class="d">The behaviour this build exists to demonstrate: two equally valid
+       reconciliations, and the engine declining to pick one.</div></a>
+     <a onclick="go('findings')"><div class="t" style="color:var(--cyan)">Findings →</div>
+       <div class="d">The per-class precision behind the confirmed / flagged split above,
+       with the arithmetic for every instance.</div></a>
+     <a onclick="go('ai')"><div class="t" style="color:var(--violet)">AI judgment →</div>
+       <div class="d">Three uses, four refusals, and the benchmark measuring why a model
+       does not make the match decision.</div></a>
+     <a onclick="go('system')"><div class="t">System →</div>
+       <div class="d">Ledger balance, inputs, provenance, and the live ground-truth and
+       boundary checks.</div></a>
+   </footer>
+   <div class="foot"><span>fee schedule ${S.provenance.fee_schedule}
+     · sha ${S.provenance.fee_schedule_sha}</span>
+     <span>ledger ${S.ledger.entries} entries · balance ${R(S.ledger.trial_balance)}</span>
+     <span>generated ${S.generated_at}</span></div>
    </section>`;
 };
 
@@ -463,9 +509,17 @@ function renderTabs(){
     `<button class="tab${id===VIEW?" on":""}" onclick="go('${id}')">${label}${
       c[id]!=null?`<span class="n">${c[id]}</span>`:""}</button>`).join("");
 }
+function foot(){
+  return `<div class="foot"><span>fee schedule ${S.provenance.fee_schedule}
+    · sha ${S.provenance.fee_schedule_sha}</span>
+    <span>false-match ${S.false_match.rate.toFixed(4)} · ${S.disposition.total} bank rows</span>
+    <span>generated ${S.generated_at}</span></div>`;
+}
 function go(name){
   VIEW=name; renderTabs();
-  $("#app").innerHTML=`<div class="fade">${V[name]()}</div>`;
+  // Overview carries its own footer nav; the rest get the slim provenance line.
+  const tail = name==="overview" ? "" : foot();
+  $("#app").innerHTML=`<div class="fade">${V[name]()}${tail}</div>`;
   window.scrollTo({top:0,behavior:"instant"});
 }
 function render(){ renderTabs(); go(VIEW); }
