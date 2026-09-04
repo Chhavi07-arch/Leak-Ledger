@@ -242,8 +242,8 @@ it is not a guarantee of identical output. That was measured rather than assumed
 
 ### Why this result was expected — and why saying so matters
 
-The task put to the model was **exact subset-sum over candidate pools of 60–87
-payments**, in free text: choose the subset whose amounts, net of each payment's
+The task put to the model was **exact subset-sum over candidate pools of 16–87
+payments (median 61)**, in free text: choose the subset whose amounts, net of each payment's
 fee and GST, sum precisely to a given credit. **This is a task class language
 models are structurally weak at regardless of model strength** — it needs
 exhaustive combinatorial search with exact integer arithmetic and a uniqueness
@@ -283,7 +283,7 @@ Code, so benchmarking against Anthropic's own model would have invited the obvio
 vendor, which closes both.
 
 **The comparison is like for like.** Both sides searched the same candidate pools
-(median 61 payments, max 87) and were scored by the same comparator — under which
+(min 16, median 61, max 87 payments) and were scored by the same comparator — under which
 the cascade scores 13/13, so a scoring defect would have depressed both sides
 equally.
 

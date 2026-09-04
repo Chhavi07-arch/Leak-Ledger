@@ -397,6 +397,298 @@
       "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
     }
   ],
+  "case_tags": {
+    "chargebacks": {
+      "cbk_0000": [
+        "CHARGEBACK_WON_RECREDITED"
+      ],
+      "cbk_0002": [
+        "CHARGEBACK_WON_RECREDITED"
+      ],
+      "cbk_0003": [
+        "CHARGEBACK_WON_RECREDITED"
+      ],
+      "cbk_0006": [
+        "CHARGEBACK_WON_RECREDITED"
+      ],
+      "cbk_0007": [
+        "CHARGEBACK_WON_RECREDITED"
+      ],
+      "cbk_0009": [
+        "CHARGEBACK_WON_RECREDITED"
+      ],
+      "cbk_0010": [
+        "CHARGEBACK_WON_RECREDITED"
+      ],
+      "cbk_0011": [
+        "CHARGEBACK_WON_RECREDITED"
+      ]
+    },
+    "payments": {
+      "pay_00016": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_00018": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_00029_dup": [
+        "DUPLICATE_CAPTURE"
+      ],
+      "pay_00044": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_00053": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_00074": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_00077": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_00079": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_00098": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_00178_dup": [
+        "DUPLICATE_CAPTURE"
+      ],
+      "pay_00195": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_00205": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_00282": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_00283": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_00316": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_00331_dup": [
+        "DUPLICATE_CAPTURE"
+      ],
+      "pay_00346": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_00363": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_00381": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_00390": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_00395": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_00464": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_00486": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_00498": [
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_amb00": [
+        "AMBIGUITY_TRAP"
+      ],
+      "pay_amb01": [
+        "AMBIGUITY_TRAP"
+      ],
+      "pay_amb10": [
+        "AMBIGUITY_TRAP"
+      ],
+      "pay_amb11": [
+        "AMBIGUITY_TRAP"
+      ],
+      "pay_amb20": [
+        "AMBIGUITY_TRAP"
+      ],
+      "pay_amb21": [
+        "AMBIGUITY_TRAP"
+      ],
+      "pay_amb30": [
+        "AMBIGUITY_TRAP"
+      ],
+      "pay_amb31": [
+        "AMBIGUITY_TRAP"
+      ],
+      "pay_amb40": [
+        "AMBIGUITY_TRAP"
+      ],
+      "pay_amb41": [
+        "AMBIGUITY_TRAP"
+      ],
+      "pay_amb50": [
+        "AMBIGUITY_TRAP"
+      ],
+      "pay_amb51": [
+        "AMBIGUITY_TRAP"
+      ],
+      "pay_dec0a": [
+        "DECOY_SUBSET"
+      ],
+      "pay_dec0b": [
+        "DECOY_SUBSET"
+      ],
+      "pay_dec0c": [
+        "DECOY_SUBSET"
+      ],
+      "pay_dec1a": [
+        "DECOY_SUBSET"
+      ],
+      "pay_dec1b": [
+        "DECOY_SUBSET"
+      ],
+      "pay_dec1c": [
+        "DECOY_SUBSET"
+      ],
+      "pay_dec2a": [
+        "DECOY_SUBSET"
+      ],
+      "pay_dec2b": [
+        "DECOY_SUBSET"
+      ],
+      "pay_dec2c": [
+        "DECOY_SUBSET"
+      ],
+      "pay_dec3a": [
+        "DECOY_SUBSET"
+      ],
+      "pay_dec3b": [
+        "DECOY_SUBSET"
+      ],
+      "pay_dec3c": [
+        "DECOY_SUBSET"
+      ],
+      "pay_dec4a": [
+        "DECOY_SUBSET"
+      ],
+      "pay_dec4b": [
+        "DECOY_SUBSET"
+      ],
+      "pay_dec4c": [
+        "DECOY_SUBSET"
+      ],
+      "pay_dec5a": [
+        "DECOY_SUBSET"
+      ],
+      "pay_dec5b": [
+        "DECOY_SUBSET"
+      ],
+      "pay_dec5c": [
+        "DECOY_SUBSET"
+      ],
+      "pay_str00": [
+        "HIGH_STRADDLE",
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_str01": [
+        "HIGH_STRADDLE",
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_str02": [
+        "HIGH_STRADDLE",
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_str03": [
+        "HIGH_STRADDLE",
+        "CUTOFF_STRADDLE"
+      ],
+      "pay_str04": [
+        "HIGH_STRADDLE",
+        "CUTOFF_STRADDLE"
+      ]
+    },
+    "refunds": {
+      "rfn_0000": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0001": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0002": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0004": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0006": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0007": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0009": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0010": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0011": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0012": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0014": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0015": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0016": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0018": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0019": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0020": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0021": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0022": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0023": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0024": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0025": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0026": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0027": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0028": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0030": [
+        "REFUND_NETTED_LATER"
+      ],
+      "rfn_0031": [
+        "REFUND_NETTED_LATER"
+      ]
+    }
+  },
   "counts": {
     "adversarial_cases": 41,
     "bank_rows": 41,

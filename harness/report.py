@@ -318,6 +318,10 @@ def main() -> int:
       'well-formed answers: every metric above is identical with it wired in, and false-match '
       'rate stays at 0.0000. A boundary that depends on the model behaving is not a boundary.</div>')
     bm = json.loads((ROOT / "reports" / "benchmark_llm_matcher.json").read_text(encoding="utf-8"))
+    sys.path.insert(0, str(ROOT / "harness"))
+    from payload import build_payload as _bp
+    _ps = _bp().get("benchmark_pools") or {"min": "?", "median": "?", "max": "?"}
+    _pool_lo, _pool_md, _pool_hi = _ps["min"], _ps["median"], _ps["max"]
     t0p = ROOT / "reports" / "benchmark_llm_matcher_temp0.json"
     bm0 = json.loads(t0p.read_text(encoding="utf-8")) if t0p.exists() else None
 
@@ -383,7 +387,8 @@ def main() -> int:
     A('<h3 style="font-size:.9rem;margin:1.6rem 0 .3rem">Why this result was expected, '
       'and why that is the point</h3>')
     A('<div class="note">The task put to the model was <b>exact subset-sum over candidate '
-      'pools of 60&ndash;87 payments</b>, expressed in free text: choose the subset whose '
+      f'candidate pools of {_pool_lo}&ndash;{_pool_hi} payments (median {_pool_md})</b>, '
+      'expressed in free text: choose the subset whose '
       'amounts, net of each payment&rsquo;s fee and GST, sum precisely to a given credit. '
       '<b>This is a task class language models are structurally weak at, independent of how '
       'strong the model is</b> &mdash; it requires exhaustive combinatorial search with exact '

@@ -63,7 +63,7 @@ match rate, and demonstrate nothing at all.
 
 PLAN framed T3 as *"find a subset of payments summing to this payout, bounded at
 k ≤ 12"*. Measured against the real batch, that framing is wrong: settlements
-carry a **median of 24 payments and up to 42**, so the true answer is almost
+carry a **median of 22 payments and up to 37**, so the true answer is almost
 always the *whole* pool, not a small selection from it. A size-bounded subset
 search can never find it, and every large settlement would emit a budget
 exception — reading as principled restraint while actually being a search aimed
@@ -82,8 +82,9 @@ sum(included) − sum(excluded) == delta
 
 Neighbour sets are tiny and enumerated directly; the pool side is solved
 **meet-in-the-middle** — split the pool, index size-bounded subset sums of each
-half, join on the required complement. `C(42,5) = 850,668` becomes
-`2 × C(21,≤5) = 55,792`, and the join yields exact **solution counts**, which is
+half, join on the required complement. `C(37,5) = 435,897` becomes
+`C(18,≤5) + C(19,≤5) = 29,280` — about a 15x reduction — and the join yields
+exact **solution counts**, which is
 what ambiguity detection needs (ADR-004, INC-008).
 
 **Bound `d ≤ 6`**, from the measured deviation distribution over paid
@@ -188,3 +189,16 @@ but not quantifiable, claiming no rupee value at all (INC-013).
   modelled.
 - The three sources are self-authored. Independent RNG streams guarantee the noise
   is *uncorrelated*; they cannot guarantee it is *representative* (ADR-002).
+- **TDS is not implemented.** The settlement identity in the original plan included
+  a TDS withholding term (marketplace / 194-O). It is described in the identity
+  above and in comments, but no code computes it and the fee schedule carries no
+  TDS rate. Settlements in the generated batch have no TDS component, so nothing
+  is silently wrong — the term is simply absent.
+- **REVERSAL_PAIR was never built.** A debit and credit against the same reference
+  netting to zero, which must not be counted as two matches, was one of eight
+  declared hard-case types. It is not seeded and no detector looks for it. The
+  other seven are seeded and traceable in ground truth.
+- **No T0 tier exists in the cascade.** The design describes T0 as
+  canonicalise/dedupe; in practice deduplication happens inside
+  `detect_duplicate_capture` rather than as a distinct matching tier, so the
+  emitted tiers are T1-T5.

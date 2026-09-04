@@ -126,6 +126,15 @@ def main() -> int:
             }
             for p in world.payments
         },
+        # PLAN requires every seeded case to be traceable in ground truth. Tags on
+        # payments, refunds and chargebacks were being set by the generator but
+        # never exported, so four hard-case types existed in the data and could
+        # not be verified from the published artefact.
+        "case_tags": {
+            "payments": {p.payment_id: p.case_tags for p in world.payments if p.case_tags},
+            "refunds": {r.refund_id: r.case_tags for r in world.refunds if r.case_tags},
+            "chargebacks": {c.chargeback_id: c.case_tags for c in world.chargebacks if c.case_tags},
+        },
         "seeded_leaks": [
             {"leak_id": l.leak_id, "class": l.leak_class, "entity_id": l.entity_id,
              "value_paise": l.value.paise, "detail": l.detail}

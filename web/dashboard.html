@@ -259,7 +259,7 @@ V.overview=()=>{
        <div class="v" style="font-size:1rem;line-height:1.7;margin-top:.5rem">
          <span class="pill ${ch.ground_truth.ok?"ok":"bad"}">ground truth</span>
          <span class="pill ${ch.model_boundary.ok?"ok":"bad"}">AI boundary</span></div>
-       <div class="s">672 data checks · adversarial model probe</div></div>
+       <div class="s">${ch.ground_truth.count??"?"} data checks · adversarial model probe</div></div>
    </div>
    <div class="strip"><div class="lbl">Pipeline at a glance · ${d.total} bank rows</div>
      <div class="split">
@@ -464,7 +464,7 @@ V.ai=()=>{
      <p class="note"><b>Non-determinism is the finding; accuracy merely confirms it.</b>
      Pinning temperature to 0 did not produce determinism — it constrains sampling, it is not a
      guarantee of identical output, and that was measured rather than assumed. The task was
-     exact subset-sum over pools of 60–87 payments, a task class LLMs are structurally weak at
+     exact subset-sum over candidate pools of ${S.benchmark_pools?`${S.benchmark_pools.min}–${S.benchmark_pools.max} (median ${S.benchmark_pools.median})`:"varying size"} payments, a task class LLMs are structurally weak at
      <i>regardless of model strength</i> — so this is not “that model is bad”, it is “this task
      shape does not suit an LLM”, which is exactly why deterministic search owns the match
      decision. The model is a frontier model from a <i>different vendor</i> than the one this
@@ -491,7 +491,7 @@ V.system=()=>{
    <div class="panel"><div class="ph">Provenance &amp; checks</div><div style="padding:.9rem 1.1rem">
      <div class="kv"><span>fee schedule</span><span class="m">${S.provenance.fee_schedule}</span></div>
      <div class="kv"><span>schedule sha</span><span class="m">${S.provenance.fee_schedule_sha}</span></div>
-     <div class="kv"><span>ground-truth checks</span><span class="pill ${ch.ground_truth.ok?"ok":"bad"}">${ch.ground_truth.ok?"672 PASS":"FAIL"}</span></div>
+     <div class="kv"><span>ground-truth checks</span><span class="pill ${ch.ground_truth.ok?"ok":"bad"}">${ch.ground_truth.ok?`${ch.ground_truth.count} PASS`:"FAIL"}</span></div>
      <div class="kv"><span>AI boundary probe</span><span class="pill ${ch.model_boundary.ok?"ok":"bad"}">${ch.model_boundary.ok?"HOLDS":"LEAKS"}</span></div>
      <div class="kv"><span>generated</span><span class="m" style="font-size:.72rem">${S.generated_at}</span></div></div></div>
    </div></section>`;

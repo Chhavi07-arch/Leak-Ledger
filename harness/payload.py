@@ -141,15 +141,19 @@ def build_payload() -> dict:
                                       "evidence": r.evidence} for r in rows[:6]]})
 
     # Health of the two guarantees a reader would otherwise have to take on trust.
-    import subprocess
+    import re, subprocess
     def _probe(script, ok_marker):
         try:
             r = subprocess.run([sys.executable, str(ROOT / "harness" / script)],
                                capture_output=True, text=True, cwd=ROOT, timeout=120)
-            return {"ok": r.returncode == 0 and ok_marker in r.stdout,
+            n = None
+            m = re.search(r"(\d+)\s+checks", r.stdout)
+            if m:
+                n = int(m.group(1))
+            return {"ok": r.returncode == 0 and ok_marker in r.stdout, "count": n,
                     "output": r.stdout.strip().splitlines()[-1] if r.stdout.strip() else ""}
         except Exception as e:
-            return {"ok": None, "output": f"{type(e).__name__}: {e}"}
+            return {"ok": None, "count": None, "output": f"{type(e).__name__}: {e}"}
 
     checks = {
         "ground_truth": _probe("validate_ground_truth.py", "PASS"),
@@ -160,6 +164,24 @@ def build_payload() -> dict:
     bm0_path = ROOT / "reports" / "benchmark_llm_matcher_temp0.json"
     bm = json.loads(bm_path.read_text(encoding="utf-8")) if bm_path.exists() else None
     bm0 = json.loads(bm0_path.read_text(encoding="utf-8")) if bm0_path.exists() else None
+
+    # Candidate-pool sizes for the benchmarked records. Previously quoted as a
+    # typed range in three places; two of them had gone stale.
+    pool_stats = None
+    sel_p = ROOT / "harness" / "benchmark_selection.json"
+    if sel_p.exists():
+        sel = json.loads(sel_p.read_text(encoding="utf-8"))
+        ps = []
+        for rec in [x for x in sel["records"] if x["tier"] == "T3"]:
+            row = next((x for x in bank if x["txn_id"] == rec["bank_txn_id"]), None)
+            if not row:
+                continue
+            bd = datetime.strptime(row["value_date"], "%d-%m-%Y").date()
+            ps.append(sum(len(eng._by_capture_date.get(c, []))
+                          for c in eng._candidate_cycles(bd)))
+        if ps:
+            ps.sort()
+            pool_stats = {"min": ps[0], "median": ps[len(ps) // 2], "max": ps[-1]}
 
     total_s = t2 - t_start
     return {
@@ -211,6 +233,7 @@ def build_payload() -> dict:
                    "total_s": round(total_s, 3),
                    "records_per_s": round((len(gw.records) + len(bank)) / max(total_s, 1e-6))},
         "checks": checks,
+        "benchmark_pools": pool_stats,
         "provenance": {
             "fee_schedule": fs.version, "fee_schedule_sha": fs.sha256[:12],
         },

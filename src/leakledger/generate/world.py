@@ -44,8 +44,12 @@ CONTRACT_DEPENDENT_CLASSES = (
 HARD_CASES = (
     "N_TO_1_MIXED_INSTRUMENT", "PARTIAL_INVOICE_PAYMENT", "REFUND_NETTED_LATER",
     "CHARGEBACK_WON_RECREDITED", "CUTOFF_STRADDLE", "HOLIDAY_WEEKEND_SETTLEMENT",
-    "REVERSAL_PAIR", "ROUNDING_RESIDUAL",
+    "ROUNDING_RESIDUAL",
 )
+# NOT IMPLEMENTED: REVERSAL_PAIR (a debit and credit against the same reference,
+# netting to zero, which must not be counted as two matches). It was declared in
+# the original plan and never built. Removed from the tuple rather than left
+# there implying a case that does not exist -- see the audit gap list.
 ADVERSARIAL_CASES = (
     "AMBIGUITY_TRAP", "DECOY_SUBSET", "TRANSPOSED_UTR", "COINCIDENTAL_FEE_SLAB",
     "REFUND_EQUALS_PAYMENT", "UTR_REUSED_DIFFERENT_AMOUNT", "PLAUSIBLE_WRONG_COUNTERPARTY",
