@@ -24,7 +24,8 @@ def _p(pid, order="ord_1", amt=100_00, hour=10, instrument="UPI", row=1):
                           captured_at=datetime(2026, 6, 10, hour, 0, tzinfo=IST),
                           amount=Money(amt), instrument=instrument, bank=None,
                           is_international=False, status="CAPTURED",
-                          fee_charged=Money(0), gst_charged=Money(0), row_num=row)
+                          fee_charged=Money(0), gst_charged=Money(0),
+                          tds_withheld=Money(0), row_num=row)
 
 
 class Conservation(unittest.TestCase):

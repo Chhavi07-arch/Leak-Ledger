@@ -7,7 +7,7 @@ matched. Deterministic where money is decided, AI only where language is
 ambiguous, honest about everything it could not resolve.
 
 ```
-Across 538 payments and 41 bank rows, Leak Ledger CONFIRMED Rs 4,74,517.27 of
+Across 538 payments and 41 bank rows, Leak Ledger CONFIRMED Rs 4,71,195.86 of
 leakage — 2 duplicate payouts, 3 refunds that never reached the customer, 3
 duplicate captures, 2 disputes won but never re-credited — every instance verified
 against ground truth. It FLAGGED a further Rs 10,60,629.55 that is NOT confirmed:
@@ -15,7 +15,7 @@ those detectors report instances ground truth does not support. It refused to
 match 22 records, each with a stated cause. False-match rate: 0.0000.
 ```
 
-The split is the point. The gross figure is Rs 15,35,146.82, but 69% of it comes
+The split is the point. The gross figure is Rs 15,31,825.41, but 69% of it comes
 from two classes whose measured precision is below 1.00 — `MISSING_SETTLEMENT` at
 0.20 and `RESERVE_NOT_RELEASED` at 0.67. Quoting the gross alone would overstate
 confidence in exactly the way this build argues against, so the headline never
@@ -84,6 +84,12 @@ committing the original sin it was built to catch.
 merchant with a known contract, on a 778-record synthetic batch across three
 divergent sources, with published ground truth.
 
+**Settlement identity.** A payout is `gross − fee − GST − TDS − refunds −
+chargebacks − reserve held + reserve released`. TDS is withheld under s.194-O on
+the gross transaction value and is a separate term because, unlike the gateway
+fee, it is not the operator's revenue — it reduces the payout but is recoverable
+by the merchant against its own tax liability.
+
 **What it is not:** real source connectors (it reads CSVs); contract ingestion
 (the fee schedule is hand-authored config, and inferring effective rates from
 observed settlements is a harder problem this does not attempt); a multi-user
@@ -125,7 +131,7 @@ nothing, because the number is confident and wrong (INC-010).
 
 ```
 $ python3 -m unittest discover -s tests -q
-Ran 192 tests ... OK
+Ran 197 tests ... OK
 ```
 
 | Guarantee | How it is enforced |
@@ -146,7 +152,7 @@ false-match rate of exactly 0.0667 (1 wrong of 15); breaking idempotence fails t
 delta test. A passing test is not evidence until it has been observed to fail when
 the behaviour is absent.
 
-**Ground truth is validated before anything is scored against it.** 672
+**Ground truth is validated before anything is scored against it.** 669
 consistency checks — settlement identity closes exactly, references resolve, every
 adversarial case is reachable. See *Failure recovery* for why.
 
@@ -170,7 +176,7 @@ aggregate hides the classes that do not work.
 |---|---|---|---|---|---|---|
 | CHARGEBACK_NOT_RECREDITED | 2 | 0 | 0 | 1.00 | ₹33,936.99 | ₹33,936.99 |
 | DUPLICATE_CAPTURE | 3 | 0 | 0 | 1.00 | ₹53,251.49 | ₹53,251.49 |
-| DUPLICATE_PAYOUT | 2 | 0 | 0 | 1.00 | ₹3,21,241.23 | ₹3,21,241.23 |
+| DUPLICATE_PAYOUT | 2 | 0 | 0 | 1.00 | ₹3,17,919.82 | ₹3,17,919.82 |
 | REFUND_NOT_REACHED | 3 | 0 | 0 | 1.00 | ₹65,833.49 | ₹65,833.49 |
 | FEE_OVERCHARGE | 11 | 0 | 0 | 1.00 | ₹231.01 | ₹231.01 |
 | GST_MISMATCH | 6 | 0 | 0 | 1.00 | ₹10.30 | ₹10.30 |
@@ -304,7 +310,7 @@ published rates.
 
 ## Failure recovery
 
-`INCIDENTS.md` carries 20 incidents logged as they happened, and one named
+`INCIDENTS.md` carries 21 incidents logged as they happened, and one named
 pattern. Three are worth reading first.
 
 **INC-012 — a defect in the primary metric itself.** The engine matched a bank
@@ -343,11 +349,11 @@ fire on real data.** `tests/test_all_detectors_fire.py` enforces it permanently.
 ```bash
 python3 server.py                             # dashboard at http://localhost:8000
 python3 data/generate.py                      # regenerate the batch (seeded, deterministic)
-python3 harness/validate_ground_truth.py      # 672 consistency checks — run before scoring
+python3 harness/validate_ground_truth.py      # 669 consistency checks — run before scoring
 python3 harness/score.py                      # the scorecard
 python3 harness/report.py                     # reports/run_report.html
 python3 harness/model_layer_check.py          # boundary gate, adversarial provider
-python3 -m unittest discover -s tests -q      # 192 tests
+python3 -m unittest discover -s tests -q      # 197 tests
 ```
 
 No dependencies beyond the standard library — including the dashboard server,
@@ -376,7 +382,7 @@ src/leakledger/
 server.py   local dashboard server (stdlib only, no framework)
 web/        the dashboard page it serves
 harness/    scorecard, ground-truth validator, report, benchmark, shared payload
-tests/      192 tests
+tests/      197 tests
 DECISIONS.md  ADR-001..004 — choices a reader could reasonably have made differently
 INCIDENTS.md  what broke, what it cost, and the guard that stops it recurring
 ```

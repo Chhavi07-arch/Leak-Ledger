@@ -56,6 +56,8 @@ INSTRUMENT_MIX = [
     ("NETBANKING", 10), ("WALLET", 6), ("EMI", 2), ("AMEX", 2),
 ]
 RESERVE_RELEASE_DAYS = 7
+# mirrors config tds_bps; _seed_high_straddle has no schedule handle
+TDS_BPS_FALLBACK = 100
 
 BANKS = ["HDFC", "ICICI", "SBI", "AXIS", "KOTAK", "YES"]
 
@@ -83,8 +85,10 @@ class Payment:
     # what the gateway actually charged (may deviate from contract = seeded leak)
     fee_charged: Money
     gst_charged: Money
+    tds_withheld: Money
     expected_fee: Money
     expected_gst: Money
+    expected_tds: Money
     counterparty: str
     status: str = "CAPTURED"
     settlement_id: Optional[str] = None
@@ -133,6 +137,7 @@ class Settlement:
     gross: Money
     fee: Money
     gst: Money
+    tds: Money
     refunds: Money
     chargebacks: Money
     reserve_held: Money
@@ -277,8 +282,10 @@ def build_world(
             is_international=is_intl,
             fee_charged=comp.fee,
             gst_charged=comp.gst,
+            tds_withheld=schedule.expected_tds(amount),
             expected_fee=comp.fee,
             expected_gst=comp.gst,
+            expected_tds=schedule.expected_tds(amount),
             counterparty=rng.choice(COUNTERPARTIES),
         )
         if hh == 23 and captured.time() >= time(23, 0):
@@ -335,6 +342,7 @@ def build_world(
         gross = Money.sum(p.amount for p in group)
         fee = Money.sum(p.fee_charged for p in group)
         gst = Money.sum(p.gst_charged for p in group)
+        tds = Money.sum(p.tds_withheld for p in group)
         cyc_refunds = refunds_by_cycle.get(cycle, [])
         cyc_cb_dr = cb_debit_by_cycle.get(cycle, [])
         cyc_cb_cr = cb_credit_by_cycle.get(cycle, [])
@@ -342,12 +350,12 @@ def build_world(
         cb_dr = Money.sum(c.amount for c in cyc_cb_dr)
         cb_cr = Money.sum(c.amount for c in cyc_cb_cr)
         reserve = gross.apply_bps(50) if idx % 5 == 0 else Money.zero()
-        net = gross - fee - gst - ref_total - cb_dr + cb_cr - reserve
+        net = gross - fee - gst - tds - ref_total - cb_dr + cb_cr - reserve
         value_date = calendar.add_business_days(cycle, 2)
         s = Settlement(
             settlement_id=sid, utr=f"UTR{2026_0000 + idx:08d}", cycle_date=cycle,
             value_date=value_date, payment_ids=[p.payment_id for p in group],
-            gross=gross, fee=fee, gst=gst, refunds=ref_total,
+            gross=gross, fee=fee, gst=gst, tds=tds, refunds=ref_total,
             chargebacks=cb_dr - cb_cr, reserve_held=reserve,
             reserve_released=Money.zero(), net=net,
         )
@@ -470,8 +478,9 @@ def seed_payment_cases(payments, rng, leaks, adversarial, schedule, calendar):
             captured_at=p.captured_at + timedelta(minutes=rng.randint(1, 12)),
             amount=p.amount, instrument=p.instrument, bank=p.bank,
             is_international=p.is_international, fee_charged=p.fee_charged,
-            gst_charged=p.gst_charged, expected_fee=p.expected_fee,
-            expected_gst=p.expected_gst, counterparty=p.counterparty,
+            gst_charged=p.gst_charged, tds_withheld=p.tds_withheld,
+            expected_fee=p.expected_fee, expected_gst=p.expected_gst,
+            expected_tds=p.expected_tds, counterparty=p.counterparty,
             case_tags=["DUPLICATE_CAPTURE"],
         )
         payments.append(twin)
@@ -499,7 +508,9 @@ def seed_payment_cases(payments, rng, leaks, adversarial, schedule, calendar):
                     hour=11 if k == 0 else 23, minute=rng.randint(0, 59) if k == 0 else 40),
                 amount=amt, instrument="CREDIT_CARD", bank=None, is_international=False,
                 fee_charged=amt.apply_bps(200), gst_charged=amt.apply_bps(200).apply_bps(1800),
+                tds_withheld=schedule.expected_tds(amt),
                 expected_fee=amt.apply_bps(200), expected_gst=amt.apply_bps(200).apply_bps(1800),
+                expected_tds=schedule.expected_tds(amt),
                 counterparty=base.counterparty, case_tags=["AMBIGUITY_TRAP"],
             )
             payments.append(q)
@@ -525,8 +536,10 @@ def seed_payment_cases(payments, rng, leaks, adversarial, schedule, calendar):
                 is_international=False,
                 fee_charged=Money(rupees * 100).apply_bps(90 if rupees * 100 > 200000 else 40),
                 gst_charged=Money(rupees * 100).apply_bps(90 if rupees * 100 > 200000 else 40).apply_bps(1800),
+                tds_withheld=schedule.expected_tds(Money(rupees * 100)),
                 expected_fee=Money(rupees * 100).apply_bps(90 if rupees * 100 > 200000 else 40),
                 expected_gst=Money(rupees * 100).apply_bps(90 if rupees * 100 > 200000 else 40).apply_bps(1800),
+                expected_tds=schedule.expected_tds(Money(rupees * 100)),
                 counterparty=base.counterparty, case_tags=["DECOY_SUBSET"],
             )
             payments.append(q)
@@ -658,15 +671,23 @@ def _seed_high_straddle(payments, settlements, by_cycle, adversarial, rng, n_str
             captured_at=datetime.combine(prev_day, _time(23, 20 + i, 0), tzinfo=IST),
             amount=amt, instrument="CREDIT_CARD", bank=None, is_international=False,
             fee_charged=amt.apply_bps(200), gst_charged=amt.apply_bps(200).apply_bps(1800),
+            tds_withheld=amt.apply_bps(TDS_BPS_FALLBACK),
             expected_fee=amt.apply_bps(200), expected_gst=amt.apply_bps(200).apply_bps(1800),
+            expected_tds=amt.apply_bps(TDS_BPS_FALLBACK),
             counterparty=rng.choice(COUNTERPARTIES), case_tags=["HIGH_STRADDLE", "CUTOFF_STRADDLE"],
         )
         payments.append(q)
         target.payment_ids.append(q.payment_id)
+        # Every term of the identity must move together. Updating gross/fee/gst
+        # and net while forgetting TDS is exactly the INC-014 failure: a
+        # settlement whose stated net contradicts its own components, which the
+        # engine then correctly refuses to reconcile while looking broken.
         target.gross = target.gross + q.amount
         target.fee = target.fee + q.fee_charged
         target.gst = target.gst + q.gst_charged
-        target.net = target.net + q.amount - q.fee_charged - q.gst_charged
+        target.tds = target.tds + q.tds_withheld
+        target.net = (target.net + q.amount - q.fee_charged
+                      - q.gst_charged - q.tds_withheld)
         q.settlement_id = target.settlement_id
         moved.append(q.payment_id)
     target.case_tags.append("HIGH_STRADDLE")

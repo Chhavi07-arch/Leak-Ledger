@@ -284,6 +284,10 @@ class Cascade:
                 total = total + p.fee_charged
             if p.gst_charged:
                 total = total + p.gst_charged
+            if p.tds_withheld:
+                # TDS (s.194-O) reduces the payout like fee and GST. Kept
+                # per-payment so the T3 reduction to a signed subset-sum holds.
+                total = total + p.tds_withheld
         return total
 
     # A bank may post a credit a day or two after the acquirer released it. The

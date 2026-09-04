@@ -99,6 +99,7 @@ def main() -> int:
                 "cycle_date": s.cycle_date.isoformat(), "value_date": s.value_date.isoformat(),
                 "payment_ids": s.payment_ids, "paid": s.paid, "duplicated": s.duplicated,
                 "gross_paise": s.gross.paise, "fee_paise": s.fee.paise, "gst_paise": s.gst.paise,
+                "tds_paise": s.tds.paise,
                 "refunds_paise": s.refunds.paise, "chargebacks_paise": s.chargebacks.paise,
                 "reserve_held_paise": s.reserve_held.paise,
                 "reserve_released_paise": s.reserve_released.paise,
@@ -124,6 +125,8 @@ def main() -> int:
                 "expected_gst_paise": p.expected_gst.paise,
                 "charged_fee_paise": p.fee_charged.paise,
                 "charged_gst_paise": p.gst_charged.paise,
+                "charged_tds_paise": p.tds_withheld.paise,
+                "expected_tds_paise": p.expected_tds.paise,
             }
             for p in world.payments
         },

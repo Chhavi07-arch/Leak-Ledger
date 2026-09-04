@@ -27,7 +27,7 @@ the session it was made in.
   │                T4 narration proposal, arithmetic-verified  ◆     │
   │                T5 typed exception                                │
   ├──────────────────────────────────────────────────────────────────┤
-  │ 3  DECOMPOSE   fee · GST · TDS · reserve, against versioned      │
+  │ 3  DECOMPOSE   fee · GST · TDS (194-O) · reserve, versioned      │
   │                contract; every result carries its derivation     │
   ├──────────────────────────────────────────────────────────────────┤
   │ 4  LEAKAGE     ten typed detectors over reconciled state         │
@@ -192,6 +192,24 @@ reconcile it while looking like a regression (INC-014).
 
 ---
 
+## The settlement identity
+
+```
+net = gross − fee − GST − TDS − refunds − chargebacks
+              − reserve_held + reserve_released
+```
+
+**TDS is its own term, not folded into fee.** It is withheld under s.194-O on the
+*gross* transaction value and remitted to the government; unlike the gateway fee
+it is not the operator's revenue, and the merchant recovers it against its own tax
+liability. Collapsing the two would misstate both what the operator earned and
+what the merchant can reclaim.
+
+It is computed **per payment**, deliberately. The T3 deviation search reduces
+reconciliation to a signed subset-sum only because every deduction is additive
+over individual payments; a cycle-level TDS term would break that reduction and
+force the search back to enumerating combinations.
+
 ## What the numbers mean
 
 **Claimed value sums every reported instance, not only the verified ones** — that
@@ -219,9 +237,4 @@ but not quantifiable, claiming no rupee value at all (INC-013).
   modelled.
 - The three sources are self-authored. Independent RNG streams guarantee the noise
   is *uncorrelated*; they cannot guarantee it is *representative* (ADR-002).
-- **TDS is not implemented.** The settlement identity in the original plan included
-  a TDS withholding term (marketplace / 194-O). It is described in the identity
-  above and in comments, but no code computes it and the fee schedule carries no
-  TDS rate. Settlements in the generated batch have no TDS component, so nothing
-  is silently wrong — the term is simply absent.
 

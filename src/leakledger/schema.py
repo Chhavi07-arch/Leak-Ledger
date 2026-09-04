@@ -53,6 +53,7 @@ class GatewayPayment:
     status: str
     fee_charged: Optional[Money]
     gst_charged: Optional[Money]
+    tds_withheld: Optional[Money]
     source: str = "gateway"
     row_num: int = -1
 
@@ -154,6 +155,9 @@ def parse_gateway_row(row: Dict[str, Any], row_num: int):
     gst, gerr = _optional_money(row, "gst_charged")
     if gerr:
         return _q("gateway", row_num, BAD_AMOUNT, gerr, row)
+    tds, terr = _optional_money(row, "tds_withheld")
+    if terr:
+        return _q("gateway", row_num, BAD_AMOUNT, terr, row)
 
     intl = str(row.get("is_international", "false")).strip().lower() in ("1", "true", "yes", "y")
 
@@ -169,6 +173,7 @@ def parse_gateway_row(row: Dict[str, Any], row_num: int):
         status=status,
         fee_charged=fee,
         gst_charged=gst,
+        tds_withheld=tds,
         row_num=row_num,
     )
 

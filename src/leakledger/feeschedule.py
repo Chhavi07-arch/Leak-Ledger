@@ -67,6 +67,7 @@ class FeeComputation:
 class FeeSchedule:
     version: str
     gst_bps: int
+    tds_bps: int
     gst_rounding_policy: str
     instruments: Dict[str, Any]
     sha256: str
@@ -87,6 +88,7 @@ class FeeSchedule:
         return cls(
             version=data["version"],
             gst_bps=data["gst_bps"],
+            tds_bps=data.get("tds_bps", 0),
             gst_rounding_policy=policy,
             instruments=data["instruments"],
             sha256=digest,
@@ -110,6 +112,17 @@ class FeeSchedule:
         raise FeeScheduleError(
             f"no slab in {self.version} covers Rs {amount.to_rupees_str()} for {instrument}"
         )
+
+    def expected_tds(self, amount: Money) -> Money:
+        """TDS withheld on the GROSS transaction value (s.194-O).
+
+        Deliberately per-payment rather than per-cycle. The deviation search in
+        T3 reduces reconciliation to a signed subset-sum only because every
+        deduction is additive over individual payments; a cycle-level TDS term
+        would break that reduction and force the search back to enumerating
+        combinations.
+        """
+        return amount.apply_bps(self.tds_bps)
 
     def expected_fee(
         self,

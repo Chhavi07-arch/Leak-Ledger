@@ -796,3 +796,27 @@ first question is what existing case it might cancel. Three occurrences is a
 property of the design, not bad luck -- cases are seeded independently over shared
 objects, and nothing structurally prevents collision.
 **Commit:** step 2 of 3
+
+
+---
+
+## INC-021 — a seeder updated four terms of the identity and forgot the fifth
+**Date:** 2026-09-04 · **Phase:** post-audit, step 3 of 3 (TDS)
+**Symptom:** the first regenerate after adding TDS failed the ground-truth
+validator on exactly one settlement -- `stl_0014`, stated net Rs 1,85,209.52
+against components of Rs 1,85,027.51, a delta of **Rs 182.01**.
+**Root cause:** `_seed_high_straddle` appends five payments to an already-computed
+settlement and updates `gross`, `fee`, `gst` and `net`. With TDS added to the
+identity it did not update `tds`, so the settlement's aggregate TDS (Rs 1,728.94)
+was short of the sum of its own payments' TDS (Rs 1,910.95) by precisely the
+missing Rs 182.01, and `net` was overstated by the same amount.
+**Caught by the validator, not by the suite.** Every unit test still passed. This
+is INC-014's exact shape -- a settlement whose stated net contradicts its own
+components -- and it is the reason `harness/validate_ground_truth.py` exists:
+testing the engine harder cannot find a fixture that disagrees with itself,
+because the engine is graded by the broken artefact.
+**Fix:** the seeder maintains every term of the identity together.
+**Standing lesson:** any code that mutates a settlement after construction must
+touch every term or none. Adding a term to the settlement identity means auditing
+every writer of that struct, not just its constructor.
+**Commit:** step 3 of 3

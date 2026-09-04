@@ -9,40 +9,93 @@
   "instruments": {
     "UPI": {
       "kind": "percentage",
-      "slabs": [{"max_paise": null, "bps": 0, "label": "UPI_P2M_ZERO_MDR"}],
-      "note": "Zero-MDR by regulation. Any non-zero fee on a UPI leg is a rule violation by definition — see ZERO_MDR_VIOLATION, which is reported as a rule check and excluded from aggregate precision/recall."
+      "slabs": [
+        {
+          "max_paise": null,
+          "bps": 0,
+          "label": "UPI_P2M_ZERO_MDR"
+        }
+      ],
+      "note": "Zero-MDR by regulation. Any non-zero fee on a UPI leg is a rule violation by definition \u2014 see ZERO_MDR_VIOLATION, which is reported as a rule check and excluded from aggregate precision/recall."
     },
     "DEBIT_CARD": {
       "kind": "percentage",
       "slabs": [
-        {"max_paise": 200000, "bps": 40, "label": "DEBIT_LTE_2000"},
-        {"max_paise": null, "bps": 90, "label": "DEBIT_GT_2000"}
+        {
+          "max_paise": 200000,
+          "bps": 40,
+          "label": "DEBIT_LTE_2000"
+        },
+        {
+          "max_paise": null,
+          "bps": 90,
+          "label": "DEBIT_GT_2000"
+        }
       ],
       "note": "Slab boundary is inclusive of the upper bound: exactly Rs 2000.00 takes the 40 bp slab."
     },
     "CREDIT_CARD": {
       "kind": "percentage",
-      "slabs": [{"max_paise": null, "bps": 200, "label": "CREDIT_DOMESTIC"}],
-      "international_slabs": [{"max_paise": null, "bps": 300, "label": "CREDIT_INTERNATIONAL"}]
+      "slabs": [
+        {
+          "max_paise": null,
+          "bps": 200,
+          "label": "CREDIT_DOMESTIC"
+        }
+      ],
+      "international_slabs": [
+        {
+          "max_paise": null,
+          "bps": 300,
+          "label": "CREDIT_INTERNATIONAL"
+        }
+      ]
     },
     "AMEX": {
       "kind": "percentage",
-      "slabs": [{"max_paise": null, "bps": 280, "label": "AMEX_DOMESTIC"}]
+      "slabs": [
+        {
+          "max_paise": null,
+          "bps": 280,
+          "label": "AMEX_DOMESTIC"
+        }
+      ]
     },
     "WALLET": {
       "kind": "percentage",
-      "slabs": [{"max_paise": null, "bps": 180, "label": "WALLET_FLAT_RATE"}]
+      "slabs": [
+        {
+          "max_paise": null,
+          "bps": 180,
+          "label": "WALLET_FLAT_RATE"
+        }
+      ]
     },
     "EMI": {
       "kind": "percentage",
-      "slabs": [{"max_paise": null, "bps": 250, "label": "EMI_BASE"}],
+      "slabs": [
+        {
+          "max_paise": null,
+          "bps": 250,
+          "label": "EMI_BASE"
+        }
+      ],
       "note": "Merchant-borne interest subvention is NOT a gateway fee and is never compared against this slab."
     },
     "NETBANKING": {
       "kind": "flat_per_bank",
       "default_paise": 1500,
-      "banks": {"HDFC": 1200, "ICICI": 1200, "SBI": 1800, "AXIS": 1500, "KOTAK": 1500, "YES": 2000},
-      "note": "Flat per transaction, per bank — not a percentage. Percentage-only fee logic silently mis-flags every netbanking row."
+      "banks": {
+        "HDFC": 1200,
+        "ICICI": 1200,
+        "SBI": 1800,
+        "AXIS": 1500,
+        "KOTAK": 1500,
+        "YES": 2000
+      },
+      "note": "Flat per transaction, per bank \u2014 not a percentage. Percentage-only fee logic silently mis-flags every netbanking row."
     }
-  }
+  },
+  "tds_bps": 100,
+  "_tds_note": "Tax deducted at source under s.194-O, withheld by the marketplace operator on the GROSS transaction value and remitted to the government. 100 bps = 1.00%. Illustrative for this synthetic merchant, not any provider's live rate. Unlike the gateway fee this is not the operator's revenue -- it reduces the payout but is recoverable by the merchant against its own tax liability, which is why it is a separate term in the settlement identity."
 }

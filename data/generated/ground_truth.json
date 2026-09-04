@@ -683,4309 +683,5385 @@
       "amount_paise": 253700,
       "charged_fee_paise": 5074,
       "charged_gst_paise": 913,
+      "charged_tds_paise": 2537,
       "expected_fee_paise": 5074,
       "expected_gst_paise": 913,
+      "expected_tds_paise": 2537,
       "instrument": "CREDIT_CARD"
     },
     "pay_00001": {
       "amount_paise": 2167149,
       "charged_fee_paise": 43343,
       "charged_gst_paise": 7802,
+      "charged_tds_paise": 21671,
       "expected_fee_paise": 43343,
       "expected_gst_paise": 7802,
+      "expected_tds_paise": 21671,
       "instrument": "CREDIT_CARD"
     },
     "pay_00002": {
       "amount_paise": 164099,
       "charged_fee_paise": 441,
       "charged_gst_paise": 79,
+      "charged_tds_paise": 1641,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1641,
       "instrument": "UPI"
     },
     "pay_00003": {
       "amount_paise": 108999,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1090,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1090,
       "instrument": "UPI"
     },
     "pay_00004": {
       "amount_paise": 4593800,
       "charged_fee_paise": 91876,
       "charged_gst_paise": 16538,
+      "charged_tds_paise": 45938,
       "expected_fee_paise": 91876,
       "expected_gst_paise": 16538,
+      "expected_tds_paise": 45938,
       "instrument": "CREDIT_CARD"
     },
     "pay_00005": {
       "amount_paise": 225450,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 2255,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 2255,
       "instrument": "UPI"
     },
     "pay_00006": {
       "amount_paise": 49250,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 493,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 493,
       "instrument": "UPI"
     },
     "pay_00007": {
       "amount_paise": 217075,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 2171,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 2171,
       "instrument": "UPI"
     },
     "pay_00008": {
       "amount_paise": 811599,
       "charged_fee_paise": 7304,
       "charged_gst_paise": 1315,
+      "charged_tds_paise": 8116,
       "expected_fee_paise": 7304,
       "expected_gst_paise": 1315,
+      "expected_tds_paise": 8116,
       "instrument": "DEBIT_CARD"
     },
     "pay_00009": {
       "amount_paise": 17600,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 176,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 176,
       "instrument": "UPI"
     },
     "pay_00010": {
       "amount_paise": 3441275,
       "charged_fee_paise": 68826,
       "charged_gst_paise": 12389,
+      "charged_tds_paise": 34413,
       "expected_fee_paise": 68826,
       "expected_gst_paise": 12389,
+      "expected_tds_paise": 34413,
       "instrument": "CREDIT_CARD"
     },
     "pay_00011": {
       "amount_paise": 3989800,
       "charged_fee_paise": 79796,
       "charged_gst_paise": 14363,
+      "charged_tds_paise": 39898,
       "expected_fee_paise": 79796,
       "expected_gst_paise": 14363,
+      "expected_tds_paise": 39898,
       "instrument": "CREDIT_CARD"
     },
     "pay_00012": {
       "amount_paise": 37250,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 373,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 373,
       "instrument": "UPI"
     },
     "pay_00013": {
       "amount_paise": 200900,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 2009,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 2009,
       "instrument": "UPI"
     },
     "pay_00014": {
       "amount_paise": 4093701,
       "charged_fee_paise": 81874,
       "charged_gst_paise": 14737,
+      "charged_tds_paise": 40937,
       "expected_fee_paise": 81874,
       "expected_gst_paise": 14737,
+      "expected_tds_paise": 40937,
       "instrument": "CREDIT_CARD"
     },
     "pay_00015": {
       "amount_paise": 156800,
       "charged_fee_paise": 3920,
       "charged_gst_paise": 706,
+      "charged_tds_paise": 1568,
       "expected_fee_paise": 3920,
       "expected_gst_paise": 706,
+      "expected_tds_paise": 1568,
       "instrument": "EMI"
     },
     "pay_00016": {
       "amount_paise": 97600,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 976,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 976,
       "instrument": "UPI"
     },
     "pay_00017": {
       "amount_paise": 275300,
       "charged_fee_paise": 1500,
       "charged_gst_paise": 270,
+      "charged_tds_paise": 2753,
       "expected_fee_paise": 1500,
       "expected_gst_paise": 270,
+      "expected_tds_paise": 2753,
       "instrument": "NETBANKING"
     },
     "pay_00018": {
       "amount_paise": 125799,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1258,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1258,
       "instrument": "UPI"
     },
     "pay_00019": {
       "amount_paise": 2487375,
       "charged_fee_paise": 49748,
       "charged_gst_paise": 8955,
+      "charged_tds_paise": 24874,
       "expected_fee_paise": 49748,
       "expected_gst_paise": 8955,
+      "expected_tds_paise": 24874,
       "instrument": "CREDIT_CARD"
     },
     "pay_00020": {
       "amount_paise": 226625,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 2266,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 2266,
       "instrument": "UPI"
     },
     "pay_00021": {
       "amount_paise": 1198450,
       "charged_fee_paise": 23969,
       "charged_gst_paise": 4314,
+      "charged_tds_paise": 11985,
       "expected_fee_paise": 23969,
       "expected_gst_paise": 4314,
+      "expected_tds_paise": 11985,
       "instrument": "CREDIT_CARD"
     },
     "pay_00022": {
       "amount_paise": 48449,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 484,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 484,
       "instrument": "UPI"
     },
     "pay_00023": {
       "amount_paise": 374525,
       "charged_fee_paise": 3371,
       "charged_gst_paise": 607,
+      "charged_tds_paise": 3745,
       "expected_fee_paise": 3371,
       "expected_gst_paise": 607,
+      "expected_tds_paise": 3745,
       "instrument": "DEBIT_CARD"
     },
     "pay_00024": {
       "amount_paise": 246900,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 2469,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 2469,
       "instrument": "UPI"
     },
     "pay_00025": {
       "amount_paise": 72925,
       "charged_fee_paise": 292,
       "charged_gst_paise": 53,
+      "charged_tds_paise": 729,
       "expected_fee_paise": 292,
       "expected_gst_paise": 53,
+      "expected_tds_paise": 729,
       "instrument": "DEBIT_CARD"
     },
     "pay_00026": {
       "amount_paise": 3571601,
       "charged_fee_paise": 71432,
       "charged_gst_paise": 12858,
+      "charged_tds_paise": 35716,
       "expected_fee_paise": 71432,
       "expected_gst_paise": 12858,
+      "expected_tds_paise": 35716,
       "instrument": "CREDIT_CARD"
     },
     "pay_00027": {
       "amount_paise": 2820900,
       "charged_fee_paise": 56418,
       "charged_gst_paise": 10155,
+      "charged_tds_paise": 28209,
       "expected_fee_paise": 56418,
       "expected_gst_paise": 10155,
+      "expected_tds_paise": 28209,
       "instrument": "CREDIT_CARD"
     },
     "pay_00028": {
       "amount_paise": 43249,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 432,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 432,
       "instrument": "UPI"
     },
     "pay_00029": {
       "amount_paise": 2703001,
       "charged_fee_paise": 2000,
       "charged_gst_paise": 360,
+      "charged_tds_paise": 27030,
       "expected_fee_paise": 2000,
       "expected_gst_paise": 360,
+      "expected_tds_paise": 27030,
       "instrument": "NETBANKING"
     },
     "pay_00029_dup": {
       "amount_paise": 2703001,
       "charged_fee_paise": 2000,
       "charged_gst_paise": 360,
+      "charged_tds_paise": 27030,
       "expected_fee_paise": 2000,
       "expected_gst_paise": 360,
+      "expected_tds_paise": 27030,
       "instrument": "NETBANKING"
     },
     "pay_00030": {
       "amount_paise": 158825,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1588,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1588,
       "instrument": "UPI"
     },
     "pay_00031": {
       "amount_paise": 332699,
       "charged_fee_paise": 5989,
       "charged_gst_paise": 1078,
+      "charged_tds_paise": 3327,
       "expected_fee_paise": 5989,
       "expected_gst_paise": 1078,
+      "expected_tds_paise": 3327,
       "instrument": "WALLET"
     },
     "pay_00032": {
       "amount_paise": 222700,
       "charged_fee_paise": 2004,
       "charged_gst_paise": 361,
+      "charged_tds_paise": 2227,
       "expected_fee_paise": 2004,
       "expected_gst_paise": 361,
+      "expected_tds_paise": 2227,
       "instrument": "DEBIT_CARD"
     },
     "pay_00033": {
       "amount_paise": 250350,
       "charged_fee_paise": 2253,
       "charged_gst_paise": 406,
+      "charged_tds_paise": 2504,
       "expected_fee_paise": 2253,
       "expected_gst_paise": 406,
+      "expected_tds_paise": 2504,
       "instrument": "DEBIT_CARD"
     },
     "pay_00034": {
       "amount_paise": 343575,
       "charged_fee_paise": 6184,
       "charged_gst_paise": 1113,
+      "charged_tds_paise": 3436,
       "expected_fee_paise": 6184,
       "expected_gst_paise": 1113,
+      "expected_tds_paise": 3436,
       "instrument": "WALLET"
     },
     "pay_00035": {
       "amount_paise": 28400,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 284,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 284,
       "instrument": "UPI"
     },
     "pay_00036": {
       "amount_paise": 576500,
       "charged_fee_paise": 5189,
       "charged_gst_paise": 934,
+      "charged_tds_paise": 5765,
       "expected_fee_paise": 5189,
       "expected_gst_paise": 934,
+      "expected_tds_paise": 5765,
       "instrument": "DEBIT_CARD"
     },
     "pay_00037": {
       "amount_paise": 24799,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 248,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 248,
       "instrument": "UPI"
     },
     "pay_00038": {
       "amount_paise": 2552300,
       "charged_fee_paise": 1200,
       "charged_gst_paise": 216,
+      "charged_tds_paise": 25523,
       "expected_fee_paise": 1200,
       "expected_gst_paise": 216,
+      "expected_tds_paise": 25523,
       "instrument": "NETBANKING"
     },
     "pay_00039": {
       "amount_paise": 71750,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 718,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 718,
       "instrument": "UPI"
     },
     "pay_00040": {
       "amount_paise": 4404100,
       "charged_fee_paise": 88082,
       "charged_gst_paise": 15855,
+      "charged_tds_paise": 44041,
       "expected_fee_paise": 88082,
       "expected_gst_paise": 15855,
+      "expected_tds_paise": 44041,
       "instrument": "CREDIT_CARD"
     },
     "pay_00041": {
       "amount_paise": 3622100,
       "charged_fee_paise": 72442,
       "charged_gst_paise": 13040,
+      "charged_tds_paise": 36221,
       "expected_fee_paise": 72442,
       "expected_gst_paise": 13040,
+      "expected_tds_paise": 36221,
       "instrument": "CREDIT_CARD"
     },
     "pay_00042": {
       "amount_paise": 2006649,
       "charged_fee_paise": 40133,
       "charged_gst_paise": 7224,
+      "charged_tds_paise": 20066,
       "expected_fee_paise": 40133,
       "expected_gst_paise": 7224,
+      "expected_tds_paise": 20066,
       "instrument": "CREDIT_CARD"
     },
     "pay_00043": {
       "amount_paise": 751550,
       "charged_fee_paise": 6764,
       "charged_gst_paise": 1218,
+      "charged_tds_paise": 7516,
       "expected_fee_paise": 6764,
       "expected_gst_paise": 1218,
+      "expected_tds_paise": 7516,
       "instrument": "DEBIT_CARD"
     },
     "pay_00044": {
       "amount_paise": 524875,
       "charged_fee_paise": 4724,
       "charged_gst_paise": 850,
+      "charged_tds_paise": 5249,
       "expected_fee_paise": 4724,
       "expected_gst_paise": 850,
+      "expected_tds_paise": 5249,
       "instrument": "DEBIT_CARD"
     },
     "pay_00045": {
       "amount_paise": 2187599,
       "charged_fee_paise": 43752,
       "charged_gst_paise": 7875,
+      "charged_tds_paise": 21876,
       "expected_fee_paise": 43752,
       "expected_gst_paise": 7875,
+      "expected_tds_paise": 21876,
       "instrument": "CREDIT_CARD"
     },
     "pay_00046": {
       "amount_paise": 220800,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 2208,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 2208,
       "instrument": "UPI"
     },
     "pay_00047": {
       "amount_paise": 4765075,
       "charged_fee_paise": 95302,
       "charged_gst_paise": 17154,
+      "charged_tds_paise": 47651,
       "expected_fee_paise": 95302,
       "expected_gst_paise": 17154,
+      "expected_tds_paise": 47651,
       "instrument": "CREDIT_CARD"
     },
     "pay_00048": {
       "amount_paise": 29300,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 293,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 293,
       "instrument": "UPI"
     },
     "pay_00049": {
       "amount_paise": 869301,
       "charged_fee_paise": 7824,
       "charged_gst_paise": 1408,
+      "charged_tds_paise": 8693,
       "expected_fee_paise": 7824,
       "expected_gst_paise": 1408,
+      "expected_tds_paise": 8693,
       "instrument": "DEBIT_CARD"
     },
     "pay_00050": {
       "amount_paise": 7300,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 73,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 73,
       "instrument": "UPI"
     },
     "pay_00051": {
       "amount_paise": 109901,
       "charged_fee_paise": 1800,
       "charged_gst_paise": 324,
+      "charged_tds_paise": 1099,
       "expected_fee_paise": 1800,
       "expected_gst_paise": 324,
+      "expected_tds_paise": 1099,
       "instrument": "NETBANKING"
     },
     "pay_00052": {
       "amount_paise": 25125,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 251,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 251,
       "instrument": "UPI"
     },
     "pay_00053": {
       "amount_paise": 734950,
       "charged_fee_paise": 6615,
       "charged_gst_paise": 1191,
+      "charged_tds_paise": 7350,
       "expected_fee_paise": 6615,
       "expected_gst_paise": 1191,
+      "expected_tds_paise": 7350,
       "instrument": "DEBIT_CARD"
     },
     "pay_00054": {
       "amount_paise": 61250,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 613,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 613,
       "instrument": "UPI"
     },
     "pay_00055": {
       "amount_paise": 36975,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 370,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 370,
       "instrument": "UPI"
     },
     "pay_00056": {
       "amount_paise": 358800,
       "charged_fee_paise": 7176,
       "charged_gst_paise": 1292,
+      "charged_tds_paise": 3588,
       "expected_fee_paise": 7176,
       "expected_gst_paise": 1292,
+      "expected_tds_paise": 3588,
       "instrument": "CREDIT_CARD"
     },
     "pay_00057": {
       "amount_paise": 2871000,
       "charged_fee_paise": 1200,
       "charged_gst_paise": 216,
+      "charged_tds_paise": 28710,
       "expected_fee_paise": 1200,
       "expected_gst_paise": 216,
+      "expected_tds_paise": 28710,
       "instrument": "NETBANKING"
     },
     "pay_00058": {
       "amount_paise": 77875,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 779,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 779,
       "instrument": "UPI"
     },
     "pay_00059": {
       "amount_paise": 4210100,
       "charged_fee_paise": 84202,
       "charged_gst_paise": 15156,
+      "charged_tds_paise": 42101,
       "expected_fee_paise": 84202,
       "expected_gst_paise": 15156,
+      "expected_tds_paise": 42101,
       "instrument": "CREDIT_CARD"
     },
     "pay_00060": {
       "amount_paise": 493199,
       "charged_fee_paise": 4439,
       "charged_gst_paise": 799,
+      "charged_tds_paise": 4932,
       "expected_fee_paise": 4439,
       "expected_gst_paise": 799,
+      "expected_tds_paise": 4932,
       "instrument": "DEBIT_CARD"
     },
     "pay_00061": {
       "amount_paise": 215600,
       "charged_fee_paise": 1940,
       "charged_gst_paise": 349,
+      "charged_tds_paise": 2156,
       "expected_fee_paise": 1940,
       "expected_gst_paise": 349,
+      "expected_tds_paise": 2156,
       "instrument": "DEBIT_CARD"
     },
     "pay_00062": {
       "amount_paise": 3056100,
       "charged_fee_paise": 61122,
       "charged_gst_paise": 11002,
+      "charged_tds_paise": 30561,
       "expected_fee_paise": 61122,
       "expected_gst_paise": 11002,
+      "expected_tds_paise": 30561,
       "instrument": "CREDIT_CARD"
     },
     "pay_00063": {
       "amount_paise": 2027175,
       "charged_fee_paise": 40544,
       "charged_gst_paise": 7298,
+      "charged_tds_paise": 20272,
       "expected_fee_paise": 40544,
       "expected_gst_paise": 7298,
+      "expected_tds_paise": 20272,
       "instrument": "CREDIT_CARD"
     },
     "pay_00064": {
       "amount_paise": 432000,
       "charged_fee_paise": 7776,
       "charged_gst_paise": 1400,
+      "charged_tds_paise": 4320,
       "expected_fee_paise": 7776,
       "expected_gst_paise": 1400,
+      "expected_tds_paise": 4320,
       "instrument": "WALLET"
     },
     "pay_00065": {
       "amount_paise": 26200,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 262,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 262,
       "instrument": "UPI"
     },
     "pay_00066": {
       "amount_paise": 172301,
       "charged_fee_paise": 1500,
       "charged_gst_paise": 270,
+      "charged_tds_paise": 1723,
       "expected_fee_paise": 1500,
       "expected_gst_paise": 270,
+      "expected_tds_paise": 1723,
       "instrument": "NETBANKING"
     },
     "pay_00067": {
       "amount_paise": 1886075,
       "charged_fee_paise": 1200,
       "charged_gst_paise": 216,
+      "charged_tds_paise": 18861,
       "expected_fee_paise": 1200,
       "expected_gst_paise": 216,
+      "expected_tds_paise": 18861,
       "instrument": "NETBANKING"
     },
     "pay_00068": {
       "amount_paise": 67799,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 678,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 678,
       "instrument": "UPI"
     },
     "pay_00069": {
       "amount_paise": 70025,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 700,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 700,
       "instrument": "UPI"
     },
     "pay_00070": {
       "amount_paise": 99799,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 998,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 998,
       "instrument": "UPI"
     },
     "pay_00071": {
       "amount_paise": 76150,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 762,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 762,
       "instrument": "UPI"
     },
     "pay_00072": {
       "amount_paise": 888500,
       "charged_fee_paise": 7997,
       "charged_gst_paise": 1439,
+      "charged_tds_paise": 8885,
       "expected_fee_paise": 7997,
       "expected_gst_paise": 1439,
+      "expected_tds_paise": 8885,
       "instrument": "DEBIT_CARD"
     },
     "pay_00073": {
       "amount_paise": 70701,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 707,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 707,
       "instrument": "UPI"
     },
     "pay_00074": {
       "amount_paise": 149725,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1497,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1497,
       "instrument": "UPI"
     },
     "pay_00075": {
       "amount_paise": 74649,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 746,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 746,
       "instrument": "UPI"
     },
     "pay_00076": {
       "amount_paise": 822725,
       "charged_fee_paise": 7405,
       "charged_gst_paise": 1333,
+      "charged_tds_paise": 8227,
       "expected_fee_paise": 7405,
       "expected_gst_paise": 1333,
+      "expected_tds_paise": 8227,
       "instrument": "DEBIT_CARD"
     },
     "pay_00077": {
       "amount_paise": 2961601,
       "charged_fee_paise": 59232,
       "charged_gst_paise": 10662,
+      "charged_tds_paise": 29616,
       "expected_fee_paise": 59232,
       "expected_gst_paise": 10662,
+      "expected_tds_paise": 29616,
       "instrument": "CREDIT_CARD"
     },
     "pay_00078": {
       "amount_paise": 3371025,
       "charged_fee_paise": 67421,
       "charged_gst_paise": 12136,
+      "charged_tds_paise": 33710,
       "expected_fee_paise": 67421,
       "expected_gst_paise": 12136,
+      "expected_tds_paise": 33710,
       "instrument": "CREDIT_CARD"
     },
     "pay_00079": {
       "amount_paise": 3021100,
       "charged_fee_paise": 60422,
       "charged_gst_paise": 10876,
+      "charged_tds_paise": 30211,
       "expected_fee_paise": 60422,
       "expected_gst_paise": 10876,
+      "expected_tds_paise": 30211,
       "instrument": "CREDIT_CARD"
     },
     "pay_00080": {
       "amount_paise": 450549,
       "charged_fee_paise": 9011,
       "charged_gst_paise": 1622,
+      "charged_tds_paise": 4505,
       "expected_fee_paise": 9011,
       "expected_gst_paise": 1622,
+      "expected_tds_paise": 4505,
       "instrument": "CREDIT_CARD"
     },
     "pay_00081": {
       "amount_paise": 127399,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1274,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1274,
       "instrument": "UPI"
     },
     "pay_00082": {
       "amount_paise": 282800,
       "charged_fee_paise": 1500,
       "charged_gst_paise": 270,
+      "charged_tds_paise": 2828,
       "expected_fee_paise": 1500,
       "expected_gst_paise": 270,
+      "expected_tds_paise": 2828,
       "instrument": "NETBANKING"
     },
     "pay_00083": {
       "amount_paise": 4636000,
       "charged_fee_paise": 92720,
       "charged_gst_paise": 16690,
+      "charged_tds_paise": 46360,
       "expected_fee_paise": 92720,
       "expected_gst_paise": 16690,
+      "expected_tds_paise": 46360,
       "instrument": "CREDIT_CARD"
     },
     "pay_00084": {
       "amount_paise": 34899,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 349,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 349,
       "instrument": "UPI"
     },
     "pay_00085": {
       "amount_paise": 6001,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 60,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 60,
       "instrument": "UPI"
     },
     "pay_00086": {
       "amount_paise": 157300,
       "charged_fee_paise": 629,
       "charged_gst_paise": 113,
+      "charged_tds_paise": 1573,
       "expected_fee_paise": 629,
       "expected_gst_paise": 113,
+      "expected_tds_paise": 1573,
       "instrument": "DEBIT_CARD"
     },
     "pay_00087": {
       "amount_paise": 43100,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 431,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 431,
       "instrument": "UPI"
     },
     "pay_00088": {
       "amount_paise": 44700,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 447,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 447,
       "instrument": "UPI"
     },
     "pay_00089": {
       "amount_paise": 36701,
       "charged_fee_paise": 661,
       "charged_gst_paise": 119,
+      "charged_tds_paise": 367,
       "expected_fee_paise": 661,
       "expected_gst_paise": 119,
+      "expected_tds_paise": 367,
       "instrument": "WALLET"
     },
     "pay_00090": {
       "amount_paise": 1788775,
       "charged_fee_paise": 35776,
       "charged_gst_paise": 6440,
+      "charged_tds_paise": 17888,
       "expected_fee_paise": 35776,
       "expected_gst_paise": 6440,
+      "expected_tds_paise": 17888,
       "instrument": "CREDIT_CARD"
     },
     "pay_00091": {
       "amount_paise": 189101,
       "charged_fee_paise": 3404,
       "charged_gst_paise": 613,
+      "charged_tds_paise": 1891,
       "expected_fee_paise": 3404,
       "expected_gst_paise": 613,
+      "expected_tds_paise": 1891,
       "instrument": "WALLET"
     },
     "pay_00092": {
       "amount_paise": 96325,
       "charged_fee_paise": 338,
       "charged_gst_paise": 61,
+      "charged_tds_paise": 963,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 963,
       "instrument": "UPI"
     },
     "pay_00093": {
       "amount_paise": 32700,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 327,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 327,
       "instrument": "UPI"
     },
     "pay_00094": {
       "amount_paise": 469625,
       "charged_fee_paise": 8453,
       "charged_gst_paise": 1522,
+      "charged_tds_paise": 4696,
       "expected_fee_paise": 8453,
       "expected_gst_paise": 1522,
+      "expected_tds_paise": 4696,
       "instrument": "WALLET"
     },
     "pay_00095": {
       "amount_paise": 107101,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1071,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1071,
       "instrument": "UPI"
     },
     "pay_00096": {
       "amount_paise": 2076399,
       "charged_fee_paise": 2000,
       "charged_gst_paise": 360,
+      "charged_tds_paise": 20764,
       "expected_fee_paise": 2000,
       "expected_gst_paise": 360,
+      "expected_tds_paise": 20764,
       "instrument": "NETBANKING"
     },
     "pay_00097": {
       "amount_paise": 5500,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 55,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 55,
       "instrument": "UPI"
     },
     "pay_00098": {
       "amount_paise": 67650,
       "charged_fee_paise": 271,
       "charged_gst_paise": 49,
+      "charged_tds_paise": 677,
       "expected_fee_paise": 271,
       "expected_gst_paise": 49,
+      "expected_tds_paise": 677,
       "instrument": "DEBIT_CARD"
     },
     "pay_00099": {
       "amount_paise": 1454000,
       "charged_fee_paise": 1800,
       "charged_gst_paise": 324,
+      "charged_tds_paise": 14540,
       "expected_fee_paise": 1800,
       "expected_gst_paise": 324,
+      "expected_tds_paise": 14540,
       "instrument": "NETBANKING"
     },
     "pay_00100": {
       "amount_paise": 2228900,
       "charged_fee_paise": 44578,
       "charged_gst_paise": 8024,
+      "charged_tds_paise": 22289,
       "expected_fee_paise": 44578,
       "expected_gst_paise": 8024,
+      "expected_tds_paise": 22289,
       "instrument": "CREDIT_CARD"
     },
     "pay_00101": {
       "amount_paise": 2690150,
       "charged_fee_paise": 53803,
       "charged_gst_paise": 9685,
+      "charged_tds_paise": 26902,
       "expected_fee_paise": 53803,
       "expected_gst_paise": 9685,
+      "expected_tds_paise": 26902,
       "instrument": "CREDIT_CARD"
     },
     "pay_00102": {
       "amount_paise": 588049,
       "charged_fee_paise": 5292,
       "charged_gst_paise": 653,
+      "charged_tds_paise": 5880,
       "expected_fee_paise": 5292,
       "expected_gst_paise": 953,
+      "expected_tds_paise": 5880,
       "instrument": "DEBIT_CARD"
     },
     "pay_00103": {
       "amount_paise": 298600,
       "charged_fee_paise": 2687,
       "charged_gst_paise": 484,
+      "charged_tds_paise": 2986,
       "expected_fee_paise": 2687,
       "expected_gst_paise": 484,
+      "expected_tds_paise": 2986,
       "instrument": "DEBIT_CARD"
     },
     "pay_00104": {
       "amount_paise": 5400,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 54,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 54,
       "instrument": "UPI"
     },
     "pay_00105": {
       "amount_paise": 63701,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 637,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 637,
       "instrument": "UPI"
     },
     "pay_00106": {
       "amount_paise": 126600,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1266,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1266,
       "instrument": "UPI"
     },
     "pay_00107": {
       "amount_paise": 2851049,
       "charged_fee_paise": 57021,
       "charged_gst_paise": 10264,
+      "charged_tds_paise": 28510,
       "expected_fee_paise": 57021,
       "expected_gst_paise": 10264,
+      "expected_tds_paise": 28510,
       "instrument": "CREDIT_CARD"
     },
     "pay_00108": {
       "amount_paise": 222175,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 2222,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 2222,
       "instrument": "UPI"
     },
     "pay_00109": {
       "amount_paise": 899800,
       "charged_fee_paise": 11021,
       "charged_gst_paise": 1984,
+      "charged_tds_paise": 8998,
       "expected_fee_paise": 8098,
       "expected_gst_paise": 1458,
+      "expected_tds_paise": 8998,
       "instrument": "DEBIT_CARD"
     },
     "pay_00110": {
       "amount_paise": 56799,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 568,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 568,
       "instrument": "UPI"
     },
     "pay_00111": {
       "amount_paise": 1256200,
       "charged_fee_paise": 2000,
       "charged_gst_paise": 360,
+      "charged_tds_paise": 12562,
       "expected_fee_paise": 2000,
       "expected_gst_paise": 360,
+      "expected_tds_paise": 12562,
       "instrument": "NETBANKING"
     },
     "pay_00112": {
       "amount_paise": 641600,
       "charged_fee_paise": 5774,
       "charged_gst_paise": 1039,
+      "charged_tds_paise": 6416,
       "expected_fee_paise": 5774,
       "expected_gst_paise": 1039,
+      "expected_tds_paise": 6416,
       "instrument": "DEBIT_CARD"
     },
     "pay_00113": {
       "amount_paise": 14800,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 148,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 148,
       "instrument": "UPI"
     },
     "pay_00114": {
       "amount_paise": 2558500,
       "charged_fee_paise": 51170,
       "charged_gst_paise": 9211,
+      "charged_tds_paise": 25585,
       "expected_fee_paise": 51170,
       "expected_gst_paise": 9211,
+      "expected_tds_paise": 25585,
       "instrument": "CREDIT_CARD"
     },
     "pay_00115": {
       "amount_paise": 312549,
       "charged_fee_paise": 2813,
       "charged_gst_paise": 506,
+      "charged_tds_paise": 3125,
       "expected_fee_paise": 2813,
       "expected_gst_paise": 506,
+      "expected_tds_paise": 3125,
       "instrument": "DEBIT_CARD"
     },
     "pay_00116": {
       "amount_paise": 499350,
       "charged_fee_paise": 4494,
       "charged_gst_paise": 809,
+      "charged_tds_paise": 4994,
       "expected_fee_paise": 4494,
       "expected_gst_paise": 809,
+      "expected_tds_paise": 4994,
       "instrument": "DEBIT_CARD"
     },
     "pay_00117": {
       "amount_paise": 246975,
       "charged_fee_paise": 2223,
       "charged_gst_paise": 400,
+      "charged_tds_paise": 2470,
       "expected_fee_paise": 2223,
       "expected_gst_paise": 400,
+      "expected_tds_paise": 2470,
       "instrument": "DEBIT_CARD"
     },
     "pay_00118": {
       "amount_paise": 94250,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 943,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 943,
       "instrument": "UPI"
     },
     "pay_00119": {
       "amount_paise": 336325,
       "charged_fee_paise": 1200,
       "charged_gst_paise": 216,
+      "charged_tds_paise": 3363,
       "expected_fee_paise": 1200,
       "expected_gst_paise": 216,
+      "expected_tds_paise": 3363,
       "instrument": "NETBANKING"
     },
     "pay_00120": {
       "amount_paise": 601800,
       "charged_fee_paise": 5416,
       "charged_gst_paise": 975,
+      "charged_tds_paise": 6018,
       "expected_fee_paise": 5416,
       "expected_gst_paise": 975,
+      "expected_tds_paise": 6018,
       "instrument": "DEBIT_CARD"
     },
     "pay_00121": {
       "amount_paise": 71600,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 716,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 716,
       "instrument": "UPI"
     },
     "pay_00122": {
       "amount_paise": 78050,
       "charged_fee_paise": 312,
       "charged_gst_paise": 56,
+      "charged_tds_paise": 781,
       "expected_fee_paise": 312,
       "expected_gst_paise": 56,
+      "expected_tds_paise": 781,
       "instrument": "DEBIT_CARD"
     },
     "pay_00123": {
       "amount_paise": 118799,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1188,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1188,
       "instrument": "UPI"
     },
     "pay_00124": {
       "amount_paise": 478799,
       "charged_fee_paise": 4309,
       "charged_gst_paise": 776,
+      "charged_tds_paise": 4788,
       "expected_fee_paise": 4309,
       "expected_gst_paise": 776,
+      "expected_tds_paise": 4788,
       "instrument": "DEBIT_CARD"
     },
     "pay_00125": {
       "amount_paise": 458399,
       "charged_fee_paise": 6526,
       "charged_gst_paise": 1175,
+      "charged_tds_paise": 4584,
       "expected_fee_paise": 4126,
       "expected_gst_paise": 743,
+      "expected_tds_paise": 4584,
       "instrument": "DEBIT_CARD"
     },
     "pay_00126": {
       "amount_paise": 1669825,
       "charged_fee_paise": 1200,
       "charged_gst_paise": 216,
+      "charged_tds_paise": 16698,
       "expected_fee_paise": 1200,
       "expected_gst_paise": 216,
+      "expected_tds_paise": 16698,
       "instrument": "NETBANKING"
     },
     "pay_00127": {
       "amount_paise": 138401,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1384,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1384,
       "instrument": "UPI"
     },
     "pay_00128": {
       "amount_paise": 3594549,
       "charged_fee_paise": 71891,
       "charged_gst_paise": 12940,
+      "charged_tds_paise": 35945,
       "expected_fee_paise": 71891,
       "expected_gst_paise": 12940,
+      "expected_tds_paise": 35945,
       "instrument": "CREDIT_CARD"
     },
     "pay_00129": {
       "amount_paise": 32900,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 329,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 329,
       "instrument": "UPI"
     },
     "pay_00130": {
       "amount_paise": 309500,
       "charged_fee_paise": 6190,
       "charged_gst_paise": 1114,
+      "charged_tds_paise": 3095,
       "expected_fee_paise": 6190,
       "expected_gst_paise": 1114,
+      "expected_tds_paise": 3095,
       "instrument": "CREDIT_CARD"
     },
     "pay_00131": {
       "amount_paise": 52375,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 524,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 524,
       "instrument": "UPI"
     },
     "pay_00132": {
       "amount_paise": 23750,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 238,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 238,
       "instrument": "UPI"
     },
     "pay_00133": {
       "amount_paise": 109125,
       "charged_fee_paise": 1200,
       "charged_gst_paise": 216,
+      "charged_tds_paise": 1091,
       "expected_fee_paise": 1200,
       "expected_gst_paise": 216,
+      "expected_tds_paise": 1091,
       "instrument": "NETBANKING"
     },
     "pay_00134": {
       "amount_paise": 4210425,
       "charged_fee_paise": 84209,
       "charged_gst_paise": 15158,
+      "charged_tds_paise": 42104,
       "expected_fee_paise": 84209,
       "expected_gst_paise": 15158,
+      "expected_tds_paise": 42104,
       "instrument": "CREDIT_CARD"
     },
     "pay_00135": {
       "amount_paise": 695375,
       "charged_fee_paise": 6258,
       "charged_gst_paise": 1126,
+      "charged_tds_paise": 6954,
       "expected_fee_paise": 6258,
       "expected_gst_paise": 1126,
+      "expected_tds_paise": 6954,
       "instrument": "DEBIT_CARD"
     },
     "pay_00136": {
       "amount_paise": 172875,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1729,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1729,
       "instrument": "UPI"
     },
     "pay_00137": {
       "amount_paise": 429100,
       "charged_fee_paise": 2000,
       "charged_gst_paise": 360,
+      "charged_tds_paise": 4291,
       "expected_fee_paise": 2000,
       "expected_gst_paise": 360,
+      "expected_tds_paise": 4291,
       "instrument": "NETBANKING"
     },
     "pay_00138": {
       "amount_paise": 533200,
       "charged_fee_paise": 4799,
       "charged_gst_paise": 864,
+      "charged_tds_paise": 5332,
       "expected_fee_paise": 4799,
       "expected_gst_paise": 864,
+      "expected_tds_paise": 5332,
       "instrument": "DEBIT_CARD"
     },
     "pay_00139": {
       "amount_paise": 40599,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 406,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 406,
       "instrument": "UPI"
     },
     "pay_00140": {
       "amount_paise": 33550,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 336,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 336,
       "instrument": "UPI"
     },
     "pay_00141": {
       "amount_paise": 69200,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 692,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 692,
       "instrument": "UPI"
     },
     "pay_00142": {
       "amount_paise": 17800,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 178,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 178,
       "instrument": "UPI"
     },
     "pay_00143": {
       "amount_paise": 193500,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1935,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1935,
       "instrument": "UPI"
     },
     "pay_00144": {
       "amount_paise": 196749,
       "charged_fee_paise": 3541,
       "charged_gst_paise": 637,
+      "charged_tds_paise": 1967,
       "expected_fee_paise": 3541,
       "expected_gst_paise": 637,
+      "expected_tds_paise": 1967,
       "instrument": "WALLET"
     },
     "pay_00145": {
       "amount_paise": 728400,
       "charged_fee_paise": 6556,
       "charged_gst_paise": 1180,
+      "charged_tds_paise": 7284,
       "expected_fee_paise": 6556,
       "expected_gst_paise": 1180,
+      "expected_tds_paise": 7284,
       "instrument": "DEBIT_CARD"
     },
     "pay_00146": {
       "amount_paise": 1283100,
       "charged_fee_paise": 1500,
       "charged_gst_paise": 270,
+      "charged_tds_paise": 12831,
       "expected_fee_paise": 1500,
       "expected_gst_paise": 270,
+      "expected_tds_paise": 12831,
       "instrument": "NETBANKING"
     },
     "pay_00147": {
       "amount_paise": 1848225,
       "charged_fee_paise": 51750,
       "charged_gst_paise": 9015,
+      "charged_tds_paise": 18482,
       "expected_fee_paise": 51750,
       "expected_gst_paise": 9315,
+      "expected_tds_paise": 18482,
       "instrument": "AMEX"
     },
     "pay_00148": {
       "amount_paise": 418101,
       "charged_fee_paise": 7526,
       "charged_gst_paise": 1355,
+      "charged_tds_paise": 4181,
       "expected_fee_paise": 7526,
       "expected_gst_paise": 1355,
+      "expected_tds_paise": 4181,
       "instrument": "WALLET"
     },
     "pay_00149": {
       "amount_paise": 171801,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1718,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1718,
       "instrument": "UPI"
     },
     "pay_00150": {
       "amount_paise": 2087675,
       "charged_fee_paise": 1200,
       "charged_gst_paise": 216,
+      "charged_tds_paise": 20877,
       "expected_fee_paise": 1200,
       "expected_gst_paise": 216,
+      "expected_tds_paise": 20877,
       "instrument": "NETBANKING"
     },
     "pay_00151": {
       "amount_paise": 116549,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1165,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1165,
       "instrument": "UPI"
     },
     "pay_00152": {
       "amount_paise": 456125,
       "charged_fee_paise": 8210,
       "charged_gst_paise": 1478,
+      "charged_tds_paise": 4561,
       "expected_fee_paise": 8210,
       "expected_gst_paise": 1478,
+      "expected_tds_paise": 4561,
       "instrument": "WALLET"
     },
     "pay_00153": {
       "amount_paise": 16449,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 164,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 164,
       "instrument": "UPI"
     },
     "pay_00154": {
       "amount_paise": 84950,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 850,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 850,
       "instrument": "UPI"
     },
     "pay_00155": {
       "amount_paise": 4506175,
       "charged_fee_paise": 90124,
       "charged_gst_paise": 16102,
+      "charged_tds_paise": 45062,
       "expected_fee_paise": 90124,
       "expected_gst_paise": 16222,
+      "expected_tds_paise": 45062,
       "instrument": "CREDIT_CARD"
     },
     "pay_00156": {
       "amount_paise": 1215399,
       "charged_fee_paise": 1200,
       "charged_gst_paise": 216,
+      "charged_tds_paise": 12154,
       "expected_fee_paise": 1200,
       "expected_gst_paise": 216,
+      "expected_tds_paise": 12154,
       "instrument": "NETBANKING"
     },
     "pay_00157": {
       "amount_paise": 2238001,
       "charged_fee_paise": 44760,
       "charged_gst_paise": 8057,
+      "charged_tds_paise": 22380,
       "expected_fee_paise": 44760,
       "expected_gst_paise": 8057,
+      "expected_tds_paise": 22380,
       "instrument": "CREDIT_CARD"
     },
     "pay_00158": {
       "amount_paise": 1964550,
       "charged_fee_paise": 39291,
       "charged_gst_paise": 7072,
+      "charged_tds_paise": 19646,
       "expected_fee_paise": 39291,
       "expected_gst_paise": 7072,
+      "expected_tds_paise": 19646,
       "instrument": "CREDIT_CARD"
     },
     "pay_00159": {
       "amount_paise": 228949,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 2289,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 2289,
       "instrument": "UPI"
     },
     "pay_00160": {
       "amount_paise": 1817500,
       "charged_fee_paise": 36350,
       "charged_gst_paise": 6543,
+      "charged_tds_paise": 18175,
       "expected_fee_paise": 36350,
       "expected_gst_paise": 6543,
+      "expected_tds_paise": 18175,
       "instrument": "CREDIT_CARD"
     },
     "pay_00161": {
       "amount_paise": 177550,
       "charged_fee_paise": 710,
       "charged_gst_paise": 128,
+      "charged_tds_paise": 1776,
       "expected_fee_paise": 710,
       "expected_gst_paise": 128,
+      "expected_tds_paise": 1776,
       "instrument": "DEBIT_CARD"
     },
     "pay_00162": {
       "amount_paise": 1661950,
       "charged_fee_paise": 33239,
       "charged_gst_paise": 5983,
+      "charged_tds_paise": 16620,
       "expected_fee_paise": 33239,
       "expected_gst_paise": 5983,
+      "expected_tds_paise": 16620,
       "instrument": "CREDIT_CARD"
     },
     "pay_00163": {
       "amount_paise": 458101,
       "charged_fee_paise": 8246,
       "charged_gst_paise": 1484,
+      "charged_tds_paise": 4581,
       "expected_fee_paise": 8246,
       "expected_gst_paise": 1484,
+      "expected_tds_paise": 4581,
       "instrument": "WALLET"
     },
     "pay_00164": {
       "amount_paise": 19875,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 199,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 199,
       "instrument": "UPI"
     },
     "pay_00165": {
       "amount_paise": 24300,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 243,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 243,
       "instrument": "UPI"
     },
     "pay_00166": {
       "amount_paise": 49599,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 496,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 496,
       "instrument": "UPI"
     },
     "pay_00167": {
       "amount_paise": 148200,
       "charged_fee_paise": 593,
       "charged_gst_paise": 107,
+      "charged_tds_paise": 1482,
       "expected_fee_paise": 593,
       "expected_gst_paise": 107,
+      "expected_tds_paise": 1482,
       "instrument": "DEBIT_CARD"
     },
     "pay_00168": {
       "amount_paise": 4618500,
       "charged_fee_paise": 92370,
       "charged_gst_paise": 16627,
+      "charged_tds_paise": 46185,
       "expected_fee_paise": 92370,
       "expected_gst_paise": 16627,
+      "expected_tds_paise": 46185,
       "instrument": "CREDIT_CARD"
     },
     "pay_00169": {
       "amount_paise": 1116101,
       "charged_fee_paise": 2604,
       "charged_gst_paise": 469,
+      "charged_tds_paise": 11161,
       "expected_fee_paise": 2000,
       "expected_gst_paise": 360,
+      "expected_tds_paise": 11161,
       "instrument": "NETBANKING"
     },
     "pay_00170": {
       "amount_paise": 408175,
       "charged_fee_paise": 7347,
       "charged_gst_paise": 1322,
+      "charged_tds_paise": 4082,
       "expected_fee_paise": 7347,
       "expected_gst_paise": 1322,
+      "expected_tds_paise": 4082,
       "instrument": "WALLET"
     },
     "pay_00171": {
       "amount_paise": 158825,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1588,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1588,
       "instrument": "UPI"
     },
     "pay_00172": {
       "amount_paise": 308050,
       "charged_fee_paise": 2772,
       "charged_gst_paise": 499,
+      "charged_tds_paise": 3081,
       "expected_fee_paise": 2772,
       "expected_gst_paise": 499,
+      "expected_tds_paise": 3081,
       "instrument": "DEBIT_CARD"
     },
     "pay_00173": {
       "amount_paise": 41825,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 418,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 418,
       "instrument": "UPI"
     },
     "pay_00174": {
       "amount_paise": 88500,
       "charged_fee_paise": 1593,
       "charged_gst_paise": 287,
+      "charged_tds_paise": 885,
       "expected_fee_paise": 1593,
       "expected_gst_paise": 287,
+      "expected_tds_paise": 885,
       "instrument": "WALLET"
     },
     "pay_00175": {
       "amount_paise": 36375,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 364,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 364,
       "instrument": "UPI"
     },
     "pay_00176": {
       "amount_paise": 1794599,
       "charged_fee_paise": 1500,
       "charged_gst_paise": 270,
+      "charged_tds_paise": 17946,
       "expected_fee_paise": 1500,
       "expected_gst_paise": 270,
+      "expected_tds_paise": 17946,
       "instrument": "NETBANKING"
     },
     "pay_00177": {
       "amount_paise": 156049,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1560,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1560,
       "instrument": "UPI"
     },
     "pay_00178": {
       "amount_paise": 97799,
       "charged_fee_paise": 391,
       "charged_gst_paise": 70,
+      "charged_tds_paise": 978,
       "expected_fee_paise": 391,
       "expected_gst_paise": 70,
+      "expected_tds_paise": 978,
       "instrument": "DEBIT_CARD"
     },
     "pay_00178_dup": {
       "amount_paise": 97799,
       "charged_fee_paise": 391,
       "charged_gst_paise": 70,
+      "charged_tds_paise": 978,
       "expected_fee_paise": 391,
       "expected_gst_paise": 70,
+      "expected_tds_paise": 978,
       "instrument": "DEBIT_CARD"
     },
     "pay_00179": {
       "amount_paise": 14599,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 146,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 146,
       "instrument": "UPI"
     },
     "pay_00180": {
       "amount_paise": 64775,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 648,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 648,
       "instrument": "UPI"
     },
     "pay_00181": {
       "amount_paise": 12700,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 127,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 127,
       "instrument": "UPI"
     },
     "pay_00182": {
       "amount_paise": 1127900,
       "charged_fee_paise": 33837,
       "charged_gst_paise": 6091,
+      "charged_tds_paise": 11279,
       "expected_fee_paise": 33837,
       "expected_gst_paise": 6091,
+      "expected_tds_paise": 11279,
       "instrument": "CREDIT_CARD"
     },
     "pay_00183": {
       "amount_paise": 283075,
       "charged_fee_paise": 5095,
       "charged_gst_paise": 917,
+      "charged_tds_paise": 2831,
       "expected_fee_paise": 5095,
       "expected_gst_paise": 917,
+      "expected_tds_paise": 2831,
       "instrument": "WALLET"
     },
     "pay_00184": {
       "amount_paise": 385300,
       "charged_fee_paise": 3468,
       "charged_gst_paise": 624,
+      "charged_tds_paise": 3853,
       "expected_fee_paise": 3468,
       "expected_gst_paise": 624,
+      "expected_tds_paise": 3853,
       "instrument": "DEBIT_CARD"
     },
     "pay_00185": {
       "amount_paise": 10600,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 106,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 106,
       "instrument": "UPI"
     },
     "pay_00186": {
       "amount_paise": 3754900,
       "charged_fee_paise": 75098,
       "charged_gst_paise": 13518,
+      "charged_tds_paise": 37549,
       "expected_fee_paise": 75098,
       "expected_gst_paise": 13518,
+      "expected_tds_paise": 37549,
       "instrument": "CREDIT_CARD"
     },
     "pay_00187": {
       "amount_paise": 735050,
       "charged_fee_paise": 6615,
       "charged_gst_paise": 1191,
+      "charged_tds_paise": 7351,
       "expected_fee_paise": 6615,
       "expected_gst_paise": 1191,
+      "expected_tds_paise": 7351,
       "instrument": "DEBIT_CARD"
     },
     "pay_00188": {
       "amount_paise": 1340300,
       "charged_fee_paise": 1800,
       "charged_gst_paise": 324,
+      "charged_tds_paise": 13403,
       "expected_fee_paise": 1800,
       "expected_gst_paise": 324,
+      "expected_tds_paise": 13403,
       "instrument": "NETBANKING"
     },
     "pay_00189": {
       "amount_paise": 124325,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1243,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1243,
       "instrument": "UPI"
     },
     "pay_00190": {
       "amount_paise": 2238600,
       "charged_fee_paise": 44772,
       "charged_gst_paise": 8059,
+      "charged_tds_paise": 22386,
       "expected_fee_paise": 44772,
       "expected_gst_paise": 8059,
+      "expected_tds_paise": 22386,
       "instrument": "CREDIT_CARD"
     },
     "pay_00191": {
       "amount_paise": 268600,
       "charged_fee_paise": 2417,
       "charged_gst_paise": 435,
+      "charged_tds_paise": 2686,
       "expected_fee_paise": 2417,
       "expected_gst_paise": 435,
+      "expected_tds_paise": 2686,
       "instrument": "DEBIT_CARD"
     },
     "pay_00192": {
       "amount_paise": 63200,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 632,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 632,
       "instrument": "UPI"
     },
     "pay_00193": {
       "amount_paise": 581600,
       "charged_fee_paise": 5234,
       "charged_gst_paise": 1037,
+      "charged_tds_paise": 5816,
       "expected_fee_paise": 5234,
       "expected_gst_paise": 942,
+      "expected_tds_paise": 5816,
       "instrument": "DEBIT_CARD"
     },
     "pay_00194": {
       "amount_paise": 103100,
       "charged_fee_paise": 1856,
       "charged_gst_paise": 334,
+      "charged_tds_paise": 1031,
       "expected_fee_paise": 1856,
       "expected_gst_paise": 334,
+      "expected_tds_paise": 1031,
       "instrument": "WALLET"
     },
     "pay_00195": {
       "amount_paise": 73000,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 730,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 730,
       "instrument": "UPI"
     },
     "pay_00196": {
       "amount_paise": 894250,
       "charged_fee_paise": 1800,
       "charged_gst_paise": 324,
+      "charged_tds_paise": 8943,
       "expected_fee_paise": 1800,
       "expected_gst_paise": 324,
+      "expected_tds_paise": 8943,
       "instrument": "NETBANKING"
     },
     "pay_00197": {
       "amount_paise": 4645900,
       "charged_fee_paise": 92918,
       "charged_gst_paise": 16725,
+      "charged_tds_paise": 46459,
       "expected_fee_paise": 92918,
       "expected_gst_paise": 16725,
+      "expected_tds_paise": 46459,
       "instrument": "CREDIT_CARD"
     },
     "pay_00198": {
       "amount_paise": 40901,
       "charged_fee_paise": 736,
       "charged_gst_paise": 132,
+      "charged_tds_paise": 409,
       "expected_fee_paise": 736,
       "expected_gst_paise": 132,
+      "expected_tds_paise": 409,
       "instrument": "WALLET"
     },
     "pay_00199": {
       "amount_paise": 4737549,
       "charged_fee_paise": 94751,
       "charged_gst_paise": 17055,
+      "charged_tds_paise": 47375,
       "expected_fee_paise": 94751,
       "expected_gst_paise": 17055,
+      "expected_tds_paise": 47375,
       "instrument": "CREDIT_CARD"
     },
     "pay_00200": {
       "amount_paise": 67399,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 674,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 674,
       "instrument": "UPI"
     },
     "pay_00201": {
       "amount_paise": 1967625,
       "charged_fee_paise": 1500,
       "charged_gst_paise": 270,
+      "charged_tds_paise": 19676,
       "expected_fee_paise": 1500,
       "expected_gst_paise": 270,
+      "expected_tds_paise": 19676,
       "instrument": "NETBANKING"
     },
     "pay_00202": {
       "amount_paise": 24600,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 246,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 246,
       "instrument": "UPI"
     },
     "pay_00203": {
       "amount_paise": 127900,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1279,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1279,
       "instrument": "UPI"
     },
     "pay_00204": {
       "amount_paise": 68800,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 688,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 688,
       "instrument": "UPI"
     },
     "pay_00205": {
       "amount_paise": 150549,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1505,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1505,
       "instrument": "UPI"
     },
     "pay_00206": {
       "amount_paise": 2734500,
       "charged_fee_paise": 1500,
       "charged_gst_paise": 270,
+      "charged_tds_paise": 27345,
       "expected_fee_paise": 1500,
       "expected_gst_paise": 270,
+      "expected_tds_paise": 27345,
       "instrument": "NETBANKING"
     },
     "pay_00207": {
       "amount_paise": 2859600,
       "charged_fee_paise": 57192,
       "charged_gst_paise": 10295,
+      "charged_tds_paise": 28596,
       "expected_fee_paise": 57192,
       "expected_gst_paise": 10295,
+      "expected_tds_paise": 28596,
       "instrument": "CREDIT_CARD"
     },
     "pay_00208": {
       "amount_paise": 150600,
       "charged_fee_paise": 2711,
       "charged_gst_paise": 488,
+      "charged_tds_paise": 1506,
       "expected_fee_paise": 2711,
       "expected_gst_paise": 488,
+      "expected_tds_paise": 1506,
       "instrument": "WALLET"
     },
     "pay_00209": {
       "amount_paise": 39900,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 399,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 399,
       "instrument": "UPI"
     },
     "pay_00210": {
       "amount_paise": 33500,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 335,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 335,
       "instrument": "UPI"
     },
     "pay_00211": {
       "amount_paise": 249650,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 2497,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 2497,
       "instrument": "UPI"
     },
     "pay_00212": {
       "amount_paise": 2781300,
       "charged_fee_paise": 2000,
       "charged_gst_paise": 360,
+      "charged_tds_paise": 27813,
       "expected_fee_paise": 2000,
       "expected_gst_paise": 360,
+      "expected_tds_paise": 27813,
       "instrument": "NETBANKING"
     },
     "pay_00213": {
       "amount_paise": 1144399,
       "charged_fee_paise": 1200,
       "charged_gst_paise": 216,
+      "charged_tds_paise": 11444,
       "expected_fee_paise": 1200,
       "expected_gst_paise": 216,
+      "expected_tds_paise": 11444,
       "instrument": "NETBANKING"
     },
     "pay_00214": {
       "amount_paise": 82699,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 827,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 827,
       "instrument": "UPI"
     },
     "pay_00215": {
       "amount_paise": 16800,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 168,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 168,
       "instrument": "UPI"
     },
     "pay_00216": {
       "amount_paise": 4549175,
       "charged_fee_paise": 90984,
       "charged_gst_paise": 16377,
+      "charged_tds_paise": 45492,
       "expected_fee_paise": 90984,
       "expected_gst_paise": 16377,
+      "expected_tds_paise": 45492,
       "instrument": "CREDIT_CARD"
     },
     "pay_00217": {
       "amount_paise": 11600,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 116,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 116,
       "instrument": "UPI"
     },
     "pay_00218": {
       "amount_paise": 37199,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 372,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 372,
       "instrument": "UPI"
     },
     "pay_00219": {
       "amount_paise": 819401,
       "charged_fee_paise": 7375,
       "charged_gst_paise": 1328,
+      "charged_tds_paise": 8194,
       "expected_fee_paise": 7375,
       "expected_gst_paise": 1328,
+      "expected_tds_paise": 8194,
       "instrument": "DEBIT_CARD"
     },
     "pay_00220": {
       "amount_paise": 151625,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1516,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1516,
       "instrument": "UPI"
     },
     "pay_00221": {
       "amount_paise": 1206649,
       "charged_fee_paise": 24133,
       "charged_gst_paise": 4344,
+      "charged_tds_paise": 12066,
       "expected_fee_paise": 24133,
       "expected_gst_paise": 4344,
+      "expected_tds_paise": 12066,
       "instrument": "CREDIT_CARD"
     },
     "pay_00222": {
       "amount_paise": 165399,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1654,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1654,
       "instrument": "UPI"
     },
     "pay_00223": {
       "amount_paise": 59200,
       "charged_fee_paise": 1066,
       "charged_gst_paise": 192,
+      "charged_tds_paise": 592,
       "expected_fee_paise": 1066,
       "expected_gst_paise": 192,
+      "expected_tds_paise": 592,
       "instrument": "WALLET"
     },
     "pay_00224": {
       "amount_paise": 334375,
       "charged_fee_paise": 2000,
       "charged_gst_paise": 360,
+      "charged_tds_paise": 3344,
       "expected_fee_paise": 2000,
       "expected_gst_paise": 360,
+      "expected_tds_paise": 3344,
       "instrument": "NETBANKING"
     },
     "pay_00225": {
       "amount_paise": 1055725,
       "charged_fee_paise": 21115,
       "charged_gst_paise": 3801,
+      "charged_tds_paise": 10557,
       "expected_fee_paise": 21115,
       "expected_gst_paise": 3801,
+      "expected_tds_paise": 10557,
       "instrument": "CREDIT_CARD"
     },
     "pay_00226": {
       "amount_paise": 7901,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 79,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 79,
       "instrument": "UPI"
     },
     "pay_00227": {
       "amount_paise": 3479450,
       "charged_fee_paise": 88533,
       "charged_gst_paise": 15936,
+      "charged_tds_paise": 34795,
       "expected_fee_paise": 86986,
       "expected_gst_paise": 15657,
+      "expected_tds_paise": 34795,
       "instrument": "EMI"
     },
     "pay_00228": {
       "amount_paise": 2781150,
       "charged_fee_paise": 1500,
       "charged_gst_paise": 270,
+      "charged_tds_paise": 27812,
       "expected_fee_paise": 1500,
       "expected_gst_paise": 270,
+      "expected_tds_paise": 27812,
       "instrument": "NETBANKING"
     },
     "pay_00229": {
       "amount_paise": 71899,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 719,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 719,
       "instrument": "UPI"
     },
     "pay_00230": {
       "amount_paise": 412575,
       "charged_fee_paise": 3713,
       "charged_gst_paise": 668,
+      "charged_tds_paise": 4126,
       "expected_fee_paise": 3713,
       "expected_gst_paise": 668,
+      "expected_tds_paise": 4126,
       "instrument": "DEBIT_CARD"
     },
     "pay_00231": {
       "amount_paise": 107300,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1073,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1073,
       "instrument": "UPI"
     },
     "pay_00232": {
       "amount_paise": 1505099,
       "charged_fee_paise": 1200,
       "charged_gst_paise": 96,
+      "charged_tds_paise": 15051,
       "expected_fee_paise": 1200,
       "expected_gst_paise": 216,
+      "expected_tds_paise": 15051,
       "instrument": "NETBANKING"
     },
     "pay_00233": {
       "amount_paise": 502149,
       "charged_fee_paise": 4519,
       "charged_gst_paise": 813,
+      "charged_tds_paise": 5021,
       "expected_fee_paise": 4519,
       "expected_gst_paise": 813,
+      "expected_tds_paise": 5021,
       "instrument": "DEBIT_CARD"
     },
     "pay_00234": {
       "amount_paise": 25749,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 257,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 257,
       "instrument": "UPI"
     },
     "pay_00235": {
       "amount_paise": 439899,
       "charged_fee_paise": 7918,
       "charged_gst_paise": 1425,
+      "charged_tds_paise": 4399,
       "expected_fee_paise": 7918,
       "expected_gst_paise": 1425,
+      "expected_tds_paise": 4399,
       "instrument": "WALLET"
     },
     "pay_00236": {
       "amount_paise": 53700,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 537,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 537,
       "instrument": "UPI"
     },
     "pay_00237": {
       "amount_paise": 2171600,
       "charged_fee_paise": 2000,
       "charged_gst_paise": 360,
+      "charged_tds_paise": 21716,
       "expected_fee_paise": 2000,
       "expected_gst_paise": 360,
+      "expected_tds_paise": 21716,
       "instrument": "NETBANKING"
     },
     "pay_00238": {
       "amount_paise": 1507299,
       "charged_fee_paise": 2000,
       "charged_gst_paise": 360,
+      "charged_tds_paise": 15073,
       "expected_fee_paise": 2000,
       "expected_gst_paise": 360,
+      "expected_tds_paise": 15073,
       "instrument": "NETBANKING"
     },
     "pay_00239": {
       "amount_paise": 91275,
       "charged_fee_paise": 1643,
       "charged_gst_paise": 296,
+      "charged_tds_paise": 913,
       "expected_fee_paise": 1643,
       "expected_gst_paise": 296,
+      "expected_tds_paise": 913,
       "instrument": "WALLET"
     },
     "pay_00240": {
       "amount_paise": 753300,
       "charged_fee_paise": 6780,
       "charged_gst_paise": 1220,
+      "charged_tds_paise": 7533,
       "expected_fee_paise": 6780,
       "expected_gst_paise": 1220,
+      "expected_tds_paise": 7533,
       "instrument": "DEBIT_CARD"
     },
     "pay_00241": {
       "amount_paise": 2089901,
       "charged_fee_paise": 41798,
       "charged_gst_paise": 7524,
+      "charged_tds_paise": 20899,
       "expected_fee_paise": 41798,
       "expected_gst_paise": 7524,
+      "expected_tds_paise": 20899,
       "instrument": "CREDIT_CARD"
     },
     "pay_00242": {
       "amount_paise": 2362249,
       "charged_fee_paise": 1200,
       "charged_gst_paise": 216,
+      "charged_tds_paise": 23622,
       "expected_fee_paise": 1200,
       "expected_gst_paise": 216,
+      "expected_tds_paise": 23622,
       "instrument": "NETBANKING"
     },
     "pay_00243": {
       "amount_paise": 52500,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 525,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 525,
       "instrument": "UPI"
     },
     "pay_00244": {
       "amount_paise": 73349,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 733,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 733,
       "instrument": "UPI"
     },
     "pay_00245": {
       "amount_paise": 838649,
       "charged_fee_paise": 16773,
       "charged_gst_paise": 3019,
+      "charged_tds_paise": 8386,
       "expected_fee_paise": 16773,
       "expected_gst_paise": 3019,
+      "expected_tds_paise": 8386,
       "instrument": "CREDIT_CARD"
     },
     "pay_00246": {
       "amount_paise": 2688400,
       "charged_fee_paise": 53768,
       "charged_gst_paise": 9678,
+      "charged_tds_paise": 26884,
       "expected_fee_paise": 53768,
       "expected_gst_paise": 9678,
+      "expected_tds_paise": 26884,
       "instrument": "CREDIT_CARD"
     },
     "pay_00247": {
       "amount_paise": 1559549,
       "charged_fee_paise": 31191,
       "charged_gst_paise": 5614,
+      "charged_tds_paise": 15595,
       "expected_fee_paise": 31191,
       "expected_gst_paise": 5614,
+      "expected_tds_paise": 15595,
       "instrument": "CREDIT_CARD"
     },
     "pay_00248": {
       "amount_paise": 26300,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 263,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 263,
       "instrument": "UPI"
     },
     "pay_00249": {
       "amount_paise": 26049,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 260,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 260,
       "instrument": "UPI"
     },
     "pay_00250": {
       "amount_paise": 818101,
       "charged_fee_paise": 7363,
       "charged_gst_paise": 1325,
+      "charged_tds_paise": 8181,
       "expected_fee_paise": 7363,
       "expected_gst_paise": 1325,
+      "expected_tds_paise": 8181,
       "instrument": "DEBIT_CARD"
     },
     "pay_00251": {
       "amount_paise": 80300,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 803,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 803,
       "instrument": "UPI"
     },
     "pay_00252": {
       "amount_paise": 595000,
       "charged_fee_paise": 5355,
       "charged_gst_paise": 964,
+      "charged_tds_paise": 5950,
       "expected_fee_paise": 5355,
       "expected_gst_paise": 964,
+      "expected_tds_paise": 5950,
       "instrument": "DEBIT_CARD"
     },
     "pay_00253": {
       "amount_paise": 471999,
       "charged_fee_paise": 8496,
       "charged_gst_paise": 1529,
+      "charged_tds_paise": 4720,
       "expected_fee_paise": 8496,
       "expected_gst_paise": 1529,
+      "expected_tds_paise": 4720,
       "instrument": "WALLET"
     },
     "pay_00254": {
       "amount_paise": 2566399,
       "charged_fee_paise": 1200,
       "charged_gst_paise": 216,
+      "charged_tds_paise": 25664,
       "expected_fee_paise": 1200,
       "expected_gst_paise": 216,
+      "expected_tds_paise": 25664,
       "instrument": "NETBANKING"
     },
     "pay_00255": {
       "amount_paise": 2198949,
       "charged_fee_paise": 43979,
       "charged_gst_paise": 7916,
+      "charged_tds_paise": 21989,
       "expected_fee_paise": 43979,
       "expected_gst_paise": 7916,
+      "expected_tds_paise": 21989,
       "instrument": "CREDIT_CARD"
     },
     "pay_00256": {
       "amount_paise": 38275,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 383,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 383,
       "instrument": "UPI"
     },
     "pay_00257": {
       "amount_paise": 4435801,
       "charged_fee_paise": 124202,
       "charged_gst_paise": 22356,
+      "charged_tds_paise": 44358,
       "expected_fee_paise": 124202,
       "expected_gst_paise": 22356,
+      "expected_tds_paise": 44358,
       "instrument": "AMEX"
     },
     "pay_00258": {
       "amount_paise": 183575,
       "charged_fee_paise": 734,
       "charged_gst_paise": 132,
+      "charged_tds_paise": 1836,
       "expected_fee_paise": 734,
       "expected_gst_paise": 132,
+      "expected_tds_paise": 1836,
       "instrument": "DEBIT_CARD"
     },
     "pay_00259": {
       "amount_paise": 43825,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 438,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 438,
       "instrument": "UPI"
     },
     "pay_00260": {
       "amount_paise": 176500,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1765,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1765,
       "instrument": "UPI"
     },
     "pay_00261": {
       "amount_paise": 61850,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 619,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 619,
       "instrument": "UPI"
     },
     "pay_00262": {
       "amount_paise": 781150,
       "charged_fee_paise": 7030,
       "charged_gst_paise": 1265,
+      "charged_tds_paise": 7812,
       "expected_fee_paise": 7030,
       "expected_gst_paise": 1265,
+      "expected_tds_paise": 7812,
       "instrument": "DEBIT_CARD"
     },
     "pay_00263": {
       "amount_paise": 94499,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 945,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 945,
       "instrument": "UPI"
     },
     "pay_00264": {
       "amount_paise": 149150,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1492,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1492,
       "instrument": "UPI"
     },
     "pay_00265": {
       "amount_paise": 4587125,
       "charged_fee_paise": 91743,
       "charged_gst_paise": 16514,
+      "charged_tds_paise": 45871,
       "expected_fee_paise": 91743,
       "expected_gst_paise": 16514,
+      "expected_tds_paise": 45871,
       "instrument": "CREDIT_CARD"
     },
     "pay_00266": {
       "amount_paise": 79575,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 796,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 796,
       "instrument": "UPI"
     },
     "pay_00267": {
       "amount_paise": 372575,
       "charged_fee_paise": 6706,
       "charged_gst_paise": 1207,
+      "charged_tds_paise": 3726,
       "expected_fee_paise": 6706,
       "expected_gst_paise": 1207,
+      "expected_tds_paise": 3726,
       "instrument": "WALLET"
     },
     "pay_00268": {
       "amount_paise": 4498400,
       "charged_fee_paise": 134952,
       "charged_gst_paise": 24291,
+      "charged_tds_paise": 44984,
       "expected_fee_paise": 134952,
       "expected_gst_paise": 24291,
+      "expected_tds_paise": 44984,
       "instrument": "CREDIT_CARD"
     },
     "pay_00269": {
       "amount_paise": 15725,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 157,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 157,
       "instrument": "UPI"
     },
     "pay_00270": {
       "amount_paise": 25901,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 259,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 259,
       "instrument": "UPI"
     },
     "pay_00271": {
       "amount_paise": 3664775,
       "charged_fee_paise": 73296,
       "charged_gst_paise": 13193,
+      "charged_tds_paise": 36648,
       "expected_fee_paise": 73296,
       "expected_gst_paise": 13193,
+      "expected_tds_paise": 36648,
       "instrument": "CREDIT_CARD"
     },
     "pay_00272": {
       "amount_paise": 47700,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 477,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 477,
       "instrument": "UPI"
     },
     "pay_00273": {
       "amount_paise": 870999,
       "charged_fee_paise": 7839,
       "charged_gst_paise": 1411,
+      "charged_tds_paise": 8710,
       "expected_fee_paise": 7839,
       "expected_gst_paise": 1411,
+      "expected_tds_paise": 8710,
       "instrument": "DEBIT_CARD"
     },
     "pay_00274": {
       "amount_paise": 1356750,
       "charged_fee_paise": 27135,
       "charged_gst_paise": 4884,
+      "charged_tds_paise": 13568,
       "expected_fee_paise": 27135,
       "expected_gst_paise": 4884,
+      "expected_tds_paise": 13568,
       "instrument": "CREDIT_CARD"
     },
     "pay_00275": {
       "amount_paise": 32800,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 328,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 328,
       "instrument": "UPI"
     },
     "pay_00276": {
       "amount_paise": 3505201,
       "charged_fee_paise": 70104,
       "charged_gst_paise": 12619,
+      "charged_tds_paise": 35052,
       "expected_fee_paise": 70104,
       "expected_gst_paise": 12619,
+      "expected_tds_paise": 35052,
       "instrument": "CREDIT_CARD"
     },
     "pay_00277": {
       "amount_paise": 360550,
       "charged_fee_paise": 3245,
       "charged_gst_paise": 584,
+      "charged_tds_paise": 3606,
       "expected_fee_paise": 3245,
       "expected_gst_paise": 584,
+      "expected_tds_paise": 3606,
       "instrument": "DEBIT_CARD"
     },
     "pay_00278": {
       "amount_paise": 52500,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 525,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 525,
       "instrument": "UPI"
     },
     "pay_00279": {
       "amount_paise": 4445200,
       "charged_fee_paise": 88904,
       "charged_gst_paise": 16003,
+      "charged_tds_paise": 44452,
       "expected_fee_paise": 88904,
       "expected_gst_paise": 16003,
+      "expected_tds_paise": 44452,
       "instrument": "CREDIT_CARD"
     },
     "pay_00280": {
       "amount_paise": 174200,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1742,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1742,
       "instrument": "UPI"
     },
     "pay_00281": {
       "amount_paise": 2363950,
       "charged_fee_paise": 49311,
       "charged_gst_paise": 8876,
+      "charged_tds_paise": 23640,
       "expected_fee_paise": 47279,
       "expected_gst_paise": 8510,
+      "expected_tds_paise": 23640,
       "instrument": "CREDIT_CARD"
     },
     "pay_00282": {
       "amount_paise": 510700,
       "charged_fee_paise": 4596,
       "charged_gst_paise": 827,
+      "charged_tds_paise": 5107,
       "expected_fee_paise": 4596,
       "expected_gst_paise": 827,
+      "expected_tds_paise": 5107,
       "instrument": "DEBIT_CARD"
     },
     "pay_00283": {
       "amount_paise": 3608301,
       "charged_fee_paise": 72166,
       "charged_gst_paise": 12990,
+      "charged_tds_paise": 36083,
       "expected_fee_paise": 72166,
       "expected_gst_paise": 12990,
+      "expected_tds_paise": 36083,
       "instrument": "CREDIT_CARD"
     },
     "pay_00284": {
       "amount_paise": 97225,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 972,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 972,
       "instrument": "UPI"
     },
     "pay_00285": {
       "amount_paise": 10749,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 107,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 107,
       "instrument": "UPI"
     },
     "pay_00286": {
       "amount_paise": 743900,
       "charged_fee_paise": 14878,
       "charged_gst_paise": 2678,
+      "charged_tds_paise": 7439,
       "expected_fee_paise": 14878,
       "expected_gst_paise": 2678,
+      "expected_tds_paise": 7439,
       "instrument": "CREDIT_CARD"
     },
     "pay_00287": {
       "amount_paise": 146549,
       "charged_fee_paise": 586,
       "charged_gst_paise": 105,
+      "charged_tds_paise": 1465,
       "expected_fee_paise": 586,
       "expected_gst_paise": 105,
+      "expected_tds_paise": 1465,
       "instrument": "DEBIT_CARD"
     },
     "pay_00288": {
       "amount_paise": 152400,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1524,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1524,
       "instrument": "UPI"
     },
     "pay_00289": {
       "amount_paise": 1857800,
       "charged_fee_paise": 1800,
       "charged_gst_paise": 324,
+      "charged_tds_paise": 18578,
       "expected_fee_paise": 1800,
       "expected_gst_paise": 324,
+      "expected_tds_paise": 18578,
       "instrument": "NETBANKING"
     },
     "pay_00290": {
       "amount_paise": 64000,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 640,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 640,
       "instrument": "UPI"
     },
     "pay_00291": {
       "amount_paise": 610900,
       "charged_fee_paise": 5498,
       "charged_gst_paise": 990,
+      "charged_tds_paise": 6109,
       "expected_fee_paise": 5498,
       "expected_gst_paise": 990,
+      "expected_tds_paise": 6109,
       "instrument": "DEBIT_CARD"
     },
     "pay_00292": {
       "amount_paise": 136701,
       "charged_fee_paise": 2734,
       "charged_gst_paise": 492,
+      "charged_tds_paise": 1367,
       "expected_fee_paise": 2734,
       "expected_gst_paise": 492,
+      "expected_tds_paise": 1367,
       "instrument": "CREDIT_CARD"
     },
     "pay_00293": {
       "amount_paise": 71999,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 720,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 720,
       "instrument": "UPI"
     },
     "pay_00294": {
       "amount_paise": 4242101,
       "charged_fee_paise": 87547,
       "charged_gst_paise": 15758,
+      "charged_tds_paise": 42421,
       "expected_fee_paise": 84842,
       "expected_gst_paise": 15272,
+      "expected_tds_paise": 42421,
       "instrument": "CREDIT_CARD"
     },
     "pay_00295": {
       "amount_paise": 187300,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1873,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1873,
       "instrument": "UPI"
     },
     "pay_00296": {
       "amount_paise": 14150,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 142,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 142,
       "instrument": "UPI"
     },
     "pay_00297": {
       "amount_paise": 3581199,
       "charged_fee_paise": 71624,
       "charged_gst_paise": 12892,
+      "charged_tds_paise": 35812,
       "expected_fee_paise": 71624,
       "expected_gst_paise": 12892,
+      "expected_tds_paise": 35812,
       "instrument": "CREDIT_CARD"
     },
     "pay_00298": {
       "amount_paise": 4754649,
       "charged_fee_paise": 95093,
       "charged_gst_paise": 17117,
+      "charged_tds_paise": 47546,
       "expected_fee_paise": 95093,
       "expected_gst_paise": 17117,
+      "expected_tds_paise": 47546,
       "instrument": "CREDIT_CARD"
     },
     "pay_00299": {
       "amount_paise": 245800,
       "charged_fee_paise": 2212,
       "charged_gst_paise": 398,
+      "charged_tds_paise": 2458,
       "expected_fee_paise": 2212,
       "expected_gst_paise": 398,
+      "expected_tds_paise": 2458,
       "instrument": "DEBIT_CARD"
     },
     "pay_00300": {
       "amount_paise": 26625,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 266,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 266,
       "instrument": "UPI"
     },
     "pay_00301": {
       "amount_paise": 2875550,
       "charged_fee_paise": 59943,
       "charged_gst_paise": 10790,
+      "charged_tds_paise": 28756,
       "expected_fee_paise": 57511,
       "expected_gst_paise": 10352,
+      "expected_tds_paise": 28756,
       "instrument": "CREDIT_CARD"
     },
     "pay_00302": {
       "amount_paise": 208300,
       "charged_fee_paise": 1875,
       "charged_gst_paise": 338,
+      "charged_tds_paise": 2083,
       "expected_fee_paise": 1875,
       "expected_gst_paise": 338,
+      "expected_tds_paise": 2083,
       "instrument": "DEBIT_CARD"
     },
     "pay_00303": {
       "amount_paise": 21001,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 210,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 210,
       "instrument": "UPI"
     },
     "pay_00304": {
       "amount_paise": 43600,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 436,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 436,
       "instrument": "UPI"
     },
     "pay_00305": {
       "amount_paise": 81200,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 812,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 812,
       "instrument": "UPI"
     },
     "pay_00306": {
       "amount_paise": 3180600,
       "charged_fee_paise": 79515,
       "charged_gst_paise": 14313,
+      "charged_tds_paise": 31806,
       "expected_fee_paise": 79515,
       "expected_gst_paise": 14313,
+      "expected_tds_paise": 31806,
       "instrument": "EMI"
     },
     "pay_00307": {
       "amount_paise": 32999,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 330,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 330,
       "instrument": "UPI"
     },
     "pay_00308": {
       "amount_paise": 1051725,
       "charged_fee_paise": 21035,
       "charged_gst_paise": 3786,
+      "charged_tds_paise": 10517,
       "expected_fee_paise": 21035,
       "expected_gst_paise": 3786,
+      "expected_tds_paise": 10517,
       "instrument": "CREDIT_CARD"
     },
     "pay_00309": {
       "amount_paise": 2310449,
       "charged_fee_paise": 46209,
       "charged_gst_paise": 8318,
+      "charged_tds_paise": 23104,
       "expected_fee_paise": 46209,
       "expected_gst_paise": 8318,
+      "expected_tds_paise": 23104,
       "instrument": "CREDIT_CARD"
     },
     "pay_00310": {
       "amount_paise": 2456501,
       "charged_fee_paise": 1800,
       "charged_gst_paise": 324,
+      "charged_tds_paise": 24565,
       "expected_fee_paise": 1800,
       "expected_gst_paise": 324,
+      "expected_tds_paise": 24565,
       "instrument": "NETBANKING"
     },
     "pay_00311": {
       "amount_paise": 3991875,
       "charged_fee_paise": 79838,
       "charged_gst_paise": 14371,
+      "charged_tds_paise": 39919,
       "expected_fee_paise": 79838,
       "expected_gst_paise": 14371,
+      "expected_tds_paise": 39919,
       "instrument": "CREDIT_CARD"
     },
     "pay_00312": {
       "amount_paise": 223500,
       "charged_fee_paise": 2012,
       "charged_gst_paise": 362,
+      "charged_tds_paise": 2235,
       "expected_fee_paise": 2012,
       "expected_gst_paise": 362,
+      "expected_tds_paise": 2235,
       "instrument": "DEBIT_CARD"
     },
     "pay_00313": {
       "amount_paise": 1117801,
       "charged_fee_paise": 22356,
       "charged_gst_paise": 4024,
+      "charged_tds_paise": 11178,
       "expected_fee_paise": 22356,
       "expected_gst_paise": 4024,
+      "expected_tds_paise": 11178,
       "instrument": "CREDIT_CARD"
     },
     "pay_00314": {
       "amount_paise": 40675,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 407,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 407,
       "instrument": "UPI"
     },
     "pay_00315": {
       "amount_paise": 122175,
       "charged_fee_paise": 2444,
       "charged_gst_paise": 440,
+      "charged_tds_paise": 1222,
       "expected_fee_paise": 2444,
       "expected_gst_paise": 440,
+      "expected_tds_paise": 1222,
       "instrument": "CREDIT_CARD"
     },
     "pay_00316": {
       "amount_paise": 63549,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 635,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 635,
       "instrument": "UPI"
     },
     "pay_00317": {
       "amount_paise": 714000,
       "charged_fee_paise": 6426,
       "charged_gst_paise": 1157,
+      "charged_tds_paise": 7140,
       "expected_fee_paise": 6426,
       "expected_gst_paise": 1157,
+      "expected_tds_paise": 7140,
       "instrument": "DEBIT_CARD"
     },
     "pay_00318": {
       "amount_paise": 345299,
       "charged_fee_paise": 6215,
       "charged_gst_paise": 1119,
+      "charged_tds_paise": 3453,
       "expected_fee_paise": 6215,
       "expected_gst_paise": 1119,
+      "expected_tds_paise": 3453,
       "instrument": "WALLET"
     },
     "pay_00319": {
       "amount_paise": 169625,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1696,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1696,
       "instrument": "UPI"
     },
     "pay_00320": {
       "amount_paise": 383600,
       "charged_fee_paise": 3452,
       "charged_gst_paise": 621,
+      "charged_tds_paise": 3836,
       "expected_fee_paise": 3452,
       "expected_gst_paise": 621,
+      "expected_tds_paise": 3836,
       "instrument": "DEBIT_CARD"
     },
     "pay_00321": {
       "amount_paise": 184949,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1849,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1849,
       "instrument": "UPI"
     },
     "pay_00322": {
       "amount_paise": 50550,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 506,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 506,
       "instrument": "UPI"
     },
     "pay_00323": {
       "amount_paise": 3812599,
       "charged_fee_paise": 76252,
       "charged_gst_paise": 13725,
+      "charged_tds_paise": 38126,
       "expected_fee_paise": 76252,
       "expected_gst_paise": 13725,
+      "expected_tds_paise": 38126,
       "instrument": "CREDIT_CARD"
     },
     "pay_00324": {
       "amount_paise": 2796200,
       "charged_fee_paise": 55924,
       "charged_gst_paise": 10066,
+      "charged_tds_paise": 27962,
       "expected_fee_paise": 55924,
       "expected_gst_paise": 10066,
+      "expected_tds_paise": 27962,
       "instrument": "CREDIT_CARD"
     },
     "pay_00325": {
       "amount_paise": 199900,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1999,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1999,
       "instrument": "UPI"
     },
     "pay_00326": {
       "amount_paise": 378875,
       "charged_fee_paise": 3410,
       "charged_gst_paise": 614,
+      "charged_tds_paise": 3789,
       "expected_fee_paise": 3410,
       "expected_gst_paise": 614,
+      "expected_tds_paise": 3789,
       "instrument": "DEBIT_CARD"
     },
     "pay_00327": {
       "amount_paise": 19349,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 193,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 193,
       "instrument": "UPI"
     },
     "pay_00328": {
       "amount_paise": 183649,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1836,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1836,
       "instrument": "UPI"
     },
     "pay_00329": {
       "amount_paise": 2603299,
       "charged_fee_paise": 1500,
       "charged_gst_paise": 270,
+      "charged_tds_paise": 26033,
       "expected_fee_paise": 1500,
       "expected_gst_paise": 270,
+      "expected_tds_paise": 26033,
       "instrument": "NETBANKING"
     },
     "pay_00330": {
       "amount_paise": 1487725,
       "charged_fee_paise": 1200,
       "charged_gst_paise": 216,
+      "charged_tds_paise": 14877,
       "expected_fee_paise": 1200,
       "expected_gst_paise": 216,
+      "expected_tds_paise": 14877,
       "instrument": "NETBANKING"
     },
     "pay_00331": {
       "amount_paise": 2524349,
       "charged_fee_paise": 1800,
       "charged_gst_paise": 324,
+      "charged_tds_paise": 25243,
       "expected_fee_paise": 1800,
       "expected_gst_paise": 324,
+      "expected_tds_paise": 25243,
       "instrument": "NETBANKING"
     },
     "pay_00331_dup": {
       "amount_paise": 2524349,
       "charged_fee_paise": 1800,
       "charged_gst_paise": 324,
+      "charged_tds_paise": 25243,
       "expected_fee_paise": 1800,
       "expected_gst_paise": 324,
+      "expected_tds_paise": 25243,
       "instrument": "NETBANKING"
     },
     "pay_00332": {
       "amount_paise": 2250349,
       "charged_fee_paise": 1200,
       "charged_gst_paise": 216,
+      "charged_tds_paise": 22503,
       "expected_fee_paise": 1200,
       "expected_gst_paise": 216,
+      "expected_tds_paise": 22503,
       "instrument": "NETBANKING"
     },
     "pay_00333": {
       "amount_paise": 578050,
       "charged_fee_paise": 5202,
       "charged_gst_paise": 936,
+      "charged_tds_paise": 5781,
       "expected_fee_paise": 5202,
       "expected_gst_paise": 936,
+      "expected_tds_paise": 5781,
       "instrument": "DEBIT_CARD"
     },
     "pay_00334": {
       "amount_paise": 1602999,
       "charged_fee_paise": 32060,
       "charged_gst_paise": 5771,
+      "charged_tds_paise": 16030,
       "expected_fee_paise": 32060,
       "expected_gst_paise": 5771,
+      "expected_tds_paise": 16030,
       "instrument": "CREDIT_CARD"
     },
     "pay_00335": {
       "amount_paise": 240750,
       "charged_fee_paise": 5915,
       "charged_gst_paise": 1065,
+      "charged_tds_paise": 2408,
       "expected_fee_paise": 4334,
       "expected_gst_paise": 780,
+      "expected_tds_paise": 2408,
       "instrument": "WALLET"
     },
     "pay_00336": {
       "amount_paise": 38475,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 385,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 385,
       "instrument": "UPI"
     },
     "pay_00337": {
       "amount_paise": 85101,
       "charged_fee_paise": 340,
       "charged_gst_paise": 61,
+      "charged_tds_paise": 851,
       "expected_fee_paise": 340,
       "expected_gst_paise": 61,
+      "expected_tds_paise": 851,
       "instrument": "DEBIT_CARD"
     },
     "pay_00338": {
       "amount_paise": 77900,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 779,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 779,
       "instrument": "UPI"
     },
     "pay_00339": {
       "amount_paise": 93400,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 934,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 934,
       "instrument": "UPI"
     },
     "pay_00340": {
       "amount_paise": 267001,
       "charged_fee_paise": 2403,
       "charged_gst_paise": 433,
+      "charged_tds_paise": 2670,
       "expected_fee_paise": 2403,
       "expected_gst_paise": 433,
+      "expected_tds_paise": 2670,
       "instrument": "DEBIT_CARD"
     },
     "pay_00341": {
       "amount_paise": 202500,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 2025,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 2025,
       "instrument": "UPI"
     },
     "pay_00342": {
       "amount_paise": 168275,
       "charged_fee_paise": 673,
       "charged_gst_paise": 121,
+      "charged_tds_paise": 1683,
       "expected_fee_paise": 673,
       "expected_gst_paise": 121,
+      "expected_tds_paise": 1683,
       "instrument": "DEBIT_CARD"
     },
     "pay_00343": {
       "amount_paise": 2335250,
       "charged_fee_paise": 46705,
       "charged_gst_paise": 8407,
+      "charged_tds_paise": 23353,
       "expected_fee_paise": 46705,
       "expected_gst_paise": 8407,
+      "expected_tds_paise": 23353,
       "instrument": "CREDIT_CARD"
     },
     "pay_00344": {
       "amount_paise": 2315775,
       "charged_fee_paise": 1500,
       "charged_gst_paise": 270,
+      "charged_tds_paise": 23158,
       "expected_fee_paise": 1500,
       "expected_gst_paise": 270,
+      "expected_tds_paise": 23158,
       "instrument": "NETBANKING"
     },
     "pay_00345": {
       "amount_paise": 46025,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 460,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 460,
       "instrument": "UPI"
     },
     "pay_00346": {
       "amount_paise": 2301450,
       "charged_fee_paise": 46029,
       "charged_gst_paise": 8285,
+      "charged_tds_paise": 23015,
       "expected_fee_paise": 46029,
       "expected_gst_paise": 8285,
+      "expected_tds_paise": 23015,
       "instrument": "CREDIT_CARD"
     },
     "pay_00347": {
       "amount_paise": 694000,
       "charged_fee_paise": 6246,
       "charged_gst_paise": 1124,
+      "charged_tds_paise": 6940,
       "expected_fee_paise": 6246,
       "expected_gst_paise": 1124,
+      "expected_tds_paise": 6940,
       "instrument": "DEBIT_CARD"
     },
     "pay_00348": {
       "amount_paise": 633100,
       "charged_fee_paise": 5698,
       "charged_gst_paise": 1026,
+      "charged_tds_paise": 6331,
       "expected_fee_paise": 5698,
       "expected_gst_paise": 1026,
+      "expected_tds_paise": 6331,
       "instrument": "DEBIT_CARD"
     },
     "pay_00349": {
       "amount_paise": 63475,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 635,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 635,
       "instrument": "UPI"
     },
     "pay_00350": {
       "amount_paise": 4438950,
       "charged_fee_paise": 88779,
       "charged_gst_paise": 15980,
+      "charged_tds_paise": 44390,
       "expected_fee_paise": 88779,
       "expected_gst_paise": 15980,
+      "expected_tds_paise": 44390,
       "instrument": "CREDIT_CARD"
     },
     "pay_00351": {
       "amount_paise": 2783925,
       "charged_fee_paise": 1200,
       "charged_gst_paise": 216,
+      "charged_tds_paise": 27839,
       "expected_fee_paise": 1200,
       "expected_gst_paise": 216,
+      "expected_tds_paise": 27839,
       "instrument": "NETBANKING"
     },
     "pay_00352": {
       "amount_paise": 4254275,
       "charged_fee_paise": 85086,
       "charged_gst_paise": 15315,
+      "charged_tds_paise": 42543,
       "expected_fee_paise": 85086,
       "expected_gst_paise": 15315,
+      "expected_tds_paise": 42543,
       "instrument": "CREDIT_CARD"
     },
     "pay_00353": {
       "amount_paise": 190501,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1905,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1905,
       "instrument": "UPI"
     },
     "pay_00354": {
       "amount_paise": 103900,
       "charged_fee_paise": 416,
       "charged_gst_paise": 75,
+      "charged_tds_paise": 1039,
       "expected_fee_paise": 416,
       "expected_gst_paise": 75,
+      "expected_tds_paise": 1039,
       "instrument": "DEBIT_CARD"
     },
     "pay_00355": {
       "amount_paise": 58375,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 584,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 584,
       "instrument": "UPI"
     },
     "pay_00356": {
       "amount_paise": 404100,
       "charged_fee_paise": 3637,
       "charged_gst_paise": 655,
+      "charged_tds_paise": 4041,
       "expected_fee_paise": 3637,
       "expected_gst_paise": 655,
+      "expected_tds_paise": 4041,
       "instrument": "DEBIT_CARD"
     },
     "pay_00357": {
       "amount_paise": 46900,
       "charged_fee_paise": 188,
       "charged_gst_paise": 34,
+      "charged_tds_paise": 469,
       "expected_fee_paise": 188,
       "expected_gst_paise": 34,
+      "expected_tds_paise": 469,
       "instrument": "DEBIT_CARD"
     },
     "pay_00358": {
       "amount_paise": 58249,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 582,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 582,
       "instrument": "UPI"
     },
     "pay_00359": {
       "amount_paise": 182900,
       "charged_fee_paise": 3292,
       "charged_gst_paise": 593,
+      "charged_tds_paise": 1829,
       "expected_fee_paise": 3292,
       "expected_gst_paise": 593,
+      "expected_tds_paise": 1829,
       "instrument": "WALLET"
     },
     "pay_00360": {
       "amount_paise": 132500,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1325,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1325,
       "instrument": "UPI"
     },
     "pay_00361": {
       "amount_paise": 347950,
       "charged_fee_paise": 3132,
       "charged_gst_paise": 659,
+      "charged_tds_paise": 3480,
       "expected_fee_paise": 3132,
       "expected_gst_paise": 564,
+      "expected_tds_paise": 3480,
       "instrument": "DEBIT_CARD"
     },
     "pay_00362": {
       "amount_paise": 841401,
       "charged_fee_paise": 7573,
       "charged_gst_paise": 1363,
+      "charged_tds_paise": 8414,
       "expected_fee_paise": 7573,
       "expected_gst_paise": 1363,
+      "expected_tds_paise": 8414,
       "instrument": "DEBIT_CARD"
     },
     "pay_00363": {
       "amount_paise": 5700,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 57,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 57,
       "instrument": "UPI"
     },
     "pay_00364": {
       "amount_paise": 454300,
       "charged_fee_paise": 8177,
       "charged_gst_paise": 1472,
+      "charged_tds_paise": 4543,
       "expected_fee_paise": 8177,
       "expected_gst_paise": 1472,
+      "expected_tds_paise": 4543,
       "instrument": "WALLET"
     },
     "pay_00365": {
       "amount_paise": 243000,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 2430,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 2430,
       "instrument": "UPI"
     },
     "pay_00366": {
       "amount_paise": 57549,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 575,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 575,
       "instrument": "UPI"
     },
     "pay_00367": {
       "amount_paise": 885725,
       "charged_fee_paise": 7972,
       "charged_gst_paise": 1435,
+      "charged_tds_paise": 8857,
       "expected_fee_paise": 7972,
       "expected_gst_paise": 1435,
+      "expected_tds_paise": 8857,
       "instrument": "DEBIT_CARD"
     },
     "pay_00368": {
       "amount_paise": 4017350,
       "charged_fee_paise": 80347,
       "charged_gst_paise": 14462,
+      "charged_tds_paise": 40174,
       "expected_fee_paise": 80347,
       "expected_gst_paise": 14462,
+      "expected_tds_paise": 40174,
       "instrument": "CREDIT_CARD"
     },
     "pay_00369": {
       "amount_paise": 170375,
       "charged_fee_paise": 682,
       "charged_gst_paise": 123,
+      "charged_tds_paise": 1704,
       "expected_fee_paise": 682,
       "expected_gst_paise": 123,
+      "expected_tds_paise": 1704,
       "instrument": "DEBIT_CARD"
     },
     "pay_00370": {
       "amount_paise": 2985299,
       "charged_fee_paise": 59706,
       "charged_gst_paise": 10747,
+      "charged_tds_paise": 29853,
       "expected_fee_paise": 59706,
       "expected_gst_paise": 10747,
+      "expected_tds_paise": 29853,
       "instrument": "CREDIT_CARD"
     },
     "pay_00371": {
       "amount_paise": 309225,
       "charged_fee_paise": 2783,
       "charged_gst_paise": 501,
+      "charged_tds_paise": 3092,
       "expected_fee_paise": 2783,
       "expected_gst_paise": 501,
+      "expected_tds_paise": 3092,
       "instrument": "DEBIT_CARD"
     },
     "pay_00372": {
       "amount_paise": 521849,
       "charged_fee_paise": 4697,
       "charged_gst_paise": 845,
+      "charged_tds_paise": 5218,
       "expected_fee_paise": 4697,
       "expected_gst_paise": 845,
+      "expected_tds_paise": 5218,
       "instrument": "DEBIT_CARD"
     },
     "pay_00373": {
       "amount_paise": 40949,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 409,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 409,
       "instrument": "UPI"
     },
     "pay_00374": {
       "amount_paise": 1060300,
       "charged_fee_paise": 1200,
       "charged_gst_paise": 216,
+      "charged_tds_paise": 10603,
       "expected_fee_paise": 1200,
       "expected_gst_paise": 216,
+      "expected_tds_paise": 10603,
       "instrument": "NETBANKING"
     },
     "pay_00375": {
       "amount_paise": 66049,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 660,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 660,
       "instrument": "UPI"
     },
     "pay_00376": {
       "amount_paise": 83300,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 833,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 833,
       "instrument": "UPI"
     },
     "pay_00377": {
       "amount_paise": 116525,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1165,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1165,
       "instrument": "UPI"
     },
     "pay_00378": {
       "amount_paise": 78800,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 788,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 788,
       "instrument": "UPI"
     },
     "pay_00379": {
       "amount_paise": 214050,
       "charged_fee_paise": 1926,
       "charged_gst_paise": 347,
+      "charged_tds_paise": 2141,
       "expected_fee_paise": 1926,
       "expected_gst_paise": 347,
+      "expected_tds_paise": 2141,
       "instrument": "DEBIT_CARD"
     },
     "pay_00380": {
       "amount_paise": 228701,
       "charged_fee_paise": 2058,
       "charged_gst_paise": 370,
+      "charged_tds_paise": 2287,
       "expected_fee_paise": 2058,
       "expected_gst_paise": 370,
+      "expected_tds_paise": 2287,
       "instrument": "DEBIT_CARD"
     },
     "pay_00381": {
       "amount_paise": 81200,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 812,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 812,
       "instrument": "UPI"
     },
     "pay_00382": {
       "amount_paise": 200749,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 2007,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 2007,
       "instrument": "UPI"
     },
     "pay_00383": {
       "amount_paise": 4199525,
       "charged_fee_paise": 87113,
       "charged_gst_paise": 15680,
+      "charged_tds_paise": 41995,
       "expected_fee_paise": 83991,
       "expected_gst_paise": 15118,
+      "expected_tds_paise": 41995,
       "instrument": "CREDIT_CARD"
     },
     "pay_00384": {
       "amount_paise": 693249,
       "charged_fee_paise": 6239,
       "charged_gst_paise": 1123,
+      "charged_tds_paise": 6932,
       "expected_fee_paise": 6239,
       "expected_gst_paise": 1123,
+      "expected_tds_paise": 6932,
       "instrument": "DEBIT_CARD"
     },
     "pay_00385": {
       "amount_paise": 410799,
       "charged_fee_paise": 3697,
       "charged_gst_paise": 665,
+      "charged_tds_paise": 4108,
       "expected_fee_paise": 3697,
       "expected_gst_paise": 665,
+      "expected_tds_paise": 4108,
       "instrument": "DEBIT_CARD"
     },
     "pay_00386": {
       "amount_paise": 225875,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 2259,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 2259,
       "instrument": "UPI"
     },
     "pay_00387": {
       "amount_paise": 49849,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 498,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 498,
       "instrument": "UPI"
     },
     "pay_00388": {
       "amount_paise": 854200,
       "charged_fee_paise": 17084,
       "charged_gst_paise": 3075,
+      "charged_tds_paise": 8542,
       "expected_fee_paise": 17084,
       "expected_gst_paise": 3075,
+      "expected_tds_paise": 8542,
       "instrument": "CREDIT_CARD"
     },
     "pay_00389": {
       "amount_paise": 633475,
       "charged_fee_paise": 5701,
       "charged_gst_paise": 1026,
+      "charged_tds_paise": 6335,
       "expected_fee_paise": 5701,
       "expected_gst_paise": 1026,
+      "expected_tds_paise": 6335,
       "instrument": "DEBIT_CARD"
     },
     "pay_00390": {
       "amount_paise": 140401,
       "charged_fee_paise": 2527,
       "charged_gst_paise": 455,
+      "charged_tds_paise": 1404,
       "expected_fee_paise": 2527,
       "expected_gst_paise": 455,
+      "expected_tds_paise": 1404,
       "instrument": "WALLET"
     },
     "pay_00391": {
       "amount_paise": 39225,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 392,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 392,
       "instrument": "UPI"
     },
     "pay_00392": {
       "amount_paise": 4441600,
       "charged_fee_paise": 88832,
       "charged_gst_paise": 15990,
+      "charged_tds_paise": 44416,
       "expected_fee_paise": 88832,
       "expected_gst_paise": 15990,
+      "expected_tds_paise": 44416,
       "instrument": "CREDIT_CARD"
     },
     "pay_00393": {
       "amount_paise": 43499,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 435,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 435,
       "instrument": "UPI"
     },
     "pay_00394": {
       "amount_paise": 1220149,
       "charged_fee_paise": 2000,
       "charged_gst_paise": 360,
+      "charged_tds_paise": 12201,
       "expected_fee_paise": 2000,
       "expected_gst_paise": 360,
+      "expected_tds_paise": 12201,
       "instrument": "NETBANKING"
     },
     "pay_00395": {
       "amount_paise": 58350,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 584,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 584,
       "instrument": "UPI"
     },
     "pay_00396": {
       "amount_paise": 291701,
       "charged_fee_paise": 2625,
       "charged_gst_paise": 473,
+      "charged_tds_paise": 2917,
       "expected_fee_paise": 2625,
       "expected_gst_paise": 473,
+      "expected_tds_paise": 2917,
       "instrument": "DEBIT_CARD"
     },
     "pay_00397": {
       "amount_paise": 56600,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 566,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 566,
       "instrument": "UPI"
     },
     "pay_00398": {
       "amount_paise": 226101,
       "charged_fee_paise": 2035,
       "charged_gst_paise": 366,
+      "charged_tds_paise": 2261,
       "expected_fee_paise": 2035,
       "expected_gst_paise": 366,
+      "expected_tds_paise": 2261,
       "instrument": "DEBIT_CARD"
     },
     "pay_00399": {
       "amount_paise": 1934749,
       "charged_fee_paise": 1200,
       "charged_gst_paise": 216,
+      "charged_tds_paise": 19347,
       "expected_fee_paise": 1200,
       "expected_gst_paise": 216,
+      "expected_tds_paise": 19347,
       "instrument": "NETBANKING"
     },
     "pay_00400": {
       "amount_paise": 411850,
       "charged_fee_paise": 3707,
       "charged_gst_paise": 667,
+      "charged_tds_paise": 4119,
       "expected_fee_paise": 3707,
       "expected_gst_paise": 667,
+      "expected_tds_paise": 4119,
       "instrument": "DEBIT_CARD"
     },
     "pay_00401": {
       "amount_paise": 39725,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 397,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 397,
       "instrument": "UPI"
     },
     "pay_00402": {
       "amount_paise": 40500,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 405,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 405,
       "instrument": "UPI"
     },
     "pay_00403": {
       "amount_paise": 53725,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 537,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 537,
       "instrument": "UPI"
     },
     "pay_00404": {
       "amount_paise": 111449,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1114,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1114,
       "instrument": "UPI"
     },
     "pay_00405": {
       "amount_paise": 163200,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1632,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1632,
       "instrument": "UPI"
     },
     "pay_00406": {
       "amount_paise": 80901,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 809,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 809,
       "instrument": "UPI"
     },
     "pay_00407": {
       "amount_paise": 118550,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1186,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1186,
       "instrument": "UPI"
     },
     "pay_00408": {
       "amount_paise": 239749,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 2397,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 2397,
       "instrument": "UPI"
     },
     "pay_00409": {
       "amount_paise": 49925,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 499,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 499,
       "instrument": "UPI"
     },
     "pay_00410": {
       "amount_paise": 837049,
       "charged_fee_paise": 20926,
       "charged_gst_paise": 3767,
+      "charged_tds_paise": 8370,
       "expected_fee_paise": 20926,
       "expected_gst_paise": 3767,
+      "expected_tds_paise": 8370,
       "instrument": "EMI"
     },
     "pay_00411": {
       "amount_paise": 26925,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 269,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 269,
       "instrument": "UPI"
     },
     "pay_00412": {
       "amount_paise": 199850,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1999,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1999,
       "instrument": "UPI"
     },
     "pay_00413": {
       "amount_paise": 31300,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 313,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 313,
       "instrument": "UPI"
     },
     "pay_00414": {
       "amount_paise": 1056000,
       "charged_fee_paise": 21120,
       "charged_gst_paise": 3802,
+      "charged_tds_paise": 10560,
       "expected_fee_paise": 21120,
       "expected_gst_paise": 3802,
+      "expected_tds_paise": 10560,
       "instrument": "CREDIT_CARD"
     },
     "pay_00415": {
       "amount_paise": 792549,
       "charged_fee_paise": 15851,
       "charged_gst_paise": 2853,
+      "charged_tds_paise": 7925,
       "expected_fee_paise": 15851,
       "expected_gst_paise": 2853,
+      "expected_tds_paise": 7925,
       "instrument": "CREDIT_CARD"
     },
     "pay_00416": {
       "amount_paise": 45399,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 454,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 454,
       "instrument": "UPI"
     },
     "pay_00417": {
       "amount_paise": 4795825,
       "charged_fee_paise": 95917,
       "charged_gst_paise": 17265,
+      "charged_tds_paise": 47958,
       "expected_fee_paise": 95917,
       "expected_gst_paise": 17265,
+      "expected_tds_paise": 47958,
       "instrument": "CREDIT_CARD"
     },
     "pay_00418": {
       "amount_paise": 29025,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 290,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 290,
       "instrument": "UPI"
     },
     "pay_00419": {
       "amount_paise": 13725,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 137,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 137,
       "instrument": "UPI"
     },
     "pay_00420": {
       "amount_paise": 175199,
       "charged_fee_paise": 3154,
       "charged_gst_paise": 568,
+      "charged_tds_paise": 1752,
       "expected_fee_paise": 3154,
       "expected_gst_paise": 568,
+      "expected_tds_paise": 1752,
       "instrument": "WALLET"
     },
     "pay_00421": {
       "amount_paise": 64799,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 648,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 648,
       "instrument": "UPI"
     },
     "pay_00422": {
       "amount_paise": 2638900,
       "charged_fee_paise": 1800,
       "charged_gst_paise": 324,
+      "charged_tds_paise": 26389,
       "expected_fee_paise": 1800,
       "expected_gst_paise": 324,
+      "expected_tds_paise": 26389,
       "instrument": "NETBANKING"
     },
     "pay_00423": {
       "amount_paise": 2987201,
       "charged_fee_paise": 59744,
       "charged_gst_paise": 10754,
+      "charged_tds_paise": 29872,
       "expected_fee_paise": 59744,
       "expected_gst_paise": 10754,
+      "expected_tds_paise": 29872,
       "instrument": "CREDIT_CARD"
     },
     "pay_00424": {
       "amount_paise": 59675,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 597,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 597,
       "instrument": "UPI"
     },
     "pay_00425": {
       "amount_paise": 638175,
       "charged_fee_paise": 12764,
       "charged_gst_paise": 2298,
+      "charged_tds_paise": 6382,
       "expected_fee_paise": 12764,
       "expected_gst_paise": 2298,
+      "expected_tds_paise": 6382,
       "instrument": "CREDIT_CARD"
     },
     "pay_00426": {
       "amount_paise": 4404549,
       "charged_fee_paise": 110114,
       "charged_gst_paise": 19821,
+      "charged_tds_paise": 44045,
       "expected_fee_paise": 110114,
       "expected_gst_paise": 19821,
+      "expected_tds_paise": 44045,
       "instrument": "EMI"
     },
     "pay_00427": {
       "amount_paise": 282849,
       "charged_fee_paise": 2546,
       "charged_gst_paise": 458,
+      "charged_tds_paise": 2828,
       "expected_fee_paise": 2546,
       "expected_gst_paise": 458,
+      "expected_tds_paise": 2828,
       "instrument": "DEBIT_CARD"
     },
     "pay_00428": {
       "amount_paise": 57400,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 574,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 574,
       "instrument": "UPI"
     },
     "pay_00429": {
       "amount_paise": 75300,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 753,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 753,
       "instrument": "UPI"
     },
     "pay_00430": {
       "amount_paise": 550000,
       "charged_fee_paise": 4950,
       "charged_gst_paise": 891,
+      "charged_tds_paise": 5500,
       "expected_fee_paise": 4950,
       "expected_gst_paise": 891,
+      "expected_tds_paise": 5500,
       "instrument": "DEBIT_CARD"
     },
     "pay_00431": {
       "amount_paise": 146801,
       "charged_fee_paise": 587,
       "charged_gst_paise": 106,
+      "charged_tds_paise": 1468,
       "expected_fee_paise": 587,
       "expected_gst_paise": 106,
+      "expected_tds_paise": 1468,
       "instrument": "DEBIT_CARD"
     },
     "pay_00432": {
       "amount_paise": 63600,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 636,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 636,
       "instrument": "UPI"
     },
     "pay_00433": {
       "amount_paise": 167725,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1677,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1677,
       "instrument": "UPI"
     },
     "pay_00434": {
       "amount_paise": 26125,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 261,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 261,
       "instrument": "UPI"
     },
     "pay_00435": {
       "amount_paise": 43800,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 438,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 438,
       "instrument": "UPI"
     },
     "pay_00436": {
       "amount_paise": 490501,
       "charged_fee_paise": 4415,
       "charged_gst_paise": 795,
+      "charged_tds_paise": 4905,
       "expected_fee_paise": 4415,
       "expected_gst_paise": 795,
+      "expected_tds_paise": 4905,
       "instrument": "DEBIT_CARD"
     },
     "pay_00437": {
       "amount_paise": 3336750,
       "charged_fee_paise": 66735,
       "charged_gst_paise": 12012,
+      "charged_tds_paise": 33368,
       "expected_fee_paise": 66735,
       "expected_gst_paise": 12012,
+      "expected_tds_paise": 33368,
       "instrument": "CREDIT_CARD"
     },
     "pay_00438": {
       "amount_paise": 67000,
       "charged_fee_paise": 224,
       "charged_gst_paise": 40,
+      "charged_tds_paise": 670,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 670,
       "instrument": "UPI"
     },
     "pay_00439": {
       "amount_paise": 139625,
       "charged_fee_paise": 559,
       "charged_gst_paise": 101,
+      "charged_tds_paise": 1396,
       "expected_fee_paise": 559,
       "expected_gst_paise": 101,
+      "expected_tds_paise": 1396,
       "instrument": "DEBIT_CARD"
     },
     "pay_00440": {
       "amount_paise": 324601,
       "charged_fee_paise": 6492,
       "charged_gst_paise": 1169,
+      "charged_tds_paise": 3246,
       "expected_fee_paise": 6492,
       "expected_gst_paise": 1169,
+      "expected_tds_paise": 3246,
       "instrument": "CREDIT_CARD"
     },
     "pay_00441": {
       "amount_paise": 690000,
       "charged_fee_paise": 6210,
       "charged_gst_paise": 1118,
+      "charged_tds_paise": 6900,
       "expected_fee_paise": 6210,
       "expected_gst_paise": 1118,
+      "expected_tds_paise": 6900,
       "instrument": "DEBIT_CARD"
     },
     "pay_00442": {
       "amount_paise": 821225,
       "charged_fee_paise": 7391,
       "charged_gst_paise": 1330,
+      "charged_tds_paise": 8212,
       "expected_fee_paise": 7391,
       "expected_gst_paise": 1330,
+      "expected_tds_paise": 8212,
       "instrument": "DEBIT_CARD"
     },
     "pay_00443": {
       "amount_paise": 374301,
       "charged_fee_paise": 6737,
       "charged_gst_paise": 1213,
+      "charged_tds_paise": 3743,
       "expected_fee_paise": 6737,
       "expected_gst_paise": 1213,
+      "expected_tds_paise": 3743,
       "instrument": "WALLET"
     },
     "pay_00444": {
       "amount_paise": 438725,
       "charged_fee_paise": 3949,
       "charged_gst_paise": 711,
+      "charged_tds_paise": 4387,
       "expected_fee_paise": 3949,
       "expected_gst_paise": 711,
+      "expected_tds_paise": 4387,
       "instrument": "DEBIT_CARD"
     },
     "pay_00445": {
       "amount_paise": 29000,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 290,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 290,
       "instrument": "UPI"
     },
     "pay_00446": {
       "amount_paise": 430525,
       "charged_fee_paise": 7749,
       "charged_gst_paise": 1395,
+      "charged_tds_paise": 4305,
       "expected_fee_paise": 7749,
       "expected_gst_paise": 1395,
+      "expected_tds_paise": 4305,
       "instrument": "WALLET"
     },
     "pay_00447": {
       "amount_paise": 367400,
       "charged_fee_paise": 3307,
       "charged_gst_paise": 595,
+      "charged_tds_paise": 3674,
       "expected_fee_paise": 3307,
       "expected_gst_paise": 595,
+      "expected_tds_paise": 3674,
       "instrument": "DEBIT_CARD"
     },
     "pay_00448": {
       "amount_paise": 525900,
       "charged_fee_paise": 1500,
       "charged_gst_paise": 270,
+      "charged_tds_paise": 5259,
       "expected_fee_paise": 1500,
       "expected_gst_paise": 270,
+      "expected_tds_paise": 5259,
       "instrument": "NETBANKING"
     },
     "pay_00449": {
       "amount_paise": 168500,
       "charged_fee_paise": 674,
       "charged_gst_paise": 121,
+      "charged_tds_paise": 1685,
       "expected_fee_paise": 674,
       "expected_gst_paise": 121,
+      "expected_tds_paise": 1685,
       "instrument": "DEBIT_CARD"
     },
     "pay_00450": {
       "amount_paise": 525549,
       "charged_fee_paise": 10511,
       "charged_gst_paise": 1892,
+      "charged_tds_paise": 5255,
       "expected_fee_paise": 10511,
       "expected_gst_paise": 1892,
+      "expected_tds_paise": 5255,
       "instrument": "CREDIT_CARD"
     },
     "pay_00451": {
       "amount_paise": 1262449,
       "charged_fee_paise": 2788,
       "charged_gst_paise": 502,
+      "charged_tds_paise": 12624,
       "expected_fee_paise": 1200,
       "expected_gst_paise": 216,
+      "expected_tds_paise": 12624,
       "instrument": "NETBANKING"
     },
     "pay_00452": {
       "amount_paise": 724299,
       "charged_fee_paise": 6519,
       "charged_gst_paise": 1173,
+      "charged_tds_paise": 7243,
       "expected_fee_paise": 6519,
       "expected_gst_paise": 1173,
+      "expected_tds_paise": 7243,
       "instrument": "DEBIT_CARD"
     },
     "pay_00453": {
       "amount_paise": 22975,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 230,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 230,
       "instrument": "UPI"
     },
     "pay_00454": {
       "amount_paise": 87700,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 877,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 877,
       "instrument": "UPI"
     },
     "pay_00455": {
       "amount_paise": 783201,
       "charged_fee_paise": 7049,
       "charged_gst_paise": 1269,
+      "charged_tds_paise": 7832,
       "expected_fee_paise": 7049,
       "expected_gst_paise": 1269,
+      "expected_tds_paise": 7832,
       "instrument": "DEBIT_CARD"
     },
     "pay_00456": {
       "amount_paise": 389000,
       "charged_fee_paise": 9169,
       "charged_gst_paise": 1650,
+      "charged_tds_paise": 3890,
       "expected_fee_paise": 7002,
       "expected_gst_paise": 1260,
+      "expected_tds_paise": 3890,
       "instrument": "WALLET"
     },
     "pay_00457": {
       "amount_paise": 66700,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 667,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 667,
       "instrument": "UPI"
     },
     "pay_00458": {
       "amount_paise": 437875,
       "charged_fee_paise": 8758,
       "charged_gst_paise": 1576,
+      "charged_tds_paise": 4379,
       "expected_fee_paise": 8758,
       "expected_gst_paise": 1576,
+      "expected_tds_paise": 4379,
       "instrument": "CREDIT_CARD"
     },
     "pay_00459": {
       "amount_paise": 13399,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 134,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 134,
       "instrument": "UPI"
     },
     "pay_00460": {
       "amount_paise": 10600,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 106,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 106,
       "instrument": "UPI"
     },
     "pay_00461": {
       "amount_paise": 2575825,
       "charged_fee_paise": 51517,
       "charged_gst_paise": 9273,
+      "charged_tds_paise": 25758,
       "expected_fee_paise": 51517,
       "expected_gst_paise": 9273,
+      "expected_tds_paise": 25758,
       "instrument": "CREDIT_CARD"
     },
     "pay_00462": {
       "amount_paise": 1220549,
       "charged_fee_paise": 2000,
       "charged_gst_paise": 360,
+      "charged_tds_paise": 12205,
       "expected_fee_paise": 2000,
       "expected_gst_paise": 360,
+      "expected_tds_paise": 12205,
       "instrument": "NETBANKING"
     },
     "pay_00463": {
       "amount_paise": 77750,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 778,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 778,
       "instrument": "UPI"
     },
     "pay_00464": {
       "amount_paise": 557925,
       "charged_fee_paise": 11159,
       "charged_gst_paise": 2009,
+      "charged_tds_paise": 5579,
       "expected_fee_paise": 11159,
       "expected_gst_paise": 2009,
+      "expected_tds_paise": 5579,
       "instrument": "CREDIT_CARD"
     },
     "pay_00465": {
       "amount_paise": 678600,
       "charged_fee_paise": 1500,
       "charged_gst_paise": 270,
+      "charged_tds_paise": 6786,
       "expected_fee_paise": 1500,
       "expected_gst_paise": 270,
+      "expected_tds_paise": 6786,
       "instrument": "NETBANKING"
     },
     "pay_00466": {
       "amount_paise": 52699,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 527,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 527,
       "instrument": "UPI"
     },
     "pay_00467": {
       "amount_paise": 426499,
       "charged_fee_paise": 3838,
       "charged_gst_paise": 691,
+      "charged_tds_paise": 4265,
       "expected_fee_paise": 3838,
       "expected_gst_paise": 691,
+      "expected_tds_paise": 4265,
       "instrument": "DEBIT_CARD"
     },
     "pay_00468": {
       "amount_paise": 26601,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 266,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 266,
       "instrument": "UPI"
     },
     "pay_00469": {
       "amount_paise": 72425,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 724,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 724,
       "instrument": "UPI"
     },
     "pay_00470": {
       "amount_paise": 225275,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 2253,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 2253,
       "instrument": "UPI"
     },
     "pay_00471": {
       "amount_paise": 554800,
       "charged_fee_paise": 4993,
       "charged_gst_paise": 899,
+      "charged_tds_paise": 5548,
       "expected_fee_paise": 4993,
       "expected_gst_paise": 899,
+      "expected_tds_paise": 5548,
       "instrument": "DEBIT_CARD"
     },
     "pay_00472": {
       "amount_paise": 3809125,
       "charged_fee_paise": 76183,
       "charged_gst_paise": 13713,
+      "charged_tds_paise": 38091,
       "expected_fee_paise": 76183,
       "expected_gst_paise": 13713,
+      "expected_tds_paise": 38091,
       "instrument": "CREDIT_CARD"
     },
     "pay_00473": {
       "amount_paise": 65700,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 657,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 657,
       "instrument": "UPI"
     },
     "pay_00474": {
       "amount_paise": 74850,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 749,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 749,
       "instrument": "UPI"
     },
     "pay_00475": {
       "amount_paise": 56949,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 569,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 569,
       "instrument": "UPI"
     },
     "pay_00476": {
       "amount_paise": 388050,
       "charged_fee_paise": 3492,
       "charged_gst_paise": 629,
+      "charged_tds_paise": 3881,
       "expected_fee_paise": 3492,
       "expected_gst_paise": 629,
+      "expected_tds_paise": 3881,
       "instrument": "DEBIT_CARD"
     },
     "pay_00477": {
       "amount_paise": 52100,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 521,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 521,
       "instrument": "UPI"
     },
     "pay_00478": {
       "amount_paise": 67400,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 674,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 674,
       "instrument": "UPI"
     },
     "pay_00479": {
       "amount_paise": 79525,
       "charged_fee_paise": 273,
       "charged_gst_paise": 49,
+      "charged_tds_paise": 795,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 795,
       "instrument": "UPI"
     },
     "pay_00480": {
       "amount_paise": 74301,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 743,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 743,
       "instrument": "UPI"
     },
     "pay_00481": {
       "amount_paise": 1767300,
       "charged_fee_paise": 2000,
       "charged_gst_paise": 360,
+      "charged_tds_paise": 17673,
       "expected_fee_paise": 2000,
       "expected_gst_paise": 360,
+      "expected_tds_paise": 17673,
       "instrument": "NETBANKING"
     },
     "pay_00482": {
       "amount_paise": 45900,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 459,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 459,
       "instrument": "UPI"
     },
     "pay_00483": {
       "amount_paise": 91899,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 919,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 919,
       "instrument": "UPI"
     },
     "pay_00484": {
       "amount_paise": 2019675,
       "charged_fee_paise": 40394,
       "charged_gst_paise": 7271,
+      "charged_tds_paise": 20197,
       "expected_fee_paise": 40394,
       "expected_gst_paise": 7271,
+      "expected_tds_paise": 20197,
       "instrument": "CREDIT_CARD"
     },
     "pay_00485": {
       "amount_paise": 644800,
       "charged_fee_paise": 18054,
       "charged_gst_paise": 3250,
+      "charged_tds_paise": 6448,
       "expected_fee_paise": 18054,
       "expected_gst_paise": 3250,
+      "expected_tds_paise": 6448,
       "instrument": "AMEX"
     },
     "pay_00486": {
       "amount_paise": 4326600,
       "charged_fee_paise": 108165,
       "charged_gst_paise": 19470,
+      "charged_tds_paise": 43266,
       "expected_fee_paise": 108165,
       "expected_gst_paise": 19470,
+      "expected_tds_paise": 43266,
       "instrument": "EMI"
     },
     "pay_00487": {
       "amount_paise": 774999,
       "charged_fee_paise": 6975,
       "charged_gst_paise": 1256,
+      "charged_tds_paise": 7750,
       "expected_fee_paise": 6975,
       "expected_gst_paise": 1256,
+      "expected_tds_paise": 7750,
       "instrument": "DEBIT_CARD"
     },
     "pay_00488": {
       "amount_paise": 15650,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 157,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 157,
       "instrument": "UPI"
     },
     "pay_00489": {
       "amount_paise": 2135701,
       "charged_fee_paise": 2000,
       "charged_gst_paise": 360,
+      "charged_tds_paise": 21357,
       "expected_fee_paise": 2000,
       "expected_gst_paise": 360,
+      "expected_tds_paise": 21357,
       "instrument": "NETBANKING"
     },
     "pay_00490": {
       "amount_paise": 3603150,
       "charged_fee_paise": 72063,
       "charged_gst_paise": 12971,
+      "charged_tds_paise": 36032,
       "expected_fee_paise": 72063,
       "expected_gst_paise": 12971,
+      "expected_tds_paise": 36032,
       "instrument": "CREDIT_CARD"
     },
     "pay_00491": {
       "amount_paise": 3443201,
       "charged_fee_paise": 68864,
       "charged_gst_paise": 12396,
+      "charged_tds_paise": 34432,
       "expected_fee_paise": 68864,
       "expected_gst_paise": 12396,
+      "expected_tds_paise": 34432,
       "instrument": "CREDIT_CARD"
     },
     "pay_00492": {
       "amount_paise": 175200,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1752,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1752,
       "instrument": "UPI"
     },
     "pay_00493": {
       "amount_paise": 102925,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1029,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1029,
       "instrument": "UPI"
     },
     "pay_00494": {
       "amount_paise": 70375,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 704,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 704,
       "instrument": "UPI"
     },
     "pay_00495": {
       "amount_paise": 21675,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 217,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 217,
       "instrument": "UPI"
     },
     "pay_00496": {
       "amount_paise": 3417500,
       "charged_fee_paise": 68350,
       "charged_gst_paise": 12303,
+      "charged_tds_paise": 34175,
       "expected_fee_paise": 68350,
       "expected_gst_paise": 12303,
+      "expected_tds_paise": 34175,
       "instrument": "CREDIT_CARD"
     },
     "pay_00497": {
       "amount_paise": 4380475,
       "charged_fee_paise": 87610,
       "charged_gst_paise": 15770,
+      "charged_tds_paise": 43805,
       "expected_fee_paise": 87610,
       "expected_gst_paise": 15770,
+      "expected_tds_paise": 43805,
       "instrument": "CREDIT_CARD"
     },
     "pay_00498": {
       "amount_paise": 103825,
       "charged_fee_paise": 0,
       "charged_gst_paise": 0,
+      "charged_tds_paise": 1038,
       "expected_fee_paise": 0,
       "expected_gst_paise": 0,
+      "expected_tds_paise": 1038,
       "instrument": "UPI"
     },
     "pay_00499": {
       "amount_paise": 464950,
       "charged_fee_paise": 11624,
       "charged_gst_paise": 2092,
+      "charged_tds_paise": 4650,
       "expected_fee_paise": 11624,
       "expected_gst_paise": 2092,
+      "expected_tds_paise": 4650,
       "instrument": "EMI"
     },
     "pay_amb00": {
       "amount_paise": 518700,
       "charged_fee_paise": 10374,
       "charged_gst_paise": 1867,
+      "charged_tds_paise": 5187,
       "expected_fee_paise": 10374,
       "expected_gst_paise": 1867,
+      "expected_tds_paise": 5187,
       "instrument": "CREDIT_CARD"
     },
     "pay_amb01": {
       "amount_paise": 518700,
       "charged_fee_paise": 10374,
       "charged_gst_paise": 1867,
+      "charged_tds_paise": 5187,
       "expected_fee_paise": 10374,
       "expected_gst_paise": 1867,
+      "expected_tds_paise": 5187,
       "instrument": "CREDIT_CARD"
     },
     "pay_amb10": {
       "amount_paise": 474700,
       "charged_fee_paise": 9494,
       "charged_gst_paise": 1709,
+      "charged_tds_paise": 4747,
       "expected_fee_paise": 9494,
       "expected_gst_paise": 1709,
+      "expected_tds_paise": 4747,
       "instrument": "CREDIT_CARD"
     },
     "pay_amb11": {
       "amount_paise": 474700,
       "charged_fee_paise": 9494,
       "charged_gst_paise": 1709,
+      "charged_tds_paise": 4747,
       "expected_fee_paise": 9494,
       "expected_gst_paise": 1709,
+      "expected_tds_paise": 4747,
       "instrument": "CREDIT_CARD"
     },
     "pay_amb20": {
       "amount_paise": 414200,
       "charged_fee_paise": 8284,
       "charged_gst_paise": 1491,
+      "charged_tds_paise": 4142,
       "expected_fee_paise": 8284,
       "expected_gst_paise": 1491,
+      "expected_tds_paise": 4142,
       "instrument": "CREDIT_CARD"
     },
     "pay_amb21": {
       "amount_paise": 414200,
       "charged_fee_paise": 8284,
       "charged_gst_paise": 1491,
+      "charged_tds_paise": 4142,
       "expected_fee_paise": 8284,
       "expected_gst_paise": 1491,
+      "expected_tds_paise": 4142,
       "instrument": "CREDIT_CARD"
     },
     "pay_amb30": {
       "amount_paise": 657700,
       "charged_fee_paise": 13154,
       "charged_gst_paise": 2368,
+      "charged_tds_paise": 6577,
       "expected_fee_paise": 13154,
       "expected_gst_paise": 2368,
+      "expected_tds_paise": 6577,
       "instrument": "CREDIT_CARD"
     },
     "pay_amb31": {
       "amount_paise": 657700,
       "charged_fee_paise": 13154,
       "charged_gst_paise": 2368,
+      "charged_tds_paise": 6577,
       "expected_fee_paise": 13154,
       "expected_gst_paise": 2368,
+      "expected_tds_paise": 6577,
       "instrument": "CREDIT_CARD"
     },
     "pay_amb40": {
       "amount_paise": 204000,
       "charged_fee_paise": 4080,
       "charged_gst_paise": 734,
+      "charged_tds_paise": 2040,
       "expected_fee_paise": 4080,
       "expected_gst_paise": 734,
+      "expected_tds_paise": 2040,
       "instrument": "CREDIT_CARD"
     },
     "pay_amb41": {
       "amount_paise": 204000,
       "charged_fee_paise": 4080,
       "charged_gst_paise": 734,
+      "charged_tds_paise": 2040,
       "expected_fee_paise": 4080,
       "expected_gst_paise": 734,
+      "expected_tds_paise": 2040,
       "instrument": "CREDIT_CARD"
     },
     "pay_amb50": {
       "amount_paise": 202500,
       "charged_fee_paise": 4050,
       "charged_gst_paise": 729,
+      "charged_tds_paise": 2025,
       "expected_fee_paise": 4050,
       "expected_gst_paise": 729,
+      "expected_tds_paise": 2025,
       "instrument": "CREDIT_CARD"
     },
     "pay_amb51": {
       "amount_paise": 202500,
       "charged_fee_paise": 4050,
       "charged_gst_paise": 729,
+      "charged_tds_paise": 2025,
       "expected_fee_paise": 4050,
       "expected_gst_paise": 729,
+      "expected_tds_paise": 2025,
       "instrument": "CREDIT_CARD"
     },
     "pay_dec0a": {
       "amount_paise": 185200,
       "charged_fee_paise": 741,
       "charged_gst_paise": 133,
+      "charged_tds_paise": 1852,
       "expected_fee_paise": 741,
       "expected_gst_paise": 133,
+      "expected_tds_paise": 1852,
       "instrument": "DEBIT_CARD"
     },
     "pay_dec0b": {
       "amount_paise": 134000,
       "charged_fee_paise": 536,
       "charged_gst_paise": 96,
+      "charged_tds_paise": 1340,
       "expected_fee_paise": 536,
       "expected_gst_paise": 96,
+      "expected_tds_paise": 1340,
       "instrument": "DEBIT_CARD"
     },
     "pay_dec0c": {
       "amount_paise": 319200,
       "charged_fee_paise": 2873,
       "charged_gst_paise": 517,
+      "charged_tds_paise": 3192,
       "expected_fee_paise": 2873,
       "expected_gst_paise": 517,
+      "expected_tds_paise": 3192,
       "instrument": "DEBIT_CARD"
     },
     "pay_dec1a": {
       "amount_paise": 116100,
       "charged_fee_paise": 464,
       "charged_gst_paise": 84,
+      "charged_tds_paise": 1161,
       "expected_fee_paise": 464,
       "expected_gst_paise": 84,
+      "expected_tds_paise": 1161,
       "instrument": "DEBIT_CARD"
     },
     "pay_dec1b": {
       "amount_paise": 63700,
       "charged_fee_paise": 255,
       "charged_gst_paise": 46,
+      "charged_tds_paise": 637,
       "expected_fee_paise": 255,
       "expected_gst_paise": 46,
+      "expected_tds_paise": 637,
       "instrument": "DEBIT_CARD"
     },
     "pay_dec1c": {
       "amount_paise": 179800,
       "charged_fee_paise": 719,
       "charged_gst_paise": 129,
+      "charged_tds_paise": 1798,
       "expected_fee_paise": 719,
       "expected_gst_paise": 129,
+      "expected_tds_paise": 1798,
       "instrument": "DEBIT_CARD"
     },
     "pay_dec2a": {
       "amount_paise": 223900,
       "charged_fee_paise": 2015,
       "charged_gst_paise": 363,
+      "charged_tds_paise": 2239,
       "expected_fee_paise": 2015,
       "expected_gst_paise": 363,
+      "expected_tds_paise": 2239,
       "instrument": "DEBIT_CARD"
     },
     "pay_dec2b": {
       "amount_paise": 63400,
       "charged_fee_paise": 254,
       "charged_gst_paise": 46,
+      "charged_tds_paise": 634,
       "expected_fee_paise": 254,
       "expected_gst_paise": 46,
+      "expected_tds_paise": 634,
       "instrument": "DEBIT_CARD"
     },
     "pay_dec2c": {
       "amount_paise": 287300,
       "charged_fee_paise": 2586,
       "charged_gst_paise": 465,
+      "charged_tds_paise": 2873,
       "expected_fee_paise": 2586,
       "expected_gst_paise": 465,
+      "expected_tds_paise": 2873,
       "instrument": "DEBIT_CARD"
     },
     "pay_dec3a": {
       "amount_paise": 81300,
       "charged_fee_paise": 325,
       "charged_gst_paise": 59,
+      "charged_tds_paise": 813,
       "expected_fee_paise": 325,
       "expected_gst_paise": 59,
+      "expected_tds_paise": 813,
       "instrument": "DEBIT_CARD"
     },
     "pay_dec3b": {
       "amount_paise": 149100,
       "charged_fee_paise": 596,
       "charged_gst_paise": 107,
+      "charged_tds_paise": 1491,
       "expected_fee_paise": 596,
       "expected_gst_paise": 107,
+      "expected_tds_paise": 1491,
       "instrument": "DEBIT_CARD"
     },
     "pay_dec3c": {
       "amount_paise": 230400,
       "charged_fee_paise": 2074,
       "charged_gst_paise": 373,
+      "charged_tds_paise": 2304,
       "expected_fee_paise": 2074,
       "expected_gst_paise": 373,
+      "expected_tds_paise": 2304,
       "instrument": "DEBIT_CARD"
     },
     "pay_dec4a": {
       "amount_paise": 179900,
       "charged_fee_paise": 720,
       "charged_gst_paise": 130,
+      "charged_tds_paise": 1799,
       "expected_fee_paise": 720,
       "expected_gst_paise": 130,
+      "expected_tds_paise": 1799,
       "instrument": "DEBIT_CARD"
     },
     "pay_dec4b": {
       "amount_paise": 199100,
       "charged_fee_paise": 796,
       "charged_gst_paise": 143,
+      "charged_tds_paise": 1991,
       "expected_fee_paise": 796,
       "expected_gst_paise": 143,
+      "expected_tds_paise": 1991,
       "instrument": "DEBIT_CARD"
     },
     "pay_dec4c": {
       "amount_paise": 379000,
       "charged_fee_paise": 3411,
       "charged_gst_paise": 614,
+      "charged_tds_paise": 3790,
       "expected_fee_paise": 3411,
       "expected_gst_paise": 614,
+      "expected_tds_paise": 3790,
       "instrument": "DEBIT_CARD"
     },
     "pay_dec5a": {
       "amount_paise": 178700,
       "charged_fee_paise": 715,
       "charged_gst_paise": 129,
+      "charged_tds_paise": 1787,
       "expected_fee_paise": 715,
       "expected_gst_paise": 129,
+      "expected_tds_paise": 1787,
       "instrument": "DEBIT_CARD"
     },
     "pay_dec5b": {
       "amount_paise": 234000,
       "charged_fee_paise": 2106,
       "charged_gst_paise": 379,
+      "charged_tds_paise": 2340,
       "expected_fee_paise": 2106,
       "expected_gst_paise": 379,
+      "expected_tds_paise": 2340,
       "instrument": "DEBIT_CARD"
     },
     "pay_dec5c": {
       "amount_paise": 412700,
       "charged_fee_paise": 3714,
       "charged_gst_paise": 669,
+      "charged_tds_paise": 4127,
       "expected_fee_paise": 3714,
       "expected_gst_paise": 669,
+      "expected_tds_paise": 4127,
       "instrument": "DEBIT_CARD"
     },
     "pay_str00": {
       "amount_paise": 305000,
       "charged_fee_paise": 6100,
       "charged_gst_paise": 1098,
+      "charged_tds_paise": 3050,
       "expected_fee_paise": 6100,
       "expected_gst_paise": 1098,
+      "expected_tds_paise": 3050,
       "instrument": "CREDIT_CARD"
     },
     "pay_str01": {
       "amount_paise": 73400,
       "charged_fee_paise": 1468,
       "charged_gst_paise": 264,
+      "charged_tds_paise": 734,
       "expected_fee_paise": 1468,
       "expected_gst_paise": 264,
+      "expected_tds_paise": 734,
       "instrument": "CREDIT_CARD"
     },
     "pay_str02": {
       "amount_paise": 440000,
       "charged_fee_paise": 8800,
       "charged_gst_paise": 1584,
+      "charged_tds_paise": 4400,
       "expected_fee_paise": 8800,
       "expected_gst_paise": 1584,
+      "expected_tds_paise": 4400,
       "instrument": "CREDIT_CARD"
     },
     "pay_str03": {
       "amount_paise": 468400,
       "charged_fee_paise": 9368,
       "charged_gst_paise": 1686,
+      "charged_tds_paise": 4684,
       "expected_fee_paise": 9368,
       "expected_gst_paise": 1686,
+      "expected_tds_paise": 4684,
       "instrument": "CREDIT_CARD"
     },
     "pay_str04": {
       "amount_paise": 533300,
       "charged_fee_paise": 10666,
       "charged_gst_paise": 1920,
+      "charged_tds_paise": 5333,
       "expected_fee_paise": 10666,
       "expected_gst_paise": 1920,
+      "expected_tds_paise": 5333,
       "instrument": "CREDIT_CARD"
     }
   },
   "generator": {
-    "fee_schedule_sha256": "10e4bee921f1b16a180ff4c2030d3bb5f8e56e048e21d37aa2b1e4a165fe6a5a",
+    "fee_schedule_sha256": "54b04e38d55b7605d23b6a25f5b1fe0c3108c7ed6e83a8e561469cbafb213a43",
     "fee_schedule_version": "fee_schedule.v1",
     "holidays_sha256": "a9dd5b337a05bdc38491540580a9e595ba08bd312683f6c07a34755c9a459f9c",
     "n_payments_requested": 500,
@@ -6834,38 +7910,38 @@
     },
     {
       "class": "MISSING_SETTLEMENT",
-      "detail": "payout of Rs 197257.85 for cycle 2026-06-15 never credited",
+      "detail": "payout of Rs 195225.84 for cycle 2026-06-15 never credited",
       "entity_id": "stl_0011",
       "leak_id": "leak_0024",
-      "value_paise": 19725785
+      "value_paise": 19522584
     },
     {
       "class": "MISSING_SETTLEMENT",
-      "detail": "payout of Rs 151375.14 for cycle 2026-06-17 never credited",
+      "detail": "payout of Rs 149836.09 for cycle 2026-06-17 never credited",
       "entity_id": "stl_0013",
       "leak_id": "leak_0025",
-      "value_paise": 15137514
+      "value_paise": 14983609
     },
     {
       "class": "MISSING_SETTLEMENT",
-      "detail": "payout of Rs 389175.29 for cycle 2026-06-10 never credited",
+      "detail": "payout of Rs 385205.38 for cycle 2026-06-10 never credited",
       "entity_id": "stl_0007",
       "leak_id": "leak_0026",
-      "value_paise": 38917529
+      "value_paise": 38520538
     },
     {
       "class": "DUPLICATE_PAYOUT",
       "detail": "payout UTR20260015 credited twice",
       "entity_id": "stl_0015",
       "leak_id": "leak_0027",
-      "value_paise": 13937289
+      "value_paise": 13792216
     },
     {
       "class": "DUPLICATE_PAYOUT",
       "detail": "payout UTR20260012 credited twice",
       "entity_id": "stl_0012",
       "leak_id": "leak_0028",
-      "value_paise": 18186834
+      "value_paise": 17999766
     },
     {
       "class": "SHORT_SETTLEMENT",
@@ -6943,7 +8019,7 @@
       "fee_paise": 34767,
       "gross_paise": 6402899,
       "gst_paise": 6259,
-      "net_paise": 6329859,
+      "net_paise": 6265830,
       "paid": true,
       "payment_ids": [
         "pay_00049",
@@ -6972,6 +8048,7 @@
       "reserve_release_date": "2026-06-08",
       "reserve_released_paise": 0,
       "settlement_id": "stl_0000",
+      "tds_paise": 64029,
       "utr": "UTR20260000",
       "value_date": "2026-06-03"
     },
@@ -6985,7 +8062,7 @@
       "fee_paise": 79018,
       "gross_paise": 9779225,
       "gst_paise": 14224,
-      "net_paise": 9485234,
+      "net_paise": 9387442,
       "paid": true,
       "payment_ids": [
         "pay_00057",
@@ -7002,6 +8079,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 0,
       "settlement_id": "stl_0001",
+      "tds_paise": 97792,
       "utr": "UTR20260001",
       "value_date": "2026-06-04"
     },
@@ -7016,7 +8094,7 @@
       "fee_paise": 565411,
       "gross_paise": 40945589,
       "gst_paise": 101474,
-      "net_paise": 40278704,
+      "net_paise": 39869249,
       "paid": true,
       "payment_ids": [
         "pay_00018",
@@ -7058,6 +8136,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 0,
       "settlement_id": "stl_0002",
+      "tds_paise": 409455,
       "utr": "UTR20260002",
       "value_date": "2026-06-05"
     },
@@ -7073,7 +8152,7 @@
       "fee_paise": 528454,
       "gross_paise": 32942946,
       "gst_paise": 95002,
-      "net_paise": 28724941,
+      "net_paise": 28395509,
       "paid": true,
       "payment_ids": [
         "pay_00002",
@@ -7119,6 +8198,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 0,
       "settlement_id": "stl_0003",
+      "tds_paise": 329432,
       "utr": "UTR20260003",
       "value_date": "2026-06-08"
     },
@@ -7134,7 +8214,7 @@
       "fee_paise": 163538,
       "gross_paise": 16636550,
       "gst_paise": 29436,
-      "net_paise": 14241802,
+      "net_paise": 14075435,
       "paid": true,
       "payment_ids": [
         "pay_00006",
@@ -7169,6 +8249,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 0,
       "settlement_id": "stl_0004",
+      "tds_paise": 166367,
       "utr": "UTR20260004",
       "value_date": "2026-06-09"
     },
@@ -7183,7 +8264,7 @@
       "fee_paise": 254279,
       "gross_paise": 22187247,
       "gst_paise": 45772,
-      "net_paise": 21808274,
+      "net_paise": 21586403,
       "paid": true,
       "payment_ids": [
         "pay_00004",
@@ -7216,6 +8297,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 32014,
       "settlement_id": "stl_0005",
+      "tds_paise": 221871,
       "utr": "UTR20260005",
       "value_date": "2026-06-10"
     },
@@ -7230,7 +8312,7 @@
       "fee_paise": 98167,
       "gross_paise": 10559167,
       "gst_paise": 17668,
-      "net_paise": 10169518,
+      "net_paise": 10063927,
       "paid": true,
       "payment_ids": [
         "pay_00030",
@@ -7268,6 +8350,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 0,
       "settlement_id": "stl_0006",
+      "tds_paise": 105591,
       "utr": "UTR20260006",
       "value_date": "2026-06-11"
     },
@@ -7282,7 +8365,7 @@
       "fee_paise": 662228,
       "gross_paise": 39699052,
       "gst_paise": 119295,
-      "net_paise": 38917529,
+      "net_paise": 38520538,
       "paid": false,
       "payment_ids": [
         "pay_00014",
@@ -7327,6 +8410,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 0,
       "settlement_id": "stl_0007",
+      "tds_paise": 396991,
       "utr": "UTR20260007",
       "value_date": "2026-06-12"
     },
@@ -7342,7 +8426,7 @@
       "fee_paise": 494961,
       "gross_paise": 30025025,
       "gst_paise": 89093,
-      "net_paise": 26006422,
+      "net_paise": 25706172,
       "paid": true,
       "payment_ids": [
         "pay_00000",
@@ -7375,6 +8459,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 0,
       "settlement_id": "stl_0008",
+      "tds_paise": 300250,
       "utr": "UTR20260008",
       "value_date": "2026-06-15"
     },
@@ -7390,7 +8475,7 @@
       "fee_paise": 544970,
       "gross_paise": 31249942,
       "gst_paise": 98093,
-      "net_paise": 28519204,
+      "net_paise": 28206707,
       "paid": true,
       "payment_ids": [
         "pay_00025",
@@ -7434,6 +8519,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 0,
       "settlement_id": "stl_0009",
+      "tds_paise": 312497,
       "utr": "UTR20260009",
       "value_date": "2026-06-16"
     },
@@ -7447,7 +8533,7 @@
       "fee_paise": 4080,
       "gross_paise": 204000,
       "gst_paise": 734,
-      "net_paise": -1619334,
+      "net_paise": -1621374,
       "paid": true,
       "payment_ids": [
         "pay_amb41"
@@ -7457,6 +8543,7 @@
       "reserve_release_date": "2026-06-20",
       "reserve_released_paise": 0,
       "settlement_id": "stl_0010",
+      "tds_paise": 2040,
       "utr": "UTR20260010",
       "value_date": "2026-06-16"
     },
@@ -7470,7 +8557,7 @@
       "fee_paise": 355924,
       "gross_paise": 20319975,
       "gst_paise": 64066,
-      "net_paise": 19725785,
+      "net_paise": 19522584,
       "paid": false,
       "payment_ids": [
         "pay_00003",
@@ -7495,6 +8582,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 0,
       "settlement_id": "stl_0011",
+      "tds_paise": 203201,
       "utr": "UTR20260011",
       "value_date": "2026-06-17"
     },
@@ -7509,7 +8597,7 @@
       "fee_paise": 342003,
       "gross_paise": 18706923,
       "gst_paise": 61561,
-      "net_paise": 18186834,
+      "net_paise": 17999766,
       "paid": true,
       "payment_ids": [
         "pay_00024",
@@ -7539,6 +8627,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 0,
       "settlement_id": "stl_0012",
+      "tds_paise": 187068,
       "utr": "UTR20260012",
       "value_date": "2026-06-18"
     },
@@ -7553,7 +8642,7 @@
       "fee_paise": 150369,
       "gross_paise": 15390624,
       "gst_paise": 27067,
-      "net_paise": 15137514,
+      "net_paise": 14983609,
       "paid": false,
       "payment_ids": [
         "pay_00029",
@@ -7586,6 +8675,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 0,
       "settlement_id": "stl_0013",
+      "tds_paise": 153905,
       "utr": "UTR20260013",
       "value_date": "2026-06-19"
     },
@@ -7601,7 +8691,7 @@
       "fee_paise": 352309,
       "gross_paise": 19109450,
       "gst_paise": 63295,
-      "net_paise": 18693846,
+      "net_paise": 18502751,
       "paid": true,
       "payment_ids": [
         "pay_00061",
@@ -7631,6 +8721,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 0,
       "settlement_id": "stl_0014",
+      "tds_paise": 191095,
       "utr": "UTR20260014",
       "value_date": "2026-06-22"
     },
@@ -7646,7 +8737,7 @@
       "fee_paise": 272307,
       "gross_paise": 14507349,
       "gst_paise": 48716,
-      "net_paise": 13937289,
+      "net_paise": 13792216,
       "paid": true,
       "payment_ids": [
         "pay_00001",
@@ -7676,6 +8767,7 @@
       "reserve_release_date": "2026-06-26",
       "reserve_released_paise": 0,
       "settlement_id": "stl_0015",
+      "tds_paise": 145073,
       "utr": "UTR20260015",
       "value_date": "2026-06-23"
     },
@@ -7689,7 +8781,7 @@
       "fee_paise": 13686,
       "gross_paise": 698326,
       "gst_paise": 2464,
-      "net_paise": -2716705,
+      "net_paise": -2723688,
       "paid": true,
       "payment_ids": [
         "pay_00390",
@@ -7700,6 +8792,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 1020,
       "settlement_id": "stl_0016",
+      "tds_paise": 6983,
       "utr": "UTR20260016",
       "value_date": "2026-06-23"
     },
@@ -7714,7 +8807,7 @@
       "fee_paise": 357705,
       "gross_paise": 22688220,
       "gst_paise": 64387,
-      "net_paise": 22254668,
+      "net_paise": 22027786,
       "paid": true,
       "payment_ids": [
         "pay_00023",
@@ -7748,6 +8841,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 0,
       "settlement_id": "stl_0017",
+      "tds_paise": 226882,
       "utr": "UTR20260017",
       "value_date": "2026-06-24"
     },
@@ -7762,7 +8856,7 @@
       "fee_paise": 560500,
       "gross_paise": 31339095,
       "gst_paise": 100891,
-      "net_paise": 25826778,
+      "net_paise": 25513386,
       "paid": true,
       "payment_ids": [
         "pay_00007",
@@ -7797,6 +8891,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 0,
       "settlement_id": "stl_0018",
+      "tds_paise": 313392,
       "utr": "UTR20260018",
       "value_date": "2026-06-25"
     },
@@ -7811,7 +8906,7 @@
       "fee_paise": 179628,
       "gross_paise": 14978498,
       "gst_paise": 32429,
-      "net_paise": 13969892,
+      "net_paise": 13820108,
       "paid": true,
       "payment_ids": [
         "pay_00022",
@@ -7841,6 +8936,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 0,
       "settlement_id": "stl_0019",
+      "tds_paise": 149784,
       "utr": "UTR20260019",
       "value_date": "2026-06-26"
     },
@@ -7855,7 +8951,7 @@
       "fee_paise": 241392,
       "gross_paise": 14671023,
       "gst_paise": 43452,
-      "net_paise": 14312824,
+      "net_paise": 14166113,
       "paid": true,
       "payment_ids": [
         "pay_00008",
@@ -7880,6 +8976,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 0,
       "settlement_id": "stl_0020",
+      "tds_paise": 146711,
       "utr": "UTR20260020",
       "value_date": "2026-06-29"
     },
@@ -7895,7 +8992,7 @@
       "fee_paise": 346282,
       "gross_paise": 20128902,
       "gst_paise": 62333,
-      "net_paise": 15047649,
+      "net_paise": 14846357,
       "paid": true,
       "payment_ids": [
         "pay_00005",
@@ -7929,6 +9026,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 72537,
       "settlement_id": "stl_0021",
+      "tds_paise": 201292,
       "utr": "UTR20260021",
       "value_date": "2026-06-30"
     },
@@ -7942,7 +9040,7 @@
       "fee_paise": 13154,
       "gross_paise": 657700,
       "gst_paise": 2368,
-      "net_paise": 642178,
+      "net_paise": 635601,
       "paid": true,
       "payment_ids": [
         "pay_amb31"
@@ -7952,6 +9050,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 0,
       "settlement_id": "stl_0022",
+      "tds_paise": 6577,
       "utr": "UTR20260022",
       "value_date": "2026-06-30"
     },
@@ -7966,7 +9065,7 @@
       "fee_paise": 174186,
       "gross_paise": 15160494,
       "gst_paise": 31352,
-      "net_paise": 14240956,
+      "net_paise": 14089351,
       "paid": true,
       "payment_ids": [
         "pay_00035",
@@ -7997,6 +9096,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 0,
       "settlement_id": "stl_0023",
+      "tds_paise": 151605,
       "utr": "UTR20260023",
       "value_date": "2026-07-01"
     },
@@ -8011,7 +9111,7 @@
       "fee_paise": 126424,
       "gross_paise": 14499694,
       "gst_paise": 22756,
-      "net_paise": 14292139,
+      "net_paise": 14147144,
       "paid": true,
       "payment_ids": [
         "pay_00021",
@@ -8042,6 +9142,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 0,
       "settlement_id": "stl_0024",
+      "tds_paise": 144995,
       "utr": "UTR20260024",
       "value_date": "2026-07-02"
     },
@@ -8053,7 +9154,7 @@
       "fee_paise": 4050,
       "gross_paise": 306325,
       "gst_paise": 729,
-      "net_paise": 349939,
+      "net_paise": 346876,
       "paid": true,
       "payment_ids": [
         "pay_00498",
@@ -8064,6 +9165,7 @@
       "reserve_release_date": null,
       "reserve_released_paise": 0,
       "settlement_id": "stl_0025",
+      "tds_paise": 3063,
       "utr": "UTR20260025",
       "value_date": "2026-07-03"
     }

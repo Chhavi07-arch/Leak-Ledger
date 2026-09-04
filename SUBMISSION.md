@@ -24,7 +24,7 @@ reviewer has a queue.
 
 | Time | Beat | What is on screen |
 |---|---|---|
-| **0:00** | **The numbers, then why** | Numbers first, in this order, before any explanation: **"₹4,74,517 confirmed. A further ₹10,60,629 flagged but not confirmed. 22 records refused."** Then, and only then, one sentence of method: *"the split is there because two detectors measure below 1.00 precision, and I won't quote them as fact."* A reviewer needs the figure before the reason it is structured that way — methodology first sounds like hedging before you have earned the right to hedge. |
+| **0:00** | **The numbers, then why** | Numbers first, in this order, before any explanation: **"₹4,71,195 confirmed. A further ₹10,60,629 flagged but not confirmed. 22 records refused."** Then, and only then, one sentence of method: *"the split is there because two detectors measure below 1.00 precision, and I won't quote them as fact."* A reviewer needs the figure before the reason it is structured that way — methodology first sounds like hedging before you have earned the right to hedge. |
 | **0:25** | The question | One sentence in a merchant's words: *"my settlement landed, my books balanced, and I still cannot tell you whether I was paid correctly."* Then why a match rate does not answer it. |
 | **0:50** | The run | **Press ▶ Run reconciliation on the dashboard.** It executes live — 645 records in under a second — and the page fills in. End on the findings table **with the precision column visible**. A button that visibly works beats a document that describes one. |
 | **1:45** | One finding, end to end | A fee overcharge. Show the arithmetic: expected against the versioned slab, actual, delta, schedule hash. A reviewer must be able to re-derive it from the frame. |
@@ -61,6 +61,19 @@ reviewer has a queue.
 | **Runbook — every command explained** | `RUNBOOK.md` |
 | Ground-truth validator | `harness/validate_ground_truth.py` |
 | Benchmark (unrun, frozen selection) | `harness/benchmark_llm_matcher.py` |
+
+## Numbers that must be spoken correctly
+
+These appear in the cue sheet above and are asserted against the harness by
+`tests/test_submission_numbers.py`, so a regenerate cannot leave the script
+quoting a stale figure.
+
+| spoken | value |
+|---|---|
+| confirmed | ₹4,71,195 |
+| flagged, not confirmed | ₹10,60,629 |
+| records refused | 22 |
+| false-match rate | 0.0000 |
 
 ## The four criteria, and where each is answered
 

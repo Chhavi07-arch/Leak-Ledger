@@ -65,8 +65,9 @@ def main() -> int:
         gross = sum(fees[p]["amount_paise"] for p in s["payment_ids"] if p in fees)
         fee = sum(fees[p]["charged_fee_paise"] for p in s["payment_ids"] if p in fees)
         gst = sum(fees[p]["charged_gst_paise"] for p in s["payment_ids"] if p in fees)
+        tds = sum(fees[p].get("charged_tds_paise", 0) for p in s["payment_ids"] if p in fees)
         lhs = s["net_paise"]
-        rhs = (gross - fee - gst - s["refunds_paise"] - s["chargebacks_paise"]
+        rhs = (gross - fee - gst - tds - s["refunds_paise"] - s["chargebacks_paise"]
                - s["reserve_held_paise"] + s.get("reserve_released_paise", 0))
         expected_delta = -declared_short.get(s["settlement_id"], 0)
         if lhs - rhs != expected_delta:
@@ -75,7 +76,7 @@ def main() -> int:
                 f"Rs {lhs/100:,.2f} != components Rs {rhs/100:,.2f} "
                 f"(delta Rs {(lhs-rhs)/100:,.2f}, expected Rs {expected_delta/100:,.2f}). "
                 f"gross={gross/100:,.2f} "
-                f"fee={fee/100:,.2f} gst={gst/100:,.2f} refunds={s['refunds_paise']/100:,.2f} "
+                f"fee={fee/100:,.2f} gst={gst/100:,.2f} tds={tds/100:,.2f} refunds={s['refunds_paise']/100:,.2f} "
                 f"cb={s['chargebacks_paise']/100:,.2f} reserve={s['reserve_held_paise']/100:,.2f}")
 
     # ---- 2/3. payment references -----------------------------------
