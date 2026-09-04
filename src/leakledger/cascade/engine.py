@@ -61,14 +61,72 @@ class T0Result:
     """Outcome of canonicalisation, reported rather than done silently."""
     canonical: List = field(default_factory=list)
     collapsed: List[dict] = field(default_factory=list)   # one entry per removed row
+    bank_canonical: List = field(default_factory=list)
+    reversals: List[dict] = field(default_factory=list)   # one entry per neutralised pair
 
     @property
     def rows_in(self) -> int:
         return len(self.canonical) + len(self.collapsed)
 
+    @property
+    def bank_rows_in(self) -> int:
+        return len(self.bank_canonical) + 2 * len(self.reversals)
+
     def summary(self) -> str:
-        return (f"{self.rows_in} rows in, {len(self.canonical)} canonical, "
-                f"{len(self.collapsed)} duplicate export rows collapsed")
+        return (f"{self.rows_in} payment rows in, {len(self.canonical)} canonical, "
+                f"{len(self.collapsed)} duplicate export rows collapsed; "
+                f"{self.bank_rows_in} bank rows in, {len(self.bank_canonical)} canonical, "
+                f"{len(self.reversals)} reversal pair(s) neutralised")
+
+
+REVERSAL_WINDOW_DAYS = 4
+
+
+def neutralise_reversals(bank_rows, window_days: int = REVERSAL_WINDOW_DAYS):
+    """T0 (bank side) -- remove credit/debit legs that cancel each other out.
+
+    A bank can post an entry in error and reverse it. The two legs carry the same
+    reference and amount, run in opposite directions, and net to zero: together
+    they represent no money movement at all.
+
+    A reconciler that treats them as two independent rows manufactures a phantom
+    payout it will fail to explain AND an unexplained debit, out of nothing but
+    the bank's own correction -- two spurious exceptions per pair, and a real risk
+    of the phantom credit being matched to a real cycle.
+
+    Both legs are removed and the pair is REPORTED, never silently dropped. The
+    match requires same reference, same amount, opposite direction, and a value
+    date within `window_days` -- a reference reused months apart is not a
+    reversal.
+    """
+    by_ref = {}
+    for b in bank_rows:
+        ref = (b.get("utr") or "").strip()
+        if ref:
+            by_ref.setdefault(ref, []).append(b)
+
+    reversed_ids, pairs = set(), []
+    for ref, rows in sorted(by_ref.items()):
+        crs = [r for r in rows if r["direction"] == "CR"]
+        drs = [r for r in rows if r["direction"] == "DR"]
+        for cr in crs:
+            if cr["txn_id"] in reversed_ids:
+                continue
+            for dr in drs:
+                if dr["txn_id"] in reversed_ids or dr["amount"] != cr["amount"]:
+                    continue
+                d1 = datetime.strptime(cr["value_date"], "%d-%m-%Y").date()
+                d2 = datetime.strptime(dr["value_date"], "%d-%m-%Y").date()
+                if abs((d2 - d1).days) > window_days:
+                    continue
+                reversed_ids.update({cr["txn_id"], dr["txn_id"]})
+                pairs.append({"reference": ref, "amount": cr["amount"],
+                              "credit_txn_id": cr["txn_id"], "debit_txn_id": dr["txn_id"],
+                              "days_apart": abs((d2 - d1).days)})
+                break
+
+    canonical = [b for b in bank_rows if b["txn_id"] not in reversed_ids]
+    return canonical, pairs
 
 
 def canonicalise(payments) -> T0Result:
@@ -159,6 +217,11 @@ class Cascade:
         # T0 runs before anything else; every later tier sees the canonical set.
         self.t0 = canonicalise(payments)
         payments = self.t0.canonical
+        # T0, bank side: legs that cancel out are not money movement.
+        bank_canon, reversals = neutralise_reversals(bank)
+        self.t0.bank_canonical = bank_canon
+        self.t0.reversals = reversals
+        bank = bank_canon
         self.payments = {p.payment_id: p for p in payments}
         self.refunds = refunds
         self.adjustments = adjustments or []

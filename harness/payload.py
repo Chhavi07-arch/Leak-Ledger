@@ -53,7 +53,7 @@ def build_payload() -> dict:
     t1 = time.perf_counter()
     cov = covered_cycles_by_matching(eng, bank)
     found = detectors.run_all(fs=fs, payments=eng.t0.canonical, refunds=refunds, adjustments=adj,
-                              bank_rows=bank, cascade_result=casc, calendar=cal,
+                              bank_rows=eng.t0.bank_canonical, cascade_result=casc, calendar=cal,
                               as_of=AS_OF, covered_cycles=cov)
     t2 = time.perf_counter()
 
@@ -195,6 +195,8 @@ def build_payload() -> dict:
             "t0_rows_in": casc.t0.rows_in,
             "t0_canonical": len(casc.t0.canonical),
             "t0_collapsed": len(casc.t0.collapsed),
+            "t0_bank_rows_in": casc.t0.bank_rows_in,
+            "t0_reversal_pairs": len(casc.t0.reversals),
             "total_records": len(gw.records) + len(bank) + len(refunds) + len(adj),
         },
         "false_match": {
@@ -235,6 +237,7 @@ def build_payload() -> dict:
         "timing": {"cascade_s": round(t1 - t0, 3), "detectors_s": round(t2 - t1, 3),
                    "total_s": round(total_s, 3),
                    "records_per_s": round((len(gw.records) + len(bank)) / max(total_s, 1e-6))},
+        "reversals": casc.t0.reversals,
         "checks": checks,
         "benchmark_pools": pool_stats,
         "provenance": {

@@ -764,3 +764,35 @@ framing cannot drift from the one actually sent.
 stated, that both temperature arms are reported with the pinned result, and that the
 report reproduces the benchmark's live prompt constant.
 **Commit:** (this phase)
+
+
+---
+
+## INC-020 — a seeded case cancelled another, for the third time
+**Date:** 2026-09-04 · **Phase:** post-audit, step 2 of 3
+**Symptom:** adding REVERSAL_PAIR shifted the bank observer's RNG stream, and
+`DUPLICATE_PAYOUT` fell from 2/2 to **1/2 (recall 1.00 -> 0.50)**. Confirmed
+leakage dropped Rs 4,74,517.27 -> Rs 3,35,144.38, a delta of Rs 1,39,372.89 --
+exactly the value of the missing duplicate, `stl_0015`.
+**Root cause:** a duplicate payout is identified by its two legs sharing a
+reference. The reshuffled stream caused `TRANSPOSED_UTR` to corrupt *both* legs
+differently (`UTR20260105` vs `UTR22060015`), so the detector -- correctly --
+read them as two distinct payouts and the seeded duplicate vanished.
+**The detector was not wrong.** Different references genuinely mean different
+payouts; weakening that rule to recover the number would have traded a real
+safeguard for a nicer scorecard.
+**This is the INC-009 pattern for the third time:** one seeded case silently
+destroying another, with the suite still green because nothing asserts that a
+seeded case survives contact with the others.
+**Fix:** mutual exclusion. Duplicate-payout legs are tracked as they are emitted
+and excluded from `TRANSPOSED_UTR`, `UTR_REUSED_DIFFERENT_AMOUNT` and
+`PLAUSIBLE_WRONG_COUNTERPARTY`. Restored to 2/2, precision and recall 1.00, and
+confirmed leakage back to Rs 4,74,517.27.
+**Also fixed in the same pass:** detectors were receiving RAW bank rows, so the
+reversal legs T0 had just neutralised were still visible to them. They now
+receive `t0.bank_canonical`.
+**Standing lesson:** every time a new seeded case is added to this generator, the
+first question is what existing case it might cancel. Three occurrences is a
+property of the design, not bad luck -- cases are seeded independently over shared
+objects, and nothing structurally prevents collision.
+**Commit:** step 2 of 3

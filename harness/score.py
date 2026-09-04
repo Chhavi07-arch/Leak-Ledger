@@ -98,7 +98,7 @@ def run_once(bound=None):
     t1 = time.perf_counter()
     cov = covered_cycles_by_matching(eng, bank)
     found = detectors.run_all(fs=fs, payments=eng.t0.canonical, refunds=refunds, adjustments=adj,
-                              bank_rows=bank, cascade_result=casc, calendar=cal,
+                              bank_rows=eng.t0.bank_canonical, cascade_result=casc, calendar=cal,
                               as_of=AS_OF, covered_cycles=cov)
     t2 = time.perf_counter()
     return dict(gw=gw, bank=bank, refunds=refunds, adj=adj, casc=casc, found=found, eng=eng,
@@ -256,6 +256,12 @@ def main():
     print(f"   duplicate rows collapsed   : {len(casc.t0.collapsed)}")
     for c in casc.t0.collapsed[:4]:
         print(f"     {c['payment_id']:14} row {c['row_num']:>4} -> kept row {c['kept_row']:<4} {c['action']}")
+    print(f"   bank rows in               : {casc.t0.bank_rows_in}")
+    print(f"   bank rows canonical        : {len(casc.t0.bank_canonical)}")
+    print(f"   reversal pairs neutralised : {len(casc.t0.reversals)}")
+    for rv in casc.t0.reversals[:4]:
+        print(f"     {rv['reference']:14} Rs {rv['amount']:>12}  "
+              f"{rv['credit_txn_id']} / {rv['debit_txn_id']}  {rv['days_apart']}d apart")
 
     # ---------- 8. LEDGER ----------
     led = Ledger()

@@ -84,6 +84,7 @@ def main() -> int:
         "counts": {
             "gateway_rows": len(gateway), "gateway_refund_rows": len(refunds_rows),
             "gateway_adjustment_rows": len(adj_rows),
+            "reversal_pairs": len(getattr(world, "reversals", [])),
             "bank_rows": len(bank), "erp_rows": len(erp),
             "total_rows": len(gateway) + len(refunds_rows) + len(adj_rows) + len(bank) + len(erp),
             "payments": len(world.payments), "settlements": len(world.settlements),
@@ -135,6 +136,7 @@ def main() -> int:
             "refunds": {r.refund_id: r.case_tags for r in world.refunds if r.case_tags},
             "chargebacks": {c.chargeback_id: c.case_tags for c in world.chargebacks if c.case_tags},
         },
+        "reversal_pairs": getattr(world, "reversals", []),
         "seeded_leaks": [
             {"leak_id": l.leak_id, "class": l.leak_class, "entity_id": l.entity_id,
              "value_paise": l.value.paise, "detail": l.detail}

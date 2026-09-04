@@ -81,7 +81,7 @@ committing the original sin it was built to catch.
 ## Honest scope
 
 **What it is:** a working reconciliation and leakage-detection engine for a single
-merchant with a known contract, on a 770-record synthetic batch across three
+merchant with a known contract, on a 778-record synthetic batch across three
 divergent sources, with published ground truth.
 
 **What it is not:** real source connectors (it reads CSVs); contract ingestion
@@ -125,7 +125,7 @@ nothing, because the number is confident and wrong (INC-010).
 
 ```
 $ python3 -m unittest discover -s tests -q
-Ran 182 tests ... OK
+Ran 192 tests ... OK
 ```
 
 | Guarantee | How it is enforced |
@@ -137,6 +137,7 @@ Ran 182 tests ... OK
 | Double entry | Trial balance = ₹0.00, asserted in CI |
 | Nothing dropped | Rows in == records + quarantined, always; every exit typed |
 | T0 conservation | Export rows in == canonical + collapsed, always; conflicting repeats kept, not dropped |
+| Reversal neutrality | Bank legs that cancel out (same reference, same amount, opposite direction, within 4 days) are removed as a reported pair, never counted as two matches |
 | Provenance | Fee schedule content-hashed into every run manifest and every finding's derivation |
 | **False-match rate** | **Pinned in CI at a ceiling of 0.0**, with a floor on scoreable matches so a change that stops matching cannot pass silently |
 
@@ -157,7 +158,7 @@ adversarial case is reachable. See *Failure recovery* for why.
 | Adversarial population (UTR reused, altered amount) | **0.0000** — 5 of 5 refused |
 | Auto-applied / review / exception | 14.6% / 31.7% / 53.7% |
 | Human-touch rate | 35 of 41 items (85.4%) — a ratio, not a time claim |
-| Throughput | 770 records end to end, ~1,000 records/s |
+| Throughput | 778 records end to end, ~1,000 records/s |
 | Ledger | 39 entries, trial balance ₹0.00 |
 
 Per-class precision and recall are in `harness/score.py` output and
@@ -303,7 +304,7 @@ published rates.
 
 ## Failure recovery
 
-`INCIDENTS.md` carries 19 incidents logged as they happened, and one named
+`INCIDENTS.md` carries 20 incidents logged as they happened, and one named
 pattern. Three are worth reading first.
 
 **INC-012 — a defect in the primary metric itself.** The engine matched a bank
@@ -346,7 +347,7 @@ python3 harness/validate_ground_truth.py      # 672 consistency checks — run b
 python3 harness/score.py                      # the scorecard
 python3 harness/report.py                     # reports/run_report.html
 python3 harness/model_layer_check.py          # boundary gate, adversarial provider
-python3 -m unittest discover -s tests -q      # 182 tests
+python3 -m unittest discover -s tests -q      # 192 tests
 ```
 
 No dependencies beyond the standard library — including the dashboard server,
@@ -375,7 +376,7 @@ src/leakledger/
 server.py   local dashboard server (stdlib only, no framework)
 web/        the dashboard page it serves
 harness/    scorecard, ground-truth validator, report, benchmark, shared payload
-tests/      182 tests
+tests/      192 tests
 DECISIONS.md  ADR-001..004 — choices a reader could reasonably have made differently
 INCIDENTS.md  what broke, what it cost, and the guard that stops it recurring
 ```

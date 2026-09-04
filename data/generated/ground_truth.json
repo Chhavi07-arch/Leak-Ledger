@@ -195,119 +195,110 @@
     },
     {
       "case_id": "adv_0019",
-      "detail": "UTR20260012 recorded as UTR20260102; near-miss reference must not resolve",
+      "detail": "UTR20260019 recorded as UTR20206019; near-miss reference must not resolve",
       "entity_ids": [
-        "BNK000012"
+        "BNK000019"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "TRANSPOSED_UTR"
     },
     {
       "case_id": "adv_0020",
-      "detail": "UTR20260024 recorded as UTR02260024; near-miss reference must not resolve",
+      "detail": "UTR20260020 recorded as UTR22060020; near-miss reference must not resolve",
       "entity_ids": [
-        "BNK000024"
+        "BNK000020"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "TRANSPOSED_UTR"
     },
     {
       "case_id": "adv_0021",
-      "detail": "UTR20260002 recorded as UTR02260002; near-miss reference must not resolve",
+      "detail": "UTR20260017 recorded as UTR20620017; near-miss reference must not resolve",
       "entity_ids": [
-        "BNK000003"
+        "BNK000017"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "TRANSPOSED_UTR"
     },
     {
       "case_id": "adv_0022",
-      "detail": "UTR20260022 recorded as UTR22060022; near-miss reference must not resolve",
+      "detail": "UTR UTR20260014 appears with two different amounts",
       "entity_ids": [
-        "BNK000022"
+        "BNK000013",
+        "BNK000013X"
       ],
-      "expected_behaviour": "NO_MATCH",
-      "type": "TRANSPOSED_UTR"
+      "expected_behaviour": "REFUSE",
+      "type": "UTR_REUSED_DIFFERENT_AMOUNT"
     },
     {
       "case_id": "adv_0023",
-      "detail": "UTR20260003 recorded as UTR20206003; near-miss reference must not resolve",
+      "detail": "UTR ARN41170453278 appears with two different amounts",
       "entity_ids": [
-        "BNK000004"
+        "BNK000028",
+        "BNK000028X"
       ],
-      "expected_behaviour": "NO_MATCH",
-      "type": "TRANSPOSED_UTR"
+      "expected_behaviour": "REFUSE",
+      "type": "UTR_REUSED_DIFFERENT_AMOUNT"
     },
     {
       "case_id": "adv_0024",
-      "detail": "UTR20260021 recorded as UTR22060021; near-miss reference must not resolve",
+      "detail": "UTR UTR20260021 appears with two different amounts",
       "entity_ids": [
-        "BNK000021"
+        "BNK000021",
+        "BNK000021X"
       ],
-      "expected_behaviour": "NO_MATCH",
-      "type": "TRANSPOSED_UTR"
+      "expected_behaviour": "REFUSE",
+      "type": "UTR_REUSED_DIFFERENT_AMOUNT"
     },
     {
       "case_id": "adv_0025",
-      "detail": "UTR ARN72751095212 appears with two different amounts",
+      "detail": "UTR UTR20260025 appears with two different amounts",
       "entity_ids": [
-        "BNK000031",
-        "BNK000031X"
+        "BNK000025",
+        "BNK000025X"
       ],
       "expected_behaviour": "REFUSE",
       "type": "UTR_REUSED_DIFFERENT_AMOUNT"
     },
     {
       "case_id": "adv_0026",
-      "detail": "UTR UTR20260015 appears with two different amounts",
+      "detail": "UTR UTR22060020 appears with two different amounts",
       "entity_ids": [
-        "BNK000015",
-        "BNK000015X"
+        "BNK000020",
+        "BNK000020X"
       ],
       "expected_behaviour": "REFUSE",
       "type": "UTR_REUSED_DIFFERENT_AMOUNT"
     },
     {
       "case_id": "adv_0027",
-      "detail": "UTR UTR20260009 appears with two different amounts",
+      "detail": "a debit of Rs 14877.25 equals unrelated payment pay_00330",
       "entity_ids": [
-        "BNK000009",
-        "BNK000009X"
-      ],
-      "expected_behaviour": "REFUSE",
-      "type": "UTR_REUSED_DIFFERENT_AMOUNT"
-    },
-    {
-      "case_id": "adv_0028",
-      "detail": "UTR UTR20260015 appears with two different amounts",
-      "entity_ids": [
-        "BNK000014",
-        "BNK000014X"
-      ],
-      "expected_behaviour": "REFUSE",
-      "type": "UTR_REUSED_DIFFERENT_AMOUNT"
-    },
-    {
-      "case_id": "adv_0029",
-      "detail": "UTR ARN77419236751 appears with two different amounts",
-      "entity_ids": [
-        "BNK000026",
-        "BNK000026X"
-      ],
-      "expected_behaviour": "REFUSE",
-      "type": "UTR_REUSED_DIFFERENT_AMOUNT"
-    },
-    {
-      "case_id": "adv_0030",
-      "detail": "a debit of Rs 1685.00 equals unrelated payment pay_00449",
-      "entity_ids": [
-        "pay_00449"
+        "pay_00330"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "REFUND_EQUALS_PAYMENT"
     },
     {
-      "case_id": "adv_0031",
+      "case_id": "adv_0028",
+      "detail": "a debit of Rs 2170.75 equals unrelated payment pay_00007",
+      "entity_ids": [
+        "pay_00007"
+      ],
+      "expected_behaviour": "NO_MATCH",
+      "type": "REFUND_EQUALS_PAYMENT"
+    },
+    {
+      "case_id": "adv_0029",
+      "detail": "a debit of Rs 746.49 equals unrelated payment pay_00075",
+      "entity_ids": [
+        "pay_00075"
+      ],
+      "expected_behaviour": "NO_MATCH",
+      "type": "REFUND_EQUALS_PAYMENT"
+    },
+    {
+      "case_id": "adv_0030",
       "detail": "a debit of Rs 3080.50 equals unrelated payment pay_00172",
       "entity_ids": [
         "pay_00172"
@@ -316,35 +307,53 @@
       "type": "REFUND_EQUALS_PAYMENT"
     },
     {
-      "case_id": "adv_0032",
-      "detail": "a debit of Rs 33367.50 equals unrelated payment pay_00437",
+      "case_id": "adv_0031",
+      "detail": "a debit of Rs 5816.00 equals unrelated payment pay_00193",
       "entity_ids": [
-        "pay_00437"
+        "pay_00193"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "REFUND_EQUALS_PAYMENT"
+    },
+    {
+      "case_id": "adv_0032",
+      "detail": "narration names 'Bharat Retail Ventures Private Limited', which is plausible but wrong",
+      "entity_ids": [
+        "BNK000022"
+      ],
+      "expected_behaviour": "NO_MATCH",
+      "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
     },
     {
       "case_id": "adv_0033",
-      "detail": "a debit of Rs 382.75 equals unrelated payment pay_00256",
+      "detail": "narration names 'Everest Apparel Manufacturing Limited', which is plausible but wrong",
       "entity_ids": [
-        "pay_00256"
+        "BNK000013"
       ],
       "expected_behaviour": "NO_MATCH",
-      "type": "REFUND_EQUALS_PAYMENT"
+      "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
     },
     {
       "case_id": "adv_0034",
-      "detail": "a debit of Rs 912.75 equals unrelated payment pay_00239",
+      "detail": "narration names 'Bharat Retail Ventures Private Limited', which is plausible but wrong",
       "entity_ids": [
-        "pay_00239"
+        "BNK000001"
       ],
       "expected_behaviour": "NO_MATCH",
-      "type": "REFUND_EQUALS_PAYMENT"
+      "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
     },
     {
       "case_id": "adv_0035",
-      "detail": "narration names 'Coastal Foods and Beverages Limited', which is plausible but wrong",
+      "detail": "narration names 'Fortune Home Appliances Private Limited', which is plausible but wrong",
+      "entity_ids": [
+        "BNK000038"
+      ],
+      "expected_behaviour": "NO_MATCH",
+      "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
+    },
+    {
+      "case_id": "adv_0036",
+      "detail": "narration names 'Himalaya Organics Private Limited', which is plausible but wrong",
       "entity_ids": [
         "BNK000019"
       ],
@@ -352,46 +361,10 @@
       "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
     },
     {
-      "case_id": "adv_0036",
-      "detail": "narration names 'Acme India Private Limited', which is plausible but wrong",
-      "entity_ids": [
-        "BNK000003"
-      ],
-      "expected_behaviour": "NO_MATCH",
-      "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
-    },
-    {
       "case_id": "adv_0037",
-      "detail": "narration names 'Coastal Foods and Beverages Limited', which is plausible but wrong",
+      "detail": "narration names 'Bharat Retail Ventures Private Limited', which is plausible but wrong",
       "entity_ids": [
-        "BNK000021"
-      ],
-      "expected_behaviour": "NO_MATCH",
-      "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
-    },
-    {
-      "case_id": "adv_0038",
-      "detail": "narration names 'Himalaya Organics Private Limited', which is plausible but wrong",
-      "entity_ids": [
-        "BNK000014"
-      ],
-      "expected_behaviour": "NO_MATCH",
-      "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
-    },
-    {
-      "case_id": "adv_0039",
-      "detail": "narration names 'Coastal Foods and Beverages Limited', which is plausible but wrong",
-      "entity_ids": [
-        "BNK000020"
-      ],
-      "expected_behaviour": "NO_MATCH",
-      "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
-    },
-    {
-      "case_id": "adv_0040",
-      "detail": "narration names 'Indus Valley Furnishings Limited', which is plausible but wrong",
-      "entity_ids": [
-        "BNK000005"
+        "BNK000034"
       ],
       "expected_behaviour": "NO_MATCH",
       "type": "PLAUSIBLE_WRONG_COUNTERPARTY"
@@ -690,8 +663,8 @@
     }
   },
   "counts": {
-    "adversarial_cases": 41,
-    "bank_rows": 41,
+    "adversarial_cases": 38,
+    "bank_rows": 49,
     "chargebacks": 12,
     "erp_rows": 125,
     "gateway_adjustment_rows": 27,
@@ -700,9 +673,10 @@
     "invoices": 125,
     "payments": 538,
     "refunds": 35,
+    "reversal_pairs": 4,
     "seeded_leaks": 38,
     "settlements": 26,
-    "total_rows": 770
+    "total_rows": 778
   },
   "expected_fees": {
     "pay_00000": {
@@ -6663,6 +6637,32 @@
     "pay_str03": "stl_0014",
     "pay_str04": "stl_0014"
   },
+  "reversal_pairs": [
+    {
+      "amount_paise": 3804900,
+      "credit_txn_id": "BNK000032",
+      "debit_txn_id": "BNK000033",
+      "utr": "UTRREV000000"
+    },
+    {
+      "amount_paise": 7245200,
+      "credit_txn_id": "BNK000034",
+      "debit_txn_id": "BNK000035",
+      "utr": "UTRREV000001"
+    },
+    {
+      "amount_paise": 1367300,
+      "credit_txn_id": "BNK000036",
+      "debit_txn_id": "BNK000037",
+      "utr": "UTRREV000002"
+    },
+    {
+      "amount_paise": 6262300,
+      "credit_txn_id": "BNK000038",
+      "debit_txn_id": "BNK000039",
+      "utr": "UTRREV000003"
+    }
+  ],
   "seeded_leaks": [
     {
       "class": "FEE_OVERCHARGE",

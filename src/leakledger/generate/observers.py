@@ -154,17 +154,45 @@ def observe_bank(world: World, seed: int, adversarial=None) -> List[Dict[str, st
             "narration": narration,
         })
 
+    duplicate_legs = set()          # txn_ids belonging to a DUPLICATE_PAYOUT pair
     for s in world.settlements:
         if not s.paid:
             continue                                  # MISSING_SETTLEMENT seeds land here
         emit(s.value_date, s.net, "CR", s.utr, "Razorpay Software Private Limited")
         if s.duplicated:
+            duplicate_legs.add(rows[-1]["txn_id"])
             emit(s.value_date, s.net, "CR", s.utr, "Razorpay Software Private Limited")
+            duplicate_legs.add(rows[-1]["txn_id"])
 
     for r in world.refunds:
         if r.mode == "INSTANT" and r.reached_customer:
             emit(r.issued_at.date(), r.amount, "DR", r.arn,
                  world.payment_by_id()[r.payment_id].counterparty)
+
+    # --- REVERSAL_PAIR --------------------------------------------------
+    # A credit the bank posted in error and then reversed. The two legs carry the
+    # same reference and amount, net to zero, and represent no money movement at
+    # all. Neither leg may be counted as a match: a reconciler that treats them
+    # as two independent rows manufactures one phantom payout and one unexplained
+    # debit out of a bank's own correction.
+    reversals = []
+    for i in range(4):
+        amt = Money(rng.randint(9_000, 90_000) * 100)
+        utr = f"UTRREV{i:06d}"
+        base = rng.choice(world.settlements).value_date
+        n += 1
+        cr = {"txn_id": f"BNK{n:06d}", "value_date": base.strftime("%d-%m-%Y"),
+              "amount": amt.to_rupees_str(), "direction": "CR", "utr": utr,
+              "narration": f"NEFT CR-{utr}-RAZORPAY SOFTWARE PVT LTD"[:_BANK_FIELD_WIDTH]}
+        n += 1
+        dr = {"txn_id": f"BNK{n:06d}",
+              "value_date": (base + timedelta(days=rng.randint(1, 2))).strftime("%d-%m-%Y"),
+              "amount": amt.to_rupees_str(), "direction": "DR", "utr": utr,
+              "narration": f"REVERSAL {utr} POSTED IN ERROR"[:_BANK_FIELD_WIDTH]}
+        rows.extend([cr, dr])
+        reversals.append({"utr": utr, "amount_paise": amt.paise,
+                          "credit_txn_id": cr["txn_id"], "debit_txn_id": dr["txn_id"]})
+    world.reversals = reversals
 
     adv = adversarial if adversarial is not None else []
 
@@ -176,6 +204,12 @@ def observe_bank(world: World, seed: int, adversarial=None) -> List[Dict[str, st
     credits = [r for r in rows if r["direction"] == "CR" and r["utr"]]
 
     # --- TRANSPOSED_UTR: two digits swapped. Must NOT fuzzy-match through. ---
+    # MUTUAL EXCLUSION (INC-020, the INC-009 pattern again): a duplicate-payout
+    # pair is identified by its two legs sharing a reference. Transposing a digit
+    # in one leg's UTR makes the references differ, the detector correctly reads
+    # them as two distinct payouts, and the seeded DUPLICATE_PAYOUT silently
+    # disappears. One seeded case must never cancel another.
+    credits = [r for r in credits if r["txn_id"] not in duplicate_legs]
     for row in rng.sample(credits, k=min(6, len(credits))):
         u = row["utr"]
         i = rng.randint(3, len(u) - 2)
@@ -185,7 +219,8 @@ def observe_bank(world: World, seed: int, adversarial=None) -> List[Dict[str, st
                  f"{u} recorded as {row['utr']}; near-miss reference must not resolve")
 
     # --- UTR_REUSED_DIFFERENT_AMOUNT: exact key must not be trusted blindly ---
-    for row in rng.sample([r for r in rows if r["utr"]], k=min(5, len(rows))):
+    for row in rng.sample([r for r in rows if r["utr"] and r["txn_id"] not in duplicate_legs],
+                          k=min(5, len(rows))):
         clone = dict(row)
         clone["txn_id"] = row["txn_id"] + "X"
         clone["amount"] = (Money.from_rupees_str(row["amount"]) + Money(rng.randint(9000, 90000))).to_rupees_str()
@@ -213,7 +248,8 @@ def observe_bank(world: World, seed: int, adversarial=None) -> List[Dict[str, st
     # so iterating a set of strings gives a different order in every run and
     # rng.choice() over it silently breaks determinism. See INC-002.
     others = sorted({p.counterparty for p in world.payments})
-    for row in rng.sample(credits, k=min(6, len(credits))):
+    for row in rng.sample([r for r in credits if r["txn_id"] not in duplicate_legs],
+                          k=min(6, len(credits))):
         wrong = rng.choice(others)
         row["narration"] = f"NEFT CR-{row['utr']}-{_bank_render_counterparty(wrong, rng)}"[:_BANK_FIELD_WIDTH]
         _add("PLAUSIBLE_WRONG_COUNTERPARTY", "NO_MATCH", [row["txn_id"]],

@@ -77,6 +77,18 @@ Two rows sharing a payment id but disagreeing on any of those are a **data
 conflict, not a duplicate** — both are kept, tagged `KEPT_CONFLICTING`, so the
 cascade fails on them loudly rather than one being silently discarded.
 
+### Reversal pairs
+
+The bank side of T0 removes legs that cancel each other out: same reference, same
+amount, opposite direction, value dates within four days. Together they are no
+money movement at all.
+
+Treated as two independent rows they manufacture a **phantom credit** the engine
+will try to reconcile against a real cycle, plus an **unexplained debit** — two
+spurious exceptions per pair out of nothing but the bank's own correction. Both
+legs are removed and the pair is reported, never silently dropped. A reference
+reused months apart is not a reversal and is left alone.
+
 ## T3: why this is not a subset-sum
 
 PLAN framed T3 as *"find a subset of payments summing to this payout, bounded at
@@ -212,8 +224,4 @@ but not quantifiable, claiming no rupee value at all (INC-013).
   above and in comments, but no code computes it and the fee schedule carries no
   TDS rate. Settlements in the generated batch have no TDS component, so nothing
   is silently wrong — the term is simply absent.
-- **REVERSAL_PAIR was never built.** A debit and credit against the same reference
-  netting to zero, which must not be counted as two matches, was one of eight
-  declared hard-case types. It is not seeded and no detector looks for it. The
-  other seven are seeded and traceable in ground truth.
 
