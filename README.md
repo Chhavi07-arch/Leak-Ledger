@@ -125,7 +125,7 @@ nothing, because the number is confident and wrong (INC-010).
 
 ```
 $ python3 -m unittest discover -s tests -q
-Ran 174 tests ... OK
+Ran 182 tests ... OK
 ```
 
 | Guarantee | How it is enforced |
@@ -136,6 +136,7 @@ Ran 174 tests ... OK
 | Idempotence | Δ ledger = 0 on second apply, asserted in CI |
 | Double entry | Trial balance = ₹0.00, asserted in CI |
 | Nothing dropped | Rows in == records + quarantined, always; every exit typed |
+| T0 conservation | Export rows in == canonical + collapsed, always; conflicting repeats kept, not dropped |
 | Provenance | Fee schedule content-hashed into every run manifest and every finding's derivation |
 | **False-match rate** | **Pinned in CI at a ceiling of 0.0**, with a floor on scoreable matches so a change that stops matching cannot pass silently |
 
@@ -345,7 +346,7 @@ python3 harness/validate_ground_truth.py      # 672 consistency checks — run b
 python3 harness/score.py                      # the scorecard
 python3 harness/report.py                     # reports/run_report.html
 python3 harness/model_layer_check.py          # boundary gate, adversarial provider
-python3 -m unittest discover -s tests -q      # 174 tests
+python3 -m unittest discover -s tests -q      # 182 tests
 ```
 
 No dependencies beyond the standard library — including the dashboard server,
@@ -374,7 +375,7 @@ src/leakledger/
 server.py   local dashboard server (stdlib only, no framework)
 web/        the dashboard page it serves
 harness/    scorecard, ground-truth validator, report, benchmark, shared payload
-tests/      174 tests
+tests/      182 tests
 DECISIONS.md  ADR-001..004 — choices a reader could reasonably have made differently
 INCIDENTS.md  what broke, what it cost, and the guard that stops it recurring
 ```

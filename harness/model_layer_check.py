@@ -45,7 +45,7 @@ def run(provider):
                   calendar=cal, model_provider=provider)
     casc = eng.run()
     cov = covered_cycles_by_matching(eng, bank)
-    found = detectors.run_all(fs=fs, payments=gw.records, refunds=refunds, adjustments=adj,
+    found = detectors.run_all(fs=fs, payments=eng.t0.canonical, refunds=refunds, adjustments=adj,
                               bank_rows=bank, cascade_result=casc, calendar=cal,
                               as_of=date(2026, 7, 31), covered_cycles=cov)
     truth = json.loads((DATA / "ground_truth.json").read_text(encoding="utf-8"))

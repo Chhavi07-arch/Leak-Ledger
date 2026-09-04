@@ -20,7 +20,8 @@ the session it was made in.
   │ 1  INGEST      schema validation · typed quarantine, never drops │
   │                money → integer paise · timestamps → IST-aware    │
   ├──────────────────────────────────────────────────────────────────┤
-  │ 2  CASCADE     T1 exact reference (ARN)                          │
+  │ 2  CASCADE     T0 canonicalise -- collapse repeated export rows   │
+  │                T1 exact reference (ARN)                          │
   │                T2 unique amount + date window                    │
   │                T3 settlement deviation search  ← the hard tier   │
   │                T4 narration proposal, arithmetic-verified  ◆     │
@@ -58,6 +59,23 @@ construction: the deviation search would find nothing to do, report a perfect
 match rate, and demonstrate nothing at all.
 
 ---
+
+## T0: canonicalisation as a tier, not a side effect
+
+A gateway export can list the same payment twice. That is a file artefact, not a
+second charge, and confusing the two matters: `DUPLICATE_CAPTURE` means two
+*distinct* payment ids against one order, which is real customer harm.
+
+This used to be done defensively inside `detect_duplicate_capture`, which made the
+dedupe invisible, unreported, and something every consumer had to re-implement.
+It is now a first-class tier with a conservation property asserted in CI:
+**rows in == rows canonical + rows collapsed**, always, and every collapse records
+the row numbers involved.
+
+A repeat is collapsed only when it agrees on amount, instrument and capture time.
+Two rows sharing a payment id but disagreeing on any of those are a **data
+conflict, not a duplicate** — both are kept, tagged `KEPT_CONFLICTING`, so the
+cascade fails on them loudly rather than one being silently discarded.
 
 ## T3: why this is not a subset-sum
 
@@ -198,7 +216,4 @@ but not quantifiable, claiming no rupee value at all (INC-013).
   netting to zero, which must not be counted as two matches, was one of eight
   declared hard-case types. It is not seeded and no detector looks for it. The
   other seven are seeded and traceable in ground truth.
-- **No T0 tier exists in the cascade.** The design describes T0 as
-  canonicalise/dedupe; in practice deduplication happens inside
-  `detect_duplicate_capture` rather than as a distinct matching tier, so the
-  emitted tiers are T1-T5.
+

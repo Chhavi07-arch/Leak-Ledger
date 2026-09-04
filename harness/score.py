@@ -97,11 +97,11 @@ def run_once(bound=None):
     casc = eng.run()
     t1 = time.perf_counter()
     cov = covered_cycles_by_matching(eng, bank)
-    found = detectors.run_all(fs=fs, payments=gw.records, refunds=refunds, adjustments=adj,
+    found = detectors.run_all(fs=fs, payments=eng.t0.canonical, refunds=refunds, adjustments=adj,
                               bank_rows=bank, cascade_result=casc, calendar=cal,
                               as_of=AS_OF, covered_cycles=cov)
     t2 = time.perf_counter()
-    return dict(gw=gw, bank=bank, refunds=refunds, adj=adj, casc=casc, found=found,
+    return dict(gw=gw, bank=bank, refunds=refunds, adj=adj, casc=casc, found=found, eng=eng,
                 cascade_s=t1 - t0, detect_s=t2 - t1)
 
 
@@ -109,6 +109,7 @@ def main():
     truth = json.loads((DATA / "ground_truth.json").read_text(encoding="utf-8"))
     r = run_once()
     casc, found, bank, gw = r["casc"], r["found"], r["bank"], r["gw"]
+    eng = r["eng"]
     seeded = defaultdict(set)
     for l in truth["seeded_leaks"]:
         seeded[l["class"]].add(l["entity_id"])
@@ -248,11 +249,18 @@ def main():
         ex = next(m for m in casc.matches if m.reason_code == code)
         print(f"   [{code:26}] {cnt:>2}  {ex.evidence[:80]}")
     print(f"   quarantined at ingest      : {len(gw.quarantined)}")
+    print()
+    print("9. T0 CANONICALISATION")
+    print(f"   export rows in             : {casc.t0.rows_in}")
+    print(f"   canonical payments         : {len(casc.t0.canonical)}")
+    print(f"   duplicate rows collapsed   : {len(casc.t0.collapsed)}")
+    for c in casc.t0.collapsed[:4]:
+        print(f"     {c['payment_id']:14} row {c['row_num']:>4} -> kept row {c['kept_row']:<4} {c['action']}")
 
     # ---------- 8. LEDGER ----------
     led = Ledger()
     stats = apply_run(led, run_id="score", cascade_result=casc, findings=found,
-                      payments=gw.records)
+                      payments=eng.t0.canonical)
     print()
     print("8. LEDGER")
     print(f"   entries posted            : {stats['posted']}")

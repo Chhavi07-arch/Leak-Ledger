@@ -18,8 +18,14 @@ class ReadmeAgreesWithHarness(unittest.TestCase):
         # against whitespace-normalised prose: the claim is what matters, not
         # where the line breaks fall.
         cls.flat = re.sub(r"\s+", " ", cls.md)
-        cls.score = subprocess.run([sys.executable, str(ROOT / "harness" / "score.py")],
-                                   capture_output=True, text=True, cwd=ROOT).stdout
+        proc = subprocess.run([sys.executable, str(ROOT / "harness" / "score.py")],
+                              capture_output=True, text=True, cwd=ROOT)
+        # Assert the exit code, not just the text. The scorecard once crashed on
+        # its final line and every test still passed, because they only parsed
+        # stdout printed before the traceback.
+        assert proc.returncode == 0, (
+            f"harness/score.py exited {proc.returncode}:\n{proc.stderr[-1200:]}")
+        cls.score = proc.stdout
         cls.tests_n = None
 
     def _score(self, pattern):

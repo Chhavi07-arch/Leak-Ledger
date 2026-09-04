@@ -52,7 +52,7 @@ def build_payload() -> dict:
     casc = eng.run()
     t1 = time.perf_counter()
     cov = covered_cycles_by_matching(eng, bank)
-    found = detectors.run_all(fs=fs, payments=gw.records, refunds=refunds, adjustments=adj,
+    found = detectors.run_all(fs=fs, payments=eng.t0.canonical, refunds=refunds, adjustments=adj,
                               bank_rows=bank, cascade_result=casc, calendar=cal,
                               as_of=AS_OF, covered_cycles=cov)
     t2 = time.perf_counter()
@@ -81,7 +81,7 @@ def build_payload() -> dict:
     adv = [m for m in casc.matches if m.bank_txn_id.endswith("X")]
 
     led = Ledger()
-    apply_run(led, run_id="dash", cascade_result=casc, findings=found, payments=gw.records)
+    apply_run(led, run_id="dash", cascade_result=casc, findings=found, payments=eng.t0.canonical)
 
     # concentration + median, so the headline can never be quoted without its shape
     vals = sorted((f.value.paise for f in found.findings if f.value.paise), reverse=True)
@@ -192,6 +192,9 @@ def build_payload() -> dict:
             "bank_rows": len(bank), "refund_rows": len(refunds),
             "adjustment_rows": len(adj),
             "quarantined": len(gw.quarantined),
+            "t0_rows_in": casc.t0.rows_in,
+            "t0_canonical": len(casc.t0.canonical),
+            "t0_collapsed": len(casc.t0.collapsed),
             "total_records": len(gw.records) + len(bank) + len(refunds) + len(adj),
         },
         "false_match": {

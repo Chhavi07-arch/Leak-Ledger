@@ -57,6 +57,58 @@ UNEXPLAINED_RESIDUAL = "UNEXPLAINED_RESIDUAL"
 
 
 @dataclass
+class T0Result:
+    """Outcome of canonicalisation, reported rather than done silently."""
+    canonical: List = field(default_factory=list)
+    collapsed: List[dict] = field(default_factory=list)   # one entry per removed row
+
+    @property
+    def rows_in(self) -> int:
+        return len(self.canonical) + len(self.collapsed)
+
+    def summary(self) -> str:
+        return (f"{self.rows_in} rows in, {len(self.canonical)} canonical, "
+                f"{len(self.collapsed)} duplicate export rows collapsed")
+
+
+def canonicalise(payments) -> T0Result:
+    """T0 -- collapse repeated export rows for the same payment.
+
+    A gateway export can list the same payment twice. That is a FILE artefact, not
+    a second charge, and the two must never be confused: DUPLICATE_CAPTURE means
+    two distinct payment_ids against one order, which is real customer harm.
+
+    This used to be done defensively inside detect_duplicate_capture, which meant
+    the dedupe was invisible, unreported, and had to be re-implemented by every
+    consumer that wanted a clean payment set. It is now a first-class tier: rows
+    in equals rows canonical plus rows collapsed, always, and every collapse is
+    recorded with the row numbers that produced it.
+
+    A repeat is collapsed ONLY when the duplicate agrees on the fields that
+    matter. If two rows share a payment_id but disagree on amount or instrument,
+    that is a data conflict, not a duplicate, and both are kept for the cascade to
+    fail on loudly rather than silently discarded.
+    """
+    seen, canonical, collapsed = {}, [], []
+    for p in payments:
+        prior = seen.get(p.payment_id)
+        if prior is None:
+            seen[p.payment_id] = p
+            canonical.append(p)
+            continue
+        conflict = (prior.amount != p.amount or prior.instrument != p.instrument
+                    or prior.captured_at != p.captured_at)
+        if conflict:
+            canonical.append(p)          # kept deliberately; not a duplicate
+            collapsed.append({"payment_id": p.payment_id, "row_num": p.row_num,
+                              "kept_row": prior.row_num, "action": "KEPT_CONFLICTING"})
+        else:
+            collapsed.append({"payment_id": p.payment_id, "row_num": p.row_num,
+                              "kept_row": prior.row_num, "action": "COLLAPSED"})
+    return T0Result(canonical=canonical, collapsed=collapsed)
+
+
+@dataclass
 class Match:
     bank_txn_id: str
     tier: str
@@ -81,6 +133,7 @@ class Match:
 @dataclass
 class CascadeResult:
     matches: List[Match] = field(default_factory=list)
+    t0: Optional["T0Result"] = None
 
     def by_disposition(self, d: str) -> List[Match]:
         return [m for m in self.matches if m.disposition == d]
@@ -103,6 +156,9 @@ class Cascade:
     def __init__(self, *, payments, refunds, bank, calendar: BusinessCalendar,
                  adjustments=None, model_provider=None,
                  bound: int = DEFAULT_DEVIATION_BOUND, tolerance: Money = Money(0)):
+        # T0 runs before anything else; every later tier sees the canonical set.
+        self.t0 = canonicalise(payments)
+        payments = self.t0.canonical
         self.payments = {p.payment_id: p for p in payments}
         self.refunds = refunds
         self.adjustments = adjustments or []
@@ -240,7 +296,7 @@ class Cascade:
 
     # ---- tiers --------------------------------------------------------
     def run(self) -> CascadeResult:
-        result = CascadeResult()
+        result = CascadeResult(t0=self.t0)
         refunds_by_arn = {r.get("arn"): r for r in self.refunds if r.get("arn")}
         refunds_by_amount = defaultdict(list)
         for r in self.refunds:

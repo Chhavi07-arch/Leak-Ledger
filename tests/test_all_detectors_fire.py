@@ -67,7 +67,7 @@ class EveryDetectorFires(unittest.TestCase):
         cls.casc = eng.run()
         cov = covered_cycles_by_matching(eng, bank)
         cls.found = detectors.run_all(
-            fs=fs, payments=gw.records, refunds=refunds, adjustments=adj,
+            fs=fs, payments=eng.t0.canonical, refunds=refunds, adjustments=adj,
             bank_rows=bank, cascade_result=cls.casc, calendar=cal,
             as_of=date(2026, 7, 31), covered_cycles=cov)
         cls.truth = json.loads((DATA / "ground_truth.json").read_text(encoding="utf-8"))

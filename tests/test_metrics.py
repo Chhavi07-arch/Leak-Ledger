@@ -51,10 +51,10 @@ def pipeline():
                   adjustments=adj, calendar=cal)
     casc = eng.run()
     cov = covered_cycles_by_matching(eng, bank)
-    found = detectors.run_all(fs=fs, payments=gw.records, refunds=refunds, adjustments=adj,
+    found = detectors.run_all(fs=fs, payments=eng.t0.canonical, refunds=refunds, adjustments=adj,
                               bank_rows=bank, cascade_result=casc, calendar=cal,
                               as_of=date(2026, 7, 31), covered_cycles=cov)
-    return gw, bank, casc, found
+    return eng, bank, casc, found
 
 
 def run_signature(casc, found):
@@ -73,7 +73,7 @@ class Determinism(unittest.TestCase):
         """PLAN.md: determinism, 5 runs -> 1 hash."""
         sigs = set()
         for _ in range(5):
-            gw, bank, casc, found = pipeline()
+            eng, bank, casc, found = pipeline()
             sigs.add(run_signature(casc, found))
         self.assertEqual(len(sigs), 1,
                          f"5 runs produced {len(sigs)} distinct outcomes; the engine is "
@@ -82,10 +82,10 @@ class Determinism(unittest.TestCase):
     def test_ledger_state_hash_stable_across_runs(self):
         hashes = set()
         for _ in range(3):
-            gw, bank, casc, found = pipeline()
+            eng, bank, casc, found = pipeline()
             led = Ledger()
             apply_run(led, run_id="t", cascade_result=casc, findings=found,
-                      payments=gw.records)
+                      payments=eng.t0.canonical)
             hashes.add(led.state_hash())
         self.assertEqual(len(hashes), 1)
 
@@ -93,22 +93,22 @@ class Determinism(unittest.TestCase):
 class Idempotence(unittest.TestCase):
     def test_delta_ledger_is_zero_on_second_apply(self):
         """PLAN.md: idempotency, delta ledger = 0."""
-        gw, bank, casc, found = pipeline()
+        eng, bank, casc, found = pipeline()
         led = Ledger()
         first = apply_run(led, run_id="r1", cascade_result=casc, findings=found,
-                          payments=gw.records)
+                          payments=eng.t0.canonical)
         h1, n1 = led.state_hash(), len(led)
         second = apply_run(led, run_id="r2", cascade_result=casc, findings=found,
-                           payments=gw.records)
+                           payments=eng.t0.canonical)
         self.assertEqual(led.state_hash(), h1, "second apply changed ledger state")
         self.assertEqual(len(led), n1, "second apply added entries")
         self.assertEqual(second["posted"], 0, "second apply posted new entries")
         self.assertGreater(first["posted"], 0, "first apply posted nothing to test")
 
     def test_double_entry_holds(self):
-        gw, bank, casc, found = pipeline()
+        eng, bank, casc, found = pipeline()
         led = Ledger()
-        apply_run(led, run_id="r", cascade_result=casc, findings=found, payments=gw.records)
+        apply_run(led, run_id="r", cascade_result=casc, findings=found, payments=eng.t0.canonical)
         self.assertEqual(led.trial_balance(), Money.zero(),
                          "ledger does not balance: money was created or destroyed")
 
@@ -118,7 +118,7 @@ class FalseMatchRate(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.gw, cls.bank, cls.casc, cls.found = pipeline()
+        cls.eng, cls.bank, cls.casc, cls.found = pipeline()
         cls.truth = json.loads((DATA / "ground_truth.json").read_text(encoding="utf-8"))
 
     def _audit(self):
@@ -162,7 +162,7 @@ class FalseMatchRate(unittest.TestCase):
     def test_ambiguous_payouts_never_reach_the_ledger(self):
         led = Ledger()
         apply_run(led, run_id="r", cascade_result=self.casc, findings=self.found,
-                  payments=self.gw.records)
+                  payments=self.eng.t0.canonical)
         for m in self.casc.matches:
             if m.reason_code == "AMBIGUOUS_SUBSET":
                 self.assertNotIn(f"match:{m.bank_txn_id}", led._entries)

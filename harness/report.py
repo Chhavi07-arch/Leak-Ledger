@@ -125,11 +125,11 @@ def build():
                   adjustments=adj, calendar=cal)
     casc = eng.run()
     cov = covered_cycles_by_matching(eng, bank)
-    found = detectors.run_all(fs=fs, payments=gw.records, refunds=refunds, adjustments=adj,
+    found = detectors.run_all(fs=fs, payments=eng.t0.canonical, refunds=refunds, adjustments=adj,
                               bank_rows=bank, cascade_result=casc, calendar=cal,
                               as_of=AS_OF, covered_cycles=cov)
     truth = json.loads((DATA / "ground_truth.json").read_text(encoding="utf-8"))
-    return gw, bank, casc, found, truth, fs
+    return gw, bank, casc, found, truth, fs, eng
 
 
 def false_match(casc, bank, truth):
@@ -183,7 +183,7 @@ def render_refusal(m):
 
 
 def main() -> int:
-    gw, bank, casc, found, truth, fs = build()
+    gw, bank, casc, found, truth, fs, eng = build()
     correct, wrong = false_match(casc, bank, truth)
     n = len(casc.matches)
     auto, rev, exc = (len(casc.by_disposition(d)) for d in (AUTO_APPLY, REVIEW, EXCEPTION))
@@ -421,7 +421,10 @@ def main() -> int:
       f'{e(bm["usd_note"])} Token counts and latency above are measured from the API responses.</div>')
 
     led = Ledger()
-    apply_run(led, run_id="report", cascade_result=casc, findings=found, payments=gw.records)
+    apply_run(led, run_id="report", cascade_result=casc, findings=found, payments=eng.t0.canonical)
+    A(f'<p class="sub" style="font-size:.82rem">T0 canonicalisation: '
+      f'{casc.t0.rows_in} export rows in, {len(casc.t0.canonical)} canonical, '
+      f'{len(casc.t0.collapsed)} duplicate export rows collapsed.</p>')
     A(f'<footer>ledger entries {len(led)} · trial balance {led.trial_balance()} · '
       f'state {led.state_hash()[:16]} · fee schedule {e(fs.version)} sha {fs.sha256[:12]} · '
       f'generated {datetime.now():%Y-%m-%d %H:%M} IST</footer>')

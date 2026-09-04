@@ -274,19 +274,23 @@ def detect_duplicate_payout(bank_rows, out: FindingSet) -> None:
 
 def detect_duplicate_capture(payments, out: FindingSet) -> None:
     """Two captures against one order within a short window: the customer paid twice."""
-    # T0 canonicalisation: a gateway export can repeat the same payment row.
-    # That is a file artefact, not a second charge; without this the rule counts
-    # export noise as customer harm.
-    seen_ids = set()
-    canonical = []
-    for p in payments:
-        if p.status != "CAPTURED" or p.payment_id in seen_ids:
-            continue
-        seen_ids.add(p.payment_id)
-        canonical.append(p)
+    # Input MUST already be canonical -- cascade.canonicalise() (T0) owns the
+    # collapsing of repeated export rows. This detector used to do it inline,
+    # which hid the dedupe from every report and forced each consumer to
+    # re-implement it. Asserting instead of re-doing means a caller that forgets
+    # T0 fails loudly here rather than silently reporting export noise as
+    # customer harm.
+    ids = [p.payment_id for p in payments]
+    if len(ids) != len(set(ids)):
+        dupes = sorted({i for i in ids if ids.count(i) > 1})
+        raise ValueError(
+            f"detect_duplicate_capture requires T0-canonical payments; received "
+            f"{len(ids) - len(set(ids))} repeated payment_id(s): {dupes[:5]}. "
+            f"Call cascade.canonicalise() first.")
     by_order: Dict[str, List] = defaultdict(list)
-    for p in canonical:
-        by_order[p.order_id].append(p)
+    for p in payments:
+        if p.status == "CAPTURED":
+            by_order[p.order_id].append(p)
     for order_id, group in sorted(by_order.items()):
         if len(group) < 2:
             continue

@@ -36,7 +36,7 @@ def main():
     casc = engine.run()
     covered = covered_cycles_by_matching(engine, bank)
     t1 = time.perf_counter()
-    found = detectors.run_all(fs=fs, payments=gw.records, refunds=refunds,
+    found = detectors.run_all(fs=fs, payments=engine.t0.canonical, refunds=refunds,
                               adjustments=adjustments, bank_rows=bank,
                               cascade_result=casc, calendar=cal, as_of=AS_OF,
                               covered_cycles=covered)
