@@ -14,7 +14,7 @@
 --f:"Instrument Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 --m:"JetBrains Mono",ui-monospace,Menlo,monospace}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:118px}
+html{scroll-behavior:smooth}
 body{margin:0;background:
  radial-gradient(1100px 500px at 12% -8%,rgba(84,200,240,.09),transparent 60%),
  radial-gradient(900px 460px at 92% 4%,rgba(167,139,250,.08),transparent 60%),var(--bg);
@@ -41,12 +41,19 @@ button:disabled{opacity:.45;cursor:progress}
 nav{max-width:1280px;margin:0 auto;padding:0 1.6rem .55rem;display:flex;gap:.3rem;
 overflow-x:auto;scrollbar-width:none}
 nav::-webkit-scrollbar{display:none}
-nav a{color:var(--faint);text-decoration:none;font-size:.78rem;padding:.3rem .68rem;
-border-radius:7px;white-space:nowrap;transition:.15s}
-nav a:hover{color:var(--ink);background:var(--panel2)}
+nav button.tab{color:var(--faint);background:none;border:1px solid transparent;
+font-size:.8rem;padding:.42rem .85rem;border-radius:9px;white-space:nowrap;
+transition:.15s;font-weight:500;font-family:var(--f)}
+nav button.tab:hover{color:var(--ink);background:var(--panel2);border-color:transparent}
+nav button.tab.on{color:#04141c;background:linear-gradient(135deg,var(--mint),var(--cyan));
+border-color:transparent;font-weight:700}
+nav button.tab .n{display:inline-block;min-width:17px;padding:0 4px;margin-left:.4rem;
+border-radius:5px;background:var(--panel3);color:var(--faint);font-size:.66rem;
+font-family:var(--m);font-weight:700}
+nav button.tab.on .n{background:rgba(4,20,28,.22);color:#04141c}
 
 main{max-width:1280px;margin:0 auto;padding:2rem 1.6rem 6rem}
-section{scroll-margin-top:120px}
+section{display:block}
 h2{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);
 margin:2.8rem 0 .9rem;font-weight:700;display:flex;align-items:center;gap:.6rem}
 h2::after{content:"";flex:1;height:1px;background:var(--line)}
@@ -145,12 +152,7 @@ border-top-color:var(--mint);border-radius:50%;animation:sp .65s linear infinite
     <span id="status"></span>
     <button class="primary" id="run">▶&nbsp; Run reconciliation</button>
   </div>
-  <nav>
-    <a href="#overview">Overview</a><a href="#matching">Matching</a>
-    <a href="#refusals">Refusals</a><a href="#findings">Findings</a>
-    <a href="#exceptions">Exceptions</a><a href="#ai">AI judgment</a>
-    <a href="#system">System</a>
-  </nav>
+  <nav id="tabs"></nav>
 </header>
 <main id="app"><p style="color:var(--faint)">Loading…</p></main>
 
@@ -189,24 +191,29 @@ function donut(pct,color,label,sub){
       <text x="70" y="86" text-anchor="middle" fill="var(--faint)" font-size="10"
         letter-spacing="1.5">${sub}</text></svg></div>`;
 }
-function render(){
-  const v=S.value,d=S.disposition,f=S.false_match,i=S.inputs,b=S.benchmark,
-        c=S.concentration,ch=S.checks,t=S.timing;
-  const confirmedNames=S.findings.filter(x=>x.confirmed&&x.category==="structural")
-    .map(x=>`${x.found} ${x.leak_class.toLowerCase().replace(/_/g," ")}`);
-  let h='<div class="fade">';
+let VIEW="overview";
+const TABS=[["overview","Overview"],["matching","Matching"],["refusals","Refusals"],
+            ["findings","Findings"],["exceptions","Exceptions"],["ai","AI judgment"],
+            ["system","System"]];
 
-  /* ---------- OVERVIEW ---------- */
-  h+=`<section id="overview">
+/* ---------- per-view builders. Each returns the HTML for ONE page. ---------- */
+const V={};
+
+V.overview=()=>{
+  const v=S.value,d=S.disposition,f=S.false_match,i=S.inputs,c=S.concentration,
+        ch=S.checks,t=S.timing;
+  const names=S.findings.filter(x=>x.confirmed&&x.category==="structural")
+    .map(x=>`${x.found} ${x.leak_class.toLowerCase().replace(/_/g," ")}`);
+  return `<section>
    <p class="hero">Across ${N(i.payments)} payments and ${i.bank_rows} bank rows,
      <span class="c">${R(v.confirmed)} confirmed</span>,
      <span class="f">${R(v.flagged)} flagged</span>,
      <span class="r">${d.exception} refused</span>.</p>
    <p class="lede">Confirmed means every instance was verified against ground truth —
-     ${confirmedNames.slice(0,4).join(", ")}. Flagged means the detector reported instances
-     ground truth does not support, so it is a claim pending review, not a finding.
-     Gross of both is ${R(v.gross)}, but <b style="color:var(--amber)">${v.flagged_pct_of_gross}%
-     of that comes from detectors below 1.00 precision</b> — so the headline never quotes the gross.</p>
+     ${names.slice(0,4).join(", ")}. Flagged means the detector reported instances ground
+     truth does not support: a claim pending review, not a finding. Gross of both is
+     ${R(v.gross)}, but <b style="color:var(--amber)">${v.flagged_pct_of_gross}% of that comes
+     from detectors below 1.00 precision</b> — so the headline never quotes the gross.</p>
    <div class="grid g4">
      <div class="card ${f.rate===0?"mint":"coral"}"><div class="k">False-match rate</div>
        <div class="v m">${f.rate==null?"—":f.rate.toFixed(4)}</div>
@@ -215,7 +222,7 @@ function render(){
        <div class="v m">${R(v.confirmed)}</div><div class="s">every instance verified</div></div>
      <div class="card amber"><div class="k">Flagged, not confirmed</div>
        <div class="v m">${R(v.flagged)}</div>
-       <div class="s">${v.flagged_composition.map(x=>`${x.leak_class.split("_")[0].toLowerCase()} ${x.precision}`).join(" · ")}</div></div>
+       <div class="s">${v.flagged_composition.map(x=>`${x.leak_class.split("_")[0].toLowerCase()} @ ${x.precision}`).join(" · ")}</div></div>
      <div class="card coral"><div class="k">Exceptions</div>
        <div class="v m">${d.exception}</div><div class="s">${d.exception_pct}% · every one typed</div></div>
    </div>
@@ -228,20 +235,28 @@ function render(){
        <div class="s">top 3 findings = ${R(c.top3)} · median ${R(c.median)}</div></div>
      <div class="card ${ch.ground_truth.ok&&ch.model_boundary.ok?"mint":"coral"}">
        <div class="k">System checks</div>
-       <div class="v m" style="font-size:1.15rem;line-height:1.5">
-         <span class="pill ${ch.ground_truth.ok?"ok":"bad"}">ground truth</span><br>
+       <div class="v" style="font-size:1rem;line-height:1.7;margin-top:.5rem">
+         <span class="pill ${ch.ground_truth.ok?"ok":"bad"}">ground truth</span>
          <span class="pill ${ch.model_boundary.ok?"ok":"bad"}">AI boundary</span></div>
        <div class="s">672 data checks · adversarial model probe</div></div>
-   </div></section>`;
+   </div>
+   <p class="note" style="margin-top:1.6rem"><b>Where to go next.</b>
+     <b style="color:var(--coral)">Refusals</b> is the behaviour this build exists to
+     demonstrate — two equally valid reconciliations, and the engine declining to pick.
+     <b style="color:var(--cyan)">Findings</b> carries the per-class precision behind the
+     split above. <b style="color:var(--violet)">AI judgment</b> has the benchmark.</p>
+   </section>`;
+};
 
-  /* ---------- MATCHING ---------- */
+V.matching=()=>{
+  const d=S.disposition,f=S.false_match;
   const dp=[["auto-applied",d.auto,"var(--mint)"],["review queue",d.review,"var(--amber)"],
             ["exceptions",d.exception,"var(--coral)"]];
-  h+=`<section id="matching"><h2>Matching</h2><div class="grid g2">
+  return `<section><div class="grid g2">
     <div class="panel"><div class="ph">Disposition of ${d.total} bank rows</div>
       <div style="padding:1rem 1.1rem">
-        <div class="split">${dp.map(([,n,col])=>`<i style="width:${100*n/d.total}%;background:${col}"></i>`).join("")}</div>
-        <div class="legend">${dp.map(([l,n,col])=>`<span><b style="background:${col}"></b>${l} — ${n}</span>`).join("")}</div>
+        <div class="split">${dp.map(([,n,c])=>`<i style="width:${100*n/d.total}%;background:${c}"></i>`).join("")}</div>
+        <div class="legend">${dp.map(([l,n,c])=>`<span><b style="background:${c}"></b>${l} — ${n}</span>`).join("")}</div>
         <div style="margin-top:1rem">${Object.entries(d.by_tier).map(([k,n])=>`
           <div class="kv"><span>tier ${k}</span>
           <span style="display:flex;align-items:center;gap:.6rem">
@@ -259,16 +274,16 @@ function render(){
         </div></div></div></div>
     <p class="note">A wrong match silently corrupts the books and surfaces a month later;
       a missing match sits visibly in a queue. That asymmetry is why this is the primary
-      metric, and why the engine refuses rather than guesses. It is pinned in CI at a
-      ceiling of zero and mutation-tested — deliberately breaking the fix that produced it
-      reproduces a rate of 0.0667.</p></section>`;
+      metric, and why the engine refuses rather than guesses. It is pinned in CI at a ceiling
+      of zero and mutation-tested — deliberately breaking the fix that produced it reproduces
+      a rate of 0.0667.</p></section>`;
+};
 
-  /* ---------- REFUSALS ---------- */
-  h+=`<section id="refusals"><h2>What the engine refused to decide</h2>
-    <p class="note"><b>The behaviour this build exists to demonstrate.</b> Each panel shows the
-    competing reconciliations side by side — not a count of them. A refusal you cannot inspect
-    is indistinguishable from a failure to try.</p>`;
-  S.refusals.slice(0,4).forEach(r=>{
+V.refusals=()=>{
+  let h=`<section><p class="note"><b>The behaviour this build exists to demonstrate.</b>
+    Each panel shows the competing reconciliations side by side — not a count of them.
+    A refusal you cannot inspect is indistinguishable from a failure to try.</p>`;
+  S.refusals.forEach(r=>{
     const cs=r.candidates||[];
     const common=cs.length?cs.map(x=>new Set(x.excluded)).reduce((a,b)=>new Set([...a].filter(y=>b.has(y)))):new Set();
     h+=`<div class="refusal"><div class="rh">${r.bank_txn_id} — refused · ${cs.length} reconciliations equally valid</div>
@@ -282,9 +297,11 @@ function render(){
       Both sets reconcile to the same payout, so the engine declined to choose rather than
       pick one and be silently wrong.</div></div>`;
   });
-  h+=`</section>`;
+  return h+`</section>`;
+};
 
-  /* ---------- FINDINGS ---------- */
+V.findings=()=>{
+  const v=S.value;
   const cats=[["structural","Structural — no contract consulted","ok",
       "Detect loss without needing to know a contract rate. These carry the headline."],
      ["contract-dependent","Contract-dependent — verification, not discovery","warn",
@@ -293,11 +310,11 @@ function render(){
       "Precision 1.0 by construction. Reported, never counted."],
      ["exception-signal","Exception signal — no value claimed","dim",
       "The cycle would not reconcile. The shortfall cannot be honestly quantified, so no rupee value is claimed."]];
-  h+=`<section id="findings"><h2>Findings — per class, never aggregated</h2>
-   <p class="note"><b>“Claimed” sums every instance the engine reported</b>, not only the verified
-   ones, because that is what the tool claims at run time — it has no ground truth of its own.
-   The verified column sits beside it, and any class with FP&nbsp;&gt;&nbsp;0 is excluded from the
-   confirmed headline. <b style="color:var(--cyan)">Click any row for its arithmetic.</b></p>`;
+  let h=`<section><p class="note"><b>“Claimed” sums every instance the engine reported</b>,
+   not only the verified ones, because that is what the tool claims at run time — it has no
+   ground truth of its own. The verified column sits beside it, and any class with
+   FP&nbsp;&gt;&nbsp;0 is excluded from the confirmed headline.
+   <b style="color:var(--cyan)">Click any row for its arithmetic.</b></p>`;
   let ri=0;
   cats.forEach(([cat,title,pill,desc])=>{
     const rows=S.findings.filter(x=>x.category===cat); if(!rows.length) return;
@@ -325,19 +342,21 @@ function render(){
     });
     h+=`</tbody></table></div>`;
   });
-  h+=`<div class="grid g3" style="margin-top:14px">
+  return h+`<div class="grid g3" style="margin-top:16px">
     <div class="card mint"><div class="k">Confirmed</div><div class="v m">${R(v.confirmed)}</div>
       <div class="s">classes where every instance is a true positive</div></div>
     <div class="card amber"><div class="k">Flagged, not confirmed</div><div class="v m">${R(v.flagged)}</div>
       <div class="s">${v.flagged_composition.map(x=>`${x.leak_class} @ ${x.precision} = ${x.share_pct}%`).join(" · ")}</div></div>
     <div class="card"><div class="k">Gross of both</div><div class="v m">${R(v.gross)}</div>
       <div class="s">${v.flagged_pct_of_gross}% from classes below 1.00 precision</div></div></div></section>`;
+};
 
-  /* ---------- EXCEPTIONS ---------- */
-  h+=`<section id="exceptions"><h2>Exception queue — the honest deliverable</h2>
-   <p class="note">Every unresolved record is typed; none is dropped. A short exception list
-   would be a red flag, not a win.</p><div class="panel"><table><thead><tr>
-   <th></th><th>reason code</th><th>n</th><th>example evidence</th></tr></thead><tbody>`;
+V.exceptions=()=>{
+  let h=`<section><p class="note">Every unresolved record is typed; none is dropped.
+   A short exception list would be a red flag, not a win.
+   <b style="color:var(--cyan)">Click a row to expand its items.</b></p>
+   <div class="panel"><table><thead><tr><th></th><th>reason code</th><th>n</th>
+   <th>example evidence</th></tr></thead><tbody>`;
   S.exceptions.forEach((e,ix)=>{
     h+=`<tr class="clk" id="re${ix}" onclick="togE(${ix})"><td><span class="chev">▶</span></td>
       <td class="m">${e.reason_code}</td><td class="m">${e.count}</td>
@@ -346,10 +365,12 @@ function render(){
       ${e.items.map(it=>`<div class="deriv"><b>${it.bank_txn_id}</b><br>${it.evidence}</div>`).join("")}
       </td></tr>`;
   });
-  h+=`</tbody></table></div></section>`;
+  return h+`</tbody></table></div></section>`;
+};
 
-  /* ---------- AI ---------- */
-  h+=`<section id="ai"><h2>AI judgment</h2><div class="grid g2">
+V.ai=()=>{
+  const b=S.benchmark;
+  let h=`<section><div class="grid g2">
    <div class="panel"><div class="ph">Where a model is used <span class="hint">3 places</span></div>
      <table><tbody>
      <tr><td><b>Narration → entities</b><br><span class="s">Proposes only. Accepted only if the
@@ -368,9 +389,9 @@ function render(){
      <tr><td><b>Any write to the ledger</b></td></tr></tbody></table></div></div>
    <p class="note"><b>Tested adversarially, not hopefully.</b> A provider returning confidently
    wrong, well-formed answers is wired in and every metric stays identical — false-match rate
-   remains 0.0000. A boundary that depends on the model behaving is not a boundary.
-   Tested both ways: a <b>correct</b> proposal at confidence 0.30 is accepted, a <b>wrong</b>
-   one at 0.99 is rejected.</p>`;
+   remains 0.0000. A boundary that depends on the model behaving is not a boundary. Tested both
+   ways: a <b>correct</b> proposal at confidence 0.30 is accepted, a <b>wrong</b> one at 0.99
+   is rejected.</p>`;
   if(b){
     h+=`<h3>Benchmark — why the model does not make the match decision</h3>
      <div class="grid g2"><div class="panel"><div class="ph">${b.model} vs deterministic cascade
@@ -402,12 +423,14 @@ function render(){
      shape does not suit an LLM”, which is exactly why deterministic search owns the match
      decision. The model is a frontier model from a <i>different vendor</i> than the one this
      project was built with, so neither “you tested a weak model” nor “you tested the friendly
-     vendor” applies. ${b.usd_note?`<br><br><b style="color:var(--amber)">USD cost not computed:</b> ${b.usd_note}`:""}</p>`;
+     vendor” applies.${b.usd_note?`<br><br><b style="color:var(--amber)">USD cost not computed:</b> ${b.usd_note}`:""}</p>`;
   }
-  h+=`</section>`;
+  return h+`</section>`;
+};
 
-  /* ---------- SYSTEM ---------- */
-  h+=`<section id="system"><h2>System</h2><div class="grid g3">
+V.system=()=>{
+  const i=S.inputs,ch=S.checks;
+  return `<section><div class="grid g3">
    <div class="panel"><div class="ph">Ledger</div><div style="padding:.9rem 1.1rem">
      <div class="kv"><span>entries posted</span><span class="m">${S.ledger.entries}</span></div>
      <div class="kv"><span>trial balance</span><span class="m" style="color:var(--mint)">${R(S.ledger.trial_balance)}</span></div>
@@ -425,9 +448,27 @@ function render(){
      <div class="kv"><span>ground-truth checks</span><span class="pill ${ch.ground_truth.ok?"ok":"bad"}">${ch.ground_truth.ok?"672 PASS":"FAIL"}</span></div>
      <div class="kv"><span>AI boundary probe</span><span class="pill ${ch.model_boundary.ok?"ok":"bad"}">${ch.model_boundary.ok?"HOLDS":"LEAKS"}</span></div>
      <div class="kv"><span>generated</span><span class="m" style="font-size:.72rem">${S.generated_at}</span></div></div></div>
-   </div></section></div>`;
-  $("#app").innerHTML=h;
+   </div></section>`;
+};
+
+/* ---------- router ---------- */
+function counts(){
+  return {overview:null, matching:S.disposition.total, refusals:S.refusals.length,
+          findings:S.findings.length, exceptions:S.exceptions.length,
+          ai:S.benchmark?3:null, system:null};
 }
+function renderTabs(){
+  const c=counts();
+  $("#tabs").innerHTML=TABS.map(([id,label])=>
+    `<button class="tab${id===VIEW?" on":""}" onclick="go('${id}')">${label}${
+      c[id]!=null?`<span class="n">${c[id]}</span>`:""}</button>`).join("");
+}
+function go(name){
+  VIEW=name; renderTabs();
+  $("#app").innerHTML=`<div class="fade">${V[name]()}</div>`;
+  window.scrollTo({top:0,behavior:"instant"});
+}
+function render(){ renderTabs(); go(VIEW); }
 function tog(i){$("#d"+i).classList.toggle("hide");$("#r"+i).classList.toggle("open");}
 function togE(i){$("#de"+i).classList.toggle("hide");$("#re"+i).classList.toggle("open");}
 $("#run").onclick=()=>load(true);
