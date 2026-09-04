@@ -227,7 +227,12 @@ but not quantifiable, claiming no rupee value at all (INC-013).
 
 ## Known limits
 
-- Reads CSVs, not live APIs.
+- Reads CSVs, not live APIs, and accepts no uploaded file. This is a boundary,
+  not an omission: accuracy here is always stated against published ground truth,
+  and arbitrary input has none. Fed an unknown file the engine could still emit
+  findings, but precision, recall, false-match rate and the confirmed/flagged
+  split would all become uncomputable — and those are the numbers the submission
+  actually rests on.
 - The fee schedule is hand-authored config. Inferring effective rates from
   observed settlements is the harder problem and is not attempted — which is why
   the three contract-dependent detectors are **verification, not discovery**

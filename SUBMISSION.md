@@ -104,3 +104,15 @@ quoting a stale figure.
    measurement: gpt-5.2, 9 of 13 records answered differently across three
    identical runs, 1 of 13 correct against the cascade's 13 of 13. If pressed on
    model choice: frontier, and deliberately not the vendor this was built with.
+5. *"Why can't I upload my own file / why doesn't it connect to a real system?"*
+   Not a missing feature — a boundary held on purpose. Every accuracy number here
+   is measured against published ground truth; ground truth exists only because the
+   generator knows what it planted. Arbitrary data has none, so against it precision,
+   recall, the false-match rate and the confirmed-versus-flagged split all become
+   uncomputable. The engine would still print findings; it would lose the ability to
+   say which are verified. Connecting it is real work — source connectors and a
+   contract-ingestion problem harder than the detection itself (ADR-001) — but the
+   reason it is not in a two-week build is evidential, not effort. Offer the
+   substitute: regenerate with a different seed, or perturb a row and watch the
+   exception count move, both of which demonstrate liveness without discarding the
+   measurement.
