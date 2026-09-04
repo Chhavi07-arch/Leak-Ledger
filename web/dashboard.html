@@ -164,11 +164,84 @@ footer.nav-hint .d{font-size:.77rem;color:var(--faint);line-height:1.45}
 .foot{margin-top:2rem;padding-top:1rem;border-top:1px solid var(--line);
 font-family:var(--m);font-size:.7rem;color:var(--faint);display:flex;
 flex-wrap:wrap;gap:.4rem 1.4rem}
+
+/* ===== brand is a link home ===== */
+.brandlink{display:flex;align-items:center;gap:.85rem;text-decoration:none;color:inherit;
+  cursor:pointer;border-radius:11px;padding:.2rem .45rem .2rem .2rem;margin-left:-.2rem;
+  transition:.18s;border:1px solid transparent}
+.brandlink:hover{background:var(--panel2);border-color:var(--line)}
+.brandlink:hover .logo{transform:rotate(-8deg) scale(1.06);box-shadow:var(--glow)}
+.brandlink:hover .brand{color:var(--mint)}
+.brandlink:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+.logo{transition:.25s cubic-bezier(.34,1.56,.64,1)}
+.brand{transition:.18s}
+
+/* ===== hero ===== */
+.hero-wrap{position:relative;border:1px solid var(--line);border-radius:20px;
+  padding:2.2rem 2.1rem 1.9rem;overflow:hidden;
+  background:linear-gradient(158deg,var(--panel) 0%,var(--bg2) 60%,var(--bg) 100%)}
+.hero-wrap::before{content:"";position:absolute;inset:-40% -10% auto -10%;height:80%;
+  pointer-events:none;
+  background:radial-gradient(60% 100% at 18% 0%,rgba(79,216,182,.13),transparent 70%),
+             radial-gradient(50% 100% at 85% 10%,rgba(167,139,250,.11),transparent 70%)}
+.hero-wrap::after{content:"";position:absolute;inset:0 0 auto 0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(79,216,182,.5),rgba(84,200,240,.35),transparent)}
+.hero-wrap>*{position:relative}
+
+.eyebrow{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.15rem}
+.chip{display:inline-flex;align-items:center;gap:.4rem;font-size:.68rem;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;padding:.32em .7em;border-radius:7px;
+  background:var(--panel2);border:1px solid var(--line);color:var(--soft);
+  font-family:var(--f)}
+.chip .dot{width:6px;height:6px;border-radius:50%;background:var(--mint);flex:none;
+  box-shadow:0 0 0 3px rgba(79,216,182,.16)}
+.chip.live .dot{animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(79,216,182,.16)}
+                 50%{box-shadow:0 0 0 6px rgba(79,216,182,.03)}}
+.chip.warn2{color:var(--amber);border-color:rgba(245,185,66,.28)}
+.chip.warn2 .dot{background:var(--amber);box-shadow:0 0 0 3px rgba(245,185,66,.14)}
+
+.hero{font-size:2.5rem;line-height:1.2;letter-spacing:-.035em;margin:0 0 .75rem;
+  max-width:52rem;font-weight:600;text-wrap:balance}
+@media(max-width:700px){.hero{font-size:1.85rem}.hero-wrap{padding:1.5rem 1.25rem}}
+
+/* the three headline figures, set as a rule-separated row */
+.figs{display:flex;flex-wrap:wrap;gap:0;margin:1.6rem 0 0;border-top:1px solid var(--line);
+  padding-top:1.25rem}
+.fig{flex:1 1 165px;padding:0 1.5rem;border-left:1px solid var(--line);min-width:0}
+.fig:first-child{padding-left:0;border-left:none}
+.fig .fk{font-size:.63rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--faint);font-weight:700;margin-bottom:.45rem}
+.fig .fv{font-size:1.75rem;letter-spacing:-.035em;font-weight:600;line-height:1;
+  font-family:var(--m);font-variant-numeric:tabular-nums}
+.fig .fs{font-size:.74rem;color:var(--faint);margin-top:.4rem;line-height:1.45}
+.fig.c .fv{color:var(--mint)}.fig.f .fv{color:var(--amber)}.fig.r .fv{color:var(--coral)}
+
+/* ===== metric cards get a lift ===== */
+.card{transition:transform .18s ease,border-color .18s ease}
+.grid.g4 .card:hover{transform:translateY(-3px);border-color:var(--panel3)}
+
+/* ===== section intro ===== */
+.sec-lede{color:var(--soft);max-width:52rem;margin:.2rem 0 1.1rem;font-size:.9rem}
+
+/* ===== nav cards (kept, polished) ===== */
+footer.nav-hint a{position:relative;overflow:hidden}
+footer.nav-hint a::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;
+  background:var(--accent,var(--line));opacity:.85;transform:scaleX(0);transform-origin:left;
+  transition:transform .28s ease}
+footer.nav-hint a:hover::before{transform:scaleX(1)}
+footer.nav-hint a:hover{border-color:var(--accent,var(--mint))}
+footer.nav-hint .t{display:flex;align-items:center;gap:.4rem}
+footer.nav-hint .t .ar{transition:transform .2s ease;display:inline-block}
+footer.nav-hint a:hover .t .ar{transform:translateX(4px)}
 </style></head><body>
 <header>
   <div class="hrow">
-    <div class="logo">₹</div>
-    <div class="brand">Leak Ledger<small>RECONCILIATION &amp; LEAKAGE CONSOLE</small></div>
+    <a class="brandlink" onclick="go('overview')" href="javascript:void(0)"
+       title="Back to overview" aria-label="Leak Ledger — back to overview">
+      <div class="logo">₹</div>
+      <div class="brand">Leak Ledger<small>RECONCILIATION &amp; LEAKAGE CONSOLE</small></div>
+    </a>
     <div class="sp"></div>
     <span id="status"></span>
     <button class="primary" id="run">▶&nbsp; Run reconciliation</button>
@@ -225,43 +298,44 @@ V.overview=()=>{
         ch=S.checks,t=S.timing;
   const names=S.findings.filter(x=>x.confirmed&&x.category==="structural")
     .map(x=>`${x.found} ${x.leak_class.toLowerCase().replace(/_/g," ")}`);
+  const allOk=ch.ground_truth.ok&&ch.model_boundary.ok;
   return `<section>
-   <p class="hero">Across ${N(i.payments)} payments and ${i.bank_rows} bank rows,
-     <span class="c">${R(v.confirmed)} confirmed</span>,
-     <span class="f">${R(v.flagged)} flagged</span>,
-     <span class="r">${d.exception} refused</span>.</p>
-   <p class="lede">Confirmed means every instance was verified against ground truth —
-     ${names.slice(0,4).join(", ")}. Flagged means the detector reported instances ground
-     truth does not support: a claim pending review, not a finding. Gross of both is
-     ${R(v.gross)}, but <b style="color:var(--amber)">${v.flagged_pct_of_gross}% of that comes
-     from detectors below 1.00 precision</b> — so the headline never quotes the gross.</p>
-   <div class="grid g4">
-     <div class="card ${f.rate===0?"mint":"coral"}"><div class="k">False-match rate</div>
-       <div class="v m">${f.rate==null?"—":f.rate.toFixed(4)}</div>
-       <div class="s">${f.correct}/${f.scoreable} payment sets correct · primary metric</div></div>
-     <div class="card mint"><div class="k">Confirmed leakage</div>
-       <div class="v m">${R(v.confirmed)}</div><div class="s">every instance verified</div></div>
-     <div class="card amber"><div class="k">Flagged, not confirmed</div>
-       <div class="v m">${R(v.flagged)}</div>
-       <div class="s">${v.flagged_composition.map(x=>`${x.leak_class.split("_")[0].toLowerCase()} @ ${x.precision}`).join(" · ")}</div></div>
-     <div class="card coral"><div class="k">Exceptions</div>
-       <div class="v m">${d.exception}</div><div class="s">${d.exception_pct}% · every one typed</div></div>
+
+   <div class="hero-wrap">
+     <div class="eyebrow">
+       <span class="chip live"><span class="dot"></span>${N(i.total_records)} records reconciled in ${t.total_s}s</span>
+       <span class="chip"><span class="dot"></span>${ch.ground_truth.count} ground-truth checks pass</span>
+       <span class="chip"><span class="dot"></span>deterministic · 5 runs, 1 hash</span>
+       ${allOk?"":'<span class="chip warn2"><span class="dot"></span>check failed</span>'}
+     </div>
+
+     <h1 class="hero">Across ${N(i.payments)} payments and ${i.bank_rows} bank rows,
+       <span class="c">${R(v.confirmed)} confirmed</span>,
+       <span class="f">${R(v.flagged)} flagged</span>,
+       <span class="r">${d.exception} refused</span>.</h1>
+
+     <p class="lede">Confirmed means every instance was verified against ground truth —
+       ${names.slice(0,4).join(", ")}. Flagged means the detector reported instances ground
+       truth does not support: a claim pending review, not a finding. Gross of both is
+       ${R(v.gross)}, but <b style="color:var(--amber)">${v.flagged_pct_of_gross}% of that comes
+       from detectors below 1.00 precision</b> — so the headline never quotes the gross.</p>
+
+     <div class="figs">
+       <div class="fig c"><div class="fk">Confirmed leakage</div>
+         <div class="fv">${R(v.confirmed)}</div>
+         <div class="fs">every instance verified against ground truth</div></div>
+       <div class="fig f"><div class="fk">Flagged, not confirmed</div>
+         <div class="fv">${R(v.flagged)}</div>
+         <div class="fs">${v.flagged_composition.map(x=>`${x.leak_class.split("_")[0].toLowerCase()} @ ${x.precision}`).join(" · ")}</div></div>
+       <div class="fig r"><div class="fk">False-match rate</div>
+         <div class="fv">${f.rate==null?"—":f.rate.toFixed(4)}</div>
+         <div class="fs">${f.correct}/${f.scoreable} payment sets correct · the primary metric</div></div>
+     </div>
    </div>
-   <div class="grid g4" style="margin-top:14px">
-     <div class="card cyan"><div class="k">Throughput</div><div class="v m">${t.total_s}s</div>
-       <div class="s">${N(i.total_records)} records · ${N(t.records_per_s)}/sec</div></div>
-     <div class="card"><div class="k">Human-touch rate</div><div class="v m">${d.human_touch_pct}%</div>
-       <div class="s">${d.human_touch} of ${d.total} items · a ratio, not a time claim</div></div>
-     <div class="card"><div class="k">Concentration</div><div class="v m">${c.top3_pct}%</div>
-       <div class="s">top 3 findings = ${R(c.top3)} · median ${R(c.median)}</div></div>
-     <div class="card ${ch.ground_truth.ok&&ch.model_boundary.ok?"mint":"coral"}">
-       <div class="k">System checks</div>
-       <div class="v" style="font-size:1rem;line-height:1.7;margin-top:.5rem">
-         <span class="pill ${ch.ground_truth.ok?"ok":"bad"}">ground truth</span>
-         <span class="pill ${ch.model_boundary.ok?"ok":"bad"}">AI boundary</span></div>
-       <div class="s">${ch.ground_truth.count??"?"} data checks · adversarial model probe</div></div>
-   </div>
-   <div class="strip"><div class="lbl">Pipeline at a glance · ${d.total} bank rows</div>
+
+   <h2>Where the volume resolves</h2>
+   <div class="strip" style="margin-top:0">
+     <div class="lbl">Pipeline at a glance · ${d.total} bank rows</div>
      <div class="split">
        <i style="width:${100*d.auto/d.total}%;background:var(--mint)"></i>
        <i style="width:${100*d.review/d.total}%;background:var(--amber)"></i>
@@ -273,20 +347,55 @@ V.overview=()=>{
        <span style="margin-left:auto">${S.exceptions.map(e=>`${e.reason_code.toLowerCase().replace(/_/g," ")} ${e.count}`).join(" · ")}</span>
      </div></div>
 
-   <footer class="nav-hint">
-     <a onclick="go('refusals')"><div class="t" style="color:var(--coral)">Refusals →</div>
+   <h2>The numbers behind it</h2>
+   <div class="grid g4">
+     <div class="card coral"><div class="k">Exceptions</div>
+       <div class="v m">${d.exception}</div><div class="s">${d.exception_pct}% · every one typed</div></div>
+     <div class="card cyan"><div class="k">Throughput</div><div class="v m">${N(t.records_per_s)}<span style="font-size:.9rem;color:var(--faint)">/sec</span></div>
+       <div class="s">${N(i.total_records)} records end to end in ${t.total_s}s</div></div>
+     <div class="card violet"><div class="k">Human-touch rate</div><div class="v m">${d.human_touch_pct}%</div>
+       <div class="s">${d.human_touch} of ${d.total} items · a ratio, not a time claim</div></div>
+     <div class="card amber"><div class="k">Concentration</div><div class="v m">${c.top3_pct}%</div>
+       <div class="s">top 3 findings = ${R(c.top3)} · median ${R(c.median)}</div></div>
+   </div>
+   <div class="grid g4" style="margin-top:14px">
+     <div class="card ${allOk?"mint":"coral"}">
+       <div class="k">System checks</div>
+       <div class="v" style="font-size:1rem;line-height:1.7;margin-top:.5rem">
+         <span class="pill ${ch.ground_truth.ok?"ok":"bad"}">ground truth</span>
+         <span class="pill ${ch.model_boundary.ok?"ok":"bad"}">AI boundary</span></div>
+       <div class="s">${ch.ground_truth.count??"?"} data checks · adversarial model probe</div></div>
+     <div class="card mint"><div class="k">Ledger</div>
+       <div class="v m" style="font-size:1.5rem">${R(S.ledger.trial_balance)}</div>
+       <div class="s">trial balance across ${S.ledger.entries} entries · idempotent</div></div>
+     <div class="card"><div class="k">Adversarial rows</div>
+       <div class="v m">${f.adversarial_refused}<span style="color:var(--faint)">/${f.adversarial_rows}</span></div>
+       <div class="s">near-miss traps refused, not guessed</div></div>
+     <div class="card"><div class="k">Fee schedule</div>
+       <div class="v m" style="font-size:1.15rem;margin-top:.55rem">${S.provenance.fee_schedule}</div>
+       <div class="s">content-hashed ${S.provenance.fee_schedule_sha}</div></div>
+   </div>
+
+   <h2>Go deeper</h2>
+   <footer class="nav-hint" style="margin-top:0;padding-top:0;border-top:none">
+     <a onclick="go('refusals')" style="--accent:var(--coral)">
+       <div class="t" style="color:var(--coral)">Refusals <span class="ar">→</span></div>
        <div class="d">The behaviour this build exists to demonstrate: two equally valid
        reconciliations, and the engine declining to pick one.</div></a>
-     <a onclick="go('findings')"><div class="t" style="color:var(--cyan)">Findings →</div>
+     <a onclick="go('findings')" style="--accent:var(--cyan)">
+       <div class="t" style="color:var(--cyan)">Findings <span class="ar">→</span></div>
        <div class="d">The per-class precision behind the confirmed / flagged split above,
        with the arithmetic for every instance.</div></a>
-     <a onclick="go('ai')"><div class="t" style="color:var(--violet)">AI judgment →</div>
+     <a onclick="go('ai')" style="--accent:var(--violet)">
+       <div class="t" style="color:var(--violet)">AI judgment <span class="ar">→</span></div>
        <div class="d">Three uses, four refusals, and the benchmark measuring why a model
        does not make the match decision.</div></a>
-     <a onclick="go('system')"><div class="t">System →</div>
+     <a onclick="go('system')" style="--accent:var(--mint)">
+       <div class="t">System <span class="ar">→</span></div>
        <div class="d">Ledger balance, inputs, provenance, and the live ground-truth and
        boundary checks.</div></a>
    </footer>
+
    <div class="foot"><span>fee schedule ${S.provenance.fee_schedule}
      · sha ${S.provenance.fee_schedule_sha}</span>
      <span>ledger ${S.ledger.entries} entries · balance ${R(S.ledger.trial_balance)}</span>
