@@ -2,8 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
     "api/index.py": {
-      "memory": 1024,
-      "maxDuration": 30,
       "includeFiles": "{src,harness,web,config,data,reports}/**"
     }
   },
