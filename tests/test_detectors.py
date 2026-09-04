@@ -18,7 +18,12 @@ from leakledger.leakage import detectors                          # noqa: E402
 from leakledger.leakage.findings import CONTRACT_DEPENDENT, RULE_CHECK, STRUCTURAL  # noqa: E402
 
 DATA = ROOT / "data" / "generated"
-_load = lambda n: list(csv.DictReader((DATA / n).open(encoding="utf-8")))
+def _load(n):
+    """Read a generated CSV. Uses a context manager so the handle is closed --
+    the lambda this replaced leaked one per call and filled test runs with
+    ResourceWarnings."""
+    with (DATA / n).open(encoding="utf-8") as fh:
+        return list(csv.DictReader(fh))
 
 
 class Detectors(unittest.TestCase):

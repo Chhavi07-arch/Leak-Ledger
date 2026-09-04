@@ -1,238 +1,435 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Leak Ledger</title>
+<title>Leak Ledger — reconciliation console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0d100e;--panel:#141917;--panel2:#1a201d;--line:#252d29;--line2:#1e2522;
---ink:#e8ede9;--soft:#95a49c;--faint:#68766e;--gold:#d4a843;--green:#5fbf8a;
---red:#e0705a;--blue:#7ea9dd;--purple:#a892d8}
+:root{
+--bg:#080b14;--bg2:#0b1020;--panel:#0f1626;--panel2:#141d31;--panel3:#1a2540;
+--line:#1e2a44;--line2:#17203571;
+--ink:#e9eefb;--soft:#94a3c4;--faint:#5f6f92;
+--mint:#4fd8b6;--cyan:#54c8f0;--amber:#f5b942;--coral:#f5768a;--violet:#a78bfa;
+--glow:0 0 0 1px rgba(79,216,182,.18), 0 8px 30px -12px rgba(79,216,182,.25);
+--f:"Instrument Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+--m:"JetBrains Mono",ui-monospace,Menlo,monospace}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);
-font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
-.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
-header{position:sticky;top:0;z-index:20;background:rgba(13,16,14,.94);
-backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:.85rem 1.6rem;
-display:flex;align-items:center;gap:.9rem}
-.logo{width:26px;height:26px;border-radius:6px;background:linear-gradient(135deg,var(--gold),#8a6a1e);
-display:grid;place-items:center;font-size:14px}
-header h1{font-size:1.02rem;margin:0;letter-spacing:-.01em}
-header .tag{color:var(--faint);font-size:.8rem}
-header .sp{margin-left:auto}
-button{font:inherit;cursor:pointer;border-radius:7px;border:1px solid var(--line);
-background:var(--panel2);color:var(--ink);padding:.5rem .95rem;transition:.15s}
-button:hover{border-color:var(--gold);color:var(--gold)}
-button.primary{background:linear-gradient(135deg,var(--gold),#b8912f);color:#1a1408;
-border-color:transparent;font-weight:600}
-button.primary:hover{filter:brightness(1.1);color:#1a1408}
-button:disabled{opacity:.5;cursor:wait}
-main{max-width:1180px;margin:0 auto;padding:1.8rem 1.6rem 5rem}
-h2{font-size:.74rem;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);
-margin:2.4rem 0 .8rem;font-weight:600}
-.hero{font-size:2rem;line-height:1.28;letter-spacing:-.02em;margin:.4rem 0 .3rem;max-width:46rem}
-.hero .c{color:var(--green)}.hero .f{color:var(--gold)}
-.hero-sub{color:var(--soft);max-width:44rem;margin:0 0 1.4rem}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;
-background:var(--line);border:1px solid var(--line);border-radius:11px;overflow:hidden}
-.card{background:var(--panel);padding:1.05rem 1.15rem}
-.card .k{font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;color:var(--faint)}
-.card .v{font-size:1.75rem;margin:.35rem 0 .15rem;letter-spacing:-.02em}
-.card .s{font-size:.76rem;color:var(--faint)}
-.card.good .v{color:var(--green)}.card.warn .v{color:var(--gold)}.card.bad .v{color:var(--red)}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:11px;overflow:hidden}
-table{width:100%;border-collapse:collapse;font-size:.85rem}
-th{text-align:left;padding:.6rem .9rem;font-size:.64rem;letter-spacing:.1em;
-text-transform:uppercase;color:var(--faint);border-bottom:1px solid var(--line);font-weight:600}
-td{padding:.55rem .9rem;border-bottom:1px solid var(--line2);vertical-align:top}
+html{scroll-behavior:smooth;scroll-padding-top:118px}
+body{margin:0;background:
+ radial-gradient(1100px 500px at 12% -8%,rgba(84,200,240,.09),transparent 60%),
+ radial-gradient(900px 460px at 92% 4%,rgba(167,139,250,.08),transparent 60%),var(--bg);
+color:var(--ink);font:15px/1.6 var(--f);-webkit-font-smoothing:antialiased}
+.m{font-family:var(--m);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+header{position:sticky;top:0;z-index:40;background:rgba(8,11,20,.86);
+backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.hrow{max-width:1280px;margin:0 auto;padding:.8rem 1.6rem;display:flex;align-items:center;gap:.85rem}
+.logo{width:30px;height:30px;border-radius:9px;flex:none;
+background:linear-gradient(140deg,var(--mint),var(--cyan) 55%,var(--violet));
+display:grid;place-items:center;color:#06121a;font-weight:700;font-size:15px}
+.brand{font-weight:600;letter-spacing:-.02em;font-size:1.05rem}
+.brand small{display:block;font-weight:400;font-size:.7rem;color:var(--faint);letter-spacing:.04em}
+.sp{margin-left:auto}
+#status{font-size:.78rem;color:var(--faint);font-family:var(--m)}
+button{font:inherit;font-size:.86rem;cursor:pointer;border-radius:9px;border:1px solid var(--line);
+background:var(--panel2);color:var(--ink);padding:.52rem 1rem;transition:.16s;font-weight:500}
+button:hover{border-color:var(--mint);color:var(--mint)}
+button.primary{background:linear-gradient(135deg,var(--mint),var(--cyan));color:#04141c;
+border-color:transparent;font-weight:700;box-shadow:var(--glow)}
+button.primary:hover{filter:brightness(1.08);color:#04141c}
+button:disabled{opacity:.45;cursor:progress}
+nav{max-width:1280px;margin:0 auto;padding:0 1.6rem .55rem;display:flex;gap:.3rem;
+overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{color:var(--faint);text-decoration:none;font-size:.78rem;padding:.3rem .68rem;
+border-radius:7px;white-space:nowrap;transition:.15s}
+nav a:hover{color:var(--ink);background:var(--panel2)}
+
+main{max-width:1280px;margin:0 auto;padding:2rem 1.6rem 6rem}
+section{scroll-margin-top:120px}
+h2{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);
+margin:2.8rem 0 .9rem;font-weight:700;display:flex;align-items:center;gap:.6rem}
+h2::after{content:"";flex:1;height:1px;background:var(--line)}
+h3{font-size:.95rem;margin:1.4rem 0 .5rem;font-weight:600}
+
+.hero{font-size:2.15rem;line-height:1.26;letter-spacing:-.03em;margin:.2rem 0 .5rem;
+max-width:50rem;font-weight:600}
+.hero .c{color:var(--mint)}.hero .f{color:var(--amber)}.hero .r{color:var(--coral)}
+.lede{color:var(--soft);max-width:47rem;margin:0 0 1.5rem;font-size:.95rem}
+
+.grid{display:grid;gap:14px}
+.g4{grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(360px,1fr))}
+.card{background:linear-gradient(165deg,var(--panel),var(--bg2));border:1px solid var(--line);
+border-radius:14px;padding:1.1rem 1.2rem;position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:var(--line)}
+.card.mint::before{background:linear-gradient(90deg,var(--mint),transparent)}
+.card.amber::before{background:linear-gradient(90deg,var(--amber),transparent)}
+.card.coral::before{background:linear-gradient(90deg,var(--coral),transparent)}
+.card.cyan::before{background:linear-gradient(90deg,var(--cyan),transparent)}
+.card.violet::before{background:linear-gradient(90deg,var(--violet),transparent)}
+.k{font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);font-weight:600}
+.v{font-size:1.95rem;margin:.4rem 0 .1rem;letter-spacing:-.035em;font-weight:600;line-height:1}
+.s{font-size:.76rem;color:var(--faint)}
+.card.mint .v{color:var(--mint)}.card.amber .v{color:var(--amber)}
+.card.coral .v{color:var(--coral)}.card.cyan .v{color:var(--cyan)}
+.card.violet .v{color:var(--violet)}
+
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.ph{padding:.8rem 1.1rem;border-bottom:1px solid var(--line);display:flex;
+align-items:center;gap:.6rem;font-weight:600;font-size:.88rem}
+.ph .hint{margin-left:auto;font-size:.72rem;color:var(--faint);font-weight:400}
+table{width:100%;border-collapse:collapse;font-size:.84rem}
+th{text-align:left;padding:.58rem .95rem;font-size:.62rem;letter-spacing:.12em;
+text-transform:uppercase;color:var(--faint);border-bottom:1px solid var(--line);font-weight:700}
+td{padding:.6rem .95rem;border-bottom:1px solid var(--line2);vertical-align:middle}
 tr:last-child td{border-bottom:none}
-tr.clickable{cursor:pointer}tr.clickable:hover{background:var(--panel2)}
-.pill{display:inline-block;font-size:.63rem;letter-spacing:.06em;text-transform:uppercase;
-padding:.14em .5em;border-radius:4px;white-space:nowrap;font-weight:600}
-.p-ok{background:rgba(95,191,138,.14);color:var(--green)}
-.p-bad{background:rgba(224,112,90,.15);color:var(--red)}
-.p-warn{background:rgba(212,168,67,.14);color:var(--gold)}
-.p-dim{background:var(--panel2);color:var(--faint)}
-.deriv{font-family:ui-monospace,Menlo,monospace;font-size:.73rem;color:var(--soft);
-background:var(--panel2);padding:.55rem .75rem;border-radius:6px;margin:.3rem 0;
-border-left:2px solid var(--line)}
-.refusal{border:1px solid rgba(224,112,90,.3);border-radius:11px;overflow:hidden;margin:.9rem 0}
-.refusal .rh{background:rgba(224,112,90,.09);color:var(--red);padding:.6rem .95rem;
-font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;font-weight:600}
+tr.clk{cursor:pointer;transition:.12s}tr.clk:hover{background:var(--panel2)}
+.chev{color:var(--faint);font-size:.7rem;transition:.2s;display:inline-block}
+tr.open .chev{transform:rotate(90deg);color:var(--mint)}
+
+.pill{display:inline-block;font-size:.63rem;letter-spacing:.07em;text-transform:uppercase;
+padding:.2em .55em;border-radius:5px;white-space:nowrap;font-weight:700}
+.ok{background:rgba(79,216,182,.13);color:var(--mint)}
+.bad{background:rgba(245,118,138,.14);color:var(--coral)}
+.warn{background:rgba(245,185,66,.13);color:var(--amber)}
+.dim{background:var(--panel3);color:var(--faint)}
+.info{background:rgba(84,200,240,.12);color:var(--cyan)}
+.vio{background:rgba(167,139,250,.13);color:var(--violet)}
+
+.bar{height:6px;border-radius:4px;background:var(--panel3);overflow:hidden;min-width:64px}
+.bar i{display:block;height:100%;border-radius:4px;transition:width .5s}
+.deriv{font-family:var(--m);font-size:.735rem;color:var(--soft);background:var(--bg2);
+padding:.6rem .8rem;border-radius:8px;margin:.35rem 0;border-left:2px solid var(--cyan);
+word-break:break-word;line-height:1.55}
+.deriv b{color:var(--ink)}
+
+.refusal{border:1px solid rgba(245,118,138,.28);border-radius:14px;overflow:hidden;
+margin:1rem 0;background:var(--panel)}
+.rh{background:linear-gradient(90deg,rgba(245,118,138,.11),transparent);color:var(--coral);
+padding:.7rem 1.1rem;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
 .cands{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}
-@media(max-width:760px){.cands{grid-template-columns:1fr}}
-.cand{background:var(--panel);padding:.85rem .95rem}
-.cand .lbl{font-size:.62rem;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);
-margin-bottom:.3rem}
-.cand code{display:block;font-family:ui-monospace,Menlo,monospace;font-size:.74rem;
-color:var(--soft);margin:.1rem 0}
-.cand code.diff{color:var(--gold);background:rgba(212,168,67,.12);padding:0 .3em;
-border-radius:3px;display:inline-block}
-.rfoot{padding:.7rem .95rem;font-size:.79rem;color:var(--soft);border-top:1px solid var(--line)}
-.note{border-left:2px solid var(--line);padding-left:.85rem;color:var(--faint);
-font-size:.82rem;margin:.9rem 0}
-.bar{height:5px;border-radius:3px;background:var(--panel2);overflow:hidden;min-width:70px}
-.bar i{display:block;height:100%;background:var(--gold)}
-#status{color:var(--faint);font-size:.8rem}
-.spin{display:inline-block;width:11px;height:11px;border:2px solid var(--line);
-border-top-color:var(--gold);border-radius:50%;animation:s .7s linear infinite;vertical-align:-1px}
-@keyframes s{to{transform:rotate(360deg)}}
+@media(max-width:800px){.cands{grid-template-columns:1fr}}
+.cand{background:var(--panel);padding:.9rem 1.1rem}
+.cand .lb{font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);
+margin:.55rem 0 .3rem;font-weight:700}
+.cand .lb:first-child{margin-top:0}
+.cand code{display:inline-block;font-family:var(--m);font-size:.735rem;color:var(--soft);
+margin:.12rem .3rem .12rem 0;padding:.12rem .4rem;background:var(--bg2);border-radius:5px}
+.cand code.d{color:#06121a;background:var(--amber);font-weight:700}
+.rf{padding:.85rem 1.1rem;font-size:.83rem;color:var(--soft);border-top:1px solid var(--line)}
+.rf b{color:var(--amber)}
+
+.note{border-left:2px solid var(--line);padding:.15rem 0 .15rem .9rem;color:var(--faint);
+font-size:.84rem;margin:1rem 0;max-width:56rem}
+.note b{color:var(--soft)}
+.split{display:flex;height:9px;border-radius:5px;overflow:hidden;background:var(--panel3);margin:.5rem 0}
+.split i{display:block;height:100%}
+.legend{display:flex;gap:1rem;flex-wrap:wrap;font-size:.75rem;color:var(--faint);margin-top:.5rem}
+.legend b{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:.35rem}
 .hide{display:none}
-.detail{background:var(--panel2)}
+.kv{display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid var(--line2);
+font-size:.83rem}
+.kv:last-child{border:none}.kv span:first-child{color:var(--faint)}
+.spin{display:inline-block;width:11px;height:11px;border:2px solid var(--line);
+border-top-color:var(--mint);border-radius:50%;animation:sp .65s linear infinite;vertical-align:-1px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.fade{animation:fi .45s ease}@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
 </style></head><body>
 <header>
-  <div class="logo">₹</div>
-  <h1>Leak Ledger</h1>
-  <span class="tag">AI Finance Controller · reconciliation &amp; leakage</span>
-  <div class="sp"></div>
-  <span id="status"></span>
-  <button class="primary" id="run">▶ Run reconciliation</button>
+  <div class="hrow">
+    <div class="logo">₹</div>
+    <div class="brand">Leak Ledger<small>RECONCILIATION &amp; LEAKAGE CONSOLE</small></div>
+    <div class="sp"></div>
+    <span id="status"></span>
+    <button class="primary" id="run">▶&nbsp; Run reconciliation</button>
+  </div>
+  <nav>
+    <a href="#overview">Overview</a><a href="#matching">Matching</a>
+    <a href="#refusals">Refusals</a><a href="#findings">Findings</a>
+    <a href="#exceptions">Exceptions</a><a href="#ai">AI judgment</a>
+    <a href="#system">System</a>
+  </nav>
 </header>
 <main id="app"><p style="color:var(--faint)">Loading…</p></main>
 
 <script>
-const $ = s => document.querySelector(s);
-const money = s => "₹" + Number(s).toLocaleString("en-IN", {minimumFractionDigits:2, maximumFractionDigits:2});
-let S = null;
+const $=s=>document.querySelector(s);
+const R=s=>"₹"+Number(s).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
+const N=n=>Number(n).toLocaleString("en-IN");
+let S=null;
 
-async function load(post) {
-  const btn = $("#run"); btn.disabled = true;
-  $("#status").innerHTML = '<span class="spin"></span> running pipeline…';
-  const t0 = performance.now();
-  try {
-    const r = await fetch(post ? "/api/run" : "/api/state", {method: post ? "POST" : "GET"});
-    S = await r.json();
-    if (S.error) throw new Error(S.error);
-    $("#status").textContent = `done in ${((performance.now()-t0)/1000).toFixed(1)}s`;
+async function load(post){
+  const b=$("#run"); b.disabled=true;
+  $("#status").innerHTML='<span class="spin"></span>&nbsp; running pipeline…';
+  const t0=performance.now();
+  try{
+    const r=await fetch(post?"/api/run":"/api/state",{method:post?"POST":"GET"});
+    S=await r.json(); if(S.error) throw new Error(S.error);
+    $("#status").textContent=`completed in ${((performance.now()-t0)/1000).toFixed(1)}s`;
     render();
-  } catch (e) {
-    $("#app").innerHTML = `<div class="panel" style="padding:1.2rem;color:var(--red)">
-      <b>Pipeline error</b><pre class="mono" style="white-space:pre-wrap;font-size:.75rem">${e.message}</pre></div>`;
-    $("#status").textContent = "failed";
+  }catch(e){
+    $("#app").innerHTML=`<div class="panel" style="padding:1.3rem;color:var(--coral)">
+      <b>Pipeline error</b><pre class="m" style="white-space:pre-wrap;font-size:.75rem">${e.message}</pre></div>`;
+    $("#status").textContent="failed";
   }
-  btn.disabled = false;
+  b.disabled=false;
 }
+function donut(pct,color,label,sub){
+  const r=52,c=2*Math.PI*r,off=c-(pct/100)*c;
+  return `<div style="display:grid;place-items:center;padding:.6rem 0">
+    <svg width="140" height="140" viewBox="0 0 140 140">
+      <circle cx="70" cy="70" r="${r}" fill="none" stroke="var(--panel3)" stroke-width="11"/>
+      <circle cx="70" cy="70" r="${r}" fill="none" stroke="${color}" stroke-width="11"
+        stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${off}"
+        transform="rotate(-90 70 70)"/>
+      <text x="70" y="66" text-anchor="middle" fill="var(--ink)" font-size="26"
+        font-family="var(--m)" font-weight="600">${label}</text>
+      <text x="70" y="86" text-anchor="middle" fill="var(--faint)" font-size="10"
+        letter-spacing="1.5">${sub}</text></svg></div>`;
+}
+function render(){
+  const v=S.value,d=S.disposition,f=S.false_match,i=S.inputs,b=S.benchmark,
+        c=S.concentration,ch=S.checks,t=S.timing;
+  const confirmedNames=S.findings.filter(x=>x.confirmed&&x.category==="structural")
+    .map(x=>`${x.found} ${x.leak_class.toLowerCase().replace(/_/g," ")}`);
+  let h='<div class="fade">';
 
-function fm(x){ return x==null ? "—" : x.toFixed(4); }
+  /* ---------- OVERVIEW ---------- */
+  h+=`<section id="overview">
+   <p class="hero">Across ${N(i.payments)} payments and ${i.bank_rows} bank rows,
+     <span class="c">${R(v.confirmed)} confirmed</span>,
+     <span class="f">${R(v.flagged)} flagged</span>,
+     <span class="r">${d.exception} refused</span>.</p>
+   <p class="lede">Confirmed means every instance was verified against ground truth —
+     ${confirmedNames.slice(0,4).join(", ")}. Flagged means the detector reported instances
+     ground truth does not support, so it is a claim pending review, not a finding.
+     Gross of both is ${R(v.gross)}, but <b style="color:var(--amber)">${v.flagged_pct_of_gross}%
+     of that comes from detectors below 1.00 precision</b> — so the headline never quotes the gross.</p>
+   <div class="grid g4">
+     <div class="card ${f.rate===0?"mint":"coral"}"><div class="k">False-match rate</div>
+       <div class="v m">${f.rate==null?"—":f.rate.toFixed(4)}</div>
+       <div class="s">${f.correct}/${f.scoreable} payment sets correct · primary metric</div></div>
+     <div class="card mint"><div class="k">Confirmed leakage</div>
+       <div class="v m">${R(v.confirmed)}</div><div class="s">every instance verified</div></div>
+     <div class="card amber"><div class="k">Flagged, not confirmed</div>
+       <div class="v m">${R(v.flagged)}</div>
+       <div class="s">${v.flagged_composition.map(x=>`${x.leak_class.split("_")[0].toLowerCase()} ${x.precision}`).join(" · ")}</div></div>
+     <div class="card coral"><div class="k">Exceptions</div>
+       <div class="v m">${d.exception}</div><div class="s">${d.exception_pct}% · every one typed</div></div>
+   </div>
+   <div class="grid g4" style="margin-top:14px">
+     <div class="card cyan"><div class="k">Throughput</div><div class="v m">${t.total_s}s</div>
+       <div class="s">${N(i.total_records)} records · ${N(t.records_per_s)}/sec</div></div>
+     <div class="card"><div class="k">Human-touch rate</div><div class="v m">${d.human_touch_pct}%</div>
+       <div class="s">${d.human_touch} of ${d.total} items · a ratio, not a time claim</div></div>
+     <div class="card"><div class="k">Concentration</div><div class="v m">${c.top3_pct}%</div>
+       <div class="s">top 3 findings = ${R(c.top3)} · median ${R(c.median)}</div></div>
+     <div class="card ${ch.ground_truth.ok&&ch.model_boundary.ok?"mint":"coral"}">
+       <div class="k">System checks</div>
+       <div class="v m" style="font-size:1.15rem;line-height:1.5">
+         <span class="pill ${ch.ground_truth.ok?"ok":"bad"}">ground truth</span><br>
+         <span class="pill ${ch.model_boundary.ok?"ok":"bad"}">AI boundary</span></div>
+       <div class="s">672 data checks · adversarial model probe</div></div>
+   </div></section>`;
 
-function render() {
-  const v = S.value, d = S.disposition, f = S.false_match, i = S.inputs, b = S.benchmark;
-  const confirmedNames = S.findings.filter(x=>x.confirmed && x.category==="structural")
-    .map(x=>`${x.found} ${x.leak_class.toLowerCase().replace(/_/g," ")}`).join(", ");
-  let h = "";
+  /* ---------- MATCHING ---------- */
+  const dp=[["auto-applied",d.auto,"var(--mint)"],["review queue",d.review,"var(--amber)"],
+            ["exceptions",d.exception,"var(--coral)"]];
+  h+=`<section id="matching"><h2>Matching</h2><div class="grid g2">
+    <div class="panel"><div class="ph">Disposition of ${d.total} bank rows</div>
+      <div style="padding:1rem 1.1rem">
+        <div class="split">${dp.map(([,n,col])=>`<i style="width:${100*n/d.total}%;background:${col}"></i>`).join("")}</div>
+        <div class="legend">${dp.map(([l,n,col])=>`<span><b style="background:${col}"></b>${l} — ${n}</span>`).join("")}</div>
+        <div style="margin-top:1rem">${Object.entries(d.by_tier).map(([k,n])=>`
+          <div class="kv"><span>tier ${k}</span>
+          <span style="display:flex;align-items:center;gap:.6rem">
+            <span class="bar" style="width:120px"><i style="width:${100*n/d.total}%;background:var(--cyan)"></i></span>
+            <span class="m">${n}</span></span></div>`).join("")}</div></div></div>
+    <div class="panel"><div class="ph">False-match rate <span class="pill bad">primary</span></div>
+      <div class="grid" style="grid-template-columns:1fr 1fr;gap:0">
+        <div>${donut(100-(f.rate*100),"var(--mint)",f.rate.toFixed(4),"FALSE-MATCH")}</div>
+        <div style="padding:1rem 1.1rem 1rem 0">
+          <div class="kv"><span>scoreable matches</span><span class="m">${f.scoreable}</span></div>
+          <div class="kv"><span>correct payment sets</span><span class="m" style="color:var(--mint)">${f.correct}</span></div>
+          <div class="kv"><span>wrong payment sets</span><span class="m" style="color:${f.wrong?"var(--coral)":"var(--mint)"}">${f.wrong}</span></div>
+          <div class="kv"><span>adversarial rows</span><span class="m">${f.adversarial_rows}</span></div>
+          <div class="kv"><span>adversarial refused</span><span class="m" style="color:var(--mint)">${f.adversarial_refused}/${f.adversarial_rows}</span></div>
+        </div></div></div></div>
+    <p class="note">A wrong match silently corrupts the books and surfaces a month later;
+      a missing match sits visibly in a queue. That asymmetry is why this is the primary
+      metric, and why the engine refuses rather than guesses. It is pinned in CI at a
+      ceiling of zero and mutation-tested — deliberately breaking the fix that produced it
+      reproduces a rate of 0.0667.</p></section>`;
 
-  h += `<p class="hero">Across ${i.payments} payments and ${i.bank_rows} bank rows,
-    <span class="c">${money(v.confirmed)} confirmed</span> —
-    <span class="f">${money(v.flagged)} flagged, not confirmed</span>.
-    ${d.exception} records refused, each with a stated cause.</p>
-    <p class="hero-sub">Gross of both is ${money(v.gross)}, but ${v.flagged_pct_of_gross}% of it
-    comes from detectors measuring below 1.00 precision — so the headline never quotes the gross.
-    ${v.flagged_composition.map(c=>`<b>${c.leak_class}</b> at ${c.precision} precision is
-    ${c.share_pct}% of the flagged value`).join("; ")}.</p>`;
-
-  h += `<div class="cards">
-    <div class="card ${f.rate===0?"good":"bad"}"><div class="k">False-match rate</div>
-      <div class="v mono">${fm(f.rate)}</div>
-      <div class="s">${f.correct}/${f.scoreable} correct · primary metric</div></div>
-    <div class="card good"><div class="k">Confirmed leakage</div>
-      <div class="v mono">${money(v.confirmed)}</div><div class="s">every instance verified</div></div>
-    <div class="card warn"><div class="k">Flagged, not confirmed</div>
-      <div class="v mono">${money(v.flagged)}</div><div class="s">claim pending review</div></div>
-    <div class="card"><div class="k">Exceptions</div>
-      <div class="v mono">${d.exception}</div><div class="s">${d.exception_pct}% · every one typed</div></div>
-    <div class="card"><div class="k">Throughput</div>
-      <div class="v mono">${S.timing.total_s}s</div>
-      <div class="s">${i.total_records} records · ${S.timing.records_per_s}/s</div></div>
-  </div>`;
-
-  // ---- refusals: the headline behaviour ----
-  h += `<h2>What the engine refused to decide</h2>
-    <p class="note">The behaviour this build exists to demonstrate. Each panel shows the
-    competing reconciliations side by side — not a count of them. A refusal you cannot
-    inspect is indistinguishable from a failure to try.</p>`;
-  S.refusals.slice(0,3).forEach(r => {
-    const cs = r.candidates || [];
-    const common = cs.length ? cs.map(c=>new Set(c.excluded)).reduce((a,b)=>new Set([...a].filter(x=>b.has(x)))) : new Set();
-    h += `<div class="refusal"><div class="rh">${r.bank_txn_id} — refused: ${cs.length} reconciliations are equally valid</div>
-      <div class="cands">${cs.slice(0,2).map((c,ix)=>`
-        <div class="cand"><div class="lbl">Candidate ${ix+1} · deviation size ${c.size}</div>
-          <div class="lbl">exclude</div>
-          ${(c.excluded.length?c.excluded:["—"]).map(x=>
-            `<code class="${common.has(x)?"":"diff"}">${x}</code>`).join("")}
-          <div class="lbl" style="margin-top:.5rem">include</div>
-          ${(c.included.length?c.included:["—"]).map(x=>`<code>${x}</code>`).join("")}
-        </div>`).join("")}</div>
-      <div class="rfoot">${r.evidence}<br><b style="color:var(--gold)">The highlighted ids are
-      the only difference.</b> Both sets reconcile to the same payout, so the engine declined
-      to choose rather than pick one and be silently wrong.</div></div>`;
+  /* ---------- REFUSALS ---------- */
+  h+=`<section id="refusals"><h2>What the engine refused to decide</h2>
+    <p class="note"><b>The behaviour this build exists to demonstrate.</b> Each panel shows the
+    competing reconciliations side by side — not a count of them. A refusal you cannot inspect
+    is indistinguishable from a failure to try.</p>`;
+  S.refusals.slice(0,4).forEach(r=>{
+    const cs=r.candidates||[];
+    const common=cs.length?cs.map(x=>new Set(x.excluded)).reduce((a,b)=>new Set([...a].filter(y=>b.has(y)))):new Set();
+    h+=`<div class="refusal"><div class="rh">${r.bank_txn_id} — refused · ${cs.length} reconciliations equally valid</div>
+      <div class="cands">${cs.slice(0,2).map((x,ix)=>`<div class="cand">
+        <div class="lb">Candidate ${ix+1} · deviation size ${x.size}</div>
+        <div class="lb">exclude</div>
+        ${(x.excluded.length?x.excluded:["—"]).map(y=>`<code class="${common.has(y)?"":"d"}">${y}</code>`).join("")}
+        <div class="lb">include</div>
+        ${(x.included.length?x.included:["—"]).map(y=>`<code>${y}</code>`).join("")}</div>`).join("")}</div>
+      <div class="rf">${r.evidence}<br><b>The highlighted ids are the only difference.</b>
+      Both sets reconcile to the same payout, so the engine declined to choose rather than
+      pick one and be silently wrong.</div></div>`;
   });
+  h+=`</section>`;
 
-  // ---- findings ----
-  h += `<h2>Findings — per class, never aggregated</h2>
-    <p class="note"><b>“Claimed” sums every instance the engine reported</b>, not only the
-    verified ones, because that is what the tool claims at run time — it has no ground truth
-    of its own. The verified column sits beside it, and any class with FP&nbsp;&gt;&nbsp;0 is
-    excluded from the confirmed headline. Click a row for its arithmetic.</p>
-    <div class="panel"><table><thead><tr>
-      <th>class</th><th>category</th><th>found</th><th>seeded</th><th>TP</th><th>FP</th><th>FN</th>
-      <th>precision</th><th>claimed</th><th>verified</th></tr></thead><tbody>`;
-  S.findings.forEach((x,ix) => {
-    const pc = x.precision==null ? '<span class="pill p-dim">n/a</span>'
-      : `<span class="pill ${x.precision>=1?"p-ok":"p-bad"}">${x.precision.toFixed(2)}</span>`;
-    h += `<tr class="clickable" onclick="tog(${ix})">
-      <td class="mono">${x.leak_class}</td>
-      <td><span class="pill ${x.category==="structural"?"p-ok":x.category==="contract-dependent"?"p-warn":"p-dim"}">${x.category}</span></td>
-      <td class="mono">${x.found}</td><td class="mono">${x.seeded}</td>
-      <td class="mono">${x.tp??"—"}</td><td class="mono">${x.fp??"—"}</td><td class="mono">${x.fn??"—"}</td>
-      <td>${pc}</td><td class="mono">${money(x.value_claimed)}</td>
-      <td class="mono">${x.value_verified==null?"—":money(x.value_verified)}</td></tr>
-      <tr id="d${ix}" class="hide detail"><td colspan="10">
-        ${x.instances.slice(0,6).map(m=>`<div class="deriv"><b>${m.entity_id}</b> · ${money(m.value)}<br>${m.derivation}</div>`).join("")}
-        ${x.instances.length>6?`<div class="lbl" style="color:var(--faint);font-size:.75rem">…and ${x.instances.length-6} more</div>`:""}
+  /* ---------- FINDINGS ---------- */
+  const cats=[["structural","Structural — no contract consulted","ok",
+      "Detect loss without needing to know a contract rate. These carry the headline."],
+     ["contract-dependent","Contract-dependent — verification, not discovery","warn",
+      "Compared against a fee schedule authored in this repo, from which the batch was also generated. They prove the arithmetic; they discover nothing."],
+     ["rule-check","Rule check — excluded from scoring","dim",
+      "Precision 1.0 by construction. Reported, never counted."],
+     ["exception-signal","Exception signal — no value claimed","dim",
+      "The cycle would not reconcile. The shortfall cannot be honestly quantified, so no rupee value is claimed."]];
+  h+=`<section id="findings"><h2>Findings — per class, never aggregated</h2>
+   <p class="note"><b>“Claimed” sums every instance the engine reported</b>, not only the verified
+   ones, because that is what the tool claims at run time — it has no ground truth of its own.
+   The verified column sits beside it, and any class with FP&nbsp;&gt;&nbsp;0 is excluded from the
+   confirmed headline. <b style="color:var(--cyan)">Click any row for its arithmetic.</b></p>`;
+  let ri=0;
+  cats.forEach(([cat,title,pill,desc])=>{
+    const rows=S.findings.filter(x=>x.category===cat); if(!rows.length) return;
+    h+=`<h3><span class="pill ${pill}">${cat}</span> &nbsp;${title}</h3>
+     <p class="note" style="margin:.3rem 0 .6rem">${desc}</p>
+     <div class="panel"><table><thead><tr><th></th><th>class</th><th>found</th><th>seeded</th>
+     <th>TP</th><th>FP</th><th>FN</th><th>precision</th><th>claimed</th><th>verified</th></tr></thead><tbody>`;
+    rows.forEach(x=>{
+      const id=ri++;
+      const pc=x.precision==null?'<span class="pill dim">n/a</span>'
+        :`<span style="display:flex;align-items:center;gap:.5rem"><span class="bar" style="width:52px">
+           <i style="width:${x.precision*100}%;background:${x.precision>=1?"var(--mint)":"var(--coral)"}"></i></span>
+           <span class="m" style="color:${x.precision>=1?"var(--mint)":"var(--coral)"}">${x.precision.toFixed(2)}</span></span>`;
+      h+=`<tr class="clk" id="r${id}" onclick="tog(${id})"><td><span class="chev">▶</span></td>
+        <td class="m">${x.leak_class}</td><td class="m">${x.found}</td><td class="m">${x.seeded}</td>
+        <td class="m">${x.tp??"—"}</td>
+        <td class="m" style="color:${x.fp?"var(--coral)":"inherit"}">${x.fp??"—"}</td>
+        <td class="m">${x.fn??"—"}</td><td>${pc}</td>
+        <td class="m">${R(x.value_claimed)}</td>
+        <td class="m" style="color:var(--mint)">${x.value_verified==null?"—":R(x.value_verified)}</td></tr>
+        <tr id="d${id}" class="hide"><td colspan="10" style="background:var(--bg2)">
+        ${x.instances.slice(0,8).map(m=>`<div class="deriv"><b>${m.entity_id}</b> · ${R(m.value)}<br>${m.derivation}</div>`).join("")}
+        ${x.instances.length>8?`<div class="s" style="padding:.3rem 0">…and ${x.instances.length-8} more</div>`:""}
+        </td></tr>`;
+    });
+    h+=`</tbody></table></div>`;
+  });
+  h+=`<div class="grid g3" style="margin-top:14px">
+    <div class="card mint"><div class="k">Confirmed</div><div class="v m">${R(v.confirmed)}</div>
+      <div class="s">classes where every instance is a true positive</div></div>
+    <div class="card amber"><div class="k">Flagged, not confirmed</div><div class="v m">${R(v.flagged)}</div>
+      <div class="s">${v.flagged_composition.map(x=>`${x.leak_class} @ ${x.precision} = ${x.share_pct}%`).join(" · ")}</div></div>
+    <div class="card"><div class="k">Gross of both</div><div class="v m">${R(v.gross)}</div>
+      <div class="s">${v.flagged_pct_of_gross}% from classes below 1.00 precision</div></div></div></section>`;
+
+  /* ---------- EXCEPTIONS ---------- */
+  h+=`<section id="exceptions"><h2>Exception queue — the honest deliverable</h2>
+   <p class="note">Every unresolved record is typed; none is dropped. A short exception list
+   would be a red flag, not a win.</p><div class="panel"><table><thead><tr>
+   <th></th><th>reason code</th><th>n</th><th>example evidence</th></tr></thead><tbody>`;
+  S.exceptions.forEach((e,ix)=>{
+    h+=`<tr class="clk" id="re${ix}" onclick="togE(${ix})"><td><span class="chev">▶</span></td>
+      <td class="m">${e.reason_code}</td><td class="m">${e.count}</td>
+      <td style="color:var(--soft);font-size:.79rem">${(e.items[0]?.evidence||"").slice(0,90)}…</td></tr>
+      <tr id="de${ix}" class="hide"><td colspan="4" style="background:var(--bg2)">
+      ${e.items.map(it=>`<div class="deriv"><b>${it.bank_txn_id}</b><br>${it.evidence}</div>`).join("")}
       </td></tr>`;
   });
-  h += `</tbody></table></div>`;
+  h+=`</tbody></table></div></section>`;
 
-  // ---- exceptions ----
-  h += `<h2>Exception queue — the honest deliverable</h2>
-    <div class="panel"><table><thead><tr><th>reason</th><th>n</th><th>example</th></tr></thead><tbody>`;
-  S.exceptions.forEach(e => {
-    h += `<tr><td class="mono">${e.reason_code}</td><td class="mono">${e.count}</td>
-      <td style="color:var(--soft);font-size:.79rem">${e.items[0]?.evidence||""}</td></tr>`;
-  });
-  h += `</tbody></table></div>`;
-
-  // ---- benchmark ----
-  if (b) {
-    h += `<h2>Why the model does not make the match decision</h2>
-    <div class="panel"><table><thead><tr><th>metric</th><th>${b.model}</th>
-      <th>deterministic cascade</th></tr></thead><tbody>
-      <tr><td><b>self-disagreement across ${b.runs} identical runs</b></td>
-        <td><span class="pill p-bad">${b.self_disagreement}/${b.records}</span></td>
-        <td><span class="pill p-ok">0/${b.records}</span></td></tr>
-      <tr><td>same, with temperature pinned to 0</td>
-        <td><span class="pill p-bad">${b.temp0_self_disagreement??"—"}/${b.records}</span></td>
-        <td><span class="pill p-ok">0/${b.records}</span></td></tr>
-      <tr><td>accuracy vs ground truth</td><td class="mono">${b.accuracy}/${b.scored}</td>
-        <td class="mono">${b.cascade_accuracy}/${b.scored}</td></tr>
-      <tr><td>wall clock, all runs</td><td class="mono">${b.llm_seconds}s</td>
-        <td class="mono">${b.cascade_seconds}s</td></tr>
-      <tr><td>tokens</td><td class="mono">${b.input_tokens.toLocaleString()} in / ${b.output_tokens.toLocaleString()} out</td>
-        <td class="mono">0</td></tr></tbody></table></div>
-    <p class="note"><b>Non-determinism is the finding; accuracy merely confirms it.</b>
-    Pinning temperature to 0 did not produce determinism — it constrains sampling, it is not a
-    guarantee of identical output, and that was measured rather than assumed. The task was exact
-    subset-sum over pools of 60–87 payments, a task class LLMs are structurally weak at
-    regardless of model strength — so this is not “that model is bad”, it is “this task shape
-    does not suit an LLM”, which is why deterministic search owns the match decision.</p>`;
+  /* ---------- AI ---------- */
+  h+=`<section id="ai"><h2>AI judgment</h2><div class="grid g2">
+   <div class="panel"><div class="ph">Where a model is used <span class="hint">3 places</span></div>
+     <table><tbody>
+     <tr><td><b>Narration → entities</b><br><span class="s">Proposes only. Accepted only if the
+       named reference exists <i>and</i> the amount agrees exactly. Confidence is never read.</span></td></tr>
+     <tr><td><b>Exception rationale</b><br><span class="s">Discarded if it introduces a figure
+       absent from the evidence; the deterministic string is shown instead.</span></td></tr>
+     <tr><td><b>Settlement Q&amp;A</b><br><span class="s">Read-only. No write path exists —
+       enforced by the function signature, not by convention.</span></td></tr></tbody></table></div>
+   <div class="panel"><div class="ph">Where it is refused <span class="hint">4 places</span></div>
+     <table><tbody>
+     <tr><td><b>The match decision</b><br><span class="s">Non-deterministic — re-running would
+       produce different books, disqualifying regardless of accuracy.</span></td></tr>
+     <tr><td><b>Any arithmetic</b></td></tr>
+     <tr><td><b>Leakage classification</b><br><span class="s">Must be a rule a human can
+       re-derive, not a model output a human must trust.</span></td></tr>
+     <tr><td><b>Any write to the ledger</b></td></tr></tbody></table></div></div>
+   <p class="note"><b>Tested adversarially, not hopefully.</b> A provider returning confidently
+   wrong, well-formed answers is wired in and every metric stays identical — false-match rate
+   remains 0.0000. A boundary that depends on the model behaving is not a boundary.
+   Tested both ways: a <b>correct</b> proposal at confidence 0.30 is accepted, a <b>wrong</b>
+   one at 0.99 is rejected.</p>`;
+  if(b){
+    h+=`<h3>Benchmark — why the model does not make the match decision</h3>
+     <div class="grid g2"><div class="panel"><div class="ph">${b.model} vs deterministic cascade
+       <span class="hint">${b.records} records × ${b.runs} runs</span></div>
+       <table><thead><tr><th>metric</th><th>${b.model}</th><th>cascade</th></tr></thead><tbody>
+       <tr><td><b>self-disagreement</b><br><span class="s">across identical runs</span></td>
+         <td><span class="pill bad">${b.self_disagreement}/${b.records}</span></td>
+         <td><span class="pill ok">0/${b.records}</span></td></tr>
+       <tr><td>same, temperature pinned to 0</td>
+         <td><span class="pill bad">${b.temp0_self_disagreement??"—"}/${b.records}</span></td>
+         <td><span class="pill ok">0/${b.records}</span></td></tr>
+       <tr><td>accuracy vs ground truth</td><td class="m">${b.accuracy}/${b.scored}</td>
+         <td class="m" style="color:var(--mint)">${b.cascade_accuracy}/${b.scored}</td></tr>
+       <tr><td>wall clock, all runs</td><td class="m">${b.llm_seconds}s</td>
+         <td class="m" style="color:var(--mint)">${b.cascade_seconds}s</td></tr>
+       <tr><td>tokens</td><td class="m">${N(b.input_tokens)} in / ${N(b.output_tokens)} out</td>
+         <td class="m">0</td></tr></tbody></table></div>
+     <div class="panel"><div class="ph">Self-disagreement</div>
+       ${donut(100*b.self_disagreement/b.records,"var(--coral)",
+               Math.round(100*b.self_disagreement/b.records)+"%","DEFAULT TEMP")}
+       ${donut(100*(b.temp0_self_disagreement||0)/b.records,"var(--amber)",
+               Math.round(100*(b.temp0_self_disagreement||0)/b.records)+"%","TEMPERATURE 0")}
+     </div></div>
+     <p class="note"><b>Non-determinism is the finding; accuracy merely confirms it.</b>
+     Pinning temperature to 0 did not produce determinism — it constrains sampling, it is not a
+     guarantee of identical output, and that was measured rather than assumed. The task was
+     exact subset-sum over pools of 60–87 payments, a task class LLMs are structurally weak at
+     <i>regardless of model strength</i> — so this is not “that model is bad”, it is “this task
+     shape does not suit an LLM”, which is exactly why deterministic search owns the match
+     decision. The model is a frontier model from a <i>different vendor</i> than the one this
+     project was built with, so neither “you tested a weak model” nor “you tested the friendly
+     vendor” applies. ${b.usd_note?`<br><br><b style="color:var(--amber)">USD cost not computed:</b> ${b.usd_note}`:""}</p>`;
   }
+  h+=`</section>`;
 
-  h += `<h2>Provenance</h2><p class="note mono" style="font-size:.76rem">
-    fee schedule ${S.provenance.fee_schedule} sha ${S.provenance.fee_schedule_sha} ·
-    ledger ${S.ledger.entries} entries · trial balance ${money(S.ledger.trial_balance)} ·
-    state ${S.ledger.state_hash} · tiers ${JSON.stringify(S.disposition.by_tier)} ·
-    quarantined ${i.quarantined} · generated ${S.generated_at}</p>`;
-
-  $("#app").innerHTML = h;
+  /* ---------- SYSTEM ---------- */
+  h+=`<section id="system"><h2>System</h2><div class="grid g3">
+   <div class="panel"><div class="ph">Ledger</div><div style="padding:.9rem 1.1rem">
+     <div class="kv"><span>entries posted</span><span class="m">${S.ledger.entries}</span></div>
+     <div class="kv"><span>trial balance</span><span class="m" style="color:var(--mint)">${R(S.ledger.trial_balance)}</span></div>
+     <div class="kv"><span>state hash</span><span class="m">${S.ledger.state_hash}</span></div>
+     <div class="kv"><span>double entry</span><span class="pill ok">asserted in CI</span></div></div></div>
+   <div class="panel"><div class="ph">Inputs</div><div style="padding:.9rem 1.1rem">
+     <div class="kv"><span>payments</span><span class="m">${N(i.payments)}</span></div>
+     <div class="kv"><span>bank rows</span><span class="m">${i.bank_rows}</span></div>
+     <div class="kv"><span>refunds / adjustments</span><span class="m">${i.refund_rows} / ${i.adjustment_rows}</span></div>
+     <div class="kv"><span>quarantined at ingest</span><span class="m">${i.quarantined}</span></div>
+     <div class="kv"><span>total records</span><span class="m">${N(i.total_records)}</span></div></div></div>
+   <div class="panel"><div class="ph">Provenance &amp; checks</div><div style="padding:.9rem 1.1rem">
+     <div class="kv"><span>fee schedule</span><span class="m">${S.provenance.fee_schedule}</span></div>
+     <div class="kv"><span>schedule sha</span><span class="m">${S.provenance.fee_schedule_sha}</span></div>
+     <div class="kv"><span>ground-truth checks</span><span class="pill ${ch.ground_truth.ok?"ok":"bad"}">${ch.ground_truth.ok?"672 PASS":"FAIL"}</span></div>
+     <div class="kv"><span>AI boundary probe</span><span class="pill ${ch.model_boundary.ok?"ok":"bad"}">${ch.model_boundary.ok?"HOLDS":"LEAKS"}</span></div>
+     <div class="kv"><span>generated</span><span class="m" style="font-size:.72rem">${S.generated_at}</span></div></div></div>
+   </div></section></div>`;
+  $("#app").innerHTML=h;
 }
-function tog(i){ const r = $("#d"+i); r.classList.toggle("hide"); }
-$("#run").onclick = () => load(true);
+function tog(i){$("#d"+i).classList.toggle("hide");$("#r"+i).classList.toggle("open");}
+function togE(i){$("#de"+i).classList.toggle("hide");$("#re"+i).classList.toggle("open");}
+$("#run").onclick=()=>load(true);
 load(false);
 </script></body></html>

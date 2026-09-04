@@ -13,8 +13,12 @@ REPORT = ROOT / "reports" / "run_report.html"
 class Report(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        subprocess.run([sys.executable, str(ROOT / "harness" / "report.py")],
-                       check=True, capture_output=True, cwd=ROOT)
+        # Generate once per class rather than per test. Each spawn re-reads the
+        # whole dataset, which on a cloud-synced disk costs seconds per file.
+        if not hasattr(Report, "_generated"):
+            subprocess.run([sys.executable, str(ROOT / "harness" / "report.py")],
+                           check=True, capture_output=True, cwd=ROOT)
+            Report._generated = True
         cls.html = REPORT.read_text(encoding="utf-8")
 
     def test_refusals_show_competing_answers_not_a_count(self):

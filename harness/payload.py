@@ -30,7 +30,12 @@ from scoring import headline_split, score_all                                 # 
 
 DATA = ROOT / "data" / "generated"
 AS_OF = date(2026, 7, 31)
-_load = lambda n: list(csv.DictReader((DATA / n).open(encoding="utf-8")))
+def _load(n):
+    """Read a generated CSV. Uses a context manager so the handle is closed --
+    the lambda this replaced leaked one per call and filled test runs with
+    ResourceWarnings."""
+    with (DATA / n).open(encoding="utf-8") as fh:
+        return list(csv.DictReader(fh))
 
 
 def build_payload() -> dict:
@@ -77,6 +82,16 @@ def build_payload() -> dict:
 
     led = Ledger()
     apply_run(led, run_id="dash", cascade_result=casc, findings=found, payments=gw.records)
+
+    # concentration + median, so the headline can never be quoted without its shape
+    vals = sorted((f.value.paise for f in found.findings if f.value.paise), reverse=True)
+    import statistics as _st
+    concentration = {
+        "top3_paise": sum(vals[:3]) if vals else 0,
+        "top3_pct": round(100 * sum(vals[:3]) / sum(vals), 1) if vals else 0,
+        "median_paise": int(_st.median(vals)) if vals else 0,
+        "count": len(vals),
+    }
 
     n = len(casc.matches)
     auto, rev, exc = (len(casc.by_disposition(d)) for d in (AUTO_APPLY, REVIEW, EXCEPTION))
@@ -125,6 +140,22 @@ def build_payload() -> dict:
                            "items": [{"bank_txn_id": r.bank_txn_id,
                                       "evidence": r.evidence} for r in rows[:6]]})
 
+    # Health of the two guarantees a reader would otherwise have to take on trust.
+    import subprocess
+    def _probe(script, ok_marker):
+        try:
+            r = subprocess.run([sys.executable, str(ROOT / "harness" / script)],
+                               capture_output=True, text=True, cwd=ROOT, timeout=120)
+            return {"ok": r.returncode == 0 and ok_marker in r.stdout,
+                    "output": r.stdout.strip().splitlines()[-1] if r.stdout.strip() else ""}
+        except Exception as e:
+            return {"ok": None, "output": f"{type(e).__name__}: {e}"}
+
+    checks = {
+        "ground_truth": _probe("validate_ground_truth.py", "PASS"),
+        "model_boundary": _probe("model_layer_check.py", "BOUNDARY HOLDS"),
+    }
+
     bm_path = ROOT / "reports" / "benchmark_llm_matcher.json"
     bm0_path = ROOT / "reports" / "benchmark_llm_matcher_temp0.json"
     bm = json.loads(bm_path.read_text(encoding="utf-8")) if bm_path.exists() else None
@@ -165,6 +196,12 @@ def build_payload() -> dict:
                  "share_pct": round(100 * s.found_value.paise / max(1, flagged.paise), 1)}
                 for s in sorted(flagged_cls, key=lambda z: -z.found_value.paise)],
         },
+        "concentration": {
+            "top3": Money(concentration["top3_paise"]).to_rupees_str(),
+            "top3_pct": concentration["top3_pct"],
+            "median": Money(concentration["median_paise"]).to_rupees_str(),
+            "count": concentration["count"],
+        },
         "findings": findings,
         "refusals": refusals,
         "exceptions": exceptions,
@@ -173,6 +210,7 @@ def build_payload() -> dict:
         "timing": {"cascade_s": round(t1 - t0, 3), "detectors_s": round(t2 - t1, 3),
                    "total_s": round(total_s, 3),
                    "records_per_s": round((len(gw.records) + len(bank)) / max(total_s, 1e-6))},
+        "checks": checks,
         "provenance": {
             "fee_schedule": fs.version, "fee_schedule_sha": fs.sha256[:12],
         },

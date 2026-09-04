@@ -28,6 +28,15 @@ the same code the command-line scorecard reads, so the two can never disagree.
 
 Run it on a different port if 8000 is taken: `python3 server.py 8080`
 
+**If you see `OSError: [Errno 48] Address already in use`** — a server is already
+running on that port (often one you started earlier and left open). Either use it,
+or free the port:
+
+```bash
+lsof -ti:8000 | xargs kill      # stop whatever is on 8000
+python3 server.py               # then start fresh
+```
+
 ---
 
 ## 2. The numbers, in the terminal
@@ -100,9 +109,18 @@ the files are byte-for-byte identical — that is asserted in the test suite.
 python3 -m unittest discover -s tests -q
 ```
 
-Roughly 10 seconds. Includes determinism (5 runs, 1 hash), idempotence
+Takes ~20-35 seconds. Includes determinism (5 runs, 1 hash), idempotence
 (re-applying changes nothing), double-entry balance, and the false-match rate
 pinned at a ceiling of 0.
+
+**It is slower on this machine than it should be**, because the project sits on an
+iCloud-synced Desktop and several tests re-read the whole dataset. Nothing is
+broken — if it looks stuck, give it 40 seconds before assuming otherwise. Moving
+the folder out of iCloud makes it about four times faster:
+
+```bash
+mkdir -p ~/dev && mv ~/Desktop/Razorpay ~/dev/Leak-Ledger && cd ~/dev/Leak-Ledger
+```
 
 ---
 

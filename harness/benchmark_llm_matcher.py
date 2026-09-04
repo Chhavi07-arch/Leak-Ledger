@@ -62,7 +62,12 @@ SYSTEM = (
     "the sum of the payments minus each payment's gateway fee and GST. "
     'Reply with ONLY JSON: {"payment_ids": [...]}. No explanation.'
 )
-_load = lambda n: list(csv.DictReader((DATA / n).open(encoding="utf-8")))
+def _load(n):
+    """Read a generated CSV. Uses a context manager so the handle is closed --
+    the lambda this replaced leaked one per call and filled test runs with
+    ResourceWarnings."""
+    with (DATA / n).open(encoding="utf-8") as fh:
+        return list(csv.DictReader(fh))
 
 
 def build_prompt(bank_row, candidates):
