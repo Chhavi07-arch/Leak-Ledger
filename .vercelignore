@@ -1,0 +1,6 @@
+.git
+tests
+reports/phase01
+*.pyc
+__pycache__
+.env

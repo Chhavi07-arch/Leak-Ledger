@@ -142,7 +142,7 @@ nothing, because the number is confident and wrong (INC-010).
 
 ```
 $ python3 -m unittest discover -s tests -q
-Ran 197 tests ... OK
+Ran 201 tests ... OK
 ```
 
 | Guarantee | How it is enforced |
@@ -364,7 +364,7 @@ python3 harness/validate_ground_truth.py      # 669 consistency checks — run b
 python3 harness/score.py                      # the scorecard
 python3 harness/report.py                     # reports/run_report.html
 python3 harness/model_layer_check.py          # boundary gate, adversarial provider
-python3 -m unittest discover -s tests -q      # 197 tests
+python3 -m unittest discover -s tests -q      # 201 tests
 ```
 
 No dependencies beyond the standard library — including the dashboard server,
@@ -393,7 +393,7 @@ src/leakledger/
 server.py   local dashboard server (stdlib only, no framework)
 web/        the dashboard page it serves
 harness/    scorecard, ground-truth validator, report, benchmark, shared payload
-tests/      197 tests
+tests/      201 tests
 DECISIONS.md  ADR-001..004 — choices a reader could reasonably have made differently
 INCIDENTS.md  what broke, what it cost, and the guard that stops it recurring
 ```

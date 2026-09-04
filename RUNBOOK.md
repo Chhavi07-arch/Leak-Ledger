@@ -172,3 +172,35 @@ Say it in this order:
 Say what happened and keep going. This project's whole argument is about handling
 failure honestly — a crash you narrate is on-message, and 19 logged incidents back
 you up.
+
+## Deploying (Vercel)
+
+The repo carries a serverless adapter so the dashboard can be shown without the
+reader cloning anything.
+
+- `api/index.py` — the Vercel entry point. A thin `BaseHTTPRequestHandler` that
+  delegates to the same `build_payload()` the CLI and the local server use. It
+  computes nothing itself.
+- `vercel.json` — routes every path to that function and bundles `src`, `harness`,
+  `web`, `config`, `data` and `reports` alongside it.
+- `.vercelignore` — keeps `.git`, `tests` and caches out of the bundle.
+
+Deploy:
+
+```
+npm i -g vercel
+vercel login
+vercel            # preview URL
+vercel --prod     # production URL
+```
+
+Zero dependencies, so there is no build step and no `requirements.txt`.
+
+**What differs on the deployed copy.** Each invocation may hit a cold container,
+so every request rebuilds the payload — roughly 2 s rather than the local 1.4 s,
+and there is no cross-request cache. Serverless filesystems are read-only outside
+`/tmp`; nothing on the request path writes, so this costs nothing. Where the host
+forbids spawning `sys.executable`, `_probe` in `harness/payload.py` runs the two
+health scripts in-process instead — a real execution of the same `main()`, never
+a stub. `tests/test_vercel_adapter.py` asserts both the adapter's agreement with
+`build_payload()` and that the in-process fallback still reports 669 real checks.

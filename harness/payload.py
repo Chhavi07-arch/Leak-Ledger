@@ -141,17 +141,35 @@ def build_payload() -> dict:
                                       "evidence": r.evidence} for r in rows[:6]]})
 
     # Health of the two guarantees a reader would otherwise have to take on trust.
-    import re, subprocess
+    import contextlib, importlib, io, re, subprocess
+
+    def _verdict(out, code, ok_marker):
+        m = re.search(r"(\d+)\s+checks", out)
+        return {"ok": code == 0 and ok_marker in out,
+                "count": int(m.group(1)) if m else None,
+                "output": out.strip().splitlines()[-1] if out.strip() else ""}
+
     def _probe(script, ok_marker):
+        """Subprocess first, because a separate interpreter is the honest test:
+        it proves the script passes from a cold start, not merely inside an
+        interpreter this module has already warmed.
+
+        In-process is the fallback, for serverless hosts where spawning
+        sys.executable is unavailable. It is a real execution of the same main(),
+        not a stub -- a probe that silently reported 'ok' without running would be
+        worse than one that reported nothing (INC-017's lesson)."""
         try:
             r = subprocess.run([sys.executable, str(ROOT / "harness" / script)],
                                capture_output=True, text=True, cwd=ROOT, timeout=120)
-            n = None
-            m = re.search(r"(\d+)\s+checks", r.stdout)
-            if m:
-                n = int(m.group(1))
-            return {"ok": r.returncode == 0 and ok_marker in r.stdout, "count": n,
-                    "output": r.stdout.strip().splitlines()[-1] if r.stdout.strip() else ""}
+            return _verdict(r.stdout, r.returncode, ok_marker)
+        except Exception:
+            pass
+        try:
+            mod = importlib.import_module(script[:-3])
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                code = mod.main()
+            return _verdict(buf.getvalue(), code or 0, ok_marker)
         except Exception as e:
             return {"ok": None, "count": None, "output": f"{type(e).__name__}: {e}"}
 
