@@ -67,7 +67,8 @@ class handler(BaseHTTPRequestHandler):
         try:
             self._route()
         except Exception:
-            self._json({"error": traceback.format_exc(limit=4)}, 500)
+            traceback.print_exc(file=sys.stderr)
+            self._json({"error": "The reconciliation run failed. Please try again."}, 500)
 
     def do_POST(self):
         self.do_GET()
