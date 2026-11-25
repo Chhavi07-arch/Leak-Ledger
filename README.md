@@ -1,5 +1,9 @@
 # Leak Ledger
 
+**[Live demo](https://leak-ledger-beta.vercel.app)** — runs the reconciliation
+engine on the included synthetic dataset. No sign-in is required. See
+[deployment details](DEPLOYMENT.md).
+
 **Razorpay AI Buildathon — Track 04, AI Finance Controller**
 
 A reconciliation engine that reports what the books are *hiding*, not what they
